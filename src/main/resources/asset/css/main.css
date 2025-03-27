@@ -1,10 +1,9 @@
 .text-field-box{
-    -fx-border-color: black;
-    -fx-border-style: solid;
-    -fx-border-width: 0.5px;
-    -fx-border-radius: 20px;
-    -fx-background-insets: 0;
-    -fx-background-color: transparent;
+    -fx-background-radius: 30; /* Bo tròn góc với bán kính 10px */
+    -fx-border-radius: 30;    /* Bo tròn đường viền để khớp */
+    -fx-background-color: white; /* Màu nền */
+    -fx-border-color: transparent; /* Loại bỏ viền dư */
+
 }
 
 .btn {
@@ -13,7 +12,13 @@
     -fx-text-fill: white;
     -fx-padding: 5 10;
 }
-
+.form-container {
+    -fx-background-radius: 15; /* Bo tròn các góc với bán kính 15px */
+    -fx-background-color: white; /* Màu nền của form */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 15, 0, 0, 0); /* Tạo bóng màu xám mờ */
+    -fx-padding: 20; /* Thêm khoảng cách bên trong form */
+    -fx-border-radius: 15; /* Làm viền bo tròn để khớp */
+}
 .tab-pane {
     -fx-background-color: #f0f0f0;
 }

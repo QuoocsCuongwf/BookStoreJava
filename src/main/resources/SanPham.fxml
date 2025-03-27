@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<Pane fx:id="nhanVienPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="958.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.controller.SanPhamController">
+    <children>
+        <SplitPane dividerPositions="0.23755750731911332" layoutX="-1.0" layoutY="-5.0" prefHeight="567.0" prefWidth="958.0">
+            <items>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" style="-fx-background-color: #00A4EF;">
+                    <children>
+                        <Button layoutY="131.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="224.0" styleClass="btn" text="Thống kê">
+                            <font>
+                                <Font size="16.0" />
+                            </font></Button>
+                        <Button layoutY="331.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="224.0" styleClass="btn" text="Khách hàng">
+                            <font>
+                                <Font size="16.0" />
+                            </font></Button>
+                        <Button layoutY="263.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="224.0" styleClass="btn" text="Sản phẩm">
+                            <font>
+                                <Font size="16.0" />
+                            </font></Button>
+                        <Button layoutY="195.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="224.0" styleClass="btn" text="Nhân viên">
+                            <font>
+                                <Font size="16.0" />
+                            </font></Button>
+                    </children>
+                </AnchorPane>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                    <children>
+                        <TableView fx:id="tableView" layoutY="171.0" prefHeight="409.0" prefWidth="742.0" AnchorPane.leftAnchor="0.0">
+                            <columns>
+                                <TableColumn fx:id="anhBia" prefWidth="101.6000549197197" text="Ảnh bìa" />
+                                <TableColumn fx:id="hoNhanVienColumn" prefWidth="141.5999755859375" text="Mã sách" />
+                                <TableColumn fx:id="chucVuNhanVienColumn" prefWidth="139.20001220703125" text="Tên sách" />
+                                <TableColumn fx:id="luongNhanVienColumn" prefWidth="106.39996337890625" text="Số lượng" />
+                                <TableColumn fx:id="sdtNhanVienColumn" prefWidth="135.2000732421875" text="Đơn giá" />
+                                <TableColumn fx:id="tenNhanVienColumn" prefWidth="100.79997253417969" text="Tác giả" />
+                            </columns>
+                        </TableView>
+                  <TextField layoutX="37.0" layoutY="32.0" prefHeight="30.0" prefWidth="174.0" promptText="Tìm kiếm..." styleClass="text-field-box" />
+                  <Button layoutX="238.0" layoutY="35.0" mnemonicParsing="false" styleClass="btn" text="Tìm kiếm" />
+                  <Pane fx:id="inforBookContainer" layoutX="-3.0" prefHeight="566.0" prefWidth="726.0" AnchorPane.leftAnchor="0.0">
+                     <children>
+                        <VBox fx:id="themSach" layoutX="181.0" layoutY="81.0" prefHeight="305.0" prefWidth="394.0" spacing="20.0" style="-fx-background-color: FF4040;" styleClass="form-container">
+                           <children>
+                              <HBox prefHeight="28.0" prefWidth="382.0" spacing="20.0">
+                                 <children>
+                                    <TextField fx:id="textFieldMaSach" prefHeight="30.0" prefWidth="101.0" promptText="Mã sách" styleClass="text-field-box">
+                                       <HBox.margin>
+                                          <Insets />
+                                       </HBox.margin>
+                                       <padding>
+                                          <Insets left="10.0" />
+                                       </padding>
+                                    </TextField>
+                                    <TextField fx:id="textFieldTenSach" prefHeight="28.0" prefWidth="241.0" promptText="Tên sách" styleClass="text-field-box">
+                                       <padding>
+                                          <Insets left="10.0" />
+                                       </padding>
+                                    </TextField>
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </HBox>
+                              <FlowPane prefHeight="0.0" prefWidth="354.0">
+                                 <children>
+                                    <Label prefHeight="26.0" prefWidth="47.0" text="Ảnh bìa" />
+                                     <Button fx:id="btnChonFile" mnemonicParsing="false" onAction="#chonFile" prefHeight="29.0" prefWidth="51.0" styleClass="btn">
+                                         <graphic>
+                                             <ImageView fx:id="iconfolder" fitHeight="15" fitWidth="15" />
+                                         </graphic>
+                                     </Button>
+
+                                     <TextField fx:id="textFieldDonGia" prefHeight="30.0" prefWidth="235.0" promptText="Đơn giá" styleClass="text-field-box">
+                                       <opaqueInsets>
+                                          <Insets />
+                                       </opaqueInsets>
+                                       <FlowPane.margin>
+                                          <Insets left="20.0" />
+                                       </FlowPane.margin>
+                                    </TextField>
+                                 </children>
+                              </FlowPane>
+                              <HBox prefHeight="28.0" prefWidth="382.0" spacing="20.0">
+                                 <children>
+                                    <TextField fx:id="textFieldMaTG" prefHeight="28.0" prefWidth="100.0" promptText="Mã tác giả" styleClass="text-field-box">
+                                       <padding>
+                                          <Insets left="10.0" />
+                                       </padding>
+                                    </TextField>
+                                    <TextField fx:id="textFieldMaNXB" prefHeight="34.0" prefWidth="234.0" promptText="Mã nhà xuất bản" styleClass="text-field-box" />
+                                 </children>
+                              </HBox>
+                              <HBox prefHeight="28.0" prefWidth="382.0" spacing="20.0">
+                                 <children>
+                                    <TextField fx:id="textFieldSoTrang" prefHeight="28.0" prefWidth="100.0" promptText="Số trang" styleClass="text-field-box">
+                                       <padding>
+                                          <Insets left="10.0" />
+                                       </padding>
+                                    </TextField>
+                                    <TextField fx:id="textFieldMaTL" prefHeight="34.0" prefWidth="234.0" promptText="Thể loại" styleClass="text-field-box" />
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER" prefHeight="75.0" prefWidth="354.0" spacing="15.0">
+                                 <children>
+                                    <Button mnemonicParsing="false" styleClass="btn" text="Thêm" />
+                                    <Button fx:id="btnThoatFormThemSach" mnemonicParsing="false" styleClass="btn" text="Thoát" />
+                                 </children>
+                              </HBox>
+                           </children>
+                           <padding>
+                              <Insets left="20.0" right="20.0" />
+                           </padding>
+                        </VBox>
+                     </children>
+                  </Pane>
+                  <Button fx:id="btnThemSach" layoutX="600.0" layoutY="126.0" mnemonicParsing="false" styleClass="btn" text="Icon Thêm sách" />
+                    </children>
+                </AnchorPane>
+            </items>
+        </SplitPane>
+        <Accordion />
+    </children>
+</Pane>

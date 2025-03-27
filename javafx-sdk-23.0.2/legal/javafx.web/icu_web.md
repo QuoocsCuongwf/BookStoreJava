@@ -246,7 +246,7 @@ Chinese/Japanese Word Break Dictionary Data (cjdict.txt)
  #  any special, indirect or consequential damages or any damages
  #  whatsoever resulting from loss of use, data or profits, whether in an
  #  action of contract, negligence or other tortuous action, arising out
- #  of or in connection with the use or performance of this software.
+ #  of or in com.example.demo.databaseAccesssObject.ConnectDatabase with the use or performance of this software.
  #
  #  A large portion of the dictionary entries
  #  originate from ICOT Free Software.  The following conditions for ICOT
@@ -283,7 +283,7 @@ Chinese/Japanese Word Break Dictionary Data (cjdict.txt)
  #  development of the program and their respective officials, directors,
  #  officers and other employees shall be held liable for any and all
  #  damages, including, without limitation, general, special, incidental
- #  and consequential damages, arising out of or otherwise in connection
+ #  and consequential damages, arising out of or otherwise in com.example.demo.databaseAccesssObject.ConnectDatabase
  #  with the use or inability to use the program or any product, material
  #  or result produced or otherwise obtained by using the program,
  #  regardless of whether they have been advised of, or otherwise had
