@@ -40,4 +40,7 @@ public class SanPham {
     @Column(name = "SOTRANG")
     private Integer sotrang;
 
+    @Column(name = "ANHBIA", length = 100)
+    private String anhbia;
+
 }

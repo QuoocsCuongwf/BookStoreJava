@@ -1,6 +1,5 @@
 package com.example.demo.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -17,35 +16,27 @@ import java.time.LocalDate;
 public class NhanVien {
     @Id
     @Column(name = "MANV", nullable = false, length = 10)
-    @JsonProperty("MANV")
     private String manv;
 
-    @Column(name = "HONV", nullable = false, length = 30)
-    @JsonProperty("HONV")
+    @Column(name = "HONV", nullable = false, length = 50)
     private String honv;
 
-    @Column(name = "TENNV", nullable = false, length = 20)
-    @JsonProperty("TENNV")
+    @Column(name = "TENNV", nullable = false, length = 30)
     private String tennv;
 
-    @Column(name = "CHUCVU", length = 10)
-    @JsonProperty("CHUCVU")
+    @Column(name = "CHUCVU", length = 30)
     private String chucvu;
 
     @Column(name = "CCCD", length = 15)
-    @JsonProperty("CCCD")
     private String cccd;
 
     @Column(name = "LUONG")
-    @JsonProperty("LUONG")
     private Integer luong;
 
     @Column(name = "NGAYVAOLAM")
-    @JsonProperty("NGAYVAOLAM")
     private LocalDate ngayvaolam;
 
     @Column(name = "MAIL", length = 30)
-    @JsonProperty("MAIL")
     private String mail;
 
 }

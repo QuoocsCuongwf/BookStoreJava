@@ -19,7 +19,7 @@ public class NhaXuatBan {
     @Column(name = "TENNXB", nullable = false, length = 20)
     private String tennxb;
 
-    @Column(name = "DIACHI", length = 30)
+    @Column(name = "DIACHI", length = 50)
     private String diachi;
 
     @Column(name = "SDT", length = 10)

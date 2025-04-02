@@ -20,7 +20,7 @@ import java.io.File;
 @Component
 public class SanPhamController {
     @FXML
-    private TableView<?> tableView;
+    private TableView<SanPham> tableView;
 
     @FXML
     private TableColumn<?, ?> anhBia;
