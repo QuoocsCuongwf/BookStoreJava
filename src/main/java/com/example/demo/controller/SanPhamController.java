@@ -81,7 +81,7 @@ public class SanPhamController {
 
         btnThoatFormThemSach.setOnAction(event -> thoatFormThemSach(event));
         btnThemSach.setOnAction(event -> inforBookContainer.setVisible(true));
-        Image image = new Image("file:/E:\\project\\BookStoreJava\\src\\main\\resources\\asset\\img\\folder.png");
+        Image image = new Image("file:/D:\\java\\BookStoreJava\\src\\main\\resources\\asset\\img\\folder.png");
         if (image.isError()) {
             System.out.println("Error loading image: " + image.getException());
         }
