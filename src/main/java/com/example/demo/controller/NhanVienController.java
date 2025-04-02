@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.NhanVien;
+import com.example.demo.Reponsitory;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -18,6 +19,8 @@ import java.util.ResourceBundle;
 @Component
 @Controller
 public class NhanVienController implements Initializable {
+    @Autowired
+    private Reponsitory repo ;
     @FXML
     private Pane nhanVienPane;
     @FXML
@@ -38,6 +41,9 @@ public class NhanVienController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        System.out.println("Repo is null: " + (repo == null));
+
+        data = FXCollections.observableArrayList(repo.findAll());
         maNhanVienColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         tenNhanVienColumn.setCellValueFactory(new PropertyValueFactory<>("ten"));
         hoNhanVienColumn.setCellValueFactory(new PropertyValueFactory<>("ho"));
