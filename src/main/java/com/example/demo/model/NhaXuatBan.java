@@ -25,4 +25,12 @@ public class NhaXuatBan {
     @Column(name = "SDT", length = 10)
     private String sdt;
 
+    public NhaXuatBan() {}
+
+    NhaXuatBan(String manxb, String tennxb, String diachi, String sdt) {
+        this.manxb = manxb;
+        this.tennxb = tennxb;
+        this.diachi = diachi;
+        this.sdt = sdt;
+    }
 }
