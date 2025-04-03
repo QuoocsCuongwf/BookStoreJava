@@ -12,7 +12,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -28,6 +27,10 @@ import java.util.ResourceBundle;
 @Component
 @Controller
 public class NhanVienController implements Initializable {
+
+    @FXML
+    private Pane inforContainer;
+
     @FXML
     private Pane nhanVienPane;
     @FXML
@@ -48,6 +51,7 @@ public class NhanVienController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        inforContainer.setVisible(false);
 
         maNhanVienColumn.setCellValueFactory(new PropertyValueFactory<>("manv"));
         tenNhanVienColumn.setCellValueFactory(new PropertyValueFactory<>("tennv"));
@@ -112,5 +116,11 @@ public class NhanVienController implements Initializable {
         }
     }
 
+    public void openInforContainer(){
+        inforContainer.setVisible(true);
+    }
+    public void clossInforContainer(){
+        inforContainer.setVisible(false);
+    }
 
 }
