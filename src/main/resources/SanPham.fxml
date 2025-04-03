@@ -3,6 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TableColumn?>
@@ -56,11 +57,11 @@
                   <Button layoutX="238.0" layoutY="35.0" mnemonicParsing="false" styleClass="btn" text="Tìm kiếm" />
                   <Pane fx:id="inforBookContainer" layoutX="-3.0" prefHeight="566.0" prefWidth="726.0" AnchorPane.leftAnchor="0.0">
                      <children>
-                        <VBox fx:id="themSach" layoutX="181.0" layoutY="81.0" prefHeight="305.0" prefWidth="394.0" spacing="20.0" style="-fx-background-color: FF4040;" styleClass="form-container">
+                        <VBox fx:id="themSach" layoutX="101.0" layoutY="68.0" prefHeight="305.0" prefWidth="394.0" spacing="20.0" style="-fx-background-color: FF4040;" styleClass="form-container">
                            <children>
                               <HBox prefHeight="28.0" prefWidth="382.0" spacing="20.0">
                                  <children>
-                                    <TextField fx:id="textFieldMaSach" prefHeight="30.0" prefWidth="101.0" promptText="Mã sách" styleClass="text-field-box">
+                                    <TextField fx:id="textFieldMaSach" prefHeight="30.0" prefWidth="101.0" promptText="Mã nhà cung cấp" styleClass="text-field-box">
                                        <HBox.margin>
                                           <Insets />
                                        </HBox.margin>
@@ -86,8 +87,8 @@
                                              <ImageView fx:id="iconfolder" fitHeight="15" fitWidth="15" />
                                          </graphic>
                                      </Button>
-
-                                     <TextField fx:id="textFieldDonGia" prefHeight="30.0" prefWidth="235.0" promptText="Đơn giá" styleClass="text-field-box">
+      
+                                           <TextField fx:id="textFieldDonGia" prefHeight="30.0" prefWidth="235.0" promptText="Đơn giá" styleClass="text-field-box">
                                        <opaqueInsets>
                                           <Insets />
                                        </opaqueInsets>
@@ -136,5 +137,10 @@
             </items>
         </SplitPane>
         <Accordion />
+      <ButtonBar prefHeight="40.0" prefWidth="200.0">
+        <buttons>
+          <Button mnemonicParsing="false" text="Button" />
+        </buttons>
+      </ButtonBar>
     </children>
 </Pane>
