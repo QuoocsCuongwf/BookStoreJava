@@ -56,7 +56,7 @@
                   <Button layoutX="238.0" layoutY="35.0" mnemonicParsing="false" styleClass="btn" text="Tìm kiếm" />
                   <Pane fx:id="inforBookContainer" layoutX="-3.0" prefHeight="566.0" prefWidth="726.0" AnchorPane.leftAnchor="0.0">
                      <children>
-                        <VBox fx:id="themSach" layoutX="181.0" layoutY="81.0" prefHeight="305.0" prefWidth="394.0" spacing="20.0" style="-fx-background-color: FF4040;" styleClass="form-container">
+                        <VBox fx:id="themSach" layoutX="180.0" layoutY="78.0" prefHeight="305.0" prefWidth="394.0" spacing="20.0" style="-fx-background-color: FF4040;" styleClass="form-container">
                            <children>
                               <HBox prefHeight="28.0" prefWidth="382.0" spacing="20.0">
                                  <children>
