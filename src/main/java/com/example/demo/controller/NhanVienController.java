@@ -1,6 +1,5 @@
 package com.example.demo.controller;
 
-import com.example.demo.Reponsitory;
 import com.example.demo.model.NhanVien;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -39,9 +38,6 @@ public class NhanVienController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        System.out.println("Repo is null: " + (repo == null));
-
-        data = FXCollections.observableArrayList(repo.findAll());
         maNhanVienColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         tenNhanVienColumn.setCellValueFactory(new PropertyValueFactory<>("ten"));
         hoNhanVienColumn.setCellValueFactory(new PropertyValueFactory<>("ho"));
