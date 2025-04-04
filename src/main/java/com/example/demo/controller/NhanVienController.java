@@ -168,7 +168,7 @@ public class NhanVienController implements Initializable {
             btnDeleteNhanVien.setText("Xóa");
             inforFormButtonContainer.getChildren().set(index, btnDeleteNhanVien);
         } else {
-            System.err.println("btnAddNhanVien không tồn tại trong inforFormButtonContainer!");
+            System.err.println(" error sbtnAddNhanVien không tồn tại trong inforFormButtonContainer!");
         }
     }
 
