@@ -1,7 +1,7 @@
 package com.example.demo.controller;
 
-import com.example.demo.NhanVien;
 import com.example.demo.Reponsitory;
+import com.example.demo.model.NhanVien;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -19,8 +19,6 @@ import java.util.ResourceBundle;
 @Component
 @Controller
 public class NhanVienController implements Initializable {
-    @Autowired
-    private Reponsitory repo ;
     @FXML
     private Pane nhanVienPane;
     @FXML
