@@ -8,9 +8,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
@@ -48,21 +48,32 @@ public class NhanVienController implements Initializable {
     @FXML
     private TableColumn<NhanVien, String> sdtNhanVienColumn;
     private ObservableList<NhanVien> data;
+    List<NhanVien> nhanVienList=new ArrayList<>();
+
+    @FXML
+    private TextField textFieldMaNhanVien, textFieldTenNhanVien, textFieldSoCCCD, textFieldHoNhanVien, textFieldLuongNhanVien, textFieldSdtNhanVien,textFieldChucVu,textFieldThongTinLienLac;
+    @FXML
+    private DatePicker datePickerNgayVaoLam;
+    @FXML
+    private HBox inforFormButtonContainer;
+    @FXML
+    private Button btnAddNhanVien;
+
+    private Button btnDeleteNhanVien=new Button();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         inforContainer.setVisible(false);
-
         maNhanVienColumn.setCellValueFactory(new PropertyValueFactory<>("manv"));
         tenNhanVienColumn.setCellValueFactory(new PropertyValueFactory<>("tennv"));
         hoNhanVienColumn.setCellValueFactory(new PropertyValueFactory<>("honv"));
         chucVuNhanVienColumn.setCellValueFactory(new PropertyValueFactory<>("chucvu"));
         luongNhanVienColumn.setCellValueFactory(new PropertyValueFactory<>("luong"));
-        sdtNhanVienColumn.setCellValueFactory(new PropertyValueFactory<>("cccd"));
+        sdtNhanVienColumn.setCellValueFactory(new PropertyValueFactory<>("mail"));
 
         tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
-                System.out.println("Selected Item: " + newValue.getMail());
+                showSelectedItem(newValue);
                 // Thực hiện các hành động khác với dữ kiện được chọn
             } else {
                 System.out.println("No item selected!");
@@ -120,7 +131,45 @@ public class NhanVienController implements Initializable {
         inforContainer.setVisible(true);
     }
     public void clossInforContainer(){
+        int index = inforFormButtonContainer.getChildren().indexOf(btnDeleteNhanVien);
+        if (index >= 0) {
+            inforFormButtonContainer.getChildren().set(index, btnAddNhanVien);
+        }
         inforContainer.setVisible(false);
+    }
+    public void addNhanVien(){
+        NhanVien nhanVien = new NhanVien();
+        nhanVien.setManv(textFieldMaNhanVien.getText());
+        nhanVien.setMail(textFieldThongTinLienLac.getText());
+        nhanVien.setTennv(textFieldTenNhanVien.getText());
+        nhanVien.setHonv(textFieldHoNhanVien.getText());
+        nhanVien.setChucvu(textFieldChucVu.getText());
+        nhanVien.setCccd(textFieldSoCCCD.getText());
+        nhanVien.setNgayvaolam(datePickerNgayVaoLam.getValue());
+        nhanVien.setLuong(Integer.parseInt(textFieldLuongNhanVien.getText()));
+        nhanVienList.add(nhanVien);
+        data.add(nhanVien);
+
+    }
+
+    public void showSelectedItem(NhanVien nhanVien) {
+        openInforContainer();
+        textFieldMaNhanVien.setText(nhanVien.getManv());
+        textFieldTenNhanVien.setText(nhanVien.getTennv());
+        textFieldHoNhanVien.setText(nhanVien.getHonv());
+        textFieldChucVu.setText(nhanVien.getChucvu());
+        textFieldSoCCCD.setText(nhanVien.getCccd());
+        textFieldThongTinLienLac.setText(nhanVien.getMail());
+        textFieldLuongNhanVien.setText(nhanVien.getLuong().toString());
+        datePickerNgayVaoLam.setValue(nhanVien.getNgayvaolam());
+
+        int index = inforFormButtonContainer.getChildren().indexOf(btnAddNhanVien);
+        if (index >= 0) {
+            btnDeleteNhanVien.setText("Xóa");
+            inforFormButtonContainer.getChildren().set(index, btnDeleteNhanVien);
+        } else {
+            System.err.println(" error sbtnAddNhanVien không tồn tại trong inforFormButtonContainer!");
+        }
     }
 
 }
