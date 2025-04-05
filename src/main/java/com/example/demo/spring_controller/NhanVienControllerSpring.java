@@ -21,6 +21,10 @@ public class NhanVienControllerSpring {
         return nhanVienServices.searchNhanVien(find);
     }
 
-
+    @PostMapping("/Delete")
+    public String DeleteNhanVien(@RequestParam String maNhanVien) {
+        nhanVienServices.deleteNhanVien(maNhanVien);
+        return "success";
+    }
 
 }

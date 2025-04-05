@@ -27,12 +27,6 @@ public class NhanVienServices {
         return listResult;
     }
 
-    public void deleteNhanVien(String idnhanVien) {
-        for (NhanVien nhanVien : listNhanVien) {
-            if (nhanVien.getManv().contains(idnhanVien)) {
-            }
-        }
-    }
 
     public void addNhanVien(NhanVien nhanVien) {
 
@@ -45,9 +39,14 @@ public class NhanVienServices {
         return result;
     }
 
+    public void deleteNhanVien(String maNhanVien) {
+        listNhanVien.removeIf(nv->nv.getManv().equals(maNhanVien));
+        nhanVienDAO.deleteNhanVien(maNhanVien);
+    }
+
     public static void main(String[] args) {
         NhanVienServices nhanVienServices=new NhanVienServices();
-        nhanVienServices.getNhanVienList();
+        nhanVienServices.deleteNhanVien("NV001");
     }
 
 

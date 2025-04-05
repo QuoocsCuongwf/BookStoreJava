@@ -11,10 +11,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class NhanVienDAO {
-    List<NhanVien> listNhanVien=new ArrayList<NhanVien>();;
+    List<NhanVien> listNhanVien=new ArrayList<NhanVien>();
+    ConnectDatabase condb=new ConnectDatabase();
     public NhanVienDAO() {    }
     public List<NhanVien> getListNhanVien() {
-        ConnectDatabase condb=new ConnectDatabase();
         String values = condb.query("select * from Nhan_Vien");
         ObjectMapper mapper = new ObjectMapper();
         try {
@@ -24,6 +24,11 @@ public class NhanVienDAO {
             throw new RuntimeException(e);
         }
         return listNhanVien;
+    }
+
+    public void deleteNhanVien(String maNhanVien) {
+        System.out.println("Delete nhan vien "+maNhanVien);
+        condb.insert("delete from NHAN_VIEN where MANV='"+maNhanVien+"'");
     }
 
 
