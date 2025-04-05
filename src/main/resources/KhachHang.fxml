@@ -54,7 +54,7 @@
 
                             <children>
                                 <TextField fx:id="txt_maKhachHang" alignment="TOP_LEFT" promptText="Mã Khách hàng" styleClass="text-field-box" />
-                                <TextField fx:id="txt_hoNhanVien" prefHeight="26.0" prefWidth="220.0" promptText="Họ Khách Hàng" style="-fx-hgap: 10px;" styleClass="text-field-box" GridPane.columnIndex="1" />
+                                <TextField fx:id="txt_hoKhachHang" prefHeight="26.0" prefWidth="220.0" promptText="Họ Khách Hàng" style="-fx-hgap: 10px;" styleClass="text-field-box" GridPane.columnIndex="1" />
                                 <TextField fx:id="txt_tenKhachHang" promptText="Tên Khách Hàng " styleClass="text-field-box" GridPane.columnIndex="2" />
                                 <TextField fx:id="txt_diaChi" promptText="Địa chỉ" styleClass="text-field-box" GridPane.columnIndex="2" GridPane.rowIndex="1" />
                                 <TextField fx:id="txt_emailKhachHang" promptText="Email" styleClass="text-field-box" GridPane.rowIndex="1" />
