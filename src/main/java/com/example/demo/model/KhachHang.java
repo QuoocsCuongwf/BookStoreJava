@@ -16,10 +16,10 @@ public class KhachHang {
     @Column(name = "MAKH", nullable = false, length = 10)
     private String makh;
 
-    @Column(name = "HOKH", nullable = false, length = 30)
+    @Column(name = "HOKH", nullable = false, length = 50)
     private String hokh;
 
-    @Column(name = "TENKH", nullable = false, length = 20)
+    @Column(name = "TENKH", nullable = false, length = 30)
     private String tenkh;
 
     @Column(name = "EMAIL", length = 30)

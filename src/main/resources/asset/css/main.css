@@ -1,4 +1,4 @@
-.text-field-box{
+.text-field{
     -fx-background-radius: 30; /* Bo tròn góc với bán kính 10px */
     -fx-border-radius: 30;    /* Bo tròn đường viền để khớp */
     -fx-background-color: white; /* Màu nền */
@@ -6,7 +6,7 @@
 
 }
 
-.btn {
+.button {
     -fx-background-radius: 15;
     -fx-background-color: #00A4EF;
     -fx-text-fill: white;
@@ -33,4 +33,33 @@
 
 .tab-label {
     -fx-text-fill: #333333;
+}
+/* Thay đổi font chữ và kích thước */
+.date-picker {
+    -fx-font-size: 10px;
+    -fx-border-radius: 20px;
+    -fx-background-radius: 20px;
+
+
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0), 0, 0, 0, 0);
+}
+
+/* Tùy chỉnh nút mũi tên */
+.date-picker .arrow-button {
+    -fx-background-color: #00A4EF;
+    -fx-border-radius: 20px;
+    -fx-background-radius: 0 20 20 0;
+}
+
+/* Tùy chỉnh popup ngày tháng */
+.date-picker-popup {
+    -fx-border-color: #4caf50;
+    -fx-border-radius: 20px;
+    -fx-background-radius: 20px;
+
+}
+
+.inforForm{
+    -fx-background-radius: 30;
+    -fx-background-color: #ff4040;
 }

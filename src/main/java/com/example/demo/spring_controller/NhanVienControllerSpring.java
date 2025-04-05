@@ -2,7 +2,6 @@ package com.example.demo.spring_controller;
 
 import com.example.demo.model.NhanVien;
 import com.example.demo.services.NhanVienServices;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
