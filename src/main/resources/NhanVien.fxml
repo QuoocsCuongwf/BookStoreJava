@@ -51,8 +51,8 @@
                         <TableColumn fx:id="sdtNhanVienColumn" prefWidth="135.2000732421875" text="Số điện thoại" />
                     </columns>
                   </TableView>
-                  <TextField layoutX="33.0" layoutY="29.0" promptText="Tìm kiếm..." styleClass="text-field-box" />
-                  <Button layoutX="217.0" layoutY="29.0" mnemonicParsing="false" styleClass="btn" text="Tìm kiếm" />
+                  <TextField fx:id="textFieldTimKiem" layoutX="33.0" layoutY="29.0" promptText="Tìm kiếm..." styleClass="text-field-box" />
+                  <Button layoutX="217.0" layoutY="29.0" mnemonicParsing="false" onAction="#timKiem" styleClass="btn" text="Tìm kiếm" />
                   <Button layoutX="602.0" layoutY="150.0" mnemonicParsing="false" onAction="#openInforContainer" styleClass="btn" text="Thêm nhân viên" />
                   <Pane fx:id="inforContainer" prefHeight="566.0" prefWidth="726.0">
                      <children>
