@@ -31,6 +31,20 @@ public class NhanVienDAO {
         condb.insert("delete from NHAN_VIEN where MANV='"+maNhanVien+"'");
     }
 
+    public void addNhanVien(NhanVien nhanVien) {
+        String query = "INSERT INTO NHAN_VIEN (manv, honv, tennv, cccd, chucvu, mail, ngayvaolam, luong) " +
+                "VALUES ('" + nhanVien.getManv() + "', '" +
+                nhanVien.getHonv() + "', '" +
+                nhanVien.getTennv() + "', '" +
+                nhanVien.getCccd() + "', '" +
+                nhanVien.getChucvu() + "', '" +
+                nhanVien.getMail() + "', '" +
+                nhanVien.getNgayvaolam() + "', " +
+                nhanVien.getLuong() + ")";
+
+        condb.insert(query);
+    }
+
 
 
 }

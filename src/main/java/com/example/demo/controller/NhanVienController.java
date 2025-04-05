@@ -12,6 +12,8 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import org.apache.catalina.mapper.Mapper;
+import org.aspectj.weaver.ast.Call;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -21,10 +23,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLEncoder;
+import java.net.*;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.util.*;
@@ -87,7 +86,14 @@ public class NhanVienController implements Initializable {
                 System.out.println("No item selected!");
             }
         });
-        String json = callApi("http://localhost:8080/nhanVien/getAllNhanVien");
+
+        CallApi callApi=new CallApi();
+        String json = null;
+        try {
+            json = callApi.callGetApi("http://localhost:8080/nhanVien/getAllNhanVien");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         nhanVienList=convertJsonToListNhanVien(json);
         System.out.println(nhanVienList);
         data = FXCollections.observableArrayList(nhanVienList);
@@ -105,6 +111,17 @@ public class NhanVienController implements Initializable {
             throw new RuntimeException(e);
         }
         return nhanVienList;
+    }
+    public String convertNhanVienToJson(NhanVien nhanVien)  {
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.registerModule(new JavaTimeModule());
+        String json= null;
+        try {
+            json = mapper.writeValueAsString(nhanVien);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+        return json;
     }
 
     public void listenerChangeValuesOfNhanVien(){
@@ -131,34 +148,13 @@ public class NhanVienController implements Initializable {
         });
     }
 
-     public String callApi(String urlApi) {
-        String values="";
-        try {
-            URL url = new URL(urlApi);
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setRequestMethod("GET");
-            connection.connect();
-            BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-            StringBuilder response = new StringBuilder();
-            String line;
-            while ((line = in.readLine()) != null) {
-                response.append(line);
-            }
-            in.close();
-            values=response.toString();
-
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-         return values;
-     }
-
     public void deleteNhanVien() {
         int selectedIndex = tableView.getSelectionModel().getSelectedIndex();
         if (selectedIndex >= 0 && selectedIndex < data.size()) {
             NhanVien nhanVien = data.get(selectedIndex);
             System.out.println("Nhan vien selected "+nhanVien.getManv());
-            String result=callApiPost("http://localhost:8080/nhanVien/Delete","maNhanVien=",nhanVien.getManv());
+            CallApi callApi=new CallApi();
+            String result=callApi.callPostRequestParam("http://localhost:8080/nhanVien/Delete","maNhanVien=",nhanVien.getManv());
             data.remove(selectedIndex); // Optional: remove from ObservableList to update the table
             tableView.getSelectionModel().clearSelection();
         } else {
@@ -184,8 +180,25 @@ public class NhanVienController implements Initializable {
         }
         inforContainer.setVisible(false);
     }
+    public void showMessage(String title, String header, String content) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.setContentText(content);
+        alert.showAndWait(); // hoặc .show() nếu không cần chờ
+    }
     public void addNhanVien(){
         NhanVien nhanVien = new NhanVien();
+        List<TextField> textFields=Arrays.asList(textFieldMaNhanVien, textFieldTenNhanVien, textFieldSoCCCD,
+                textFieldHoNhanVien, textFieldLuongNhanVien,
+                textFieldChucVu, textFieldThongTinLienLac);
+        for(TextField tf:textFields) {
+            if(tf.getText().equals("")){
+                showMessage("Error","Text Field Null","Vui lòng nhập đầy đủ thông tin!");
+                System.out.println("Text Field Null");
+                return;
+            }
+        };
         nhanVien.setManv(textFieldMaNhanVien.getText());
         nhanVien.setMail(textFieldThongTinLienLac.getText());
         nhanVien.setTennv(textFieldTenNhanVien.getText());
@@ -196,6 +209,10 @@ public class NhanVienController implements Initializable {
         nhanVien.setLuong(Integer.parseInt(textFieldLuongNhanVien.getText()));
         nhanVienList.add(nhanVien);
         data.add(nhanVien);
+        CallApi callApi=new CallApi();
+        String result=callApi.callPostRequestBody("http://localhost:8080/nhanVien/Add",convertNhanVienToJson(nhanVien));
+        System.out.println(result);
+
 
     }
 
@@ -226,55 +243,12 @@ public class NhanVienController implements Initializable {
 
     public void timKiem(){
         String find=textFieldTimKiem.getText();
-        String json=callApiPost("http://localhost:8080/nhanVien/timKiem","find=",find);
+        CallApi callApi=new CallApi();
+        String json=callApi.callPostRequestParam("http://localhost:8080/nhanVien/timKiem","find=",find);
         data=FXCollections.observableArrayList(convertJsonToListNhanVien(json));
         tableView.setItems(data);
     }
 
-    public String callApiPost(String api, String key, String param) {
-        String values = "";
-        try {
-            URL url = new URL(api);
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestMethod("POST");
-            conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-            conn.setDoOutput(true);
-
-            // ❌ Đừng dùng ? ở đây
-            String params =key + URLEncoder.encode(param, StandardCharsets.UTF_8); // encode là tốt nhất
-            try (OutputStream os = conn.getOutputStream()) {
-                os.write(params.getBytes(StandardCharsets.UTF_8));
-            }
-
-            int status = conn.getResponseCode();
-            if (status >= 400) {
-                try (BufferedReader br = new BufferedReader(
-                        new InputStreamReader(conn.getErrorStream(), StandardCharsets.UTF_8))) {
-                    String line;
-                    while ((line = br.readLine()) != null) {
-                        System.err.println("ERROR: " + line);
-                    }
-                }
-                throw new RuntimeException("HTTP error: " + status);
-            }
-
-            StringBuilder response = new StringBuilder();
-            try (BufferedReader br = new BufferedReader(
-                    new InputStreamReader(conn.getInputStream(), StandardCharsets.UTF_8))) {
-                String responseLine;
-                while ((responseLine = br.readLine()) != null) {
-                    response.append(responseLine.trim());
-                }
-            }
-
-            values = response.toString();
-            System.out.println("Response: " + values);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        return values;
-    }
 
 
 

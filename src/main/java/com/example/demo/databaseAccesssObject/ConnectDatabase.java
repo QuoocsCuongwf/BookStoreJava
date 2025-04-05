@@ -35,7 +35,8 @@ public class ConnectDatabase {
     public void insert(String query){
         if(conn == null){new ConnectDatabase();}
         try {
-            conn.createStatement().executeUpdate(query);
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

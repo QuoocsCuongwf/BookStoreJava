@@ -26,5 +26,9 @@ public class NhanVienControllerSpring {
         nhanVienServices.deleteNhanVien(maNhanVien);
         return "success";
     }
+    @PostMapping("/Add")
+    public String AddNhanVien(@RequestBody NhanVien nhanVien) {
+        return nhanVienServices.addNhanVien(nhanVien);
+    }
 
 }
