@@ -6,6 +6,7 @@ import com.example.demo.model.NhanVien;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class NhanVienServices {
     private NhanVienDAO nhanVienDAO=new NhanVienDAO();
@@ -35,6 +36,13 @@ public class NhanVienServices {
 
     public void addNhanVien(NhanVien nhanVien) {
 
+    }
+
+    public List<NhanVien> searchNhanVien(String inforNhanVien) {
+        List<NhanVien> result=listNhanVien.stream()
+                .filter(nhanVien -> nhanVien.getManv().contains(inforNhanVien) || nhanVien.getHonv().contains(inforNhanVien) || nhanVien.getTennv().contains(inforNhanVien))
+                .collect(Collectors.toList());
+        return result;
     }
 
     public static void main(String[] args) {

@@ -18,10 +18,17 @@ import com.fasterxml.jackson.core.type.TypeReference;
 
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 @Component
@@ -49,7 +56,8 @@ public class NhanVienController implements Initializable {
     private TableColumn<NhanVien, String> sdtNhanVienColumn;
     private ObservableList<NhanVien> data;
     List<NhanVien> nhanVienList=new ArrayList<>();
-
+    @FXML
+    private TextField textFieldTimKiem;
     @FXML
     private TextField textFieldMaNhanVien, textFieldTenNhanVien, textFieldSoCCCD, textFieldHoNhanVien, textFieldLuongNhanVien, textFieldSdtNhanVien,textFieldChucVu,textFieldThongTinLienLac;
     @FXML
@@ -80,6 +88,12 @@ public class NhanVienController implements Initializable {
             }
         });
         String json = callApi("http://localhost:8080/nhanVien/getAllNhanVien");
+        nhanVienList=convertJsonToListNhanVien(json);
+        System.out.println(nhanVienList);
+        data = FXCollections.observableArrayList(nhanVienList);
+        tableView.setItems(data);
+    }
+    public List<NhanVien> convertJsonToListNhanVien(String json) {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.registerModule(new JavaTimeModule());
         List<NhanVien> nhanVienList = new ArrayList<NhanVien>();
@@ -89,11 +103,8 @@ public class NhanVienController implements Initializable {
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
-        System.out.println(nhanVienList);
-        data = FXCollections.observableArrayList(nhanVienList);
-        tableView.setItems(data);
+        return nhanVienList;
     }
-
      public String callApi(String urlApi) {
         String values="";
         try {
@@ -128,6 +139,14 @@ public class NhanVienController implements Initializable {
     }
 
     public void openInforContainer(){
+        textFieldMaNhanVien.setText("");
+        textFieldTenNhanVien.setText("");
+        textFieldHoNhanVien.setText("");
+        textFieldChucVu.setText("");
+        textFieldSoCCCD.setText("");
+        textFieldThongTinLienLac.setText("");
+        textFieldLuongNhanVien.setText("");
+        datePickerNgayVaoLam.setValue(LocalDate.now());
         inforContainer.setVisible(true);
     }
     public void clossInforContainer(){
@@ -171,5 +190,60 @@ public class NhanVienController implements Initializable {
             System.err.println(" error sbtnAddNhanVien không tồn tại trong inforFormButtonContainer!");
         }
     }
+
+    public void timKiem(){
+        String find=textFieldTimKiem.getText();
+        String json=callApiPost("http://localhost:8080/nhanVien/timKiem",find);
+        data=FXCollections.observableArrayList(convertJsonToListNhanVien(json));
+        tableView.setItems(data);
+    }
+
+    public String callApiPost(String api, String find) {
+        String values = "";
+        try {
+            URL url = new URL(api);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("POST");
+            conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+            conn.setDoOutput(true);
+
+            // ❌ Đừng dùng ? ở đây
+            String params = "find=" + URLEncoder.encode(find, StandardCharsets.UTF_8); // encode là tốt nhất
+            try (OutputStream os = conn.getOutputStream()) {
+                os.write(params.getBytes(StandardCharsets.UTF_8));
+            }
+
+            int status = conn.getResponseCode();
+            if (status >= 400) {
+                try (BufferedReader br = new BufferedReader(
+                        new InputStreamReader(conn.getErrorStream(), StandardCharsets.UTF_8))) {
+                    String line;
+                    while ((line = br.readLine()) != null) {
+                        System.err.println("ERROR: " + line);
+                    }
+                }
+                throw new RuntimeException("HTTP error: " + status);
+            }
+
+            StringBuilder response = new StringBuilder();
+            try (BufferedReader br = new BufferedReader(
+                    new InputStreamReader(conn.getInputStream(), StandardCharsets.UTF_8))) {
+                String responseLine;
+                while ((responseLine = br.readLine()) != null) {
+                    response.append(responseLine.trim());
+                }
+            }
+
+            values = response.toString();
+            System.out.println("Response: " + values);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        return values;
+    }
+
+
+
 
 }
