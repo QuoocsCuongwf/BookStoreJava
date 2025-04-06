@@ -19,10 +19,18 @@ public class NhaXuatBan {
     @Column(name = "TENNXB", nullable = false, length = 20)
     private String tennxb;
 
-    @Column(name = "DIACHI", length = 30)
+    @Column(name = "DIACHI", length = 50)
     private String diachi;
 
     @Column(name = "SDT", length = 10)
     private String sdt;
 
+    public NhaXuatBan() {}
+
+    NhaXuatBan(String manxb, String tennxb, String diachi, String sdt) {
+        this.manxb = manxb;
+        this.tennxb = tennxb;
+        this.diachi = diachi;
+        this.sdt = sdt;
+    }
 }

@@ -45,11 +45,11 @@
                         <TableView fx:id="tableView" layoutY="171.0" prefHeight="409.0" prefWidth="742.0" AnchorPane.leftAnchor="0.0">
                             <columns>
                                 <TableColumn fx:id="anhBia" prefWidth="101.6000549197197" text="Ảnh bìa" />
-                                <TableColumn fx:id="hoNhanVienColumn" prefWidth="141.5999755859375" text="Mã sách" />
-                                <TableColumn fx:id="chucVuNhanVienColumn" prefWidth="139.20001220703125" text="Tên sách" />
-                                <TableColumn fx:id="luongNhanVienColumn" prefWidth="106.39996337890625" text="Số lượng" />
-                                <TableColumn fx:id="sdtNhanVienColumn" prefWidth="135.2000732421875" text="Đơn giá" />
-                                <TableColumn fx:id="tenNhanVienColumn" prefWidth="100.79997253417969" text="Tác giả" />
+                                <TableColumn fx:id="maSachColumn" prefWidth="141.5999755859375" text="Mã sách" />
+                                <TableColumn fx:id="tenSachColumn" prefWidth="139.20001220703125" text="Tên sách" />
+                                <TableColumn fx:id="soLuongColumn" prefWidth="106.39996337890625" text="Số lượng" />
+                                <TableColumn fx:id="donGiaColumn" prefWidth="135.2000732421875" text="Đơn giá" />
+                                <TableColumn fx:id="tacGiaColumn" prefWidth="100.79997253417969" text="Tác giả" />
                             </columns>
                         </TableView>
                   <TextField layoutX="37.0" layoutY="32.0" prefHeight="30.0" prefWidth="174.0" promptText="Tìm kiếm..." styleClass="text-field-box" />
@@ -119,7 +119,7 @@
                               </HBox>
                               <HBox alignment="CENTER" prefHeight="75.0" prefWidth="354.0" spacing="15.0">
                                  <children>
-                                    <Button mnemonicParsing="false" styleClass="btn" text="Thêm" />
+                                    <Button mnemonicParsing="false" onAction="#themSach" styleClass="btn" text="Thêm" />
                                     <Button fx:id="btnThoatFormThemSach" mnemonicParsing="false" styleClass="btn" text="Thoát" />
                                  </children>
                               </HBox>

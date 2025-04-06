@@ -20,15 +20,15 @@ public class NhanVien {
     @JsonProperty("MANV")
     private String manv;
 
-    @Column(name = "HONV", nullable = false, length = 30)
+    @Column(name = "HONV", nullable = false, length = 50)
     @JsonProperty("HONV")
     private String honv;
 
-    @Column(name = "TENNV", nullable = false, length = 20)
+    @Column(name = "TENNV", nullable = false, length = 30)
     @JsonProperty("TENNV")
     private String tennv;
 
-    @Column(name = "CHUCVU", length = 10)
+    @Column(name = "CHUCVU", length = 30)
     @JsonProperty("CHUCVU")
     private String chucvu;
 
