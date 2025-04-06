@@ -9,7 +9,7 @@ import java.sql.*;
 
 public class ConnectDatabase {
     String driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
-    String url = "jdbc:sqlserver://localhost:1433;databaseName=bookstore;encrypt=true;trustServerCertificate=true;";
+    String url = "jdbc:sqlserver://localhost:1435;databaseName=bookstore;encrypt=true;trustServerCertificate=true;";
     String user = "SA";
     String password = "Admin123@";
     Connection conn = null;

@@ -31,4 +31,5 @@ public class KhachHang {
     @Column(name = "DIACHI", length = 30)
     private String diachi;
 
+
 }
