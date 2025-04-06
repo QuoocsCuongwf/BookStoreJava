@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.model.KhachHang;
 import com.example.demo.model.NhanVien;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
@@ -31,6 +32,8 @@ public class KhachHangController {
             btn_timKiemKhachHang,btn_danhSachKhachHang;
 
 
+    //
+    public void themKhachHang(ActionEvent actionEvent) {}
 
 
 
