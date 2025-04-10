@@ -1,4 +1,4 @@
-package com.example.demo.controller;
+package com.example.demo.GuiController;
 
 import java.io.BufferedReader;
 import java.io.IOException;

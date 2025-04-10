@@ -1,4 +1,4 @@
-package com.example.demo.controller;
+package com.example.demo.GuiController;
 
 import com.example.demo.model.NhaXuatBan;
 import com.example.demo.model.SanPham;
