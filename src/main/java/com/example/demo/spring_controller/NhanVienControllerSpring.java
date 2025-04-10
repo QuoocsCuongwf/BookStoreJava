@@ -30,5 +30,9 @@ public class NhanVienControllerSpring {
     public String AddNhanVien(@RequestBody NhanVien nhanVien) {
         return nhanVienServices.addNhanVien(nhanVien);
     }
+    @PostMapping("/Update")
+    public String UpdateNhanVien(@RequestBody NhanVien nhanVien) {
+        return nhanVienServices.updateNhanVien(nhanVien);
+    }
 
 }
