@@ -1,10 +1,7 @@
-package com.example.demo.controller;
+package com.example.demo.GuiController;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-
-import javax.swing.*;
 
 public class GuiController {
         @FXML

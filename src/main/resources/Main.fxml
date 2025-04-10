@@ -11,7 +11,7 @@
 <?import javafx.scene.shape.MeshView?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-border-style: soild; -fx-border-width: 2px;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.controller.GuiController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-border-style: soild; -fx-border-width: 2px;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.GuiController.GuiController">
    <children>
       <VBox prefHeight="400.0" prefWidth="278.0" style="-fx-background-color: #7994c2;">
          <children>

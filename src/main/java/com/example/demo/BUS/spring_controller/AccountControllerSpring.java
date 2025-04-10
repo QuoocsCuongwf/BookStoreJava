@@ -1,4 +1,4 @@
-package com.example.demo.spring_controller;
+package com.example.demo.BUS.spring_controller;
 
 
 import org.springframework.web.bind.annotation.PostMapping;

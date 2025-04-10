@@ -1,4 +1,4 @@
-package com.example.demo.controller;
+package com.example.demo.GuiController;
 
 import com.example.demo.model.NhanVien;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -12,19 +12,13 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import org.apache.catalina.mapper.Mapper;
-import org.aspectj.weaver.ast.Call;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import com.fasterxml.jackson.core.type.TypeReference;
 
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.net.*;
-import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.util.*;
 

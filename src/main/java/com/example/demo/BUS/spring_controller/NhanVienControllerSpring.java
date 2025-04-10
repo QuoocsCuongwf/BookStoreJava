@@ -1,7 +1,7 @@
-package com.example.demo.spring_controller;
+package com.example.demo.BUS.spring_controller;
 
 import com.example.demo.model.NhanVien;
-import com.example.demo.services.NhanVienServices;
+import com.example.demo.BUS.services.NhanVienServices;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
