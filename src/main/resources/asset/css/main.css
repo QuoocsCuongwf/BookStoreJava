@@ -63,3 +63,43 @@
     -fx-background-radius: 30;
     -fx-background-color: #ff4040;
 }
+
+/* Tùy chỉnh TableView */
+.table-view {
+    -fx-background-color: #00A4EF; /* Màu nền */
+    -fx-border-color: #00A4EF; /* Viền */
+}
+
+/* Tùy chỉnh Header của TableView */
+.table-view .column-header-background {
+    -fx-background-color: #00A4EF; /* Màu nền tiêu đề */
+    -fx-border-color: #388e3c; /* Màu viền tiêu đề */
+    -fx-border-width: 0px;
+    -fx-border-insets: 0; /* Loại bỏ khoảng cách của viền nếu có */
+    -fx-background-insets: 0; /* Loại bỏ khoảng cách giữa các tiêu đề */
+    -fx-border-insets: 0; /* Loại bỏ khoảng cách của viền nếu có */
+
+
+}
+
+.table-view .column-header {
+    -fx-background-color: transparent; /* Màu viền giữa các cột */
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: white; /* Màu chữ */
+    -fx-font-size: 14px; /* Kích thước chữ */
+    -fx-background-color: #00A4EF;
+    -fx-padding: 5px;
+
+}
+
+/* Tùy chỉnh hàng (rows) của TableView */
+.table-row-cell {
+    -fx-background-color: #ffffff; /* Màu nền hàng */
+    -fx-border-color: #e0e0e0; /* Viền giữa các hàng */
+}
+
+.table-row-cell:filled:selected {
+    -fx-background-color: #dcedc8; /* Màu khi hàng được chọn */
+}

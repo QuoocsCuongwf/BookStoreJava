@@ -51,17 +51,17 @@
                         <TableColumn fx:id="sdtNhanVienColumn" prefWidth="135.2000732421875" text="Số điện thoại" />
                     </columns>
                   </TableView>
-                  <TextField layoutX="33.0" layoutY="29.0" promptText="Tìm kiếm..." styleClass="text-field-box" />
-                  <Button layoutX="217.0" layoutY="29.0" mnemonicParsing="false" styleClass="btn" text="Tìm kiếm" />
+                  <TextField fx:id="textFieldTimKiem" layoutX="33.0" layoutY="29.0" promptText="Tìm kiếm..." styleClass="text-field-box" />
+                  <Button layoutX="217.0" layoutY="29.0" mnemonicParsing="false" onAction="#timKiem" styleClass="btn" text="Tìm kiếm" />
                   <Button layoutX="602.0" layoutY="150.0" mnemonicParsing="false" onAction="#openInforContainer" styleClass="btn" text="Thêm nhân viên" />
                   <Pane fx:id="inforContainer" prefHeight="566.0" prefWidth="726.0">
                      <children>
-                        <VBox layoutX="186.0" layoutY="65.0" prefHeight="302.0" prefWidth="400.0" spacing="15.0" styleClass="inforForm">
+                        <VBox fx:id="inforForm" layoutX="186.0" layoutY="65.0" prefHeight="302.0" prefWidth="400.0" spacing="15.0" styleClass="inforForm">
                            <children>
                               <HBox prefHeight="26.0" prefWidth="322.0" spacing="20.0">
                                  <children>
-                                    <TextField prefHeight="26.0" prefWidth="140.0" promptText="Mã nhân viên" />
-                                    <TextField prefHeight="26.0" prefWidth="250.0" promptText="Số cccd" />
+                                    <TextField fx:id="textFieldMaNhanVien" prefHeight="26.0" prefWidth="140.0" promptText="Mã nhân viên" />
+                                    <TextField fx:id="textFieldSoCCCD" prefHeight="26.0" prefWidth="250.0" promptText="Số cccd" />
                                  </children>
                                  <VBox.margin>
                                     <Insets />
@@ -69,29 +69,29 @@
                               </HBox>
                               <HBox prefHeight="26.0" prefWidth="322.0" spacing="20.0">
                                  <children>
-                                    <TextField prefHeight="26.0" prefWidth="369.0" promptText="Họ tên lót" />
+                                    <TextField fx:id="textFieldHoNhanVien" prefHeight="26.0" prefWidth="369.0" promptText="Họ tên lót" />
                                  </children>
                               </HBox>
                               <HBox prefHeight="26.0" prefWidth="322.0" spacing="20.0">
                                  <children>
-                                    <TextField prefHeight="26.0" prefWidth="369.0" promptText="Tên" />
+                                    <TextField fx:id="textFieldTenNhanVien" prefHeight="26.0" prefWidth="369.0" promptText="Tên" />
                                  </children>
                               </HBox>
                               <HBox prefHeight="26.0" prefWidth="322.0" spacing="20.0">
                                  <children>
-                                    <TextField prefHeight="26.0" prefWidth="141.0" promptText="Chức vụ" />
-                                    <TextField prefHeight="26.0" prefWidth="250.0" promptText="Thông tin liên lạc" />
+                                    <TextField fx:id="textFieldChucVu" prefHeight="26.0" prefWidth="141.0" promptText="Chức vụ" />
+                                    <TextField fx:id="textFieldThongTinLienLac" prefHeight="26.0" prefWidth="250.0" promptText="Thông tin liên lạc" />
                                  </children>
                               </HBox>
                               <HBox prefHeight="26.0" prefWidth="322.0" spacing="20.0">
                                  <children>
-                                    <TextField prefHeight="26.0" prefWidth="120.0" promptText="Chức vụ" />
-                                    <DatePicker prefHeight="26.0" prefWidth="230.0" promptText="Ngày vào làm" />
+                                    <TextField fx:id="textFieldLuongNhanVien" prefHeight="26.0" prefWidth="120.0" promptText="Lương" />
+                                    <DatePicker fx:id="datePickerNgayVaoLam" prefHeight="26.0" prefWidth="230.0" promptText="Ngày vào làm" />
                                  </children>
                               </HBox>
-                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="15.0">
+                              <HBox fx:id="inforFormButtonContainer" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="15.0">
                                  <children>
-                                    <Button mnemonicParsing="false" text="Button" />
+                                    <Button fx:id="btnAddNhanVien" mnemonicParsing="false" onAction="#addNhanVien" text="Thêm" />
                                     <Button mnemonicParsing="false" onAction="#clossInforContainer" text="Đóng" />
                                  </children>
                                  <cursor>

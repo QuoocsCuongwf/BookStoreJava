@@ -2,9 +2,7 @@ package com.example.demo.spring_controller;
 
 import com.example.demo.model.NhanVien;
 import com.example.demo.services.NhanVienServices;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -18,6 +16,23 @@ public class NhanVienControllerSpring {
         return nhanVienServices.getNhanVienList();
     }
 
+    @PostMapping("/timKiem")
+    public List<NhanVien> timKiem(@RequestParam String find) {
+        return nhanVienServices.searchNhanVien(find);
+    }
 
+    @PostMapping("/Delete")
+    public String DeleteNhanVien(@RequestParam String maNhanVien) {
+        nhanVienServices.deleteNhanVien(maNhanVien);
+        return "success";
+    }
+    @PostMapping("/Add")
+    public String AddNhanVien(@RequestBody NhanVien nhanVien) {
+        return nhanVienServices.addNhanVien(nhanVien);
+    }
+    @PostMapping("/Update")
+    public String UpdateNhanVien(@RequestBody NhanVien nhanVien) {
+        return nhanVienServices.updateNhanVien(nhanVien);
+    }
 
 }
