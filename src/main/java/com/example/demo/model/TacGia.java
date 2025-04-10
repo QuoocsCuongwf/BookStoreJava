@@ -27,5 +27,24 @@ public class TacGia {
 
     @Column(name = "NAMSINH")
     private Integer namsinh;
+    private void addTacGia() {
+        // Xử lý thêm tác giả
+    }
+
+
+    private void clossInforContainer() {
+        // Xử lý đóng form
+    }
+
+
+    private void timKiem() {
+        // Xử lý tìm kiếm
+    }
+
+
+    private void openInforContainer() {
+        // Mở khung nhập thông tin
+    }
+}
 
 }
