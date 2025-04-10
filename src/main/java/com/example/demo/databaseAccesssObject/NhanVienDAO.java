@@ -45,11 +45,24 @@ public class NhanVienDAO {
         condb.insert(query);
     }
 
+    public void updateNhanVien(NhanVien nhanVien) {
+        String query="UPDATE NHAN_VIEN" +
+                "SET TENNV='"+nhanVien.getTennv()
+                +"', CCCD='"+nhanVien.getCccd()
+                +"', CHUCVU='"+nhanVien.getChucvu()
+                +"', MAIL='"+nhanVien.getMail()
+                +"', LUONG='"+nhanVien.getLuong()
+                +"' NGAYVAOLAM='"+nhanVien.getNgayvaolam()
+                +"WHERE MANV='"+nhanVien.getManv()+"'";
+        condb.update(query);
+
+    }
+
 
 
 }
 //
-//spring.datasource.url=jdbc:sqlserver://localhost:1433;databaseName=bookstore;encrypt=true;trustServerCertificate=true;
+//spring.datasource.url=dbc:sqlserver://localhost:1433;databaseName=bookstore;encrypt=true;trustServerCertificate=true;
 //spring.datasource.username=SA
 //spring.datasource.password=Admin123@
 //        spring.datasource.driver-class-name=com.microsoft.sqlserver.jdbc.SQLServerDriver

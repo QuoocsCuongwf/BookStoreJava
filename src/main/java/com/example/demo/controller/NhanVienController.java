@@ -86,7 +86,6 @@ public class NhanVienController implements Initializable {
                 System.out.println("No item selected!");
             }
         });
-
         CallApi callApi=new CallApi();
         String json = null;
         try {
@@ -99,6 +98,7 @@ public class NhanVienController implements Initializable {
         data = FXCollections.observableArrayList(nhanVienList);
         tableView.setItems(data);
         btnDeleteNhanVien.setOnAction(event -> deleteNhanVien());
+        btnUpdateNhanVien.setOnAction(event -> updateNhanVien());
     }
     public List<NhanVien> convertJsonToListNhanVien(String json) {
         ObjectMapper objectMapper = new ObjectMapper();
@@ -161,7 +161,33 @@ public class NhanVienController implements Initializable {
             System.out.println("No valid selection!");
         }
     }
-
+    public void updateNhanVien() {
+        NhanVien nhanVien = new NhanVien();
+        List<TextField> textFields=Arrays.asList(textFieldMaNhanVien, textFieldTenNhanVien, textFieldSoCCCD,
+                textFieldHoNhanVien, textFieldLuongNhanVien,
+                textFieldChucVu, textFieldThongTinLienLac);
+        for(TextField tf:textFields) {
+            if(tf.getText().equals("")){
+                showMessage("Error","Text Field Null","Vui lòng nhập đầy đủ thông tin!");
+                System.out.println("Text Field Null");
+                return;
+            }
+        };
+        nhanVien.setManv(textFieldMaNhanVien.getText());
+        nhanVien.setMail(textFieldThongTinLienLac.getText());
+        nhanVien.setTennv(textFieldTenNhanVien.getText());
+        nhanVien.setHonv(textFieldHoNhanVien.getText());
+        nhanVien.setChucvu(textFieldChucVu.getText());
+        nhanVien.setCccd(textFieldSoCCCD.getText());
+        nhanVien.setNgayvaolam(datePickerNgayVaoLam.getValue());
+        nhanVien.setLuong(Integer.parseInt(textFieldLuongNhanVien.getText()));
+        CallApi callApi=new CallApi();
+        String resultApi=callApi.callPostRequestBody("http://localhost:8080/nhanVien/Update",convertNhanVienToJson(nhanVien));
+        if (resultApi.contains("Success")) {
+            nhanVienList.add(nhanVien);
+            data.add(nhanVien);
+        }
+    }
     public void openInforContainer(){
         textFieldMaNhanVien.setText("");
         textFieldTenNhanVien.setText("");
@@ -207,17 +233,20 @@ public class NhanVienController implements Initializable {
         nhanVien.setCccd(textFieldSoCCCD.getText());
         nhanVien.setNgayvaolam(datePickerNgayVaoLam.getValue());
         nhanVien.setLuong(Integer.parseInt(textFieldLuongNhanVien.getText()));
-        nhanVienList.add(nhanVien);
-        data.add(nhanVien);
         CallApi callApi=new CallApi();
         String result=callApi.callPostRequestBody("http://localhost:8080/nhanVien/Add",convertNhanVienToJson(nhanVien));
         System.out.println(result);
+        if (result.contains("Success")){
+            nhanVienList.add(nhanVien);
+            data.add(nhanVien);
+        }
 
 
     }
 
     public void showSelectedItem(NhanVien nhanVien) {
         openInforContainer();
+        textFieldMaNhanVien.setEditable(false);
         textFieldMaNhanVien.setText(nhanVien.getManv());
         textFieldTenNhanVien.setText(nhanVien.getTennv());
         textFieldHoNhanVien.setText(nhanVien.getHonv());

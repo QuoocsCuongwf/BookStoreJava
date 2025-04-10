@@ -58,6 +58,11 @@ public class NhanVienServices {
         nhanVienDAO.deleteNhanVien(maNhanVien);
     }
 
+    public String updateNhanVien(NhanVien nhanVien) {
+        nhanVienDAO.updateNhanVien(nhanVien);
+        return "update Success";
+    }
+
     public static void main(String[] args) {
         NhanVienServices nhanVienServices=new NhanVienServices();
         NhanVien nhanVien=new NhanVien();
