@@ -55,6 +55,11 @@ public class TacGiaServices {
         listTacGia.removeIf(tacGia -> tacGia.getMatg().equals(maTacGia));
         tacGiaDAO.deleteTacGia(maTacGia);
     }
+    public String updateTacGia (TacGia tacGia) {
+        tacGiaDAO.updateTacGia(tacGia);
+        return "update success";
+    }
+
     public static void main(String[] args){
         TacGiaServices tacGiaServices=new TacGiaServices();
         TacGia tacGia = new TacGia();
@@ -65,6 +70,7 @@ public class TacGiaServices {
         tacGia.setNamsinh(1955);
 
         tacGiaServices.addTacGia(tacGia);
+        tacGiaServices.getTacGiaList();
 
 
     }
