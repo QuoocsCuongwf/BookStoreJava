@@ -12,6 +12,7 @@ import lombok.Setter;
 @Entity
 @Table(name = "KHACH_HANG")
 public class KhachHang {
+
     @Id
     @Column(name = "MAKH", nullable = false, length = 10)
     private String makh;
@@ -30,5 +31,6 @@ public class KhachHang {
 
     @Column(name = "DIACHI", length = 30)
     private String diachi;
+
 
 }
