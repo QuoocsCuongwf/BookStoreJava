@@ -1,9 +1,9 @@
-package com.example.demo.services;
+package com.example.demo.BUS.services;
 
 import com.example.demo.databaseAccesssObject.TacGiaDAO;
-import com.example.demo.model.NhanVien;
 import com.example.demo.model.TacGia;
-import com.example.demo.spring_controller.TacGiaControllerSping;
+import com.example.demo.model.TacGia;
+import com.example.demo.BUS.spring_controller.TacGiaControllerSping;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
