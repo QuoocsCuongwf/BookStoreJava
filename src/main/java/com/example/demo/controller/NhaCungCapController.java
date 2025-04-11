@@ -136,25 +136,51 @@ public class NhaCungCapController implements Initializable {
     }
 
     public void updateNhaCungCap() {
-        NhaCungCap nhaCungCap = new NhaCungCap();
-        List<TextField> textFields=Arrays.asList(textFieldMaNCC, textFieldTenNCC, textFieldSDT, textFieldDiaChi, textFieldEmail);
-        for(TextField tf:textFields) {
-            if(tf.getText().equals("")){
-                showMessage("Error","Text Field Null","Vui lòng nhập đầy đủ thông tin!");
+        // Lấy chỉ số của nhà cung cấp được chọn
+        int selectedIndex = tableView.getSelectionModel().getSelectedIndex();
+        if (selectedIndex < 0 || selectedIndex >= data.size()) {
+            showMessage("Error", "No Selection", "Vui lòng chọn một nhà cung cấp để cập nhật!");
+            return;
+        }
+
+        // Lấy nhà cung cấp hiện tại từ data
+        NhaCungCap nhaCungCap = data.get(selectedIndex);
+
+        // Kiểm tra các TextField
+        List<TextField> textFields = Arrays.asList(textFieldMaNCC, textFieldTenNCC, textFieldSDT, textFieldDiaChi, textFieldEmail);
+        for (TextField tf : textFields) {
+            if (tf.getText().equals("")) {
+                showMessage("Error", "Text Field Null", "Vui lòng nhập đầy đủ thông tin!");
                 System.out.println("Text Field Null");
                 return;
             }
-        };
-        nhaCungCap.setMaNhaCungCap(textFieldMaNCC.getText());
+        }
+
+        // Cập nhật thông tin nhà cung cấp
         nhaCungCap.setTenNhaCungCap(textFieldTenNCC.getText());
         nhaCungCap.setSdt(textFieldSDT.getText());
         nhaCungCap.setDiaChi(textFieldDiaChi.getText());
         nhaCungCap.setEmail(textFieldEmail.getText());
-        CallApi callApi=new CallApi();
-        String resultApi=callApi.callPostRequestBody("http://localhost:8080/nhaCungCap/Update",convertNhaCungCapToJson(nhaCungCap));
+        // Lưu ý: maNhaCungCap không được thay đổi vì nó là khóa chính và TextField bị khóa (setEditable(false))
+
+        // Gọi API để cập nhật
+        CallApi callApi = new CallApi();
+        String resultApi = callApi.callPostRequestBody("http://localhost:8080/nhaCungCap/Update", convertNhaCungCapToJson(nhaCungCap));
+
         if (resultApi.contains("Success")) {
-            listNhaCungCap.add(nhaCungCap);
-            data.add(nhaCungCap);
+            // Cập nhật danh sách listNhaCungCap (nếu cần)
+            for (int i = 0; i < listNhaCungCap.size(); i++) {
+                if (listNhaCungCap.get(i).getMaNhaCungCap().equals(nhaCungCap.getMaNhaCungCap())) {
+                    listNhaCungCap.set(i, nhaCungCap);
+                    break;
+                }
+            }
+
+            // Cập nhật TableView
+            data.set(selectedIndex, nhaCungCap); // Thay thế đối tượng cũ bằng đối tượng đã cập nhật
+            tableView.refresh(); // Làm mới giao diện để hiển thị dữ liệu mới
+        } else {
+            showMessage("Error", "Update Failed", "Cập nhật nhà cung cấp thất bại. Vui lòng thử lại!");
         }
     }
 
