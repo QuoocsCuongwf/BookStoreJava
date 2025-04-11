@@ -32,19 +32,15 @@ public class KhachHangDAO {
         connectDatabase.insert("SELECT FROM KHACH_HANG WHERE MAKH='"+maKhachHang+"'");
     }
     public void   addKhachHang (KhachHang khachHang){
-        String query = "INSERT INTO KHACH_HANG ( makh,hokh,tenkh,email,diachi,sdt)" + "VALUES(?,?,?,?,?,?)";
-        try {
-            PreparedStatement preparedStatement = connectDatabase.getConnection().prepareStatement(query);
-            preparedStatement.setString(1, khachHang.getMakh());
-            preparedStatement.setString(2, khachHang.getHokh());
-            preparedStatement.setString(3, khachHang.getTenkh());
-            preparedStatement.setString(4, khachHang.getEmail());
-            preparedStatement.setString(5,khachHang.getDiachi());
-            preparedStatement.setString(6,khachHang.getSdt());
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        connectDatabase.insert(query);
+        String query = "INSERT INTO KHACH_HANG (makh, hokh, tenkh, email, sdt,diachi) " +
+                "VALUES ('" + khachHang.getMakh() + "', '" +
+                khachHang.getHokh() + "', '" +
+                khachHang.getTenkh() + "', '" +
+                khachHang.getEmail() + "', '" +
+                khachHang.getSdt() + "', '" +
+                khachHang.getDiachi() + "', '" + ")";
+
+       connectDatabase.insert(query);
     }
 
 
