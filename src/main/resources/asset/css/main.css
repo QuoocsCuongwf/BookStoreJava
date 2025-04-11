@@ -17,7 +17,7 @@
     -fx-background-color: white; /* Màu nền của form */
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 15, 0, 0, 0); /* Tạo bóng màu xám mờ */
     -fx-padding: 20; /* Thêm khoảng cách bên trong form */
-    -fx-border-radius: 15; /* Làm viền bo tròn để khớp */s
+    -fx-border-radius: 15; /* Làm viền bo tròn để khớp */
 }
 .tab-pane {
     -fx-background-color: #f0f0f0;

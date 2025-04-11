@@ -1,8 +1,9 @@
-package com.example.demo.spring_controller;
+package com.example.demo.BUS.spring_controller;
 
+import com.example.demo.BUS.services.KhachHangServices;
 import com.example.demo.model.KhachHang;
 import com.example.demo.model.NhanVien;
-import com.example.demo.services.KhachHangServices;
+
 import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
 

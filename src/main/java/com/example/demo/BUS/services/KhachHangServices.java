@@ -1,4 +1,4 @@
-package com.example.demo.services;
+package com.example.demo.BUS.services;
 
 import com.example.demo.databaseAccesssObject.KhachHangDAO;
 import com.example.demo.model.KhachHang;
@@ -41,7 +41,7 @@ public class KhachHangServices {
         return reSultKhachHangFindList;
     }
     public String addKhachHang(KhachHang khachHang){
-        if (checkMaKhachHang(khachHang.getMakh())){
+        if (!checkMaKhachHang(khachHang.getMakh())){
             khachHangDAO.addKhachHang(khachHang);
             System.out.println("add sucess");
             return "Add success";
@@ -62,6 +62,7 @@ public class KhachHangServices {
         khachHang.setDiachi("TPHCM");
         khachHang.setEmail("khachhang@gmail.com");
         khachHang.setSdt("0987651212");
+        khachHangServices.addKhachHang(khachHang);
     }
 
 }

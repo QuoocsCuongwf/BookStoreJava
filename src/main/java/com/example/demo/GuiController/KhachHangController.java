@@ -1,4 +1,4 @@
-package com.example.demo.controller;
+package com.example.demo.GuiController;
 
 import com.example.demo.model.KhachHang;
 import com.example.demo.model.NhanVien;
@@ -18,6 +18,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import org.springframework.stereotype.Controller;
 
 import java.io.IOException;
 import java.net.URL;
@@ -27,6 +28,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 
+@Controller
 public class KhachHangController implements Initializable {
 
     @FXML
@@ -75,8 +77,8 @@ public class KhachHangController implements Initializable {
         maKhachHangColumn.setCellValueFactory( new PropertyValueFactory<>("makh"));
         hoKhachHangColumn.setCellValueFactory( new PropertyValueFactory<>("hokh"));
         tenKhachHangColumn.setCellValueFactory( new PropertyValueFactory<>("tenkh"));
-        emailKhachHangColumn.setCellValueFactory( new PropertyValueFactory<>("makh"));
-        diaChiKhachHangColumn.setCellValueFactory( new PropertyValueFactory<>("makh"));
+        emailKhachHangColumn.setCellValueFactory( new PropertyValueFactory<>("email"));
+        diaChiKhachHangColumn.setCellValueFactory( new PropertyValueFactory<>("diachi"));
 
         tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
@@ -194,7 +196,7 @@ public class KhachHangController implements Initializable {
         txt_sdtKhachHang.setText(newValue.getSdt());
         txt_diaChiKhachHang.setText(newValue.getDiachi());
 
-        int index = inforContainerKhachHang.getChildren().indexOf(btnAddKhachHang);
+        int index = inforFormButtonContainer.getChildren().indexOf(btnAddKhachHang);
         if (index >= 0) {
             inforFormButtonContainer.getChildren().set(index,btnDeleteKhachHang);
         }

@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<Pane fx:id="khachHangPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="958.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.controller.KhachHangController">
+<Pane fx:id="khachHangPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="958.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.GuiController.KhachHangController">
     <children>
         <SplitPane dividerPositions="0.23755750731911332" layoutX="-1.0" layoutY="-5.0" prefHeight="567.0" prefWidth="958.0">
             <items>
@@ -46,7 +46,7 @@
                                 <TableColumn fx:id="hoKhachHangColumn" prefWidth="141.5999755859375" text="Họ " />
                                 <TableColumn fx:id="tenKhachHangColumn" prefWidth="100.79997253417969" text="Tên" />
                                 <TableColumn fx:id="diaChiKhachHangColumn" prefWidth="139.20001220703125" text="Địa chỉ" />
-                                <TableColumn fx:id="emailColumn" prefWidth="106.39996337890625" text="Email" />
+                                <TableColumn fx:id="emailKhachHangColumn" prefWidth="106.39996337890625" text="Email" />
                                 <TableColumn fx:id="sdtKhachHangColumn" prefWidth="135.2000732421875" text="Số điện thoại" />
                             </columns>
                         </TableView>
