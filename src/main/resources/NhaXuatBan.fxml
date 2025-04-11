@@ -1,0 +1,70 @@
+<!--<?xml version="1.0" encoding="UTF-8"?>-->
+
+<!--<?import javafx.scene.control.Accordion?>-->
+<!--<?import javafx.scene.control.Button?>-->
+<!--<?import javafx.scene.control.SplitPane?>-->
+<!--<?import javafx.scene.control.TableColumn?>-->
+<!--<?import javafx.scene.control.TableView?>-->
+<!--<?import javafx.scene.control.TextField?>-->
+<!--<?import javafx.scene.layout.AnchorPane?>-->
+<!--<?import javafx.scene.layout.Pane?>-->
+<!--<?import javafx.scene.text.Font?>-->
+
+<!--<Pane fx:id="nhanVienPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="958.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" s>-->
+<!--    <children>-->
+<!--        <SplitPane dividerPositions="0.23755750731911332" layoutX="-1.0" layoutY="-5.0" prefHeight="567.0" prefWidth="958.0">-->
+<!--            <items>-->
+<!--                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" style="-fx-background-color: #00A4EF;">-->
+<!--                    <children>-->
+<!--                        <Button layoutY="131.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="224.0" styleClass="btn" text="Thống kê">-->
+<!--                            <font>-->
+<!--                                <Font size="16.0" />-->
+<!--                            </font></Button>-->
+<!--                        <Button layoutY="331.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="224.0" styleClass="btn" text="Button">-->
+<!--                            <font>-->
+<!--                                <Font size="16.0" />-->
+<!--                            </font></Button>-->
+<!--                        <Button layoutY="263.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="224.0" styleClass="btn" text="Button">-->
+<!--                            <font>-->
+<!--                                <Font size="16.0" />-->
+<!--                            </font></Button>-->
+<!--                        <Button layoutY="195.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="224.0" styleClass="btn" text="Nhân viên">-->
+<!--                            <font>-->
+<!--                                <Font size="16.0" />-->
+<!--                            </font></Button>-->
+<!--                    </children>-->
+<!--                </AnchorPane>-->
+<!--                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">-->
+<!--                    <children>-->
+<!--                        <TableView fx:id="tableView" layoutY="196.0" prefHeight="384.0" prefWidth="742.0" AnchorPane.leftAnchor="0.0">-->
+<!--                            <columns>-->
+<!--                                <TableColumn fx:id="maNhaXuatBanColumn" prefWidth="163.3333282470703" text="Mã NXB" />-->
+<!--                                <TableColumn fx:id="tenNhaXuatBanColumn" prefWidth="181.33334350585938" text="Tên NXB" />-->
+<!--                                <TableColumn fx:id="diaChiColumn" prefWidth="164.66668701171875" text="Địa Chỉ" />-->
+<!--                                <TableColumn fx:id="soDienThoaiColumn" prefWidth="148.6666259765625" text="Số Điện Thoại" />-->
+<!--                            </columns>-->
+<!--                        </TableView>-->
+<!--                        <TextField layoutX="33.0" layoutY="29.0" promptText="Tìm kiếm..." styleClass="text-field-box" />-->
+<!--                        <Button layoutX="217.0" layoutY="29.0" mnemonicParsing="false" styleClass="btn" text="Tìm kiếm" />-->
+<!--                        <Button layoutX="602.0" layoutY="150.0" mnemonicParsing="false" onAction="#openInforContainer" styleClass="btn" text="Thêm NXB" />-->
+<!--                  <AnchorPane layoutX="-1.0" layoutY="-1.0" prefHeight="565.0" prefWidth="645.0">-->
+<!--                     <children>-->
+<!--                        <Pane layoutX="180.0" layoutY="111.0" prefHeight="200.0" prefWidth="321.0">-->
+<!--                           <children>-->
+<!--                              <TextField layoutX="14.0" layoutY="25.0" prefHeight="25.0" prefWidth="133.0" promptText="Mã Nhà Xuất Bản" />-->
+<!--                              <TextField layoutX="14.0" layoutY="74.0" prefHeight="25.0" prefWidth="133.0" promptText="Địa Chỉ" />-->
+<!--                              <TextField layoutX="161.0" layoutY="25.0" promptText="Tên Nhà Xuất bản" />-->
+<!--                              <TextField layoutX="161.0" layoutY="75.0" promptText="Số Điện Thoại" />-->
+<!--                              <Button fx:id="btnAddNhaXuatBan" layoutX="81.0" layoutY="142.0" mnemonicParsing="false" onAction="#addNhaXuatBan" prefHeight="31.0" prefWidth="60.0" text="Thêm" />-->
+<!--                              <Button layoutX="176.0" layoutY="142.0" mnemonicParsing="false" onAction="#clossInforContainer" prefHeight="31.0" prefWidth="60.0" text="Thoát" />-->
+<!--                           </children>-->
+<!--                        </Pane>-->
+<!--                     </children>-->
+<!--                  </AnchorPane>-->
+<!--                    </children>-->
+<!--                </AnchorPane>-->
+<!--            </items>-->
+<!--        </SplitPane>-->
+<!--        <Accordion />-->
+<!--    </children>-->
+<!--</Pane>-->
