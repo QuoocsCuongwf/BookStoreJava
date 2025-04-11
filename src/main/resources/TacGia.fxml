@@ -21,15 +21,15 @@
                             <font>
                                 <Font size="16.0" />
                             </font></Button>
-                        <Button layoutY="331.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="224.0" styleClass="btn" text="Khách hàng">
+                        <Button layoutY="242.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="224.0" styleClass="btn" text="Khách hàng">
                             <font>
                                 <Font size="16.0" />
                             </font></Button>
-                        <Button layoutY="263.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="224.0" styleClass="btn" text="Sản phẩm">
+                        <Button layoutY="205.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="224.0" styleClass="btn" text="Sản phẩm">
                             <font>
                                 <Font size="16.0" />
                             </font></Button>
-                        <Button layoutY="195.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="224.0" styleClass="btn" text="Nhân viên">
+                        <Button layoutY="168.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="224.0" styleClass="btn" text="Nhân viên">
                             <font>
                                 <Font size="16.0" />
                             </font></Button>
@@ -37,13 +37,13 @@
                 </AnchorPane>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="563.0" prefWidth="702.0">
                <children>
-                  <TableView fx:id="tableView" layoutY="197.0" prefHeight="384.0" prefWidth="694.0">
+                  <TableView fx:id="tableView" layoutY="197.0" prefHeight="378.0" prefWidth="726.0">
                     <columns>
                       <TableColumn fx:id="maTacGiaColumn" prefWidth="124.00007629394531" text="Mã Tác Giả" />
                       <TableColumn fx:id="hoTacGiaColumn" prefWidth="139.33331298828125" text="Họ" />
                         <TableColumn fx:id="tenTacGiaColumn" prefWidth="132.66668701171875" text="Tên" />
-                        <TableColumn fx:id="queQuanTacGiaColumn" prefWidth="165.3333740234375" text="Quê Quán" />
-                        <TableColumn fx:id="namSinhTacGiaColumn" prefWidth="128.66668701171875" text="Năm Sinh" />
+                        <TableColumn fx:id="queQuanTacGiaColumn" prefWidth="218.4000244140625" text="Quê Quán" />
+                        <TableColumn fx:id="namSinhTacGiaColumn" prefWidth="109.5999755859375" text="Năm Sinh" />
                     </columns>
                   </TableView>
                   <TextField fx:id="textFieldTimKiem" layoutX="24.0" layoutY="23.0" prefHeight="25.0" prefWidth="122.0" promptText="Tìm kiếm..." />

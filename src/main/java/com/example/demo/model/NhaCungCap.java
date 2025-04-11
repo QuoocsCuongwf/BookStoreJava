@@ -1,5 +1,6 @@
 package com.example.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -14,12 +15,23 @@ import lombok.Setter;
 public class NhaCungCap {
     @Id
     @Column(name = "MANCC", nullable = false, length = 10)
-    private String mancc;
+    @JsonProperty("MANCC")
+    private String maNhaCungCap;
 
-    @Column(name = "TENNCC", nullable = false, length = 20)
-    private String tenncc;
+    @Column(name = "TENNCC", nullable = false, length = 100)
+    @JsonProperty("TENNCC")
+    private String tenNhaCungCap;
 
-    @Column(name = "THONGTIN", length = 50)
-    private String thongtin;
+    @Column(name = "DIACHI", length = 255)
+    @JsonProperty("DIACHI")
+    private String diaChi;
+
+    @Column(name = "SDT", length = 20)
+    @JsonProperty("SDT")
+    private String sdt;
+
+    @Column(name = "EMAIL", length = 50)
+    @JsonProperty("EMAIL")
+    private String email;
 
 }
