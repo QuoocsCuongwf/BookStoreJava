@@ -8,12 +8,12 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import java.sql.*;
 
 public class ConnectDatabase {
-    String driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
-    String url = "jdbc:sqlserver://localhost:1433;databaseName=bookstore;encrypt=true;trustServerCertificate=true;";
-    String user = "SA";
-    String password = "Admin123@";
-    Connection conn = null;
-    ResultSet rs = null;
+    private String driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
+    private String url = "jdbc:sqlserver://localhost:1433;databaseName=bookstore;encrypt=true;trustServerCertificate=true;";
+    private String user = "SA";
+    private String password = "Admin123@";
+    private Connection conn = null;
+    private ResultSet rs = null;
     public ConnectDatabase() {
         try {
              Class.forName(driver);

@@ -3,20 +3,27 @@ package com.example.demo.GuiController;
 import com.example.demo.model.NhaXuatBan;
 import com.example.demo.model.SanPham;
 import com.example.demo.model.TacGia;
+import com.fasterxml.jackson.core.json.DupDetector;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,7 +49,7 @@ public class SanPhamController {
     private TableColumn<SanPham, Double> donGiaColumn; // Cột "Đơn giá"
 
     @FXML
-    private TableColumn<SanPham, String> tacGiaColumn; // Cột "Tác giả"
+    private TableColumn<SanPham, TacGia> tacGiaColumn; // Cột "Tác giả"
 
     @FXML
     private TextField textFieldMaSach, textFieldTenSach, textFieldDonGia, textFieldMaTG, textFieldMaNXB, textFieldSoTrang, textFieldMaTL;
@@ -66,6 +73,17 @@ public class SanPhamController {
     public void initialize() {
 
         anhBia.setCellFactory(column -> createImgCellFactory());
+        tacGiaColumn.setCellFactory(column -> new TableCell<SanPham, TacGia>() {
+            @Override
+            protected void updateItem(TacGia item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(null);
+                } else {
+                    setText(item.getHotg()+" "+item.getTentg()); // hoặc getCity(), getStreet(), tùy bạn
+                }
+            }
+        });
         maSachColumn.setCellValueFactory(new PropertyValueFactory<>("masp"));
         tenSachColumn.setCellValueFactory(new PropertyValueFactory<>("tensp"));
         soLuongColumn.setCellValueFactory(new PropertyValueFactory<>("sl"));
@@ -147,6 +165,23 @@ public class SanPhamController {
             }
         };
      }
+    public void loadTacGiaFXML(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("TacGia.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 
 
 }
+
