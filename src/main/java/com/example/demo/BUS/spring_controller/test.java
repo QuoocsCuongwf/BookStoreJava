@@ -1,29 +1,12 @@
-package com.example.demo.spring_controller;
+package com.example.demo.BUS.spring_controller;
 
-import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
+import com.example.demo.GuiController.CallApi;
 
-public class test extends Application {
+import java.io.IOException;
 
-    @Override
-    public void start(Stage stage) throws Exception {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/TacGia.fxml"));
-
-        Pane root = fxmlLoader.load(); // Tải giao diện từ FXML
-
-        Scene scene = new Scene(root);
-        scene.getStylesheets().add(getClass().getResource("/asset/css/main.css").toExternalForm());
-
-        stage.setScene(scene);
-        stage.setTitle("TacGia");
-        stage.show();
-    }
-
-    public static void main(String[] args) {
-        launch(args);
+public class test {
+    public static void main(String[] args) throws IOException {
+        CallApi callApi=new CallApi();
+        callApi.callGetApi("http://localhost:8080/nhanVien/timKiem");
     }
 }

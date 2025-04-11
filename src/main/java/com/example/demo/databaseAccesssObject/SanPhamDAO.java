@@ -1,5 +1,6 @@
 package com.example.demo.databaseAccesssObject;
 
+import com.example.demo.BUS.services.SanPhamServices;
 import com.example.demo.model.NhanVien;
 import com.example.demo.model.SanPham;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -14,7 +15,15 @@ public class SanPhamDAO {
     private List<SanPham> listSanPham=new ArrayList<>();
     ConnectDatabase cnn=new ConnectDatabase();
     public List<SanPham> getListSanPham() {
-        String sql = "select * from sanPham";
+        String sql = "SELECT \n" +
+                "    sp.MASP, sp.TENSP, sp.SL, sp.NAMXB, sp.DONGIA, sp.SOTRANG, sp.ANHBIA,\n" +
+                "    tl.MATL, tl.TENTL,\n" +
+                "    tg.MATG, tg.HOTG, tg.TENTG, tg.QUEQUAN, tg.NAMSINH,\n" +
+                "    nxb.MANXB, nxb.TENNXB, nxb.DIACHI, nxb.SDT\n" +
+                "FROM SAN_PHAM sp\n" +
+                "JOIN THE_LOAI tl ON sp.MATL = tl.MATL\n" +
+                "JOIN TAC_GIA tg ON sp.MATG = tg.MATG\n" +
+                "JOIN NHA_XUAT_BAN nxb ON sp.MANXB = nxb.MANXB;\n";
         String json = cnn.query(sql);
         ObjectMapper mapper = new ObjectMapper();
         try {
@@ -58,6 +67,13 @@ public class SanPhamDAO {
                 "ANHBIA = '" + sp.getAnhbia() + "' " +
                 "WHERE MASP = '" + sp.getMasp() + "'";
         cnn.update(sql);
+    }
+
+    public static void main(String[] args) {
+        SanPhamDAO sanPhamDAO = new SanPhamDAO();
+        System.out.println( sanPhamDAO.getListSanPham());
+
+
     }
 
 }

@@ -3,7 +3,10 @@ package com.example.demo.GuiController;
 import com.example.demo.model.NhaXuatBan;
 import com.example.demo.model.SanPham;
 import com.example.demo.model.TacGia;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.json.DupDetector;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -66,7 +69,7 @@ public class SanPhamController {
     @FXML
     private Pane inforBookContainer;
 
-    private List<SanPham> listSanPham=new ArrayList<>();
+    private List<SanPham> listSanPham=new ArrayList<SanPham>();
     private String pathImage = "";
 
     @FXML
@@ -103,10 +106,36 @@ public class SanPhamController {
         if (image.isError()) {
             System.out.println("Error loading image: " + image.getException());
         }
+
+        CallApi callApi=new CallApi();
+        String json;
+        try {
+            json=callApi.callGetApi("http://localhost:8080/sanPham/getAllSanPham");
+            System.out.println(json);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        data = FXCollections.observableArrayList(convertJsonToSanPham(json));
+        tableView.setItems(data);
+
+
+
         System.out.println(image.getWidth());
         iconfolder.setImage(image);
         System.out.println(iconfolder.getImage().getWidth());
 
+    }
+
+    public List<SanPham> convertJsonToSanPham(String json) {
+        ObjectMapper mapper = new ObjectMapper();
+        List<SanPham> sanPhamList=new ArrayList<>();
+        try {
+            listSanPham=mapper.readValue(json, new TypeReference<List<SanPham>>() {});
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+        return listSanPham;
     }
 
     public void chonFile(ActionEvent actionEvent) {
@@ -179,6 +208,8 @@ public class SanPhamController {
             e.printStackTrace();
         }
     }
+
+
 
 
 

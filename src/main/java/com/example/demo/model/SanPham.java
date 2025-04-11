@@ -1,5 +1,8 @@
 package com.example.demo.model;
 
+import com.example.demo.databaseAccesssObject.deserialize.SanPhamDeserializer;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -8,39 +11,50 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "SAN_PHAM")
+@JsonDeserialize(using = SanPhamDeserializer.class)
 public class SanPham {
     @Id
     @Column(name = "MASP", nullable = false, length = 10)
+    @JsonProperty("MASP")
     private String masp;
 
     @Column(name = "TENSP", nullable = false, length = 20)
+    @JsonProperty("TENSP")
     private String tensp;
 
     @Column(name = "SL")
+    @JsonProperty("SL")
     private Integer sl;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "MATL", nullable = false)
+    @JsonProperty("MATL")
     private TheLoai matl;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "MATG", nullable = false)
+    @JsonProperty("MATG")
     private TacGia matg;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "MANXB", nullable = false)
+    @JsonProperty("MANXB")
     private NhaXuatBan manxb;
 
     @Column(name = "NAMXB")
+    @JsonProperty("NAMXB")
     private Integer namxb;
 
     @Column(name = "DONGIA")
+    @JsonProperty("DONGIA")
     private Integer dongia;
 
     @Column(name = "SOTRANG")
+    @JsonProperty("SOTRANG")
     private Integer sotrang;
 
     @Column(name = "ANHBIA", length = 100)
+    @JsonProperty("ANHBIA")
     private String anhbia;
 
     public String getMasp() {

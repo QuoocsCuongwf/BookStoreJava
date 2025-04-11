@@ -30,23 +30,17 @@ public class TacGia {
     @Column(name = "NAMSINH")
     @JsonProperty("NAMSINH")
     private Integer namsinh;
-    private void addTacGia() {
-        // Xử lý thêm tác giả
+
+    public TacGia(String matg, String hotg, String tentg, String quequan, Integer namsinh) {
+        this.matg = matg;
+        this.hotg = hotg;
+        this.tentg = tentg;
+        this.quequan = quequan;
+        this.namsinh = namsinh;
     }
 
+    public TacGia() {
 
-    private void clossInforContainer() {
-        // Xử lý đóng form
-    }
-
-
-    private void timKiem() {
-        // Xử lý tìm kiếm
-    }
-
-
-    private void openInforContainer() {
-        // Mở khung nhập thông tin
     }
 }
 
