@@ -50,16 +50,16 @@
                                 <TableColumn fx:id="sdtKhachHangColumn" prefWidth="135.2000732421875" text="Số điện thoại" />
                             </columns>
                         </TableView>
-                        <TextField layoutX="33.0" layoutY="29.0" promptText="Tìm kiếm..." styleClass="text-field-box" />
-                        <Button layoutX="217.0" layoutY="29.0" mnemonicParsing="false" styleClass="btn" text="Tìm kiếm" />
-                        <Button layoutX="602.0" layoutY="150.0" mnemonicParsing="false" styleClass="btn" text="Thêm khách hàng" />
+                        <TextField fx:id="txt_timKiemKhachHang" layoutX="33.0" layoutY="29.0" promptText="Tìm kiếm..." styleClass="text-field-box" />
+                        <Button fx:id="btn_timKiemKhachHang" layoutX="217.0" layoutY="29.0" mnemonicParsing="false" onAction="#timKiem" styleClass="btn" text="Tìm kiếm" />
+                        <Button fx:id="btn_themKhachHang" layoutX="602.0" layoutY="150.0" mnemonicParsing="false" onAction="#openInforContainer" styleClass="btn" text="Thêm khách hàng" />
                         <Pane fx:id="inforContainerKhachHang" prefHeight="566.0" prefWidth="726.0">
                             <children>
                                 <VBox fx:id="inforForm" layoutX="186.0" layoutY="65.0" prefHeight="302.0" prefWidth="400.0" spacing="15.0" styleClass="inforForm">
                                     <children>
                                         <HBox prefHeight="26.0" prefWidth="322.0" spacing="20.0">
                                             <children>
-                                                <TextField fx:id="txtMaKhachHang" prefHeight="25.0" prefWidth="375.0" promptText="Mã khách hàng" />
+                                                <TextField fx:id="txt_maKhachHang" prefHeight="25.0" prefWidth="375.0" promptText="Mã khách hàng" />
                                             </children>
                                             <VBox.margin>
                                                 <Insets />
@@ -67,29 +67,29 @@
                                         </HBox>
                                         <HBox prefHeight="26.0" prefWidth="322.0" spacing="20.0">
                                             <children>
-                                                <TextField fx:id="txtHoKhachHang" prefHeight="26.0" prefWidth="369.0" promptText="Họ tên lót" />
+                                                <TextField fx:id="txt_hoKhachHang" prefHeight="26.0" prefWidth="369.0" promptText="Họ tên lót" />
                                             </children>
                                         </HBox>
                                         <HBox prefHeight="26.0" prefWidth="322.0" spacing="20.0">
                                             <children>
-                                                <TextField fx:id="txtTenKhachHang" prefHeight="26.0" prefWidth="369.0" promptText="Tên" />
+                                                <TextField fx:id="txt_tenKhachHang" prefHeight="26.0" prefWidth="369.0" promptText="Tên" />
                                             </children>
                                         </HBox>
                                         <HBox prefHeight="26.0" prefWidth="322.0" spacing="20.0">
                                             <children>
-                                                <TextField fx:id="txtEmailKhachHang" prefHeight="25.0" prefWidth="369.0" promptText="Email" />
-                                                <TextField fx:id="txtSdtKhachHang" prefHeight="25.0" prefWidth="283.0" promptText="Thông tin liên lạc" />
+                                                <TextField fx:id="txt_emailKhachHang" prefHeight="25.0" prefWidth="369.0" promptText="Email" />
+                                                <TextField fx:id="txt_sdtKhachHang" prefHeight="25.0" prefWidth="283.0" promptText="Thông tin liên lạc" />
                                             </children>
                                         </HBox>
                                         <HBox prefHeight="26.0" prefWidth="322.0" spacing="20.0">
                                             <children>
-                                                <TextField fx:id="txtDiaChiKhachHang" prefHeight="25.0" prefWidth="424.0" promptText="Địa chỉ" />
+                                                <TextField fx:id="txt_diaChiKhachHang" prefHeight="25.0" prefWidth="424.0" promptText="Địa chỉ" />
                                             </children>
                                         </HBox>
                                         <HBox fx:id="inforFormButtonContainer" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="15.0">
                                             <children>
-                                                <Button fx:id="btnAddKhachHang" mnemonicParsing="false" text="Thêm" />
-                                                <Button mnemonicParsing="false" text="Đóng" />
+                                                <Button fx:id="btnAddKhachHang" mnemonicParsing="false" onAction="#addKhachHang" text="Thêm" />
+                                                <Button mnemonicParsing="false" onAction="#closeInforContainer" text="Đóng" />
                                             </children>
                                             <cursor>
                                                 <Cursor fx:constant="DEFAULT" />
