@@ -1,6 +1,7 @@
-package com.example.demo.controller;
+package com.example.demo.GuiController;
 
 import com.example.demo.model.NhaCungCap;
+import com.example.demo.model.PhieuNhap;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -23,7 +24,7 @@ import java.util.*;
 @Component
 @Controller
 public class NhaCungCapController implements Initializable {
-    @FXML private Pane inforBookContainer;
+    @FXML private Pane inforContainer;
     @FXML private TableView<NhaCungCap> tableView;
     @FXML private TableColumn<NhaCungCap, String> maNCCColumn;
     @FXML private TableColumn<NhaCungCap, String> tenNCCColumn;
@@ -42,7 +43,7 @@ public class NhaCungCapController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        inforBookContainer.setVisible(false);
+        inforContainer.setVisible(false);
         maNCCColumn.setCellValueFactory(new PropertyValueFactory<>("maNhaCungCap"));
         tenNCCColumn.setCellValueFactory(new PropertyValueFactory<>("tenNhaCungCap"));
         sdtColumn.setCellValueFactory(new PropertyValueFactory<>("sdt"));
@@ -208,14 +209,14 @@ public class NhaCungCapController implements Initializable {
         textFieldSDT.setText("");
         textFieldDiaChi.setText("");
         textFieldEmail.setText("");
-        inforBookContainer.setVisible(true);
+        inforContainer.setVisible(true);
     }
 
     public void clossInforContainer() { int index = inforFormButtonContainer.getChildren().indexOf(btnDeleteNhaCungCap);
         if (index >= 0) {
             inforFormButtonContainer.getChildren().set(index, btnAddNhaCungCap);
         }
-        inforBookContainer.setVisible(false);
+        inforContainer.setVisible(false);
     }
 
     public void timKiem() {

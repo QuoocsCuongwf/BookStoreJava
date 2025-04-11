@@ -1,6 +1,7 @@
 package com.example.demo.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -33,5 +34,6 @@ public class NhaCungCap {
     @Column(name = "EMAIL", length = 50)
     @JsonProperty("EMAIL")
     private String email;
+
 
 }

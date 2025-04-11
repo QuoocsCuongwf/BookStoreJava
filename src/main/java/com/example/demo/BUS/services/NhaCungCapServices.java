@@ -1,4 +1,4 @@
-package com.example.demo.services;
+package com.example.demo.BUS.services;
 
 import com.example.demo.databaseAccesssObject.NhaCungCapDAO;
 import com.example.demo.model.NhaCungCap;

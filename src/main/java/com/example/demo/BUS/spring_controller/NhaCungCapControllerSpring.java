@@ -1,7 +1,9 @@
-package com.example.demo.spring_controller;
+package com.example.demo.BUS.spring_controller;
 
+import com.example.demo.BUS.services.NhaCungCapServices;
 import com.example.demo.model.NhaCungCap;
-import com.example.demo.services.NhaCungCapServices;
+import com.example.demo.model.PhieuNhap;
+
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
