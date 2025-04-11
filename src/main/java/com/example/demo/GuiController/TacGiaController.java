@@ -63,6 +63,8 @@ public class TacGiaController implements Initializable {
     private Button openInforContainer;
     @FXML
     private Button clossInforContainer;
+    @FXML
+    private HBox inforButtonContainer;
 
 
 
@@ -75,8 +77,8 @@ public class TacGiaController implements Initializable {
         maTacGiaColumn.setCellValueFactory(new PropertyValueFactory<>("matg"));
         hoTacGiaColumn.setCellValueFactory(new PropertyValueFactory<>("hotg"));
         tenTacGiaColumn.setCellValueFactory(new PropertyValueFactory<>("tentg"));
-        queQuanTacGiaColumn.setCellValueFactory(new PropertyValueFactory<>("quequantg"));
-        namSinhTacGiaColumn.setCellValueFactory(new PropertyValueFactory<>("namsinhtg"));
+        queQuanTacGiaColumn.setCellValueFactory(new PropertyValueFactory<>("quequan"));
+        namSinhTacGiaColumn.setCellValueFactory(new PropertyValueFactory<>("namsinh"));
         tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 showSelectedItem(newValue);
@@ -89,7 +91,7 @@ public class TacGiaController implements Initializable {
         CallApi callApi = new CallApi();
         String json = null;
         try {
-            json = callApi.callGetApi("http://localhost:8080/nhanVien/getAllNhanVien");
+            json = callApi.callGetApi("http://localhost:8080/TacGia/getAllTacGia");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -133,9 +135,9 @@ public class TacGiaController implements Initializable {
             if (f != null) {
                 f.textProperty().addListener((obs, oldVal, newVal) -> {
                     System.out.println(f.getId() + " thay đổi: " + newVal);
-                    int index = inforFormTacGia.getChildren().indexOf(btnDeleteTacGia);
+                    int index = inforButtonContainer.getChildren().indexOf(btnDeleteTacGia);
                     if (index >= 0) {
-                        inforFormTacGia.getChildren().set(index, btnUpdateTacGia);
+                        inforButtonContainer.getChildren().set(index, btnUpdateTacGia);
                     } else {
                         System.err.println("btnDeleteTacGia không tồn tại trong inforFormButtonContainer!");
                     }
@@ -150,7 +152,7 @@ public class TacGiaController implements Initializable {
             TacGia tacGia = data.get(selectedIndex);
             System.out.println("Nhan vien selected " + tacGia.getMatg());
             CallApi callApi = new CallApi();
-            String result = callApi.callPostRequestParam("http://localhost:8080/tacGia/Delete", "maTacGia=",tacGia.getMatg());
+            String result = callApi.callPostRequestParam("http://localhost:8080/TacGia/Delete", "maTacGia=",tacGia.getMatg());
             data.remove(selectedIndex);
             tableView.getSelectionModel().clearSelection();
         } else {
@@ -168,9 +170,9 @@ public class TacGiaController implements Initializable {
     }
 
     public void clossInforContainer() {
-        int index = inforFormTacGia.getChildren().indexOf(btnDeleteTacGia);
+        int index = inforButtonContainer.getChildren().indexOf(btnDeleteTacGia);
         if (index >= 0) {
-            inforFormTacGia.getChildren().set(index, btnAddTacGia);
+            inforButtonContainer.getChildren().set(index, btnAddTacGia);
         }
         inforContainer.setVisible(false);
     }
@@ -203,7 +205,7 @@ public class TacGiaController implements Initializable {
         tacGiaList.add(tacGia);
         data.add(tacGia);
         CallApi callApi = new CallApi();
-        String result = callApi.callPostRequestBody("http://localhost:8080/tacGia/Add", convertTacGiaToJson(tacGia));
+        String result = callApi.callPostRequestBody("http://localhost:8080/TacGia/Add", convertTacGiaToJson(tacGia));
         System.out.println(result);
     }
 
@@ -215,20 +217,25 @@ public class TacGiaController implements Initializable {
         txt_QueQuanTacGia.setText(tacGia.getQuequan());
         txt_NamSinhTacGia.setText(tacGia.getNamsinh().toString());
 
-
-
-        int index = inforFormTacGia.getChildren().indexOf(btnAddTacGia);
+        int index = inforButtonContainer.getChildren().indexOf(btnAddTacGia);
         if (index >= 0) {
-            inforFormTacGia.getChildren().set(index, btnDeleteTacGia);
+            inforButtonContainer.getChildren().set(index, btnDeleteTacGia);
         } else {
             System.err.println("btnAddTacGia không tồn tại trong inforFormButtonContainer!");
+        }
+         index = inforButtonContainer.getChildren().indexOf(btnUpdateTacGia);
+        if (index >= 0) {
+            inforButtonContainer.getChildren().set(index, btnDeleteTacGia);
+        } else {
+            System.err.println("btnDeleteTacGia không tồn tại trong in4FormTacGia !");
+
         }
     }
 
     public void timKiem() {
         String find = textFieldTimKiem.getText();
         CallApi callApi = new CallApi();
-        String json = callApi.callPostRequestParam("http://localhost:8080/tacGia/timKiemtg", "find=", find);
+        String json = callApi.callPostRequestParam("http://localhost:8080/TacGia/timKiem", "find=", find);
         data = FXCollections.observableArrayList(convertJsonToListTacGia(json));
         tableView.setItems(data);
     }

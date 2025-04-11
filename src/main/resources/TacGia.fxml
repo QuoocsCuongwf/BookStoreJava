@@ -7,6 +7,7 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
@@ -50,15 +51,19 @@
                   <Button layoutX="573.0" layoutY="149.0" mnemonicParsing="false" onAction="#openInforContainer" prefHeight="25.0" prefWidth="79.0" text="Thêm" />
                   <AnchorPane fx:id="inforContainer" layoutX="-2.0" layoutY="2.0" prefHeight="569.0" prefWidth="635.0">
                      <children>
-                        <Pane fx:id="inforFormTacGia" layoutX="189.0" layoutY="122.0" prefHeight="212.0" prefWidth="279.0">
+                        <Pane fx:id="inforFormTacGia" layoutX="189.0" layoutY="122.0" prefHeight="212.0" prefWidth="279.0" styleClass="inforForm">
                            <children>
-                              <TextField fx:id="txt_MaTacGia" layoutX="14.0" layoutY="24.0" prefHeight="25.0" prefWidth="122.0" promptText="Mã Tác Giả" />
+                              <TextField fx:id="txt_MaTacGia" layoutX="14.0" layoutY="24.0" prefHeight="25.0" prefWidth="249.0" promptText="Mã Tác Giả" />
                               <TextField fx:id="txt_HoTacGia" layoutX="14.0" layoutY="76.0" prefHeight="25.0" prefWidth="122.0" promptText="Họ Tác Giả" />
                               <TextField fx:id="txt_NamSinhTacGia" layoutX="143.0" layoutY="125.0" prefHeight="25.0" prefWidth="122.0" promptText="Năm Sinh" />
-                              <TextField fx:id="txt_TacGia" layoutX="143.0" layoutY="76.0" prefHeight="25.0" prefWidth="122.0" promptText="Tên Tác Giả" />
+                              <TextField fx:id="txt_TenTacGia" layoutX="143.0" layoutY="76.0" prefHeight="25.0" prefWidth="122.0" promptText="Tên Tác Giả" />
                               <TextField fx:id="txt_QueQuanTacGia" layoutX="14.0" layoutY="125.0" prefHeight="25.0" prefWidth="122.0" promptText="Quê Quán" />
-                              <Button fx:id="btnAddTacGia" layoutX="75.0" layoutY="165.0" mnemonicParsing="false" onAction="#addTacGia" text="Thêm" />
-                              <Button layoutX="140.0" layoutY="165.0" mnemonicParsing="false" onAction="#clossInforContainer" text="Đóng" />
+                              <HBox fx:id="inforButtonContainer" alignment="CENTER" layoutY="150.0" prefHeight="62.0" prefWidth="279.0" spacing="15.0">
+                                 <children>
+                                    <Button fx:id="btnAddTacGia" mnemonicParsing="false" onAction="#addTacGia" text="Thêm" />
+                                    <Button mnemonicParsing="false" onAction="#clossInforContainer" text="Đóng" />
+                                 </children>
+                              </HBox>
                            </children>
                         </Pane>
                      </children>
