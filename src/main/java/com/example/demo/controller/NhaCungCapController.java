@@ -49,6 +49,9 @@ public class NhaCungCapController implements Initializable {
         diaChiColumn.setCellValueFactory(new PropertyValueFactory<>("diaChi"));
         emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
 
+        btnDeleteNhaCungCap.setId("delete-button");
+        btnUpdateNhaCungCap.setId("update-button");
+
         tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldVal, newVal) -> {
             if (newVal != null) {
                 showSelectedItem(newVal);
