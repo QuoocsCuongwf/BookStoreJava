@@ -10,7 +10,7 @@ import java.nio.charset.StandardCharsets;
 public class CallApi {
     private URL url=null;
     HttpURLConnection httpURLConnection=null;
-    CallApi(){}
+    public CallApi(){}
     public void createConnectApi(String api) {
         try {
             this.url =new URL(api);
