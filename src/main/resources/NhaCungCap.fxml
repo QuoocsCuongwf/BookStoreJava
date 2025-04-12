@@ -15,17 +15,17 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<Pane fx:id="nhaCungCapPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="958.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.controller.NhaCungCapController">
+<Pane fx:id="nhaCungCapPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="958.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.GuiController.NhaCungCapController">
     <children>
         <SplitPane dividerPositions="0.23755750731911332" layoutX="-1.0" layoutY="-5.0" prefHeight="567.0" prefWidth="958.0">
             <items>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" style="-fx-background-color: #00A4EF;">
+                <AnchorPane fx:id="anchorPaneMenu" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" style="-fx-background-color: #00A4EF;">
                     <children>
                         <Button fx:id="btnThongKe" layoutY="57.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="224.0" styleClass="btn" text="Thống kê">
                             <font>
                                 <Font size="16.0" />
                             </font></Button>
-                        <Button fx:id="btnKhachHang" layoutY="210.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="224.0" styleClass="btn" text="Khách hàng">
+                        <Button fx:id="btnKhachHang" layoutY="210.0" mnemonicParsing="false" onAction="#callMenu" prefHeight="36.0" prefWidth="224.0" styleClass="btn" text="Khách hàng">
                             <font>
                                 <Font size="16.0" />
                             </font></Button>
@@ -37,7 +37,7 @@
                             <font>
                                 <Font size="16.0" />
                             </font></Button>
-                        <Button fx:id="btnNCC" layoutY="261.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="224.0" text="Nhà cung cấp">
+                        <Button fx:id="btnNCC" layoutY="261.0" mnemonicParsing="false" onAction="#callMenu" prefHeight="36.0" prefWidth="224.0" text="Nhà cung cấp">
                             <font>
                                 <Font size="16.0" />
                             </font>
@@ -78,7 +78,7 @@
                         </TableView>
                         <TextField fx:id="textFieldTimKiem" layoutX="37.0" layoutY="32.0" prefHeight="30.0" prefWidth="174.0" promptText="Tìm kiếm..." styleClass="text-field-box" />
                         <Button layoutX="238.0" layoutY="35.0" mnemonicParsing="false" onAction="#timKiem" styleClass="btn" text="Tìm kiếm" />
-                        <Pane fx:id="inforBookContainer" prefHeight="566.0" prefWidth="726.0" AnchorPane.leftAnchor="0.0">
+                        <Pane fx:id="inforContainer" prefHeight="566.0" prefWidth="726.0" AnchorPane.leftAnchor="0.0">
                             <children>
                                 <Pane layoutX="162.0" layoutY="69.0" prefHeight="476.0" prefWidth="332.0">
                                     <children>
