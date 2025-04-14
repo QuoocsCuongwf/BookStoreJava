@@ -28,9 +28,9 @@ import java.util.*;
 @Controller
 public class NhaCungCapController implements Initializable {
     //duyen
-    @FXML private Button btnThongKe,btnNhanVien,btnSanPham,btnKhachHang,btnNCC,btnTacGia,btnHoaDon,btnTHD;
-          private LeftMenuController leftMenuController;
-    @FXML private AnchorPane anchorPaneMenu;
+//    @FXML private Button btnThongKe,btnNhanVien,btnSanPham,btnKhachHang,btnNCC,btnTacGia,btnHoaDon,btnTHD;
+//          private LeftMenuController leftMenuController;
+//    @FXML private AnchorPane anchorPaneMenu;
     // duyen
 
     @FXML private Pane inforContainer;
@@ -85,8 +85,8 @@ public class NhaCungCapController implements Initializable {
         btnDeleteNhaCungCap.setOnAction(event -> deleteNhaCungCap());
         btnUpdateNhaCungCap.setOnAction(event -> updateNhaCungCap());
         // duyen
-        leftMenuController = new LeftMenuController();
-        addLeftMenuListInClass();
+//        leftMenuController = new LeftMenuController();
+        //addLeftMenuListInClass();
 
     }
 
@@ -276,12 +276,12 @@ public class NhaCungCapController implements Initializable {
     public void addLeftMenuListInClass(){
 //        leftMenuController.addButtonStorageList(btnNhanVien,"/NhanVien.fxml");
 //        leftMenuController.addButtonStorageList(btnSanPham,"/SanPham.fxml");
-        leftMenuController.addButtonStorageList(btnKhachHang,"/KhachHang.fxml");
-        leftMenuController.addButtonStorageList(btnNCC,"/NhaCungCap.fxml");
+//        leftMenuController.addButtonStorageList(btnKhachHang,"/KhachHang.fxml");
+//        leftMenuController.addButtonStorageList(btnNCC,"/NhaCungCap.fxml");
 //        leftMenuController.addButtonStorageList(btnTacGia,"/TacGia.fxml");
     }
-    public void callMenu(ActionEvent actionEvent) {
-        Button buttonClicked = (Button) actionEvent.getSource();
-        leftMenuController.linkButtonStorageToFxml(buttonClicked);
-    }
+//    public void callMenu(ActionEvent actionEvent) {
+//        Button buttonClicked = (Button) actionEvent.getSource();
+//        leftMenuController.linkButtonStorageToFxml(buttonClicked);
+//    }
 }
