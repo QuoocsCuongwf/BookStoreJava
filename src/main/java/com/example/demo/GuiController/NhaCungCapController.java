@@ -7,10 +7,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import org.springframework.stereotype.Component;
@@ -24,6 +27,12 @@ import java.util.*;
 @Component
 @Controller
 public class NhaCungCapController implements Initializable {
+    //duyen
+//    @FXML private Button btnThongKe,btnNhanVien,btnSanPham,btnKhachHang,btnNCC,btnTacGia,btnHoaDon,btnTHD;
+//          private LeftMenuController leftMenuController;
+//    @FXML private AnchorPane anchorPaneMenu;
+    // duyen
+
     @FXML private Pane inforContainer;
     @FXML private TableView<NhaCungCap> tableView;
     @FXML private TableColumn<NhaCungCap, String> maNCCColumn;
@@ -31,7 +40,6 @@ public class NhaCungCapController implements Initializable {
     @FXML private TableColumn<NhaCungCap, String> diaChiColumn;
     @FXML private TableColumn<NhaCungCap, String> sdtColumn;
     @FXML private TableColumn<NhaCungCap, String> emailColumn;
-
     @FXML private TextField textFieldMaNCC, textFieldTenNCC, textFieldDiaChi, textFieldSDT, textFieldEmail, textFieldTimKiem;
     @FXML private HBox inforFormButtonContainer;
     @FXML private Button btnAddNhaCungCap;
@@ -76,6 +84,10 @@ public class NhaCungCapController implements Initializable {
 
         btnDeleteNhaCungCap.setOnAction(event -> deleteNhaCungCap());
         btnUpdateNhaCungCap.setOnAction(event -> updateNhaCungCap());
+        // duyen
+//        leftMenuController = new LeftMenuController();
+        //addLeftMenuListInClass();
+
     }
 
     public List<NhaCungCap> convertJsonToList(String json) {
@@ -260,4 +272,16 @@ public class NhaCungCapController implements Initializable {
         alert.setTitle(title); alert.setHeaderText(header); alert.setContentText(content);
         alert.showAndWait();
     }
+    //duyen
+    public void addLeftMenuListInClass(){
+//        leftMenuController.addButtonStorageList(btnNhanVien,"/NhanVien.fxml");
+//        leftMenuController.addButtonStorageList(btnSanPham,"/SanPham.fxml");
+//        leftMenuController.addButtonStorageList(btnKhachHang,"/KhachHang.fxml");
+//        leftMenuController.addButtonStorageList(btnNCC,"/NhaCungCap.fxml");
+//        leftMenuController.addButtonStorageList(btnTacGia,"/TacGia.fxml");
+    }
+//    public void callMenu(ActionEvent actionEvent) {
+//        Button buttonClicked = (Button) actionEvent.getSource();
+//        leftMenuController.linkButtonStorageToFxml(buttonClicked);
+//    }
 }

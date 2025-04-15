@@ -6,7 +6,7 @@ import com.example.demo.model.KhachHang;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-//xong
+
 public class KhachHangServices {
     List<KhachHang> listKhachHang = new ArrayList<>();
     KhachHangDAO khachHangDAO=new KhachHangDAO();
@@ -62,7 +62,6 @@ public class KhachHangServices {
         khachHang.setDiachi("TPHCM");
         khachHang.setEmail("khachhang@gmail.com");
         khachHang.setSdt("0987651212");
-        khachHangServices.addKhachHang(khachHang);
     }
 
 }

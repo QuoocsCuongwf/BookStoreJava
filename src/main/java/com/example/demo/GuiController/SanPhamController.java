@@ -4,24 +4,19 @@ import com.example.demo.model.NhaXuatBan;
 import com.example.demo.model.SanPham;
 import com.example.demo.model.TacGia;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.json.DupDetector;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
-import javafx.stage.Stage;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 
@@ -57,7 +52,8 @@ public class SanPhamController {
     @FXML
     private TextField textFieldMaSach, textFieldTenSach, textFieldDonGia, textFieldMaTG, textFieldMaNXB, textFieldSoTrang, textFieldMaTL;
     private ObservableList<SanPham> data;
-
+    @FXML
+    private TextField textFieldTimKiem;
     @FXML
     private ImageView iconfolder;
     @FXML
@@ -65,12 +61,20 @@ public class SanPhamController {
     @FXML
     private Button btnThoatFormThemSach;
     @FXML
-    private Button btnThemSach;
+    private Button btnAddBook;
     @FXML
-    private Pane inforBookContainer;
-
+    private Pane inforContainer;
+    @FXML
+    private HBox inforFormButtonContainer;
+    @FXML
+    private Label labelAnhBia;
+    @FXML
+    private ImageView imgAnhBia;
     private List<SanPham> listSanPham=new ArrayList<SanPham>();
     private String pathImage = "";
+
+    private Button btnDeleteBook=new Button("    Xóa    ");
+    private Button btnUpdateBook=new Button("Cập nhật");
 
     @FXML
     public void initialize() {
@@ -98,14 +102,24 @@ public class SanPhamController {
         data=FXCollections.observableArrayList(listSanPham);
         tableView.setItems(data);
 
-        inforBookContainer.setVisible(false);
+        inforContainer.setVisible(false);
 
-        btnThoatFormThemSach.setOnAction(event -> thoatFormThemSach(event));
-        btnThemSach.setOnAction(event -> inforBookContainer.setVisible(true));
+        btnAddBook.setOnAction(event -> inforContainer.setVisible(true));
         Image image = new Image("file:/D:\\java\\BookStoreJava\\src\\main\\resources\\asset\\img\\folder.png");
         if (image.isError()) {
             System.out.println("Error loading image: " + image.getException());
         }
+
+        tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                showSelectedItem(newValue);
+//                listenerChangeValuesOfBook();
+                // Thực hiện các hành động khác với dữ kiện được chọn
+            } else {
+                System.out.println("No item selected!");
+            }
+        });
+
 
         CallApi callApi=new CallApi();
         String json;
@@ -137,7 +151,6 @@ public class SanPhamController {
         }
         return listSanPham;
     }
-
     public void chonFile(ActionEvent actionEvent) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg"));
@@ -154,8 +167,22 @@ public class SanPhamController {
 
     }
 
-    public void thoatFormThemSach(ActionEvent actionEvent) {
-        inforBookContainer.setVisible(false);
+    public void clossInforContainer() {
+        int index = inforFormButtonContainer.getChildren().indexOf(btnDeleteBook);
+        if (index >= 0) {
+            inforFormButtonContainer.getChildren().set(index, btnAddBook);
+        }
+        inforContainer.setVisible(false);
+    }
+    public void openInforContainer() {
+        textFieldMaSach.setText("");
+        textFieldTenSach.setText("");
+        textFieldDonGia.setText("");
+        textFieldMaNXB.setText("");
+        textFieldMaTG.setText("");
+        textFieldSoTrang.setText("");
+        textFieldMaTL.setText("");
+        inforContainer.setVisible(true);
     }
 
     public void themSach() {
@@ -194,23 +221,55 @@ public class SanPhamController {
             }
         };
      }
-    public void loadTacGiaFXML(ActionEvent event) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("TacGia.fxml"));
-            Parent root = loader.load();
-
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show();
-
-        } catch (IOException e) {
-            e.printStackTrace();
+//    public void insertSanPham() {
+//        SanPham sanPham = new SanPham();
+//        sanPham.setMasp(textFieldMaSach.getText());
+//        sanPham.setTensp(textFieldTenSach.getText());
+//        sanPham.setSl(0);
+//        sanPham.setDongia(Integer.parseInt(textFieldDonGia.getText()));
+//        sanPham.setAnhbia(pathImage);
+//        TacGia tacGia = new TacGia();
+//        CallApi callApi=new CallApi();
+//        String json=callApi.callPostRequestParam("http://localhost:8080/TacGia/timKiem","find=",textFieldMaTG.getText());
+//        TacGiaController tacGiaController=new TacGiaController();
+//        sanPham.setMatg(tacGiaController.convertJsonToListTacGia(json).get(0));
+//        json=callApi.callPostRequestParam("http://localhost:8080")
+//
+//    }
+    public void showSelectedItem(SanPham sanPham) {
+        inforContainer.setVisible(true);
+        textFieldMaSach.setText(sanPham.getMasp());
+        textFieldMaTG.setText(sanPham.getMatg().getMatg());
+        textFieldTenSach.setText(sanPham.getTensp());
+        textFieldMaTL.setText(sanPham.getMatl().getMatl());
+        textFieldMaNXB.setText(sanPham.getManxb().getManxb());
+        textFieldSoTrang.setText(sanPham.getSotrang().toString());
+        textFieldDonGia.setText(sanPham.getDongia().toString());
+        labelAnhBia.setText("");
+        imgAnhBia.setImage(new Image("file:"+sanPham.getAnhbia()));
+        imgAnhBia.setFitHeight(60);
+        imgAnhBia.setFitWidth(40);
+        int index = inforFormButtonContainer.getChildren().indexOf(btnAddBook);
+        if (index >= 0) {
+            inforFormButtonContainer.getChildren().set(index, btnDeleteBook);
+        } else {
+            System.err.println(" error sbtnAddBook không tồn tại trong inforFormButtonContainer!");
+        }
+        index = inforFormButtonContainer.getChildren().indexOf(btnUpdateBook);
+        if (index >= 0) {
+            inforFormButtonContainer.getChildren().set(index, btnDeleteBook);
+        } else {
+            System.err.println("btnDeleteBook không tồn tại trong inforFormButtonContainer!");
         }
     }
 
 
-
+   public void timKiem(){
+        CallApi callApi=new CallApi();
+        String json=callApi.callPostRequestParam("http://localhost:8080/sanPham/search","find=",textFieldTimKiem.getText());
+        data=FXCollections.observableArrayList(convertJsonToSanPham(json));
+        tableView.setItems(data);
+    }
 
 
 

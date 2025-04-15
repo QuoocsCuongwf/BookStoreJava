@@ -97,7 +97,7 @@ public class NhanVienController implements Initializable {
         System.out.println(nhanVienList);
         data = FXCollections.observableArrayList(nhanVienList);
         tableView.setItems(data);
-        btnDeleteNhanVien.setOnAction(event -> deleteNhanVien());
+        btnDeleteNhanVien.setOnAction(event -> deleteNhanVien(btnDeleteNhanVien));
         btnUpdateNhanVien.setOnAction(event -> updateNhanVien());
     }
     public List<NhanVien> convertJsonToListNhanVien(String json) {
@@ -148,7 +148,7 @@ public class NhanVienController implements Initializable {
         });
     }
 
-    public void deleteNhanVien() {
+    public void deleteNhanVien(Button button) {
         int selectedIndex = tableView.getSelectionModel().getSelectedIndex();
         if (selectedIndex >= 0 && selectedIndex < data.size()) {
             NhanVien nhanVien = data.get(selectedIndex);

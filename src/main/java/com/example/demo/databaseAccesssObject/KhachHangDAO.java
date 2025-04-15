@@ -6,8 +6,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+
 import java.util.ArrayList;
 import java.util.List;
 // xong
@@ -17,7 +16,7 @@ public class KhachHangDAO {
     public KhachHangDAO() {}
 
     public List<KhachHang> getListKhachHang(){
-        String values = connectDatabase.query("select * from KHACH_HANG");
+        String values = connectDatabase.query("select * from Khach_Hang");
         ObjectMapper objectMapper = new ObjectMapper();
         try{
             objectMapper.registerModule(new JavaTimeModule());
@@ -40,7 +39,7 @@ public class KhachHangDAO {
                 khachHang.getSdt() + "', '" +
                 khachHang.getDiachi() + "', '" + ")";
 
-        connectDatabase.insert(query);
+       connectDatabase.insert(query);
     }
 
 

@@ -3,10 +3,7 @@ package com.example.demo.BUS.spring_controller;
 
 import com.example.demo.BUS.services.SanPhamServices;
 import com.example.demo.model.SanPham;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -18,5 +15,21 @@ public class SanPhamControllerSpring {
     public List<SanPham> getAllSanPham() {
         System.out.println("add sucess");
         return sanPhamServices.getListSanPham();
+    }
+    @PostMapping("/search")
+    public List<SanPham> search(@RequestParam String find) {
+        return sanPhamServices.searchSanPham(find);
+    }
+    @PostMapping("/update")
+    public void updateSanPham(@RequestBody SanPham sanPham) {
+        sanPhamServices.updateSanPham(sanPham);
+    }
+    @PostMapping("/delete")
+    public void deleteSanPham(@RequestParam String maSanPham) {
+        sanPhamServices.deleteSanPham(maSanPham);
+    }
+    @PostMapping("/insert")
+    public void insertSanPham(@RequestBody SanPham sanPham) {
+        sanPhamServices.insertSanPham(sanPham);
     }
 }

@@ -42,6 +42,7 @@
                 </AnchorPane>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                     <children>
+                  <Button fx:id="btnThemSach" layoutX="600.0" layoutY="126.0" mnemonicParsing="false" onAction="#openInforContainer" styleClass="btn" text="Icon Thêm sách" />
                         <TableView fx:id="tableView" layoutY="171.0" prefHeight="409.0" prefWidth="742.0" AnchorPane.leftAnchor="0.0">
                             <columns>
                                 <TableColumn fx:id="anhBia" prefWidth="101.6000549197197" text="Ảnh bìa" />
@@ -52,9 +53,9 @@
                                 <TableColumn fx:id="tacGiaColumn" prefWidth="100.79997253417969" text="Tác giả" />
                             </columns>
                         </TableView>
-                  <TextField layoutX="37.0" layoutY="32.0" prefHeight="30.0" prefWidth="174.0" promptText="Tìm kiếm..." styleClass="text-field-box" />
-                  <Button layoutX="238.0" layoutY="35.0" mnemonicParsing="false" styleClass="btn" text="Tìm kiếm" />
-                  <Pane fx:id="inforBookContainer" layoutX="-3.0" prefHeight="566.0" prefWidth="726.0" AnchorPane.leftAnchor="0.0">
+                  <TextField fx:id="textFieldTimKiem" layoutX="37.0" layoutY="32.0" prefHeight="30.0" prefWidth="174.0" promptText="Tìm kiếm..." styleClass="text-field-box" />
+                  <Button layoutX="238.0" layoutY="35.0" mnemonicParsing="false" onAction="#timKiem" styleClass="btn" text="Tìm kiếm" />
+                  <Pane fx:id="inforContainer" layoutX="-3.0" prefHeight="566.0" prefWidth="726.0" AnchorPane.leftAnchor="0.0">
                      <children>
                         <VBox fx:id="themSach" layoutX="180.0" layoutY="78.0" prefHeight="305.0" prefWidth="394.0" spacing="20.0" style="-fx-background-color: FF4040;" styleClass="form-container">
                            <children>
@@ -80,7 +81,11 @@
                               </HBox>
                               <FlowPane prefHeight="0.0" prefWidth="354.0">
                                  <children>
-                                    <Label prefHeight="26.0" prefWidth="47.0" text="Ảnh bìa" />
+                                    <Label fx:id="labelAnhBia" prefHeight="26.0" prefWidth="47.0" text="Ảnh bìa" >
+                                        <graphic>
+                                            <ImageView fx:id="imgAnhBia" fitHeight="15" fitWidth="15" />
+                                        </graphic>
+                                    </Label>
                                      <Button fx:id="btnChonFile" mnemonicParsing="false" onAction="#chonFile" prefHeight="29.0" prefWidth="51.0" styleClass="btn">
                                          <graphic>
                                              <ImageView fx:id="iconfolder" fitHeight="15" fitWidth="15" />
@@ -117,10 +122,10 @@
                                     <TextField fx:id="textFieldMaTL" prefHeight="34.0" prefWidth="234.0" promptText="Thể loại" styleClass="text-field-box" />
                                  </children>
                               </HBox>
-                              <HBox alignment="CENTER" prefHeight="75.0" prefWidth="354.0" spacing="15.0">
+                              <HBox fx:id="inforFormButtonContainer" alignment="CENTER" prefHeight="75.0" prefWidth="354.0" spacing="15.0">
                                  <children>
-                                    <Button mnemonicParsing="false" onAction="#themSach" styleClass="btn" text="Thêm" />
-                                    <Button fx:id="btnThoatFormThemSach" mnemonicParsing="false" styleClass="btn" text="Thoát" />
+                                    <Button fx:id="btnAddBook" mnemonicParsing="false" onAction="#themSach" styleClass="btn" text="Thêm" />
+                                    <Button fx:id="btnThoatFormThemSach" mnemonicParsing="false" onAction="#clossInforContainer" styleClass="btn" text="Thoát" />
                                  </children>
                               </HBox>
                            </children>
@@ -130,7 +135,6 @@
                         </VBox>
                      </children>
                   </Pane>
-                  <Button fx:id="btnThemSach" layoutX="600.0" layoutY="126.0" mnemonicParsing="false" styleClass="btn" text="Icon Thêm sách" />
                     </children>
                 </AnchorPane>
             </items>

@@ -14,9 +14,11 @@ public class SanPhamServices {
         listSanPham=sanPhamDAO.getListSanPham();
         return listSanPham;
     }
-    public String insertSanPham(SanPham nhanVien) {
-        if(!findBySanPham(nhanVien.getMasp())){
-
+    public String insertSanPham(SanPham sanPham) {
+        if(!findBySanPham(sanPham.getMasp())){
+            listSanPham.add(sanPham);
+            sanPhamDAO.insertSanPham(sanPham);
+            return "success";
         };
         return "error";
     }
@@ -29,9 +31,39 @@ public class SanPhamServices {
         return false;
     }
 
-    public static void main(String[] args) {
-        SanPhamServices sanPhamServices=new SanPhamServices();
-        System.out.println("list San Pham");
-        sanPhamServices.getListSanPham();
+    public void deleteSanPham(String maSanPham) {
+        if(!findBySanPham(maSanPham)){
+            for (SanPham sanPham : listSanPham) {
+                if (sanPham.getMasp().equals(maSanPham)) {
+                    listSanPham.remove(sanPham);
+                    break;
+                }
+            }
+            sanPhamDAO.deleteSanPham(maSanPham);
+        }
+    }
+
+    public void updateSanPham(SanPham sanPham) {
+            for (SanPham sanPham1 : listSanPham) {
+                if (sanPham1.getMasp().equals(sanPham.getMasp())) {
+                    listSanPham.remove(sanPham1);
+                    listSanPham.add(sanPham);
+                    break;
+                }
+            sanPhamDAO.updateSanPham(sanPham);
+        }
+    }
+
+    public List<SanPham> searchSanPham(String find) {
+        List<SanPham> resultSearch=new ArrayList<>();
+        for (SanPham sanPham : listSanPham) {
+            if (sanPham.getMasp().equals(find)) {
+                resultSearch.add(sanPham);
+            }
+            if (sanPham.getTensp().contains(find)) {
+                resultSearch.add(sanPham);
+            }
+        }
+        return resultSearch;
     }
 }
