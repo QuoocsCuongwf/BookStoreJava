@@ -48,7 +48,7 @@ public class KhachHangController implements Initializable {
 
     @FXML
     private TableColumn<KhachHang, String> hoKhachHangColumn,emailKhachHangColumn,
-            tenKhachHangColumn,diaChiKhachHangColumn;
+            tenKhachHangColumn,diaChiKhachHangColumn,sdtKhachHangColumn;
     @FXML
     private TableColumn<KhachHang,Integer> maKhachHangColumn;
 
@@ -57,8 +57,7 @@ public class KhachHangController implements Initializable {
             txt_emailKhachHang,txt_sdtKhachHang,txt_timKiemKhachHang;
 
     @FXML
-    private Button btn_themKhachHang,btn_capNhatKhachHang,btn_xoaKhachHang,
-            btn_timKiemKhachHang,btn_danhSachKhachHang;
+    private Button  btn_timKiemKhachHang;
 
     @FXML
     private Button btnAddKhachHang;
@@ -66,7 +65,7 @@ public class KhachHangController implements Initializable {
     private Button btnDeleteKhachHang = new Button("xoa");
     private Button btnUpdateKhachHang = new Button("cap nhat");
 
-    public void themKhachHang(ActionEvent actionEvent) {}
+//    public void themKhachHang(ActionEvent actionEvent) {}
 
 
     @Override
@@ -75,8 +74,9 @@ public class KhachHangController implements Initializable {
         maKhachHangColumn.setCellValueFactory( new PropertyValueFactory<>("makh"));
         hoKhachHangColumn.setCellValueFactory( new PropertyValueFactory<>("hokh"));
         tenKhachHangColumn.setCellValueFactory( new PropertyValueFactory<>("tenkh"));
-        emailKhachHangColumn.setCellValueFactory( new PropertyValueFactory<>("makh"));
-        diaChiKhachHangColumn.setCellValueFactory( new PropertyValueFactory<>("makh"));
+        emailKhachHangColumn.setCellValueFactory( new PropertyValueFactory<>("email"));
+        diaChiKhachHangColumn.setCellValueFactory( new PropertyValueFactory<>("diachi"));
+        sdtKhachHangColumn.setCellValueFactory( new PropertyValueFactory<>("sdt"));
 
         tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
@@ -244,7 +244,11 @@ public class KhachHangController implements Initializable {
     }
 
 
+    public Button getBtn_timKiemKhachHang() {
+        return btn_timKiemKhachHang;
+    }
 
-
-
+    public void setBtn_timKiemKhachHang(Button btn_timKiemKhachHang) {
+        this.btn_timKiemKhachHang = btn_timKiemKhachHang;
+    }
 }
