@@ -1,5 +1,6 @@
-package com.example.demo.controller;
+package com.example.demo.GuiController;
 
+import com.example.demo.GuiController.LeftMenuController;
 import com.example.demo.model.NhaXuatBan;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -8,6 +9,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -29,7 +31,10 @@ public class NhaXuatBanController implements Initializable {
 
     @FXML
     private Pane inforContainer;
-
+    @FXML
+    private Button btnThongKe, btnKhachHang, btnSanPham, btnNhanVien,
+            btnNCC, btnTacGia, btnHoaDon, btnTHD, btnKhuyenMai;
+    LeftMenuController leftMenuController=new LeftMenuController();
     @FXML
     private Pane nhanVienPane;
     @FXML
@@ -55,7 +60,9 @@ public class NhaXuatBanController implements Initializable {
         diaChiColumn.setCellValueFactory(new PropertyValueFactory<>("diachi"));
         soDienThoaiColumn.setCellValueFactory(new PropertyValueFactory<>("sodienthoai"));
 
-
+        leftMenuController.bindHandlers(btnThongKe, btnKhachHang, btnSanPham,
+                btnNhanVien, btnNCC, btnTacGia,
+                btnHoaDon, btnTHD, btnKhuyenMai);
         tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 System.out.println("Selected Item: " + newValue.getTennxb());

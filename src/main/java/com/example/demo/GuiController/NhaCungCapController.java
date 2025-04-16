@@ -49,9 +49,15 @@ public class NhaCungCapController implements Initializable {
 
     private ObservableList<NhaCungCap> data;
     private List<NhaCungCap> listNhaCungCap = new ArrayList<>();
-
+    @FXML
+    private Button btnThongKe, btnKhachHang, btnSanPham,
+            btnNCC, btnTacGia, btnHoaDon, btnTHD, btnKhuyenMai;
+    LeftMenuController leftMenuController=new LeftMenuController();
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        leftMenuController.bindHandlers(btnThongKe, btnKhachHang, btnSanPham,
+                btnNhanVien, btnNCC, btnTacGia,
+                btnHoaDon, btnTHD, btnKhuyenMai);
         inforContainer.setVisible(false);
         maNCCColumn.setCellValueFactory(new PropertyValueFactory<>("maNhaCungCap"));
         tenNCCColumn.setCellValueFactory(new PropertyValueFactory<>("tenNhaCungCap"));
@@ -85,9 +91,6 @@ public class NhaCungCapController implements Initializable {
 
         btnDeleteNhaCungCap.setOnAction(event -> deleteNhaCungCap());
         btnUpdateNhaCungCap.setOnAction(event -> updateNhaCungCap());
-
-        LeftMenuController leftMenuController = new LeftMenuController();
-        leftMenuController.addButtonStorageList(btnNhanVien,"NhanVien.fxml");
 
     }
 

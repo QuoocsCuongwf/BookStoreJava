@@ -70,9 +70,15 @@ public class TacGiaController implements Initializable {
 
     private Button btnDeleteTacGia = new Button("    Xóa    ");
     private Button btnUpdateTacGia = new Button("Cập nhật");
-
+    @FXML
+    private Button btnThongKe, btnKhachHang, btnSanPham, btnNhanVien,
+            btnNCC, btnTacGia, btnHoaDon, btnTHD, btnKhuyenMai;
+    LeftMenuController leftMenuController=new LeftMenuController();
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        leftMenuController.bindHandlers(btnThongKe, btnKhachHang, btnSanPham,
+                btnNhanVien, btnNCC, btnTacGia,
+                btnHoaDon, btnTHD, btnKhuyenMai);
         inforContainer.setVisible(false);
         maTacGiaColumn.setCellValueFactory(new PropertyValueFactory<>("matg"));
         hoTacGiaColumn.setCellValueFactory(new PropertyValueFactory<>("hotg"));

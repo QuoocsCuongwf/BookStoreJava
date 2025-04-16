@@ -53,6 +53,9 @@ public class SanPhamController {
     private TextField textFieldMaSach, textFieldTenSach, textFieldDonGia, textFieldMaTG, textFieldMaNXB, textFieldSoTrang, textFieldMaTL;
     private ObservableList<SanPham> data;
     @FXML
+    private Button btnThongKe, btnKhachHang, btnSanPham, btnNhanVien,
+            btnNCC, btnTacGia, btnHoaDon, btnTHD, btnKhuyenMai;
+    @FXML
     private TextField textFieldTimKiem;
     @FXML
     private ImageView iconfolder;
@@ -75,7 +78,7 @@ public class SanPhamController {
 
     private Button btnDeleteBook=new Button("    Xóa    ");
     private Button btnUpdateBook=new Button("Cập nhật");
-
+    private LeftMenuController leftMenuController=new LeftMenuController();
     @FXML
     public void initialize() {
 
@@ -98,10 +101,12 @@ public class SanPhamController {
         tacGiaColumn.setCellValueFactory(new PropertyValueFactory<>("matg"));
 
         anhBia.setCellValueFactory(new PropertyValueFactory<>("anhbia"));
-
+        btnDeleteBook.setOnAction(event->deleteSanPham());
         data=FXCollections.observableArrayList(listSanPham);
         tableView.setItems(data);
-
+        leftMenuController.bindHandlers(btnThongKe, btnKhachHang, btnSanPham,
+                btnNhanVien, btnNCC, btnTacGia,
+                btnHoaDon, btnTHD, btnKhuyenMai);
         inforContainer.setVisible(false);
 
         btnAddBook.setOnAction(event -> inforContainer.setVisible(true));
@@ -270,6 +275,23 @@ public class SanPhamController {
         data=FXCollections.observableArrayList(convertJsonToSanPham(json));
         tableView.setItems(data);
     }
+   public void deleteSanPham(){
+        String maSanPham=textFieldMaSach.getText();
+        System.out.println(maSanPham);
+        SanPham sanPham=new SanPham();
+       for (int i = 0; i < listSanPham.size(); i++) {
+           if (listSanPham.get(i).equals(maSanPham)) {
+               sanPham=listSanPham.get(i);
+               break;
+           }
+       }
+       System.out.println(sanPham);
+       data.remove(sanPham);
+       listSanPham.remove(sanPham);
+       tableView.setItems(data);
+       CallApi callApi=new CallApi();
+       callApi.callPostRequestParam("http://localhost:8080/sanPham/delete","maSanPham=",maSanPham);
+   }
 
 
 

@@ -69,10 +69,15 @@ public class KhachHangController implements Initializable {
     private Button btnUpdateKhachHang = new Button("cap nhat");
 
 //    public void themKhachHang(ActionEvent actionEvent) {}
-
-
+    @FXML
+    private Button btnThongKe, btnKhachHang, btnSanPham, btnNhanVien,
+            btnNCC, btnTacGia, btnHoaDon, btnTHD, btnKhuyenMai;
+    LeftMenuController leftMenuController=new LeftMenuController();
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        leftMenuController.bindHandlers(btnThongKe, btnKhachHang, btnSanPham,
+                btnNhanVien, btnNCC, btnTacGia,
+                btnHoaDon, btnTHD, btnKhuyenMai);
         inforContainerKhachHang.setVisible(false);
         maKhachHangColumn.setCellValueFactory( new PropertyValueFactory<>("makh"));
         hoKhachHangColumn.setCellValueFactory( new PropertyValueFactory<>("hokh"));

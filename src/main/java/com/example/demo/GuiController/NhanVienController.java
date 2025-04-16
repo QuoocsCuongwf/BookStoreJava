@@ -66,9 +66,15 @@ public class NhanVienController implements Initializable {
 
     private Button btnDeleteNhanVien=new Button("    Xóa    ");
     private Button btnUpdateNhanVien=new Button("Cập nhật");
-
+    @FXML
+    private Button btnThongKe, btnKhachHang, btnSanPham, btnNhanVien,
+            btnNCC, btnTacGia, btnHoaDon, btnTHD, btnKhuyenMai;
+    LeftMenuController leftMenuController=new LeftMenuController();
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        leftMenuController.bindHandlers(btnThongKe, btnKhachHang, btnSanPham,
+                btnNhanVien, btnNCC, btnTacGia,
+                btnHoaDon, btnTHD, btnKhuyenMai);
         inforContainer.setVisible(false);
         maNhanVienColumn.setCellValueFactory(new PropertyValueFactory<>("manv"));
         tenNhanVienColumn.setCellValueFactory(new PropertyValueFactory<>("tennv"));
@@ -277,26 +283,6 @@ public class NhanVienController implements Initializable {
         data=FXCollections.observableArrayList(convertJsonToListNhanVien(json));
         tableView.setItems(data);
     }
-    public void loadTacGiaFXML(ActionEvent event) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/TacGia.fxml"));
-            Parent root = loader.load();
-
-
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            Scene scene = new Scene(root);
-            scene.getStylesheets().add(getClass().getResource("/asset/css/main.css").toExternalForm());
-            stage.setScene(scene);
-            stage.show();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-
-
-
 
 
 }
