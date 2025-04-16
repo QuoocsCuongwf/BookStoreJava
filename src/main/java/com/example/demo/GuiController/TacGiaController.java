@@ -159,7 +159,7 @@ public class TacGiaController implements Initializable {
         int selectedIndex = tableView.getSelectionModel().getSelectedIndex();
         if (selectedIndex >= 0 && selectedIndex < data.size()) {
             TacGia tacGia = data.get(selectedIndex);
-            System.out.println("Nhan vien selected " + tacGia.getMatg());
+            System.out.println("Tac Gia selected " + tacGia.getMatg());
             CallApi callApi = new CallApi();
             String result = callApi.callPostRequestParam("http://localhost:8080/TacGia/Delete", "maTacGia=",tacGia.getMatg());
             data.remove(selectedIndex);

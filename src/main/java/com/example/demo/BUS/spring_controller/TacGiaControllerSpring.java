@@ -1,6 +1,5 @@
 package com.example.demo.BUS.spring_controller;
 
-import com.example.demo.model.NhanVien;
 import com.example.demo.model.TacGia;
 import com.example.demo.BUS.services.TacGiaServices;
 import org.springframework.web.bind.annotation.*;
@@ -9,7 +8,7 @@ import java.util.List;
 @RestController
 @RequestMapping("TacGia")
 
-public class TacGiaControllerSping {
+public class TacGiaControllerSpring {
     TacGiaServices tacGiaServices = new TacGiaServices();
     @GetMapping("/getAllTacGia")
     public List<TacGia> getAllTacGia() {
