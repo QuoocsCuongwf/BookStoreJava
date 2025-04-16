@@ -43,6 +43,7 @@ public class NhaCungCapController implements Initializable {
     @FXML private TextField textFieldMaNCC, textFieldTenNCC, textFieldDiaChi, textFieldSDT, textFieldEmail, textFieldTimKiem;
     @FXML private HBox inforFormButtonContainer;
     @FXML private Button btnAddNhaCungCap;
+    @FXML private Button btnNhanVien;
     private Button btnDeleteNhaCungCap = new Button("Xóa");
     private Button btnUpdateNhaCungCap = new Button("Cập nhật");
 
@@ -84,9 +85,9 @@ public class NhaCungCapController implements Initializable {
 
         btnDeleteNhaCungCap.setOnAction(event -> deleteNhaCungCap());
         btnUpdateNhaCungCap.setOnAction(event -> updateNhaCungCap());
-        // duyen
-//        leftMenuController = new LeftMenuController();
-        //addLeftMenuListInClass();
+
+        LeftMenuController leftMenuController = new LeftMenuController();
+        leftMenuController.addButtonStorageList(btnNhanVien,"NhanVien.fxml");
 
     }
 

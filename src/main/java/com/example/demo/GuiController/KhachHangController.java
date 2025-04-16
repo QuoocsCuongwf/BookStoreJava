@@ -19,6 +19,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.net.URL;
@@ -28,6 +29,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 
+@Component
 public class KhachHangController implements Initializable {
 
     @FXML
@@ -63,7 +65,7 @@ public class KhachHangController implements Initializable {
     @FXML
     private Button btnAddKhachHang;
 
-    private Button btnDeleteKhachHang = new Button("xoa");
+    private Button btnDeleteKhachHang = new Button("   xoa  ");
     private Button btnUpdateKhachHang = new Button("cap nhat");
 
 //    public void themKhachHang(ActionEvent actionEvent) {}
@@ -101,6 +103,7 @@ public class KhachHangController implements Initializable {
         tableView.setItems(data);
         btnDeleteKhachHang.setOnAction(event ->deleteKhachHang() );
         //xong
+
     }
     public void deleteKhachHang(){
         int indexSelected = tableView.getSelectionModel().getSelectedIndex();
@@ -195,7 +198,7 @@ public class KhachHangController implements Initializable {
         txt_sdtKhachHang.setText(newValue.getSdt());
         txt_diaChiKhachHang.setText(newValue.getDiachi());
 
-        int index = inforContainerKhachHang.getChildren().indexOf(btnAddKhachHang);
+        int index = inforFormButtonContainer.getChildren().indexOf(btnAddKhachHang);
         if (index >= 0) {
             inforFormButtonContainer.getChildren().set(index,btnDeleteKhachHang);
         }
