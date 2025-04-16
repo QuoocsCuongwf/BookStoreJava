@@ -6,21 +6,13 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@Entity
-@Table(name = "CHI_TIET_PHIEU_NHAP")
 public class ChiTietPhieuNhap {
     @EmbeddedId
     private ChiTietPhieuNhapId id;
 
-    @MapsId("mapn")
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "MAPN", nullable = false)
-    private com.example.demo.model.PhieuNhap mapn;
+    private String mapn;
 
-    @MapsId("masp")
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "MASP", nullable = false)
-    private com.example.demo.model.SanPham masp;
+    private String masp;
 
     @Column(name = "DONGIA")
     private Integer dongia;

@@ -1,6 +1,7 @@
 package com.example.demo.GuiController;
 
 import com.example.demo.model.NhaXuatBan;
+import com.example.demo.model.NhanVien;
 import com.example.demo.model.SanPham;
 import com.example.demo.model.TacGia;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -276,21 +277,18 @@ public class SanPhamController {
         tableView.setItems(data);
     }
    public void deleteSanPham(){
-        String maSanPham=textFieldMaSach.getText();
-        System.out.println(maSanPham);
-        SanPham sanPham=new SanPham();
-       for (int i = 0; i < listSanPham.size(); i++) {
-           if (listSanPham.get(i).equals(maSanPham)) {
-               sanPham=listSanPham.get(i);
-               break;
-           }
+       int selectedIndex = tableView.getSelectionModel().getSelectedIndex();
+       if (selectedIndex >= 0 && selectedIndex < data.size()) {
+           SanPham sanPham = data.get(selectedIndex);
+           System.out.println("Nhan vien selected "+sanPham.getMasp());
+           CallApi callApi=new CallApi();
+           String result=callApi.callPostRequestParam("http://localhost:8080/sanPham/delete","maSanPham=",sanPham.getMasp());
+           data.remove(selectedIndex);// Optional: remove from ObservableList to update the table
+           listSanPham.remove(selectedIndex);
+           tableView.getSelectionModel().clearSelection();
+       } else {
+           System.out.println("No valid selection!");
        }
-       System.out.println(sanPham);
-       data.remove(sanPham);
-       listSanPham.remove(sanPham);
-       tableView.setItems(data);
-       CallApi callApi=new CallApi();
-       callApi.callPostRequestParam("http://localhost:8080/sanPham/delete","maSanPham=",maSanPham);
    }
 
 

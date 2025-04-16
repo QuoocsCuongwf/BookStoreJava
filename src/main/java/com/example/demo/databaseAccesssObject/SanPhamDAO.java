@@ -36,8 +36,9 @@ public class SanPhamDAO {
     }
 
     public void deleteSanPham(String maSanPham) {
-        String sql = "delete from sanPham where maSanPham='"+maSanPham+"'";
-        cnn.update(sql);
+        String sql = "delete from san_pham where masp='"+maSanPham+"'";
+        System.out.println(sql);
+        cnn.insert(sql);
     }
     public void insertSanPham(SanPham sp) {
         String sql = "INSERT INTO SAN_PHAM (MASP, TENSP, SL, MATL, MATG, MANXB, NAMXB, DONGIA, SOTRANG, ANHBIA) VALUES (" +

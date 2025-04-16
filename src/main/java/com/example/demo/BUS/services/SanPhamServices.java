@@ -32,7 +32,7 @@ public class SanPhamServices {
     }
 
     public void deleteSanPham(String maSanPham) {
-        if(!findBySanPham(maSanPham)){
+        if(findBySanPham(maSanPham)){
             for (SanPham sanPham : listSanPham) {
                 if (sanPham.getMasp().equals(maSanPham)) {
                     listSanPham.remove(sanPham);
@@ -40,6 +40,7 @@ public class SanPhamServices {
                 }
             }
             sanPhamDAO.deleteSanPham(maSanPham);
+            System.out.println("delete: "+maSanPham);
         }
     }
 

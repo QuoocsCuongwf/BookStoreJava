@@ -24,8 +24,6 @@
 //    @FXML
 //    private TableColumn<TableChiTietHoaDon, Integer> maSachColumn;
 //    @FXML
-//    private TableColumn<TableChiTietHoaDon,  String> tenSachColumn;
-//    @FXML
 //    private TableColumn<TableChiTietHoaDon, Integer> donGiaColumn;
 //    @FXML
 //    private TableColumn<TableChiTietHoaDon,Integer> soLuongColumn;
