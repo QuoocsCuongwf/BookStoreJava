@@ -9,15 +9,16 @@ import lombok.Setter;
 @Entity
 @Table(name = "KM_THEO_HOA_DON")
 public class KmTheoHoaDon {
+
     @EmbeddedId
     private KmTheoHoaDonId id;
 
-    @MapsId("mactkm")
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "MACTKM", nullable = false)
-    private ChuongTrinhKhuyenMai mactkm;
+    @Column(name = "MACTKM", insertable = false, updatable = false)
+    private String mactkm;
 
     @Column(name = "PHANTRAMKHUYENMAI")
     private Double phantramkhuyenmai;
 
+    @Column(name = "TONGTIEN")
+    private Double tongtien;
 }
