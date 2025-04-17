@@ -77,10 +77,19 @@ public class ConnectDatabase {
         return jsonString;
     }
 
-    public void update(String query){
-        if(conn == null){new ConnectDatabase();}
-
+    public void update(String query) {
+        if (conn == null) {
+            new ConnectDatabase(); // tuy nhiên đoạn này không hiệu quả, giải thích bên dưới
+        }
+        try {
+            PreparedStatement stmt = conn.prepareStatement(query);
+            int rowsAffected = stmt.executeUpdate();
+            System.out.println("Updated " + rowsAffected + " rows.");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
+
 
 }
 //spring.datasource.url=jdbc:sqlserver://localhost:1433;databaseName=bookstore;encrypt=true;trustServerCertificate=true;

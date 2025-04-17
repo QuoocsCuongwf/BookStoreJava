@@ -46,17 +46,26 @@ public class NhanVienDAO {
     }
 
     public void updateNhanVien(NhanVien nhanVien) {
-        String query="UPDATE NHAN_VIEN" +
-                "SET TENNV='"+nhanVien.getTennv()
-                +"', CCCD='"+nhanVien.getCccd()
-                +"', CHUCVU='"+nhanVien.getChucvu()
-                +"', MAIL='"+nhanVien.getMail()
-                +"', LUONG='"+nhanVien.getLuong()
-                +"' NGAYVAOLAM='"+nhanVien.getNgayvaolam()
-                +"WHERE MANV='"+nhanVien.getManv()+"'";
+        String query="UPDATE NHAN_VIEN SET "
+                + "TENNV='" + nhanVien.getTennv() + "', "
+                + "HONV='" + nhanVien.getHonv() + "', "
+                + "CCCD='" + nhanVien.getCccd() + "', "
+                + "CHUCVU='" + nhanVien.getChucvu() + "', "
+                + "MAIL='" + nhanVien.getMail() + "', "
+                + "LUONG='" + nhanVien.getLuong() + "', "
+                + "NGAYVAOLAM='" + nhanVien.getNgayvaolam() + "' "
+                + "WHERE MANV='" + nhanVien.getManv() + "'";
+
         condb.update(query);
 
     }
+
+    public static void main(String[] args) {
+        ConnectDatabase db = new ConnectDatabase();
+        db.update("UPDATE Nhan_Vien SET tennv = 'Nguyen Van B' WHERE manv = 'NV01'");
+
+    }
+
 
 
 

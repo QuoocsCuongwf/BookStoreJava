@@ -30,7 +30,7 @@ import java.util.*;
 
 @Component
 @Controller
-class NhanVienController implements Initializable {
+public class NhanVienController implements Initializable {
 
     @FXML
     private Pane inforContainer;
@@ -190,12 +190,19 @@ class NhanVienController implements Initializable {
         CallApi callApi=new CallApi();
         String resultApi=callApi.callPostRequestBody("http://localhost:8080/nhanVien/Update",convertNhanVienToJson(nhanVien));
         if (resultApi.contains("Success")) {
-            nhanVienList.add(nhanVien);
-            data.add(nhanVien);
+            for (int i = 0; i < nhanVienList.size(); i++) {
+                if (nhanVienList.get(i).getManv().equals(nhanVien.getManv())) {
+                    nhanVienList.set(i, nhanVien); // thay thế đúng phần tử
+                    break;
+                }
+            }
+            showMessage("Success","Sua sach thanh cong",resultApi);
+            data = FXCollections.observableArrayList(nhanVienList);
+            tableView.setItems(data);
         }
     }
     public void openInforContainer(){
-        textFieldMaNhanVien.setText("");
+        textFieldMaNhanVien.setText("NV"+nhanVienList.size()+1);
         textFieldTenNhanVien.setText("");
         textFieldHoNhanVien.setText("");
         textFieldChucVu.setText("");

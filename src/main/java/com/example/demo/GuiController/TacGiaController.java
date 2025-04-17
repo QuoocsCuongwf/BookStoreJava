@@ -170,7 +170,7 @@ public class TacGiaController implements Initializable {
     }
 
     public void openInforContainer() {
-        txt_MaTacGia.setText("");
+        txt_MaTacGia.setText("TG"+tacGiaList.size()+1);
         txt_HoTacGia.setText("");
         txt_TenTacGia.setText("");
         txt_QueQuanTacGia.setText("");
