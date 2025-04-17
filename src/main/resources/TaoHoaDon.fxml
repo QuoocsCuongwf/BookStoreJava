@@ -81,19 +81,22 @@
                                       <columns>
                                         <TableColumn fx:id="maSachColumn" prefWidth="104.80006712675095" text="Mã sách" />
                                           <TableColumn fx:id="donGiaColumn" prefWidth="95.2000732421875" text="Đơn giá" />
-                                          <TableColumn fx:id="soLuongColumn" minWidth="0.0" prefWidth="57.59996032714844" text="Số lượng" />
-                                          <TableColumn fx:id="khuyenMaiColumn" prefWidth="77.5999755859375" text="Khuyến mãi" />
-                                          <TableColumn fx:id="thanhTienColumn" prefWidth="96.0" text="Thành tiền" />
+                                          <TableColumn fx:id="soLuongColumn" minWidth="0.0" prefWidth="115.9998779296875" text="Số lượng" />
+                                          <TableColumn fx:id="thanhTienColumn" prefWidth="113.60009765625" text="Thành tiền" />
                                       </columns>
                                     </TableView>
-                                    <TextField fx:id="maSach" layoutX="24.0" layoutY="221.0" prefHeight="22.0" prefWidth="90.0" promptText="Mã sách" styleClass="text-field-box" />
-                                    <TextField fx:id="soLuong" layoutX="136.0" layoutY="221.0" prefHeight="16.0" prefWidth="90.0" promptText="Số lượng" styleClass="text-field-box" />
-                                    <Button fx:id="btnAdd" layoutX="92.0" layoutY="269.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="70.0" styleClass="btn" text="Thêm" />
-                                    <TextField fx:id="maSach1" layoutX="136.0" layoutY="171.0" prefHeight="15.0" prefWidth="90.0" promptText="Mã NV" styleClass="text-field-box" />
-                                    <TextField fx:id="maSach2" layoutX="24.0" layoutY="170.0" prefHeight="28.0" prefWidth="90.0" promptText="Mã KH" styleClass="text-field-box" />
+                                    <TextField fx:id="maSach" layoutX="75.0" layoutY="207.0" prefHeight="30.0" prefWidth="150.0" promptText="Mã sách" styleClass="text-field-box" />
+                                    <TextField fx:id="soLuong" layoutX="75.0" layoutY="253.0" prefHeight="30.0" prefWidth="150.0" promptText="Số lượng" styleClass="text-field-box" />
+                                    <Button fx:id="btnAdd" layoutX="88.0" layoutY="311.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="70.0" styleClass="btn" text="Thêm" />
+                                    <TextField fx:id="maSach1" layoutX="76.0" layoutY="118.0" prefHeight="30.0" prefWidth="150.0" promptText="Mã NV" styleClass="text-field-box" />
+                                    <TextField fx:id="maSach2" layoutX="77.0" layoutY="163.0" prefHeight="30.0" prefWidth="146.0" promptText="Mã KH" styleClass="text-field-box" />
                                     <Button layoutX="181.0" layoutY="480.0" mnemonicParsing="false" text="Xuất hóa đơn" />
-                                    <Label layoutX="24.0" layoutY="128.0" prefHeight="18.0" prefWidth="54.0" text="Mã HD " />
-                                    <TextField layoutX="78.0" layoutY="124.0" prefHeight="26.0" prefWidth="148.0" />
+                                    <Label layoutX="14.0" layoutY="79.0" prefHeight="18.0" prefWidth="54.0" text="Mã HD " />
+                                    <TextField layoutX="76.0" layoutY="75.0" prefHeight="30.0" prefWidth="150.0" />
+                                    <Label layoutX="14.0" layoutY="124.0" prefHeight="18.0" prefWidth="54.0" text="Mã NV " />
+                                    <Label layoutX="14.0" layoutY="169.0" prefHeight="18.0" prefWidth="54.0" text="Mã KH " />
+                                    <Label layoutX="14.0" layoutY="213.0" prefHeight="18.0" prefWidth="54.0" text="Mã  sách" />
+                                    <Label layoutX="14.0" layoutY="259.0" prefHeight="18.0" prefWidth="54.0" text="SL" />
                                  </children>
                               </AnchorPane>
                         </content>

@@ -7,8 +7,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ChiTietHoaDon {
-    @EmbeddedId
-    private ChiTietHoaDonId id;
 
     private String mahd;
 

@@ -28,8 +28,8 @@ public class ChiTietHoaDonDAO {
     }
     public void addChiTietHoaDon(ChiTietHoaDon don) {
         String query = "INSERT INTO CHI_TIET_HOA_DON (MAHD, MASP, SL, DONGIA, THANHTIEN) VALUES (" +
-                "'" + don.getId().getMahd() + "', " +
-                "'" + don.getId().getMasp() + "', " +
+                "'" + don.getMahd() + "', " +
+                "'" + don.getMasp() + "', " +
                 don.getSl() + ", " +
                 don.getDongia() + ", " +
                 don.getThanhtien() + ")";
@@ -45,8 +45,8 @@ public class ChiTietHoaDonDAO {
                 "SL = " + don.getSl() + ", " +
                 "DONGIA = " + don.getDongia() + ", " +
                 "THANHTIEN = " + don.getThanhtien() + " " +
-                "WHERE MAHD = '" + don.getId().getMahd() + "' " +
-                "AND MASP = '" + don.getId().getMasp() + "'";
+                "WHERE MAHD = '" + don.getMahd() + "' " +
+                "AND MASP = '" + don.getMasp() + "'";
 
         conn.update(query);
     }

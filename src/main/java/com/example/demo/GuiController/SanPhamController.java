@@ -24,7 +24,9 @@ import org.springframework.stereotype.Controller;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @Component
@@ -48,7 +50,7 @@ public class SanPhamController {
     private TableColumn<SanPham, Double> donGiaColumn; // Cột "Đơn giá"
 
     @FXML
-    private TableColumn<SanPham, TacGia> tacGiaColumn; // Cột "Tác giả"
+    private TableColumn<SanPham, String> tacGiaColumn; // Cột "Tác giả"
 
     @FXML
     private TextField textFieldMaSach, textFieldTenSach, textFieldDonGia, textFieldMaTG, textFieldMaNXB, textFieldSoTrang, textFieldMaTL;
@@ -82,16 +84,31 @@ public class SanPhamController {
     private LeftMenuController leftMenuController=new LeftMenuController();
     @FXML
     public void initialize() {
+        Map<String, TacGia> tacGiaMap = new HashMap<>();
+        TacGiaController tacGiaController=new TacGiaController();
+        List<TacGia> listTacGia = tacGiaController.getListTacGia(); // gọi 1 API hoặc DAO lấy tất cả
+        System.out.println("Tac gia: "+listTacGia.size());
+        for (TacGia tg : listTacGia) {
+            System.out.println(tg.toString());
+            tacGiaMap.put(tg.getMatg(), tg); // ánh xạ MATG → TacGia
+        }
 
         anhBia.setCellFactory(column -> createImgCellFactory());
-        tacGiaColumn.setCellFactory(column -> new TableCell<SanPham, TacGia>() {
+        tacGiaColumn.setCellFactory(column -> new TableCell<SanPham, String>() {
             @Override
-            protected void updateItem(TacGia item, boolean empty) {
+            protected void updateItem(String item, boolean empty) {
                 super.updateItem(item, empty);
                 if (empty || item == null) {
                     setText(null);
                 } else {
-                    setText(item.getHotg()+" "+item.getTentg()); // hoặc getCity(), getStreet(), tùy bạn
+                    System.out.println("Item: " + item);
+                    TacGia tg = tacGiaMap.get(item);// "item" là mã tác giả (MATG)
+                    System.out.println("Tg: " + tg.getMatg());
+                    if (tg != null) {
+                        setText(tg.getHotg() + " " + tg.getTentg());
+                    } else {
+                        setText("Không rõ");
+                    }
                 }
             }
         });
@@ -155,6 +172,7 @@ public class SanPhamController {
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
+        System.out.println(listSanPham);
         return listSanPham;
     }
     public void chonFile(ActionEvent actionEvent) {
@@ -199,12 +217,9 @@ public class SanPhamController {
         sanPham.setSl(0);
         sanPham.setDongia(Integer.parseInt(textFieldDonGia.getText()));
         NhaXuatBan nhaXuatBan=new NhaXuatBan();
-        nhaXuatBan.setManxb(textFieldMaSach.getText());
-        sanPham.setManxb(nhaXuatBan);
+
         sanPham.setAnhbia(pathImage);
-        TacGia tacGia = new TacGia();
-        tacGia.setMatg(textFieldMaTG.getText());
-        sanPham.setMatg(tacGia);
+        sanPham.setMatg(textFieldMaTG.getText());
         if (sanPham!=null) listSanPham.add(sanPham);
         data=FXCollections.observableArrayList(listSanPham);
         tableView.setItems(data);
@@ -227,28 +242,28 @@ public class SanPhamController {
             }
         };
      }
-//    public void insertSanPham() {
-//        SanPham sanPham = new SanPham();
-//        sanPham.setMasp(textFieldMaSach.getText());
-//        sanPham.setTensp(textFieldTenSach.getText());
-//        sanPham.setSl(0);
-//        sanPham.setDongia(Integer.parseInt(textFieldDonGia.getText()));
-//        sanPham.setAnhbia(pathImage);
-//        TacGia tacGia = new TacGia();
-//        CallApi callApi=new CallApi();
-//        String json=callApi.callPostRequestParam("http://localhost:8080/TacGia/timKiem","find=",textFieldMaTG.getText());
-//        TacGiaController tacGiaController=new TacGiaController();
-//        sanPham.setMatg(tacGiaController.convertJsonToListTacGia(json).get(0));
-//        json=callApi.callPostRequestParam("http://localhost:8080")
-//
-//    }
+    public void insertSanPham() {
+        SanPham sanPham = new SanPham();
+        sanPham.setMasp(textFieldMaSach.getText());
+        sanPham.setTensp(textFieldTenSach.getText());
+        sanPham.setSl(0);
+        sanPham.setDongia(Integer.parseInt(textFieldDonGia.getText()));
+        sanPham.setAnhbia(pathImage);
+        TacGia tacGia = new TacGia();
+        CallApi callApi=new CallApi();
+        String json=callApi.callPostRequestParam("http://localhost:8080/TacGia/timKiem","find=",textFieldMaTG.getText());
+        TacGiaController tacGiaController=new TacGiaController();
+
+
+
+    }
     public void showSelectedItem(SanPham sanPham) {
         inforContainer.setVisible(true);
         textFieldMaSach.setText(sanPham.getMasp());
-        textFieldMaTG.setText(sanPham.getMatg().getMatg());
+        textFieldMaTG.setText(sanPham.getMatg());
         textFieldTenSach.setText(sanPham.getTensp());
-        textFieldMaTL.setText(sanPham.getMatl().getMatl());
-        textFieldMaNXB.setText(sanPham.getManxb().getManxb());
+        textFieldMaTL.setText(sanPham.getMatl());
+        textFieldMaNXB.setText(sanPham.getManxb());
         textFieldSoTrang.setText(sanPham.getSotrang().toString());
         textFieldDonGia.setText(sanPham.getDongia().toString());
         labelAnhBia.setText("");

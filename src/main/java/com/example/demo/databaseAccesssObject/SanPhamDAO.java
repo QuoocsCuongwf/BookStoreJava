@@ -15,15 +15,7 @@ public class SanPhamDAO {
     private List<SanPham> listSanPham=new ArrayList<>();
     ConnectDatabase cnn=new ConnectDatabase();
     public List<SanPham> getListSanPham() {
-        String sql = "SELECT \n" +
-                "    sp.MASP, sp.TENSP, sp.SL, sp.NAMXB, sp.DONGIA, sp.SOTRANG, sp.ANHBIA,\n" +
-                "    tl.MATL, tl.TENTL,\n" +
-                "    tg.MATG, tg.HOTG, tg.TENTG, tg.QUEQUAN, tg.NAMSINH,\n" +
-                "    nxb.MANXB, nxb.TENNXB, nxb.DIACHI, nxb.SDT\n" +
-                "FROM SAN_PHAM sp\n" +
-                "JOIN THE_LOAI tl ON sp.MATL = tl.MATL\n" +
-                "JOIN TAC_GIA tg ON sp.MATG = tg.MATG\n" +
-                "JOIN NHA_XUAT_BAN nxb ON sp.MANXB = nxb.MANXB;\n";
+        String sql = "select * from san_pham";
         String json = cnn.query(sql);
         ObjectMapper mapper = new ObjectMapper();
         try {
@@ -45,9 +37,9 @@ public class SanPhamDAO {
                 "'" + sp.getMasp() + "', " +
                 "'" + sp.getTensp().replace("'", "''") + "', " + // tránh lỗi khi có dấu nháy
                 sp.getSl() + ", " +
-                "'" + sp.getMatl().getMatl() + "', " +
-                "'" + sp.getMatg().getMatg() + "', " +
-                "'" + sp.getManxb().getManxb() + "', " +
+                "'" + sp.getMatl() + "', " +
+                "'" + sp.getMatg() + "', " +
+                "'" + sp.getManxb() + "', " +
                 sp.getNamxb() + ", " +
                 sp.getDongia() + ", " +
                 sp.getSotrang() + ", " +
@@ -59,9 +51,9 @@ public class SanPhamDAO {
         String sql = "UPDATE SAN_PHAM SET " +
                 "TENSP = '" + sp.getTensp().replace("'", "''") + "', " +
                 "SL = " + sp.getSl() + ", " +
-                "MATL = '" + sp.getMatl().getMatl() + "', " +
-                "MATG = '" + sp.getMatg().getMatg() + "', " +
-                "MANXB = '" + sp.getManxb().getManxb() + "', " +
+                "MATL = '" + sp.getMatl() + "', " +
+                "MATG = '" + sp.getMatg() + "', " +
+                "MANXB = '" + sp.getManxb() + "', " +
                 "NAMXB = " + sp.getNamxb() + ", " +
                 "DONGIA = " + sp.getDongia() + ", " +
                 "SOTRANG = " + sp.getSotrang() + ", " +

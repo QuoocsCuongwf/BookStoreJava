@@ -20,7 +20,7 @@ public class Main extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("/SanPham.fxml"));
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/TacGia.fxml"));
 		loader.setControllerFactory(springContext::getBean); // Dùng Spring để quản lý Controller
 		Scene scene = new Scene(loader.load());
 		scene.getStylesheets().add(getClass().getResource("/asset/css/main.css").toExternalForm());

@@ -46,7 +46,7 @@ public class TacGiaController implements Initializable {
     private TableColumn<TacGia, Integer> namSinhTacGiaColumn;
 
     private ObservableList<TacGia> data;
-    List<TacGia> tacGiaList = new ArrayList<>();
+    static List<TacGia> tacGiaList = new ArrayList<>();
 
     @FXML
     private TextField textFieldTimKiem;
@@ -107,7 +107,10 @@ public class TacGiaController implements Initializable {
         tableView.setItems(data);
         btnDeleteTacGia.setOnAction(event -> deleteTacGia());
     }
-
+    public List<TacGia> getListTacGia() {
+        System.out.println("List tac gia: "+tacGiaList);
+        return tacGiaList;
+    }
     public List<TacGia> convertJsonToListTacGia(String json) {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.registerModule(new JavaTimeModule());

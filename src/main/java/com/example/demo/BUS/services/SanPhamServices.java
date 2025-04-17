@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SanPhamServices {
-    private List<SanPham> listSanPham=new ArrayList<SanPham>();
+    private static List<SanPham> listSanPham=new ArrayList<SanPham>();
     private SanPhamDAO sanPhamDAO=new SanPhamDAO();
 
     public List<SanPham> getListSanPham() {
@@ -66,5 +66,10 @@ public class SanPhamServices {
             }
         }
         return resultSearch;
+    }
+
+    public static void main(String[] args) {
+        SanPhamServices sanPhamServices=new SanPhamServices();
+        sanPhamServices.getListSanPham();
     }
 }

@@ -30,7 +30,7 @@ import java.util.*;
 
 @Component
 @Controller
-public class NhanVienController implements Initializable {
+class NhanVienController implements Initializable {
 
     @FXML
     private Pane inforContainer;
