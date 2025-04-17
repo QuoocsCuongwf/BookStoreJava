@@ -2,6 +2,7 @@
 package com.example.demo.GuiController;
 
 import com.example.demo.GuiController.CallApi;
+import com.example.demo.model.NhanVien;
 import com.example.demo.model.TacGia;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -168,7 +169,31 @@ public class TacGiaController implements Initializable {
             System.out.println("No valid selection!");
         }
     }
+    public void updateTacGia() {
+        TacGia tacGia = new TacGia();
+        List<TextField> textFields=Arrays.asList(txt_MaTacGia, txt_HoTacGia, txt_TenTacGia,
+                txt_QueQuanTacGia, txt_NamSinhTacGia
+                );
+        for(TextField tf:textFields) {
+            if(tf.getText().equals("")){
+                showMessage("Error","Text Field Null","Vui lòng nhập đầy đủ thông tin!");
+                System.out.println("Text Field Null");
+                return;
+            }
+        };
+        tacGia.setMatg(txt_MaTacGia.getText());
+        tacGia.setHotg(txt_HoTacGia.getText());
+        tacGia.setTentg(txt_TenTacGia.getText());
+        tacGia.setQuequan(txt_QueQuanTacGia.getText());
+        tacGia.setNamsinh(Integer.parseInt( txt_NamSinhTacGia.getText()));
 
+        CallApi callApi=new CallApi();
+        String resultApi=callApi.callPostRequestBody("http://localhost:8080/tacGia/Update",convertTacGiaToJson(tacGia));
+        if (resultApi.contains("Success")) {
+            tacGiaList.add(tacGia);
+            data.add(tacGia);
+        }
+    }
     public void openInforContainer() {
         txt_MaTacGia.setText("TG"+tacGiaList.size()+1);
         txt_HoTacGia.setText("");

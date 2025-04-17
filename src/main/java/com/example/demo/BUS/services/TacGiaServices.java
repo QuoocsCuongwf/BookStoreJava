@@ -59,18 +59,19 @@ public class TacGiaServices {
         return "update success";
     }
 
-    public static void main(String[] args){
-        TacGiaServices tacGiaServices=new TacGiaServices();
-        TacGia tacGia = new TacGia();
-        tacGia.setMatg("TG001");
-        tacGia.setHotg("Nguyễn");
-        tacGia.setTentg("Nhật Ánh");
-        tacGia.setQuequan("Quảng Nam");
-        tacGia.setNamsinh(1955);
 
-        tacGiaServices.addTacGia(tacGia);
-        tacGiaServices.getTacGiaList();
-
-
-    }
+//    public static void main(String[] args){
+//        TacGiaServices tacGiaServices=new TacGiaServices();
+//        TacGia tacGia = new TacGia();
+//        tacGia.setMatg("TG001");
+//        tacGia.setHotg("Nguyễn");
+//        tacGia.setTentg("Nhật Ánh");
+//        tacGia.setQuequan("Quảng Nam");
+//        tacGia.setNamsinh(1955);
+//
+//        tacGiaServices.addTacGia(tacGia);
+//        tacGiaServices.getTacGiaList();
+//
+//
+//    }
 }
