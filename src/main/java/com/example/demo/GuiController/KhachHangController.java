@@ -146,6 +146,7 @@ public class KhachHangController implements Initializable {
         String result = callApi.callPostRequestBody("http://localhost:8080/KhachHang/addKhachHang",convertKhachHangToJSON(khachHang));
         if (result.equals("OK")) {}
         System.out.println(result+" khahc hang thanh cong ");
+        showMessage("Success","Them khach hang thanh cong ",result);
         //xong
     }
     public List<KhachHang> convertJSONToListKhachHang(String json) {
@@ -185,7 +186,7 @@ public class KhachHangController implements Initializable {
         inforContainerKhachHang.setVisible(false);
     }
     public void openInforContainer(){
-        txt_maKhachHang.setText("");
+        txt_maKhachHang.setText("KH"+khachHangList.size()+1);
         txt_hoKhachHang.setText("");
         txt_tenKhachHang.setText("");
         txt_diaChiKhachHang.setText("");
