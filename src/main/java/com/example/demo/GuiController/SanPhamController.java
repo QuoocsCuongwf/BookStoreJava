@@ -103,7 +103,6 @@ public class SanPhamController {
                 } else {
                     System.out.println("Item: " + item);
                     TacGia tg = tacGiaMap.get(item);// "item" là mã tác giả (MATG)
-                    System.out.println("Tg: " + tg.getMatg());
                     if (tg != null) {
                         setText(tg.getHotg() + " " + tg.getTentg());
                     } else {

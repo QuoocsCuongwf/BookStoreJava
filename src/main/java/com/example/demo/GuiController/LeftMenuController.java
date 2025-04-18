@@ -81,7 +81,6 @@ public class LeftMenuController {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             Scene scene = new Scene(root);
             scene.getStylesheets().add(getClass().getResource("/asset/css/main.css").toExternalForm());
-
             stage.setScene(scene);
             stage.show();
         } catch (IOException e) {

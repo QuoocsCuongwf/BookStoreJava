@@ -87,42 +87,53 @@ public class CallApi {
     }
 
     public String callPostRequestBody(String api, String json) {
-        String resultsApi="";
+        String resultsApi = "";
+        HttpURLConnection connection = null;
+
         try {
-            if(httpURLConnection==null){
-                createConnectApi(api);
+            URL url = new URL(api);
+            connection = (HttpURLConnection) url.openConnection();
+
+            connection.setRequestMethod("POST");
+            connection.setRequestProperty("Content-Type", "application/json; utf-8");
+            connection.setRequestProperty("Accept", "application/json");
+            connection.setDoOutput(true);
+
+            // Gửi JSON vào body
+            try (OutputStream os = connection.getOutputStream()) {
+                byte[] input = json.getBytes(StandardCharsets.UTF_8);
+                os.write(input, 0, input.length);
             }
-            httpURLConnection.setRequestMethod("POST");
-            httpURLConnection.setRequestProperty("Content-Type", "application/json");
-            httpURLConnection.setDoOutput(true);
-            try(OutputStream os=httpURLConnection.getOutputStream()){
-                os.write(json.getBytes(StandardCharsets.UTF_8));
-            }
-            // Đọc phản hồi
-            int responseCode = httpURLConnection.getResponseCode();
+
+            int responseCode = connection.getResponseCode();
             System.out.println("Response Code: " + responseCode);
 
-            try (var reader = new java.io.BufferedReader(
-                    new java.io.InputStreamReader(httpURLConnection.getInputStream(), StandardCharsets.UTF_8))) {
+            try (BufferedReader reader = new BufferedReader(
+                    new InputStreamReader(
+                            responseCode >= 200 && responseCode < 300 ?
+                                    connection.getInputStream() :
+                                    connection.getErrorStream(),
+                            StandardCharsets.UTF_8))) {
 
                 StringBuilder response = new StringBuilder();
                 String line;
                 while ((line = reader.readLine()) != null) {
                     response.append(line.trim());
                 }
-                resultsApi=response.toString();
-                System.out.println("Response: " + response.toString());
+
+                resultsApi = response.toString();
+                System.out.println("Response: " + resultsApi);
             }
 
-            httpURLConnection.disconnect();
-        } catch (MalformedURLException e) {
-            throw new RuntimeException(e);
-        } catch (ProtocolException e) {
-            throw new RuntimeException(e);
         } catch (IOException e) {
             throw new RuntimeException(e);
+        } finally {
+            if (connection != null) {
+                connection.disconnect();
+            }
         }
 
         return resultsApi;
     }
+
 }

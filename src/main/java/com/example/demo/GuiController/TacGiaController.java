@@ -47,7 +47,7 @@ public class TacGiaController implements Initializable {
     private TableColumn<TacGia, Integer> namSinhTacGiaColumn;
 
     private ObservableList<TacGia> data;
-    static List<TacGia> tacGiaList = new ArrayList<>();
+    private static List<TacGia> tacGiaList = new ArrayList<>();
 
     @FXML
     private TextField textFieldTimKiem;
@@ -95,21 +95,35 @@ public class TacGiaController implements Initializable {
             }
         });
 
-        CallApi callApi = new CallApi();
-        String json = null;
-        try {
-            json = callApi.callGetApi("http://localhost:8080/TacGia/getAllTacGia");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        if(tacGiaList.size()==0){
+            CallApi callApi = new CallApi();
+            String json = null;
+            try {
+                json = callApi.callGetApi("http://localhost:8080/TacGia/getAllTacGia");
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            btnUpdateTacGia.setOnAction(event -> updateTacGia());
+            tacGiaList = convertJsonToListTacGia(json);
         }
-        btnUpdateTacGia.setOnAction(event -> updateTacGia());
-        tacGiaList = convertJsonToListTacGia(json);
         System.out.println(tacGiaList);
+        btnUpdateTacGia.setOnAction(event -> updateTacGia());
         data = FXCollections.observableArrayList(tacGiaList);
         tableView.setItems(data);
         btnDeleteTacGia.setOnAction(event -> deleteTacGia());
     }
     public List<TacGia> getListTacGia() {
+        if(tacGiaList.size()==0){
+            CallApi callApi = new CallApi();
+            String json = null;
+            try {
+                json = callApi.callGetApi("http://localhost:8080/TacGia/getAllTacGia");
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            btnUpdateTacGia.setOnAction(event -> updateTacGia());
+            tacGiaList = convertJsonToListTacGia(json);
+        }
         System.out.println("List tac gia: "+tacGiaList);
         return tacGiaList;
     }

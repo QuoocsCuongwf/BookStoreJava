@@ -2,6 +2,8 @@ package com.example.demo.BUS.services;
 
 import com.example.demo.databaseAccesssObject.ChiTietHoaDonDAO;
 import com.example.demo.model.ChiTietHoaDon;
+import com.example.demo.model.HoaDon;
+import com.example.demo.model.SanPham;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,20 +24,29 @@ public class ChiTietHoaDonServices {
         }
         return listResults;
     }
-    public int addChiTietHoaDon(ChiTietHoaDon c){
+    public int checkChiTietHoaDon(ChiTietHoaDon c){
         SanPhamServices sanPhamServices=new SanPhamServices();
-        if(sanPhamServices.findBySanPham(c.getMasp())){
-            if(sanPhamServices.searchSanPham(c.getMasp()).get(0).getSl()-c.getSl()>=0){
-                list.add(c);
-                sanPhamServices.searchSanPham(c.getMasp()).get(0).setSl(sanPhamServices.searchSanPham(c.getMasp()).get(0).getSl()-c.getSl());
-                return 200;
+        List<SanPham> listSanPham=sanPhamServices.getListSanPham();
+        System.out.println("find: "+c.getMasp());
+        for(SanPham s:listSanPham){
+            if (s.getMasp().equals(c.getMasp())){
+                if(sanPhamServices.searchSanPham(c.getMasp()).get(0).getSl()-c.getSl()>=0){
+                    list.add(c);
+                    sanPhamServices.searchSanPham(c.getMasp()).get(0).setSl(sanPhamServices.searchSanPham(c.getMasp()).get(0).getSl()-c.getSl());
+                    return 200;
+                }
+                return 400;
             }
-            return 400;
+            System.out.println("find: "+s.getMasp());
         }
+        System.out.println("Khong tim thay san pham");
         return 404;
     }
+    public void addChiTietHoaDon(ChiTietHoaDon c){
+        chiTietHoaDonDAO.addChiTietHoaDon(c);
+    }
     public int updateList(ChiTietHoaDon chiTietHoaDonNew, ChiTietHoaDon chiTietHoaDonOld){
-        int status=addChiTietHoaDon(chiTietHoaDonNew);
+        int status=checkChiTietHoaDon(chiTietHoaDonNew);
         if(status==200){
             list.remove(chiTietHoaDonOld);
             deleteList(chiTietHoaDonOld.getMahd(), chiTietHoaDonNew.getMahd());

@@ -22,9 +22,14 @@ public class ChiTietHoaDonControllerSpring {
     }
 
     @PostMapping("/add")
-    public int addChiTietHoaDon(@RequestBody ChiTietHoaDon chiTietHoaDon) {
+    public void addChiTietHoaDon(@RequestBody ChiTietHoaDon chiTietHoaDon) {
         System.out.println(chiTietHoaDon);
-        return chiTietHoaDonServices.addChiTietHoaDon(chiTietHoaDon);
+        chiTietHoaDonServices.addChiTietHoaDon(chiTietHoaDon);
+    }
+    @PostMapping("/check")
+    public int checkChiTietHoaDon(@RequestBody ChiTietHoaDon chiTietHoaDon) {
+        System.out.println(chiTietHoaDon);
+        return chiTietHoaDonServices.checkChiTietHoaDon(chiTietHoaDon);
     }
 
     @PostMapping("/update")

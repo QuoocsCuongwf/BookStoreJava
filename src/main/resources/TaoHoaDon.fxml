@@ -85,18 +85,20 @@
                                           <TableColumn fx:id="thanhTienColumn" prefWidth="113.60009765625" text="Thành tiền" />
                                       </columns>
                                     </TableView>
-                                    <TextField fx:id="maSach" layoutX="75.0" layoutY="207.0" prefHeight="30.0" prefWidth="150.0" promptText="Mã sách" styleClass="text-field-box" />
-                                    <TextField fx:id="soLuong" layoutX="75.0" layoutY="253.0" prefHeight="30.0" prefWidth="150.0" promptText="Số lượng" styleClass="text-field-box" />
-                                    <Button fx:id="btnAdd" layoutX="88.0" layoutY="311.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="70.0" styleClass="btn" text="Thêm" />
-                                    <TextField fx:id="maSach1" layoutX="76.0" layoutY="118.0" prefHeight="30.0" prefWidth="150.0" promptText="Mã NV" styleClass="text-field-box" />
-                                    <TextField fx:id="maSach2" layoutX="77.0" layoutY="163.0" prefHeight="30.0" prefWidth="146.0" promptText="Mã KH" styleClass="text-field-box" />
-                                    <Button layoutX="181.0" layoutY="480.0" mnemonicParsing="false" text="Xuất hóa đơn" />
+                                    <TextField fx:id="textFieldMaSach" layoutX="75.0" layoutY="207.0" prefHeight="30.0" prefWidth="150.0" promptText="Mã sách" styleClass="text-field-box" />
+                                    <TextField fx:id="textFieldSL" layoutX="75.0" layoutY="253.0" prefHeight="30.0" prefWidth="150.0" promptText="Số lượng" styleClass="text-field-box" />
+                                    <Button fx:id="btnAdd" layoutX="30.0" layoutY="307.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="75.0" styleClass="btn" text="Thêm" />
+                                    <TextField fx:id="textFieldMaNV" layoutX="76.0" layoutY="118.0" prefHeight="30.0" prefWidth="150.0" promptText="Mã NV" styleClass="text-field-box" />
+                                    <TextField fx:id="textFieldMaKH" layoutX="77.0" layoutY="163.0" prefHeight="30.0" prefWidth="146.0" promptText="Mã KH" styleClass="text-field-box" />
+                                    <Button layoutX="181.0" layoutY="480.0" mnemonicParsing="false" onAction="#onXuatHoaDonClicked" text="Xuất hóa đơn" />
                                     <Label layoutX="14.0" layoutY="79.0" prefHeight="18.0" prefWidth="54.0" text="Mã HD " />
-                                    <TextField layoutX="76.0" layoutY="75.0" prefHeight="30.0" prefWidth="150.0" />
+                                    <TextField fx:id="textFieldMaHoaDon" layoutX="76.0" layoutY="75.0" prefHeight="30.0" prefWidth="150.0" />
                                     <Label layoutX="14.0" layoutY="124.0" prefHeight="18.0" prefWidth="54.0" text="Mã NV " />
                                     <Label layoutX="14.0" layoutY="169.0" prefHeight="18.0" prefWidth="54.0" text="Mã KH " />
                                     <Label layoutX="14.0" layoutY="213.0" prefHeight="18.0" prefWidth="54.0" text="Mã  sách" />
                                     <Label layoutX="14.0" layoutY="259.0" prefHeight="18.0" prefWidth="54.0" text="SL" />
+                                    <Button layoutX="112.0" layoutY="307.0" mnemonicParsing="false" onAction="#deleteChiTietHoaDon" prefHeight="30.0" prefWidth="75.0" text="Xóa" />
+                                    <Button layoutX="193.0" layoutY="307.0" mnemonicParsing="false" onAction="#updateChiTietHoaDon" prefHeight="30.0" prefWidth="75.0" text="Sửa" />
                                  </children>
                               </AnchorPane>
                         </content>
