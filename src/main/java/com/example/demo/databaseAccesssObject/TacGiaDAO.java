@@ -41,12 +41,12 @@ public class TacGiaDAO {
         condbtg.insert(query);
     }
     public void updateTacGia(TacGia tacGia){
-        String query = "UPDATE TAC_GIA" +
+        String query = "UPDATE TAC_GIA " +
                 "SET HOTG= "+tacGia.getTentg()
                 +",TENTG= "+tacGia.getTentg()
                 +",QUEQUAN= "+tacGia.getQuequan()
                 +",NAMSINH= "+tacGia.getNamsinh()
-                +"WHERE MATG='"+tacGia.getMatg()+"'";
+                +" WHERE MATG='"+tacGia.getMatg()+"'";
         condbtg.update(query);
 
     }
