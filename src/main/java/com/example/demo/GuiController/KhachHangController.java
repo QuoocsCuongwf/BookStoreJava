@@ -107,6 +107,7 @@ public class KhachHangController implements Initializable {
         data = FXCollections.observableArrayList(khachHangList);
         tableView.setItems(data);
         btnDeleteKhachHang.setOnAction(event ->deleteKhachHang() );
+        btnUpdateKhachHang.setOnAction(event ->updateKhachHang());
         //xong
 
     }
@@ -279,15 +280,21 @@ public class KhachHangController implements Initializable {
 
         CallApi callApi=new CallApi();
         String resultString = callApi.callPostRequestBody("http://localhost:8080/KhachHang/updateKhachHang",convertKhachHangToJSON(khachHang));
-        if (resultString.contains("success")){
-            khachHangList.add(khachHang);
-            data.add(khachHang);
+        if (resultString.contains("Success")){
+            for(int i=0;i<khachHangList.size();i++){
+                if (khachHangList.get(i).getMakh().equals(khachHang.getMakh())){
+                    khachHangList.set(i,khachHang);
+                    break;
+                }
+            }
+            data=FXCollections.observableArrayList(khachHangList);
+            tableView.setItems(data);
             showMessage("UPDATE","SUCCESS","UPDATE KHACHHANG SUCCESS");
         }
         else {
             showMessage("UPDATE","FAIL","UPDATE KHACHHANG FAIL");
         }
-
+        closeInforContainer();
     }
 
 
