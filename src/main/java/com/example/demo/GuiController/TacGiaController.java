@@ -36,7 +36,7 @@ public class TacGiaController implements Initializable {
     @FXML
     private TableView<TacGia> tableView;
     @FXML
-    private TableColumn<TacGia, Integer> maTacGiaColumn;
+    private TableColumn<TacGia, String> maTacGiaColumn;
     @FXML
     private TableColumn<TacGia, String> hoTacGiaColumn;
     @FXML
