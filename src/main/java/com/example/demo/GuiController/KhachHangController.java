@@ -140,13 +140,18 @@ public class KhachHangController implements Initializable {
         khachHang.setSdt(txt_sdtKhachHang.getText());
         khachHang.setEmail(txt_emailKhachHang.getText());
         khachHang.setDiachi(txt_diaChiKhachHang.getText());
-        khachHangList.add(khachHang);
-        data.add(khachHang);
         CallApi callApi=new CallApi();
         String result = callApi.callPostRequestBody("http://localhost:8080/KhachHang/addKhachHang",convertKhachHangToJSON(khachHang));
-        if (result.equals("OK")) {}
-        System.out.println(result+" khahc hang thanh cong ");
-        showMessage("Success","Them khach hang thanh cong ",result);
+        if (result.contains("Succes")) {
+            khachHangList.add(khachHang);
+            data.add(khachHang);
+            showMessage("ADD KHACH HANG ","SUCCESS","KHÁCH HÀNG ĐÃ ĐƯỢC THÊM");
+            System.out.println("add khach hang "+khachHang.getMakh()+" sucess");
+        }else {
+            showMessage("ADD KHACH HANG","FAIL","LỖI THÊM KHÁCH HÀNG");
+            System.out.println("add khach hang "+khachHang.getMakh()+" fail");
+        }
+
         //xong
     }
     public List<KhachHang> convertJSONToListKhachHang(String json) {
