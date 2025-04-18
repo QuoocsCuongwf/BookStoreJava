@@ -120,6 +120,7 @@ public class KhachHangController implements Initializable {
             callApi.callPostRequestParam("http://localhost:8080/KhachHang/deleteKhachHang","maKhachHang",khachHang.getMakh());
             khachHangList.remove(indexSelected);
             tableView.getSelectionModel().clearSelection();
+
         }
         //xong
     }
