@@ -52,6 +52,11 @@ public class KhachHangServices {
         listKhachHang.removeIf(khachHang -> khachHang.getMakh().equals(maKhachHang));
         khachHangDAO.deleteKhachHang(maKhachHang);
     }
+    public String updateKhachHang(KhachHang khachHang){
+        khachHangDAO.updateKhachHang(khachHang);
+        return "update Success";
+
+    }
 
     public static void main(String[] args) {
         KhachHangServices khachHangServices = new KhachHangServices();

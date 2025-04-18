@@ -41,6 +41,17 @@ public class KhachHangDAO {
 
        connectDatabase.insert(query);
     }
+    public void updateKhachHang (KhachHang khachHang){
+        String query="UPDATE KHACH_HANG" +
+                "SET makh='"+khachHang.getMakh()
+                +"', hokh='"+khachHang.getHokh()
+                +"', tenkh='"+khachHang.getTenkh()
+                +"', email='"+khachHang.getEmail()
+                +"', sdt='"+khachHang.getSdt()
+                +"', diachi='"+khachHang.getDiachi()
+                +"WHERE makh='"+khachHang.getMakh()+"'";
+        connectDatabase.update(query);
+    }
 
 
 }

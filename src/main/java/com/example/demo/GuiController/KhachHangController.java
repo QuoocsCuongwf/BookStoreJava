@@ -144,6 +144,7 @@ public class KhachHangController implements Initializable {
         data.add(khachHang);
         CallApi callApi=new CallApi();
         String result = callApi.callPostRequestBody("http://localhost:8080/KhachHang/addKhachHang",convertKhachHangToJSON(khachHang));
+        if (result.equals("OK")) {}
         System.out.println(result+" khahc hang thanh cong ");
         //xong
     }
@@ -251,13 +252,36 @@ public class KhachHangController implements Initializable {
         data=FXCollections.observableArrayList(convertJSONToListKhachHang(json));
         tableView.setItems(data);
     }
+    public void updateKhachHang(){
+        List<TextField> textFieldList = Arrays.asList(txt_maKhachHang,txt_hoKhachHang,txt_tenKhachHang
+                ,txt_diaChiKhachHang,txt_emailKhachHang,txt_sdtKhachHang);
+        textFieldList.forEach(textField -> {
+            if(textField == null){
+                showMessage("ERROR","TEXT FIELD NULL","VUI LÒNG NHẬP ĐỦ THÔNG TIN");
+                return;
+            }
+        });
+        KhachHang khachHang=new KhachHang();
 
+        khachHang.setMakh(txt_maKhachHang.getText());
+        khachHang.setHokh(txt_hoKhachHang.getText());
+        khachHang.setTenkh(txt_tenKhachHang.getText());
+        khachHang.setEmail(txt_emailKhachHang.getText());
+        khachHang.setSdt(txt_sdtKhachHang.getText());
+        khachHang.setDiachi(txt_diaChiKhachHang.getText());
 
-    public Button getBtn_timKiemKhachHang() {
-        return btn_timKiemKhachHang;
+        CallApi callApi=new CallApi();
+        String resultString = callApi.callPostRequestBody("http://localhost:8080/KhachHang/updateKhachHang",convertKhachHangToJSON(khachHang));
+        if (resultString.contains("success")){
+            khachHangList.add(khachHang);
+            data.add(khachHang);
+            showMessage("UPDATE","SUCCESS","UPDATE KHACHHANG SUCCESS");
+        }
+        else {
+            showMessage("UPDATE","FAIL","UPDATE KHACHHANG FAIL");
+        }
+
     }
 
-    public void setBtn_timKiemKhachHang(Button btn_timKiemKhachHang) {
-        this.btn_timKiemKhachHang = btn_timKiemKhachHang;
-    }
+
 }

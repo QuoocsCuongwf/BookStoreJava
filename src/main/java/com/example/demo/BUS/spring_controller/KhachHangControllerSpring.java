@@ -30,4 +30,9 @@ public class KhachHangControllerSpring {
     public String  addKhachHang(@RequestBody KhachHang khachHang){
         return khachHangServices.addKhachHang(khachHang);
     }
+
+    @PostMapping("/updateKhachHang")
+    public String updateKhachHang(@RequestBody KhachHang khachHang){
+       return khachHangServices.updateKhachHang(khachHang);
+    }
 }
