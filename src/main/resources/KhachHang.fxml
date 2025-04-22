@@ -14,11 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<<<<<<<< HEAD:src/main/resources/KhachHang.fxml
 <Pane fx:id="khachHangPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="958.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.GuiController.KhachHangController">
-========
-<Pane fx:id="khuyenMaiTheoHoaDonPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="958.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
->>>>>>>> origin/MinhThu:src/main/resources/KmtheoSanPham.fxml
     <children>
         <SplitPane dividerPositions="0.23755750731911332" layoutX="-1.0" layoutY="-5.0" prefHeight="567.0" prefWidth="958.0">
             <items>
@@ -71,7 +67,6 @@
                     <children>
                         <TableView fx:id="tableView" layoutY="196.0" prefHeight="384.0" prefWidth="742.0" AnchorPane.leftAnchor="0.0">
                             <columns>
-<<<<<<<< HEAD:src/main/resources/KhachHang.fxml
                                 <TableColumn fx:id="maKhachHangColumn" prefWidth="101.6000549197197" text="Mã khách hàng" />
                                 <TableColumn fx:id="hoKhachHangColumn" prefWidth="141.5999755859375" text="Họ " />
                                 <TableColumn fx:id="tenKhachHangColumn" prefWidth="100.79997253417969" text="Tên" />
@@ -84,62 +79,35 @@
                         <Button fx:id="btn_timKiemKhachHang" layoutX="217.0" layoutY="29.0" mnemonicParsing="false" onAction="#timKiem" styleClass="btn" text="Tìm kiếm" />
                         <Button fx:id="btn_themKhachHang" layoutX="602.0" layoutY="150.0" mnemonicParsing="false" onAction="#openInforContainer" styleClass="btn" text="Thêm khách hàng" />
                         <Pane fx:id="inforContainerKhachHang" prefHeight="566.0" prefWidth="726.0">
-========
-                                <TableColumn fx:id="maChuongTrinhKMColumn" prefWidth="251.3333282470703" text="Mã Chương Trình Khuyến Mãi" />
-                                <TableColumn fx:id="maSanPhamColumn" prefWidth="217.3333740234375" text="Mã Sản Phẩm" />
-                                <TableColumn fx:id="phanTramKMColumn" prefWidth="219.33331298828125" text="\% Khuyến Mãi" />
-                            </columns>
-                        </TableView>
-                        <TextField fx:id="textFieldTimKiem" layoutX="33.0" layoutY="29.0" promptText="Tìm kiếm..." styleClass="text-field-box" />
-                        <Button layoutX="217.0" layoutY="29.0" mnemonicParsing="false" onAction="#timKiem" styleClass="btn" text="Tìm kiếm" />
-                        <Button layoutX="602.0" layoutY="150.0" mnemonicParsing="false" onAction="#openInforContainer" styleClass="btn" text="Thêm" />
-                        <Pane fx:id="inforContainer" layoutX="-2.0" prefHeight="567.0" prefWidth="984.0">
->>>>>>>> origin/MinhThu:src/main/resources/KmtheoSanPham.fxml
                             <children>
-                                <VBox fx:id="inforForm" layoutX="219.0" layoutY="75.0" prefHeight="188.0" prefWidth="273.0" spacing="15.0" styleClass="inforForm">
+                                <VBox fx:id="inforForm" layoutX="186.0" layoutY="65.0" prefHeight="302.0" prefWidth="400.0" spacing="15.0" styleClass="inforForm">
                                     <children>
                                         <HBox prefHeight="26.0" prefWidth="322.0" spacing="20.0">
-<<<<<<<< HEAD:src/main/resources/KhachHang.fxml
                                             <children>
                                                 <TextField fx:id="txt_maKhachHang" prefHeight="25.0" prefWidth="375.0" promptText="Mã khách hàng" />
                                             </children>
-========
->>>>>>>> origin/MinhThu:src/main/resources/KmtheoSanPham.fxml
                                             <VBox.margin>
                                                 <Insets />
                                             </VBox.margin>
                                         </HBox>
                                         <HBox prefHeight="26.0" prefWidth="322.0" spacing="20.0">
                                             <children>
-<<<<<<<< HEAD:src/main/resources/KhachHang.fxml
                                                 <TextField fx:id="txt_hoKhachHang" prefHeight="26.0" prefWidth="369.0" promptText="Họ tên lót" />
-========
-                                                <TextField fx:id="txt_maChuongTrinhKhuyenMai" prefHeight="26.0" prefWidth="234.0" promptText="Mã Chương Trình Khyến Mãi" />
->>>>>>>> origin/MinhThu:src/main/resources/KmtheoSanPham.fxml
                                             </children>
                                         </HBox>
                                         <HBox prefHeight="26.0" prefWidth="322.0" spacing="20.0">
                                             <children>
-<<<<<<<< HEAD:src/main/resources/KhachHang.fxml
                                                 <TextField fx:id="txt_tenKhachHang" prefHeight="26.0" prefWidth="369.0" promptText="Tên" />
-========
-                                                <TextField fx:id="txt_maSanPham" prefHeight="26.0" prefWidth="235.0" promptText="Mã Sản Phẩm" />
->>>>>>>> origin/MinhThu:src/main/resources/KmtheoSanPham.fxml
                                             </children>
                                         </HBox>
                                         <HBox prefHeight="26.0" prefWidth="322.0" spacing="20.0">
                                             <children>
-<<<<<<<< HEAD:src/main/resources/KhachHang.fxml
                                                 <TextField fx:id="txt_emailKhachHang" prefHeight="25.0" prefWidth="369.0" promptText="Email" />
                                                 <TextField fx:id="txt_sdtKhachHang" prefHeight="25.0" prefWidth="283.0" promptText="Thông tin liên lạc" />
-========
-                                                <TextField fx:id="txt_phanTramKhuyenMai" prefHeight="26.0" prefWidth="234.0" promptText="\% Khuyến Mãi" />
->>>>>>>> origin/MinhThu:src/main/resources/KmtheoSanPham.fxml
                                             </children>
                                         </HBox>
                                         <HBox prefHeight="26.0" prefWidth="322.0" spacing="20.0">
                                             <children>
-<<<<<<<< HEAD:src/main/resources/KhachHang.fxml
                                                 <TextField fx:id="txt_diaChiKhachHang" prefHeight="25.0" prefWidth="424.0" promptText="Địa chỉ" />
                                             </children>
                                         </HBox>
@@ -152,19 +120,6 @@
                                                 <Cursor fx:constant="DEFAULT" />
                                             </cursor>
                                         </HBox>
-========
-                                                <HBox fx:id="inforFormButtonContainer" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="15.0">
-                                                    <children>
-                                                        <Button fx:id="btnAddKM" mnemonicParsing="false" onAction="#addKhuyenMai" text="Thêm" />
-                                                        <Button mnemonicParsing="false" onAction="#clossInforContainer" text="Đóng" />
-                                                    </children>
-                                                    <cursor>
-                                                        <Cursor fx:constant="DEFAULT" />
-                                                    </cursor>
-                                                </HBox>
-                                            </children>
-                                        </HBox>
->>>>>>>> origin/MinhThu:src/main/resources/KmtheoSanPham.fxml
                                     </children>
                                     <padding>
                                         <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
