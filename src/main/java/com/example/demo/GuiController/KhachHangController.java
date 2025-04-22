@@ -136,6 +136,8 @@ public class KhachHangController implements Initializable {
                 return;
             }
         }
+        System.err.println("KHACHHANG KHACH HANG!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+
         khachHang.setMakh(txt_maKhachHang.getText());
         khachHang.setHokh(txt_hoKhachHang.getText());
         khachHang.setTenkh(txt_tenKhachHang.getText());
@@ -144,11 +146,14 @@ public class KhachHangController implements Initializable {
         khachHang.setDiachi(txt_diaChiKhachHang.getText());
         CallApi callApi=new CallApi();
         String result = callApi.callPostRequestBody("http://localhost:8080/KhachHang/addKhachHang",convertKhachHangToJSON(khachHang));
-        if (result.contains("Succes")) {
+        if (result.contains("success")) {
             khachHangList.add(khachHang);
             data.add(khachHang);
             showMessage("ADD KHACH HANG ","SUCCESS","KHÁCH HÀNG ĐÃ ĐƯỢC THÊM");
             System.out.println("add khach hang "+khachHang.getMakh()+" sucess");
+            tableView.getSelectionModel().clearSelection();
+            tableView.refresh();
+
         }else {
             showMessage("ADD KHACH HANG","FAIL","LỖI THÊM KHÁCH HÀNG");
             System.out.println("add khach hang "+khachHang.getMakh()+" fail");
