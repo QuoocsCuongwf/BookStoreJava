@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class NhanVienServices {
+public class  NhanVienServices {
     private NhanVienDAO nhanVienDAO=new NhanVienDAO();
     private List<NhanVien> listNhanVien = new ArrayList<>();
     public List<NhanVien> getNhanVienList() {

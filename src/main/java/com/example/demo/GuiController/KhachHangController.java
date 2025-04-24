@@ -120,7 +120,11 @@ public class KhachHangController implements Initializable {
             System.out.println("Khach hang selected "+khachHang.getMakh());
             CallApi callApi=new CallApi();
 
-            String result=  callApi.callPostRequestParam("http://localhost:8080/KhachHang/deleteKhachHang","maKhachHang=",khachHang.getMakh()); // them dau = chỗ key
+            String result=  callApi.callPostRequestParam("http://localhost:8080/KhachHang/deleteKhachHang","maKhachHang=",khachHang.getMakh()); // them dau = chỗ key;
+
+            System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+            System.err.println(result);
+            System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
 
             if (result.contains("success")){
 
