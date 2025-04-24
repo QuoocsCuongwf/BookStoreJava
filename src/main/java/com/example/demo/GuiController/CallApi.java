@@ -49,15 +49,15 @@ public class CallApi {
     public String callPostRequestParam(String api, String key, String value){
         String resultsApi = "";
         try {
-            if(httpURLConnection==null){
                 createConnectApi(api);
-            }
+            
             httpURLConnection.setRequestMethod("POST");
             httpURLConnection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
             httpURLConnection.setDoOutput(true);
 
             // ❌ Đừng dùng ? ở đây
             String params =key + URLEncoder.encode(value, StandardCharsets.UTF_8); // encode là tốt nhất
+            //String params = URLEncoder.encode(key, StandardCharsets.UTF_8) + URLEncoder.encode(value, StandardCharsets.UTF_8);
             try (OutputStream os = httpURLConnection.getOutputStream()) {
                 os.write(params.getBytes(StandardCharsets.UTF_8));
             }
