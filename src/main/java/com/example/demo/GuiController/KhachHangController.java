@@ -113,15 +113,17 @@ public class KhachHangController implements Initializable {
     }
     public void deleteKhachHang(){
         int indexSelected = tableView.getSelectionModel().getSelectedIndex();
-        System.err.println("+++++++++++++++++++++++++++++++++++++++++++++");
 
         if(indexSelected >=0 && indexSelected < data.size()){
             KhachHang khachHang = data.get(indexSelected);
+
             System.out.println("Khach hang selected "+khachHang.getMakh());
             CallApi callApi=new CallApi();
-            String result=  callApi.callPostRequestParam("http://localhost:8080/KhachHang/deleteKhachHang","maKhachHang",khachHang.getMakh());
+
+            String result=  callApi.callPostRequestParam("http://localhost:8080/KhachHang/deleteKhachHang","maKhachHang=",khachHang.getMakh()); // them dau = chỗ key
 
             if (result.contains("success")){
+
                 khachHangList.remove(indexSelected);
                 data.remove(indexSelected);
                 tableView.getSelectionModel().clearSelection();
