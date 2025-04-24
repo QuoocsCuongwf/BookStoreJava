@@ -23,10 +23,7 @@ import org.springframework.stereotype.Controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 @Component
@@ -187,7 +184,6 @@ public class SanPhamController {
         } else {
             System.out.println("Không có file nào được chọn.");
         }
-
     }
 
     public void clossInforContainer() {
@@ -208,21 +204,21 @@ public class SanPhamController {
         inforContainer.setVisible(true);
     }
 
-    public void themSach() {
-
-        SanPham sanPham = new SanPham();
-        sanPham.setMasp(textFieldMaSach.getText());
-        sanPham.setTensp(textFieldTenSach.getText());
-        sanPham.setSl(0);
-        sanPham.setDongia(Integer.parseInt(textFieldDonGia.getText()));
-        NhaXuatBan nhaXuatBan=new NhaXuatBan();
-
-        sanPham.setAnhbia(pathImage);
-        sanPham.setMatg(textFieldMaTG.getText());
-        if (sanPham!=null) listSanPham.add(sanPham);
-        data=FXCollections.observableArrayList(listSanPham);
-        tableView.setItems(data);
-    }
+//    public void themSach() {
+//
+//        SanPham sanPham = new SanPham();
+//        sanPham.setMasp(textFieldMaSach.getText());
+//        sanPham.setTensp(textFieldTenSach.getText());
+//        sanPham.setSl(0);
+//        sanPham.setDongia(Integer.parseInt(textFieldDonGia.getText()));
+//        NhaXuatBan nhaXuatBan=new NhaXuatBan();
+//
+//        sanPham.setAnhbia(pathImage);
+//        sanPham.setMatg(textFieldMaTG.getText());
+//        if (sanPham!=null) listSanPham.add(sanPham);
+//        data=FXCollections.observableArrayList(listSanPham);
+//        tableView.setItems(data);
+//    }
 
      public TableCell<SanPham,String> createImgCellFactory(){
         return new TableCell<SanPham,String>() {
@@ -241,20 +237,74 @@ public class SanPhamController {
             }
         };
      }
-    public void insertSanPham() {
-        SanPham sanPham = new SanPham();
-        sanPham.setMasp(textFieldMaSach.getText());
-        sanPham.setTensp(textFieldTenSach.getText());
-        sanPham.setSl(0);
-        sanPham.setDongia(Integer.parseInt(textFieldDonGia.getText()));
-        sanPham.setAnhbia(pathImage);
-        TacGia tacGia = new TacGia();
-        CallApi callApi=new CallApi();
-        String json=callApi.callPostRequestParam("http://localhost:8080/TacGia/timKiem","find=",textFieldMaTG.getText());
-        TacGiaController tacGiaController=new TacGiaController();
+    public void themSach() {
 
+        List<TextField> listSanPham = Arrays.asList(textFieldMaSach,textFieldTenSach,textFieldDonGia,textFieldMaTG, textFieldMaNXB, textFieldSoTrang, textFieldMaTL);
+        for (TextField textField : listSanPham) {
+            if (textField.getText().trim().isEmpty() || textField.getText() == null) {
+                showMessage("THÊM SẢN PHẨM ","FAIL","vui lòng nhập đủ thông tin");
+                return;
+            }
+        }
+        if (pathImage.isEmpty() || pathImage == null) {
+            showMessage("THÊM SẢN PHẨM ","FAIL","vui lòng chọn ảnh bìa ");
+            return;
+        }
+        // kiểm tra dữ liệu giá tiền
+        try{
+            Double.parseDouble(textFieldDonGia.getText());
+        }catch (NumberFormatException e){
+            showMessage("THÊM SẢN PHẨM","FAIL","giá tiền nhập vào không hợp lệ");
+            return;
+        }
+        //
+        try{
+            Integer.parseInt(textFieldSoTrang.getText());
+        }catch (NumberFormatException e){
+            showMessage("THÊM SẢN PHẨM","FAIL","số trang nhập vào không hợp lệ");
+            return;
+        }
 
+        try{
+            SanPham sanPham = new SanPham();
+            sanPham.setMasp(textFieldMaSach.getText());
+            sanPham.setTensp(textFieldTenSach.getText());
+            sanPham.setSl(0);
+            sanPham.setMatl(textFieldMaTL.getText());
+            sanPham.setMatg(textFieldMaTG.getText());
+            sanPham.setManxb(textFieldMaNXB.getText());
+            sanPham.setNamxb(10);
+            sanPham.setDongia(Integer.parseInt(textFieldDonGia.getText()));
+            sanPham.setSotrang(Integer.parseInt(textFieldSoTrang.getText()));
+            sanPham.setAnhbia(pathImage);
 
+            CallApi callApi = new CallApi();
+            String result = callApi.callPostRequestBody("http://localhost:8080/sanPham/insert",convertSanPhamToJson(sanPham));
+            if (result.equals("success")) {
+                showMessage("InsertSanPham","SUCCESS","Thêm sản phẩm "+sanPham.getMasp()+" thành công !");
+            }
+        }catch (JsonProcessingException e){
+            showMessage("LỖI HÀM","hàm insertSanPham","Lỗi chuyển đổi dữ liệu sang JSON");
+        }catch (IOException e){
+            showMessage("LỖI HÀM","hàm insertSanPham","không thể kết nối đến server");
+        }catch (Exception e){
+            showMessage("LỖI HÀM","hàm insertSanPham","Lỗi không xác định");
+            e.getMessage();
+            e.printStackTrace();
+        };
+    }
+
+    public String convertSanPhamToJson(SanPham sanPham) throws JsonProcessingException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        return objectMapper.writeValueAsString(sanPham);
+    }
+
+    public void showMessage(String title, String header, String content) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.setContentText(content);
+        alert.showAndWait(); // hoặc .show() nếu không cần chờ
     }
     public void showSelectedItem(SanPham sanPham) {
         inforContainer.setVisible(true);
