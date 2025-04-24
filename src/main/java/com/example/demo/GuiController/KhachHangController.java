@@ -113,14 +113,26 @@ public class KhachHangController implements Initializable {
     }
     public void deleteKhachHang(){
         int indexSelected = tableView.getSelectionModel().getSelectedIndex();
+        System.err.println("+++++++++++++++++++++++++++++++++++++++++++++");
+
         if(indexSelected >=0 && indexSelected < data.size()){
             KhachHang khachHang = data.get(indexSelected);
             System.out.println("Khach hang selected "+khachHang.getMakh());
-            data.remove(indexSelected);
             CallApi callApi=new CallApi();
-            callApi.callPostRequestParam("http://localhost:8080/KhachHang/deleteKhachHang","maKhachHang",khachHang.getMakh());
-            khachHangList.remove(indexSelected);
-            tableView.getSelectionModel().clearSelection();
+            String result=  callApi.callPostRequestParam("http://localhost:8080/KhachHang/deleteKhachHang","maKhachHang",khachHang.getMakh());
+
+            if (result.contains("success")){
+                khachHangList.remove(indexSelected);
+                data.remove(indexSelected);
+                tableView.getSelectionModel().clearSelection();
+            }else {
+                System.err.println("+++++++++++++++++++++++++++++++++++++++++++++");
+                System.err.println(result);
+                System.err.println("+++++++++++++++++++++++++++++++++++++++++++++");
+                System.err.println("LỖI HÀM DELETE KHACH HANG");
+                showMessage("DELETE KHACH HANG","FAIL","LỖI XÓA KHÁCH HÀNG");
+            }
+
 
         }
         //xong

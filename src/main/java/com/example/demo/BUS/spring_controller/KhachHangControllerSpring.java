@@ -22,8 +22,8 @@ public class KhachHangControllerSpring {
         return khachHangServices.searchKhachHang(timkiem);
     }
     @PostMapping("/deleteKhachHang")
-    public String DeleteKhachHang(@RequestParam String khachHang){
-        khachHangServices.deleteKhachHang(khachHang);
+    public String DeleteKhachHang(@RequestParam String maKhachHang){ // tham số phải trùng với key truyền vào trong callPost... kkhi gọi ở controller
+        khachHangServices.deleteKhachHang(maKhachHang);
         return "success";
     }
     @PostMapping("/addKhachHang")

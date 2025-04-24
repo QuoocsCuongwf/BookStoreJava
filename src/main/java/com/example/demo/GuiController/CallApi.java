@@ -14,7 +14,12 @@ public class CallApi {
     public void createConnectApi(String api) {
         try {
             this.url =new URL(api);
-            this.httpURLConnection=(HttpURLConnection) url.openConnection();
+            this.httpURLConnection=(HttpURLConnection) url.openConnection(); // tạo kết nối chuẩn bị sẵn chứ chưa thật sự kết nối
+            // ?trả về một URLConnection object(lớp cha của lớp HttpURLConnection) – một cái “cổng” để cấu hình:
+            //        Thiết lập phương thức (GET, POST)
+            //        Thêm header
+            //        Gửi dữ liệu (với POST)
+            //        Và nhiều thứ khác
         } catch (MalformedURLException e) {
             throw new RuntimeException(e);
         } catch (IOException e) {
@@ -22,8 +27,8 @@ public class CallApi {
         }
 
     }
-    public String callGetApi(String api) throws IOException {
-        StringBuilder response=new StringBuilder();
+    public String callGetApi(String api) throws IOException { // throws IOException: có thể xảy ra lỗi mạng, nên khai báo để bắt buộc xử lý.
+        StringBuilder response=new StringBuilder();// nối chuỗi hiệu quả, chứa dữ liệu từ server trả về
         if(httpURLConnection==null){
             createConnectApi(api);
         }
@@ -124,7 +129,6 @@ public class CallApi {
                 resultsApi = response.toString();
                 System.out.println("Response: " + resultsApi);
             }
-
         } catch (IOException e) {
             throw new RuntimeException(e);
         } finally {
@@ -132,7 +136,6 @@ public class CallApi {
                 connection.disconnect();
             }
         }
-
         return resultsApi;
     }
 
