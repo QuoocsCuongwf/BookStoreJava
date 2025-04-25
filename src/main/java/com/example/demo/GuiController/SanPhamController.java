@@ -202,6 +202,7 @@ public class SanPhamController {
         textFieldSoTrang.setText("");
         textFieldMaTL.setText("");
         inforContainer.setVisible(true);
+        pathImage ="";
     }
 
 //    public void themSach() {
@@ -238,9 +239,13 @@ public class SanPhamController {
         };
      }
     public void themSach() {
-
-        List<TextField> listSanPham = Arrays.asList(textFieldMaSach,textFieldTenSach,textFieldDonGia,textFieldMaTG, textFieldMaNXB, textFieldSoTrang, textFieldMaTL);
-        for (TextField textField : listSanPham) {
+        //test
+        System.out.println("++++++++++++++++++++++++++");
+        System.err.println(" HÀM THÊM SÁCH ĐÃ ĐƯỢC GỌI");
+        System.out.println("++++++++++++++++++++++++++");
+        //test
+        List<TextField> listTextField = Arrays.asList(textFieldMaSach,textFieldTenSach,textFieldDonGia,textFieldMaTG, textFieldMaNXB, textFieldSoTrang, textFieldMaTL);
+        for (TextField textField : listTextField) {
             if (textField.getText().trim().isEmpty() || textField.getText() == null) {
                 showMessage("THÊM SẢN PHẨM ","FAIL","vui lòng nhập đủ thông tin");
                 return;
@@ -282,6 +287,13 @@ public class SanPhamController {
             String result = callApi.callPostRequestBody("http://localhost:8080/sanPham/insert",convertSanPhamToJson(sanPham));
             if (result.equals("success")) {
                 showMessage("InsertSanPham","SUCCESS","Thêm sản phẩm "+sanPham.getMasp()+" thành công !");
+                listSanPham.add(sanPham);
+                data.add(sanPham);
+
+                pathImage = "";
+
+            }else {
+                showMessage("InsertSanPham","FAIL","Thêm sản phẩm "+sanPham.getMasp()+" thất bại");
             }
         }catch (JsonProcessingException e){
             showMessage("LỖI HÀM","hàm insertSanPham","Lỗi chuyển đổi dữ liệu sang JSON");
