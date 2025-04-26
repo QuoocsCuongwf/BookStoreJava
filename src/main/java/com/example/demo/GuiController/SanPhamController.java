@@ -64,6 +64,8 @@ public class SanPhamController {
     @FXML
     private Button btnThoatFormThemSach;
     @FXML
+    private Button btnThemSach;
+    @FXML
     private Button btnAddBook;
     @FXML
     private Pane inforContainer;
@@ -123,7 +125,7 @@ public class SanPhamController {
                 btnHoaDon, btnTHD, btnKhuyenMai);
         inforContainer.setVisible(false);
 
-        btnAddBook.setOnAction(event -> inforContainer.setVisible(true));
+        btnThemSach.setOnAction(event -> inforContainer.setVisible(true));
         Image image = new Image("file:/D:\\java\\BookStoreJava\\src\\main\\resources\\asset\\img\\folder.png");
         if (image.isError()) {
             System.out.println("Error loading image: " + image.getException());
@@ -241,7 +243,7 @@ public class SanPhamController {
     public void themSach() {
         //test
         System.out.println("++++++++++++++++++++++++++");
-        System.err.println(" HÀM THÊM SÁCH ĐÃ ĐƯỢC GỌI");
+        System.err.println(" HÀM THÊM SÁCH ĐÃ ĐƯỢC GỌI"+pathImage);
         System.out.println("++++++++++++++++++++++++++");
         //test
         List<TextField> listTextField = Arrays.asList(textFieldMaSach,textFieldTenSach,textFieldDonGia,textFieldMaTG, textFieldMaNXB, textFieldSoTrang, textFieldMaTL);
@@ -285,7 +287,8 @@ public class SanPhamController {
 
             CallApi callApi = new CallApi();
             String result = callApi.callPostRequestBody("http://localhost:8080/sanPham/insert",convertSanPhamToJson(sanPham));
-            if (result.equals("success")) {
+            System.out.println("DUYEN:"+result);
+            if (result.contains("success")) {
                 showMessage("InsertSanPham","SUCCESS","Thêm sản phẩm "+sanPham.getMasp()+" thành công !");
                 listSanPham.add(sanPham);
                 data.add(sanPham);
@@ -295,6 +298,8 @@ public class SanPhamController {
             }else {
                 showMessage("InsertSanPham","FAIL","Thêm sản phẩm "+sanPham.getMasp()+" thất bại");
             }
+//            listSanPham.add(sanPham);
+//            data.add(sanPham);
         }catch (JsonProcessingException e){
             showMessage("LỖI HÀM","hàm insertSanPham","Lỗi chuyển đổi dữ liệu sang JSON");
         }catch (IOException e){

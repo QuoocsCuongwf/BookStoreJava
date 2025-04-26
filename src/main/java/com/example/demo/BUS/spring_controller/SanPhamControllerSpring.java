@@ -30,6 +30,19 @@ public class SanPhamControllerSpring {
     }
     @PostMapping("/insert")
     public void insertSanPham(@RequestBody SanPham sanPham) {
-        sanPhamServices.insertSanPham(sanPham);
+
+        try {
+            String result = sanPhamServices.insertSanPham(sanPham);
+            if ("fail".equals(result)) {
+                System.err.println("Failed to insert product. Product already exists.");
+                System.err.println("DUYEN : HÀM INSERT TRONG SpringController thành công");
+            } else {
+                System.out.println("Product inserted successfully.");
+                System.err.println("DUYEN : HÀM INSERT TRONG SpringController thành công");
+            }
+        } catch (Exception e) {
+            System.err.println("Error occurred while inserting product: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 }

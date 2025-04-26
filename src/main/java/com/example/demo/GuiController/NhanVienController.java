@@ -211,6 +211,7 @@ public class NhanVienController implements Initializable {
         textFieldLuongNhanVien.setText("");
         datePickerNgayVaoLam.setValue(LocalDate.now());
         inforContainer.setVisible(true);
+
     }
     public void clossInforContainer(){
         int index = inforFormButtonContainer.getChildren().indexOf(btnDeleteNhanVien);

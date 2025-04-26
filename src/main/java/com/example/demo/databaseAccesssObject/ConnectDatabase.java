@@ -38,6 +38,9 @@ public class ConnectDatabase {
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.executeUpdate();
         } catch (SQLException e) {
+            e.printStackTrace();
+            System.err.println("++++++++++++++++++++++++++++++++");
+            System.out.println("BUGGGGGGGGGGGGGGGGGGGGGGGGGGG CONNECTDATABASE ERROR");
             throw new RuntimeException(e);
         }
     }
@@ -71,7 +74,9 @@ public class ConnectDatabase {
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
+
         } catch (JsonProcessingException e) {
+
             throw new RuntimeException(e);
         }
         return jsonString;
@@ -83,10 +88,55 @@ public class ConnectDatabase {
         }
         try {
             PreparedStatement stmt = conn.prepareStatement(query);
+
             int rowsAffected = stmt.executeUpdate();
             System.out.println("Updated " + rowsAffected + " rows.");
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    // duyen : sanPhamDAO không dùng phương thức update và insert được nên viết thêm hàm
+    public void insertSP(String query, Object[] params) {
+        if (conn == null) {
+            try {
+                Class.forName(driver);
+                conn = DriverManager.getConnection(url, user, password);
+                System.out.println("Connected to database");
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+        try (PreparedStatement stmt = conn.prepareStatement(query)) {
+            // Gán các giá trị vào PreparedStatement từ mảng params
+            for (int i = 0; i < params.length; i++) {
+                stmt.setObject(i + 1, params[i]);
+            }
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException("Error executing insert query: " + e.getMessage(), e);
+        }
+    }
+
+    public void updateSP(String query, Object[] params) {
+        if (conn == null) {
+            try {
+                Class.forName(driver);
+                conn = DriverManager.getConnection(url, user, password);
+                System.out.println("Connected to database");
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+        try (PreparedStatement stmt = conn.prepareStatement(query)) {
+            // Gán các giá trị vào PreparedStatement từ mảng params
+            for (int i = 0; i < params.length; i++) {
+                stmt.setObject(i + 1, params[i]);
+            }
+            int rowsAffected = stmt.executeUpdate();
+            System.out.println("Updated " + rowsAffected + " rows.");
+        } catch (SQLException e) {
+            throw new RuntimeException("Error executing update query: " + e.getMessage(), e);
         }
     }
 
