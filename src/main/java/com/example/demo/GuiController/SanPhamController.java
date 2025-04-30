@@ -118,6 +118,7 @@ public class SanPhamController {
 
         anhBia.setCellValueFactory(new PropertyValueFactory<>("anhbia"));
         btnDeleteBook.setOnAction(event->deleteSanPham());
+        btnUpdateBook.setOnAction(event->updateSanPham());
         data=FXCollections.observableArrayList(listSanPham);
         tableView.setItems(data);
         leftMenuController.bindHandlers(btnThongKe, btnKhachHang, btnSanPham,
@@ -134,7 +135,7 @@ public class SanPhamController {
         tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 showSelectedItem(newValue);
-//                listenerChangeValuesOfBook();
+                listenerChangeValuesOfSanPham();
                 // Thực hiện các hành động khác với dữ kiện được chọn
             } else {
                 System.out.println("No item selected!");
@@ -161,7 +162,26 @@ public class SanPhamController {
         System.out.println(iconfolder.getImage().getWidth());
 
     }
+    public void listenerChangeValuesOfSanPham(){
+        List<TextField> fieldsSP = Arrays.asList(textFieldMaSach,textFieldTenSach,textFieldDonGia,textFieldMaTG, textFieldMaNXB, textFieldSoTrang, textFieldMaTL);
+        fieldsSP.forEach(field -> {
+            if (field.getText().equals("")) {
+                showMessage("LítenerChangeValuesOfSanPham","FAIL","TEXTFIELDS không được bỏ trống");
+                return;
+            }else {
+                field.textProperty().addListener((observable, oldValue, newValue) -> {
+                    System.out.println(field.getId()+" thay đổi "+newValue);
+                    int index = inforFormButtonContainer.getChildren().indexOf(btnDeleteBook);
+                    if (index >= 0){
+                        inforFormButtonContainer.getChildren().set(index,btnUpdateBook);
+                    }else {
+                        System.out.println("No button btnDelete selected");
+                    }
+                });
+            }
+        });
 
+    }
     public List<SanPham> convertJsonToSanPham(String json) {
         ObjectMapper mapper = new ObjectMapper();
         List<SanPham> sanPhamList=new ArrayList<>();
@@ -207,21 +227,6 @@ public class SanPhamController {
         pathImage ="";
     }
 
-//    public void themSach() {
-//
-//        SanPham sanPham = new SanPham();
-//        sanPham.setMasp(textFieldMaSach.getText());
-//        sanPham.setTensp(textFieldTenSach.getText());
-//        sanPham.setSl(0);
-//        sanPham.setDongia(Integer.parseInt(textFieldDonGia.getText()));
-//        NhaXuatBan nhaXuatBan=new NhaXuatBan();
-//
-//        sanPham.setAnhbia(pathImage);
-//        sanPham.setMatg(textFieldMaTG.getText());
-//        if (sanPham!=null) listSanPham.add(sanPham);
-//        data=FXCollections.observableArrayList(listSanPham);
-//        tableView.setItems(data);
-//    }
 
      public TableCell<SanPham,String> createImgCellFactory(){
         return new TableCell<SanPham,String>() {
@@ -241,11 +246,11 @@ public class SanPhamController {
         };
      }
     public void themSach() {
-        //test
-        System.out.println("++++++++++++++++++++++++++");
-        System.err.println(" HÀM THÊM SÁCH ĐÃ ĐƯỢC GỌI"+pathImage);
-        System.out.println("++++++++++++++++++++++++++");
-        //test
+//        //test
+//        System.out.println("++++++++++++++++++++++++++");
+//        System.err.println(" HÀM THÊM SÁCH ĐÃ ĐƯỢC GỌI"+pathImage);
+//        System.out.println("++++++++++++++++++++++++++");
+//        //test
         List<TextField> listTextField = Arrays.asList(textFieldMaSach,textFieldTenSach,textFieldDonGia,textFieldMaTG, textFieldMaNXB, textFieldSoTrang, textFieldMaTL);
         for (TextField textField : listTextField) {
             if (textField.getText().trim().isEmpty() || textField.getText() == null) {
@@ -301,6 +306,71 @@ public class SanPhamController {
             showMessage("LỖI HÀM","hàm insertSanPham","không thể kết nối đến server");
         }catch (Exception e){
             showMessage("LỖI HÀM","hàm insertSanPham","Lỗi không xác định");
+            e.getMessage();
+            e.printStackTrace();
+        };
+    }
+    public void updateSanPham(){
+        //
+        List<TextField> listTextField = Arrays.asList(textFieldMaSach,textFieldTenSach,textFieldDonGia,textFieldMaTG, textFieldMaNXB, textFieldSoTrang, textFieldMaTL);
+        for (TextField textField : listTextField) {
+            if (textField.getText().trim().isEmpty() || textField.getText() == null) {
+                showMessage("CẬP NHẬT SẢN PHẨM ","FAIL","vui lòng nhập đủ thông tin");
+                return;
+            }
+        }
+        if (pathImage.isEmpty() || pathImage == null) {
+            showMessage("CẬP NHẬT SẢN PHẨM ","FAIL","vui lòng chọn ảnh bìa ");
+            return;
+        }
+        // kiểm tra dữ liệu giá tiền
+        try{
+            Double.parseDouble(textFieldDonGia.getText());
+        }catch (NumberFormatException e){
+            showMessage("CẬP NHẬT SẢN PHẨM","FAIL","giá tiền nhập vào không hợp lệ");
+            return;
+        }
+        //
+        try{
+            Integer.parseInt(textFieldSoTrang.getText());
+        }catch (NumberFormatException e){
+            showMessage("CẬP NHẬT SẢN PHẨM","FAIL","số trang nhập vào không hợp lệ");
+            return;
+        }
+
+        try{
+            SanPham sanPham = new SanPham();
+            sanPham.setMasp(textFieldMaSach.getText());
+            sanPham.setTensp(textFieldTenSach.getText());
+            sanPham.setSl(0);
+            sanPham.setMatl(textFieldMaTL.getText());
+            sanPham.setMatg(textFieldMaTG.getText());
+            sanPham.setManxb(textFieldMaNXB.getText());
+            sanPham.setNamxb(10);
+            sanPham.setDongia(Integer.parseInt(textFieldDonGia.getText()));
+            sanPham.setSotrang(Integer.parseInt(textFieldSoTrang.getText()));
+            sanPham.setAnhbia(pathImage);
+
+            CallApi callApi = new CallApi();
+            String result = callApi.callPostRequestBody(" http://localhost:8080/sanPham/update",convertSanPhamToJson(sanPham));
+            System.out.println("DUYEN HAHAHAHHAHAHAHA:"+result);
+            for (int i = 0 ; i <listSanPham.size() ; i++){
+                if (listSanPham.get(i).getMasp().equals(sanPham.getMasp())){
+                    listSanPham.set(i, sanPham);
+                    data =FXCollections.observableArrayList();
+                    break;
+                }
+            }
+
+            showMessage("UpdateSanPham","SUCCESS","Thêm sản phẩm "+sanPham.getMasp()+" thành công !");
+
+
+        }catch (JsonProcessingException e){
+            showMessage("LỖI HÀM","hàm UpdateSanPham","Lỗi chuyển đổi dữ liệu sang JSON");
+        }catch (IOException e){
+            showMessage("LỖI HÀM","hàm UpdateSanPham","không thể kết nối đến server");
+        }catch (Exception e){
+            showMessage("LỖI HÀM","hàm UpdateSanPham","Lỗi không xác định");
             e.getMessage();
             e.printStackTrace();
         };
