@@ -288,16 +288,11 @@ public class SanPhamController {
             CallApi callApi = new CallApi();
             String result = callApi.callPostRequestBody("http://localhost:8080/sanPham/insert",convertSanPhamToJson(sanPham));
             System.out.println("DUYEN:"+result);
-            if (result.contains("success")) {
                 showMessage("InsertSanPham","SUCCESS","Thêm sản phẩm "+sanPham.getMasp()+" thành công !");
                 listSanPham.add(sanPham);
                 data.add(sanPham);
-
                 pathImage = "";
 
-            }else {
-                showMessage("InsertSanPham","FAIL","Thêm sản phẩm "+sanPham.getMasp()+" thất bại");
-            }
 //            listSanPham.add(sanPham);
 //            data.add(sanPham);
         }catch (JsonProcessingException e){
