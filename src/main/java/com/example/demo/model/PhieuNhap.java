@@ -17,6 +17,6 @@ public class PhieuNhap {
 
     private String mancc;
 
-    private Integer tongtien;
+    private Double tongtien;
 
 }
