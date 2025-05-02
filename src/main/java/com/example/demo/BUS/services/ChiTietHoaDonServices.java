@@ -9,14 +9,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ChiTietHoaDonServices {
-    ChiTietHoaDonDAO chiTietHoaDonDAO=new ChiTietHoaDonDAO();
-    List<ChiTietHoaDon> list=new ArrayList<ChiTietHoaDon>();
+    private static ChiTietHoaDonDAO chiTietHoaDonDAO=new ChiTietHoaDonDAO();
+    private static List<ChiTietHoaDon> list=new ArrayList<ChiTietHoaDon>();
     public List<ChiTietHoaDon> getList(){
         list=chiTietHoaDonDAO.getList();
         return list;
     }
     public List<ChiTietHoaDon> getList(String maHoaDon){
         List<ChiTietHoaDon> listResults=new ArrayList<ChiTietHoaDon>();
+        if(list.size()==0){
+            getList();
+        }
         for(ChiTietHoaDon c:list){
             if (c.getMahd().equals(maHoaDon)){
                 listResults.add(c);
@@ -43,6 +46,10 @@ public class ChiTietHoaDonServices {
         return 404;
     }
     public void addChiTietHoaDon(ChiTietHoaDon c){
+        list.add(c);
+        SanPhamServices sanPhamServices=new SanPhamServices();
+        int sl=sanPhamServices.searchSanPham(c.getMasp()).get(0).getSl();
+        sanPhamServices.searchSanPham(c.getMasp()).get(0).setSl(sl-c.getSl());
         chiTietHoaDonDAO.addChiTietHoaDon(c);
     }
     public int updateList(ChiTietHoaDon chiTietHoaDonNew, ChiTietHoaDon chiTietHoaDonOld){
@@ -64,5 +71,20 @@ public class ChiTietHoaDonServices {
                 chiTietHoaDonDAO.deleteChiTietHoaDon(maHoaDon,maSanPham);
             }
         }
+    }
+    public void deleteList(String maHoaDon){
+        chiTietHoaDonDAO.deleteChiTietHoaDon(maHoaDon);
+        getList();
+        for(ChiTietHoaDon c:list){
+            if (c.getMahd().equals(maHoaDon) ){
+                list.remove(c);
+                chiTietHoaDonDAO.deleteChiTietHoaDon(maHoaDon);
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        ChiTietHoaDonServices chiTietHoaDonServices=new ChiTietHoaDonServices();
+        chiTietHoaDonServices.deleteList("HD8");
     }
 }

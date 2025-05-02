@@ -8,12 +8,18 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -29,7 +35,11 @@ public class HoaDonController implements Initializable {
 
     @FXML
     private TableView<HoaDon> tableView;
-
+    @FXML
+    private TableView<ChiTietHoaDon> cthdTable;
+    @FXML private TableColumn<HoaDon, String> maSpColumn;
+    @FXML private TableColumn<HoaDon, Integer> slColumn;
+    @FXML private TableColumn<HoaDon, Integer> thanhTienColumn;
     @FXML
     private TableColumn<HoaDon, String> maHDColumn;
 
@@ -41,32 +51,15 @@ public class HoaDonController implements Initializable {
 
     @FXML
     private TableColumn<HoaDon, String> maKHColumn;
-
+    @FXML
+    private HoaDon hoaDonDuocChon;
     @FXML
     private TableColumn<HoaDon, Double> tongTienHoaDonColumn;
     @FXML Label labelTongTien;
     @FXML
     private TextField textFieldTimKiem;
 
-    @FXML
-    private TextField textFieldMaHD;
-
-    @FXML
-    private TextField textFieldMaKhachHang;
-
-    @FXML
-    private TextField textFieldMaNhanVien;
-
-    @FXML
-    private DatePicker datePickerNgayTaoHD;
-
-    @FXML
-    private ListView<ChiTietHoaDon> listCTHD;
     private static List<HoaDon> listHoaDon=new ArrayList<>();
-    @FXML
-    private Button btnAddCTHD;
-    @FXML
-    private Pane inforContainer;
     @FXML
     private Button btnThongKe, btnKhachHang, btnSanPham, btnNhanVien, btnNCC, btnTacGia, btnHoaDon, btnTHD, btnKhuyenMai;
     private static List<ChiTietHoaDon> listChiTietHoaDon=new ArrayList<>();
@@ -76,13 +69,22 @@ public class HoaDonController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        inforContainer.setVisible(false);
+        LeftMenuController leftMenuController=new LeftMenuController();
+        leftMenuController.bindHandlers(btnThongKe, btnKhachHang, btnSanPham,
+                btnNhanVien, btnNCC, btnTacGia,
+                btnHoaDon, btnTHD, btnKhuyenMai);
+        // Liên kết cột với thuộc tính đối tượng HoaDon
         maHDColumn.setCellValueFactory(new PropertyValueFactory<>("mahd"));
         maKHColumn.setCellValueFactory(new PropertyValueFactory<>("makh"));
         maNVColumn.setCellValueFactory(new PropertyValueFactory<>("manv"));
         ngayTaoColumn.setCellValueFactory(new PropertyValueFactory<>("ngaylap"));
         tongTienHoaDonColumn.setCellValueFactory(new PropertyValueFactory<>("tongtien"));
-        if (listHoaDon.isEmpty() || listHoaDon == null) {
+        //Lien ket voi bang cthd
+        maSpColumn.setCellValueFactory(new PropertyValueFactory<>("masp"));
+        slColumn.setCellValueFactory(new PropertyValueFactory<>("sl"));
+        thanhTienColumn.setCellValueFactory(new PropertyValueFactory<>("thanhtien"));
+
+        if (true) {
             CallApi callApi = new CallApi();
             try {
                 String json=callApi.callGetApi("http://localhost:8080/hoaDon/getAllHoaDon");
@@ -96,6 +98,7 @@ public class HoaDonController implements Initializable {
         tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 try {
+                    hoaDonDuocChon=newValue;
                     showSelectedItem(newValue);
                 } catch (IOException e) {
                     throw new RuntimeException(e);
@@ -105,7 +108,7 @@ public class HoaDonController implements Initializable {
                 System.out.println("No item selected!");
             }
         });
-        listCTHD.setItems(danhSachChiTiet);
+        cthdTable.setItems(danhSachChiTiet);
     }
     public List<HoaDon> convertJsonToHoaDon(String json) {
         ObjectMapper mapper = new ObjectMapper();
@@ -118,49 +121,16 @@ public class HoaDonController implements Initializable {
         return listHoaDon;
     }
     private void showSelectedItem(HoaDon newValue) throws IOException {
-        inforContainer.setVisible(true);
-        textFieldMaHD.setText(newValue.getMahd());
-        textFieldMaKhachHang.setText(newValue.getMakh());
-        textFieldMaNhanVien.setText(newValue.getManv());
-        datePickerNgayTaoHD.setValue(newValue.getNgaylap());
-        if (listChiTietHoaDon.isEmpty()){
-            String json;
-            CallApi callApi=new CallApi();
-            json=callApi.callGetApi("http://localhost:8080/chiTietHoaDon/getAll");
-            ObjectMapper mapper = new ObjectMapper();
-            try {
-                mapper.registerModule(new JavaTimeModule());
-                listChiTietHoaDon = mapper.readValue(json, new TypeReference<List<ChiTietHoaDon>>() {});
-            } catch (JsonProcessingException e) {
-                throw new RuntimeException(e);
-            }
-        }
-
-        danhSachChiTiet=FXCollections.observableArrayList(
-                listChiTietHoaDon.stream()
-                        .filter(chiTietHoaDon -> chiTietHoaDon.getMahd().equals(newValue.getMahd()))
-                        .collect(Collectors.toList())
-        );
-        listCTHD.setCellFactory(param -> new ListCell<>() {
-            @Override
-            protected void updateItem(ChiTietHoaDon item, boolean empty) {
-                super.updateItem(item, empty);
-                if (empty || item == null) {
-                    setText(null);
-                } else {
-                    setText(String.format("Mã SP: %s | SL: %d | Giá: %d | Thành tiền: %d",
-                            item.getMasp(), item.getSl(), item.getDongia(), item.getThanhtien()));
-                    System.out.println("Render cell: " + item.getMasp());
-
-                }
-            }
-        });
-
-        listCTHD.setItems(danhSachChiTiet);
-
-        // Tùy chỉnh hiển thị
-
-        labelTongTien.setText(String.valueOf(newValue.getTongtien()));
+        CallApi callApi = new CallApi();
+        List<ChiTietHoaDon> listChiTietHoaDon=new ArrayList<>();
+        String json=callApi.callPostRequestParam("http://localhost:8080/chiTietHoaDon/getByMaHoaDon","maHoaDon=",newValue.getMahd());
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            listChiTietHoaDon=mapper.readValue(json, new TypeReference<List<ChiTietHoaDon>>() {});
+        } catch (JsonProcessingException e) {}
+        System.out.println(json);
+        danhSachChiTiet = FXCollections.observableArrayList(listChiTietHoaDon);
+        cthdTable.setItems(danhSachChiTiet);
     }
 
 
@@ -173,20 +143,33 @@ public class HoaDonController implements Initializable {
     }
 
     @FXML
-    private void addCTHD() {
-        String maHD = textFieldMaHD.getText();
-        String maSP = "SP giả định"; // Thay bằng mã sản phẩm thực tế nếu có giao diện nhập
-        int soLuong = 1; // Hoặc lấy từ một TextField số lượng
+    private void xoaHoaDon() {
+                CallApi callApi=new CallApi();
+                callApi.callPostRequestParam("http://localhost:8080/hoaDon/Delete","maHoaDon=",hoaDonDuocChon.getMahd());
+                listHoaDon.remove(hoaDonDuocChon);
+                danhSachChiTiet.remove(hoaDonDuocChon);
+                showMessage(" "," "," da xoa");
+                // Thực hiện các hành động khác với dữ kiện được chọn
 
-//        String chiTiet = String.format("HD: %s - SP: %s - SL: %d", maHD, maSP, soLuong);
-//        danhSachChiTiet.add(chiTiet);
     }
-
+    public void showMessage(String title, String header, String content) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.setContentText(content);
+        alert.showAndWait(); // hoặc .show() nếu không cần chờ
+    }
     @FXML
-    private void clossInforContainer() {
-        // Đóng form hoặc ẩn nó
-        System.out.println("Đóng thông tin hóa đơn");
-        inforContainer.setVisible(false);
+    private void suaHoaDon(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/TaoHoaDon.fxml"));
+        Parent root = loader.load();
+        ChiTietHoaDonController controller=loader.getController();
+        controller.suaHoaDon(hoaDonDuocChon);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add(getClass().getResource("/asset/css/main.css").toExternalForm());
+        stage.setScene(scene);
+        stage.show();
     }
 
     public List<HoaDon> getHoaDonList() {

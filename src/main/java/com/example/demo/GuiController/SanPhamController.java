@@ -76,7 +76,7 @@ public class SanPhamController {
     private Label labelAnhBia;
     @FXML
     private ImageView imgAnhBia;
-    private List<SanPham> listSanPham=new ArrayList<SanPham>();
+    private static List<SanPham> listSanPham=new ArrayList<SanPham>();
     private String pathImage = "";
 
     private Button btnDeleteBook=new Button("    Xóa    ");
@@ -303,6 +303,20 @@ public class SanPhamController {
        } else {
            System.out.println("No valid selection!");
        }
+   }
+   public List<SanPham> getListSanPham(){
+        if(listSanPham.isEmpty()){
+            CallApi callApi=new CallApi();
+            String json;
+            try {
+                json=callApi.callGetApi("http://localhost:8080/sanPham/getAllSanPham");
+                System.out.println(json);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            listSanPham.addAll(convertJsonToSanPham(json));
+        }
+        return listSanPham;
    }
 
 

@@ -16,8 +16,9 @@ public class ChiTietHoaDonControllerSpring {
         return chiTietHoaDonServices.getList();
     }
 
-    @GetMapping("/getByMaHoaDon")
+    @PostMapping("/getByMaHoaDon")
     public List<ChiTietHoaDon> getByMaHoaDon(@RequestParam String maHoaDon) {
+        System.out.println("list chi tiet hoa don " + chiTietHoaDonServices.getList(maHoaDon));
         return chiTietHoaDonServices.getList(maHoaDon);
     }
 
@@ -40,6 +41,11 @@ public class ChiTietHoaDonControllerSpring {
     @PostMapping("/delete")
     public String deleteChiTietHoaDon(@RequestParam String maHoaDon, @RequestParam String maSanPham) {
         chiTietHoaDonServices.deleteList(maHoaDon, maSanPham);
+        return "success";
+    }
+    @PostMapping("/deleteAllCTHD")
+    public String deleteChiTietHoaDon(@RequestParam String maHoaDon) {
+        chiTietHoaDonServices.deleteList(maHoaDon);
         return "success";
     }
 }

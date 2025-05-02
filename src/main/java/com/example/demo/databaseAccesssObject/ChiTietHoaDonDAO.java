@@ -40,6 +40,10 @@ public class ChiTietHoaDonDAO {
         String sql="delete Chi_tiet_hoa_don where mahd='"+mahd+"' and masp='"+masp+"'";
         conn.update(sql);
     }
+    public void deleteChiTietHoaDon(String mahd) {
+        String sql="delete Chi_tiet_hoa_don where mahd='"+mahd+"'";
+        conn.update(sql);
+    }
     public void updateChiTietHoaDon(ChiTietHoaDon don) {
         String query = "UPDATE CHI_TIET_HOA_DON SET " +
                 "SL = " + don.getSl() + ", " +
