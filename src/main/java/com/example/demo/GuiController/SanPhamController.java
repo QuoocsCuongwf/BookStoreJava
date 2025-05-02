@@ -135,6 +135,12 @@ public class SanPhamController {
         tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 showSelectedItem(newValue);
+//                //cảnh báo khi thay đổi mã sản phẩm
+//                if (!oldValue.getMasp().equals(newValue.getMasp())) {
+//                    showMessage("UPDATE","FAIL","Không được thay mã sản phẩm");
+//                    textFieldMaSach.setText(oldValue.getMasp());
+//                };
+                textFieldMaSach.setEditable(false);
                 listenerChangeValuesOfSanPham();
                 // Thực hiện các hành động khác với dữ kiện được chọn
             } else {
@@ -160,6 +166,7 @@ public class SanPhamController {
         System.out.println(image.getWidth());
         iconfolder.setImage(image);
         System.out.println(iconfolder.getImage().getWidth());
+
 
     }
     public void listenerChangeValuesOfSanPham(){
@@ -216,6 +223,7 @@ public class SanPhamController {
         inforContainer.setVisible(false);
     }
     public void openInforContainer() {
+        textFieldMaSach.setEditable(true);
         textFieldMaSach.setText("");
         textFieldTenSach.setText("");
         textFieldDonGia.setText("");
@@ -246,34 +254,19 @@ public class SanPhamController {
         };
      }
     public void themSach() {
-//        //test
-//        System.out.println("++++++++++++++++++++++++++");
-//        System.err.println(" HÀM THÊM SÁCH ĐÃ ĐƯỢC GỌI"+pathImage);
-//        System.out.println("++++++++++++++++++++++++++");
-//        //test
+
         List<TextField> listTextField = Arrays.asList(textFieldMaSach,textFieldTenSach,textFieldDonGia,textFieldMaTG, textFieldMaNXB, textFieldSoTrang, textFieldMaTL);
-        for (TextField textField : listTextField) {
-            if (textField.getText().trim().isEmpty() || textField.getText() == null) {
-                showMessage("THÊM SẢN PHẨM ","FAIL","vui lòng nhập đủ thông tin");
-                return;
-            }
-        }
+//        for (TextField textField : listTextField) {
+//            if (textField.getText().trim().isEmpty() || textField.getText() == null) {
+//                showMessage("THÊM SẢN PHẨM ","FAIL","vui lòng nhập đủ thông tin");
+//                return;
+//            }
+//        }
         if (pathImage.isEmpty() || pathImage == null) {
             showMessage("THÊM SẢN PHẨM ","FAIL","vui lòng chọn ảnh bìa ");
             return;
         }
-        // kiểm tra dữ liệu giá tiền
-        try{
-            Double.parseDouble(textFieldDonGia.getText());
-        }catch (NumberFormatException e){
-            showMessage("THÊM SẢN PHẨM","FAIL","giá tiền nhập vào không hợp lệ");
-            return;
-        }
-        //
-        try{
-            Integer.parseInt(textFieldSoTrang.getText());
-        }catch (NumberFormatException e){
-            showMessage("THÊM SẢN PHẨM","FAIL","số trang nhập vào không hợp lệ");
+        if (!kiemTraKieuDuLieuNhapVao(listTextField).equals("success")) {
             return;
         }
 
@@ -312,31 +305,41 @@ public class SanPhamController {
             e.printStackTrace();
         };
     }
-    public void updateSanPham(){
-        //
-        List<TextField> listTextField = Arrays.asList(textFieldMaSach,textFieldTenSach,textFieldDonGia,textFieldMaTG, textFieldMaNXB, textFieldSoTrang, textFieldMaTL);
+    public String kiemTraKieuDuLieuNhapVao( List<TextField> listTextField) {
         for (TextField textField : listTextField) {
             if (textField.getText().trim().isEmpty() || textField.getText() == null) {
                 showMessage("CẬP NHẬT SẢN PHẨM ","FAIL","vui lòng nhập đủ thông tin");
-                return;
+                return "null";
             }
         }
-        if (pathImage.isEmpty() || pathImage == null) {
-            showMessage("CẬP NHẬT SẢN PHẨM ","FAIL","vui lòng chọn ảnh bìa ");
-            return;
-        }
-        // kiểm tra dữ liệu giá tiền
+        // kiểm tra dữ liệu giá tiền và trang
         try{
             Double.parseDouble(textFieldDonGia.getText());
         }catch (NumberFormatException e){
             showMessage("CẬP NHẬT SẢN PHẨM","FAIL","giá tiền nhập vào không hợp lệ");
-            return;
+            return "not Num";
         }
         //
         try{
             Integer.parseInt(textFieldSoTrang.getText());
         }catch (NumberFormatException e){
             showMessage("CẬP NHẬT SẢN PHẨM","FAIL","số trang nhập vào không hợp lệ");
+            return "not Num";
+        }
+        return "success";
+    }
+    public void thongBaoKhongThayDoi() {
+
+    }
+    public void updateSanPham(){
+        //
+        List<TextField> listTextField = Arrays.asList(textFieldMaSach,textFieldTenSach,textFieldDonGia,textFieldMaTG, textFieldMaNXB, textFieldSoTrang, textFieldMaTL);
+
+        if (pathImage.isEmpty() || pathImage == null) {
+            showMessage("CẬP NHẬT SẢN PHẨM ","FAIL","vui lòng chọn ảnh bìa ");
+            return;
+        }
+        if (kiemTraKieuDuLieuNhapVao(listTextField).equals("not Num")) {
             return;
         }
 
@@ -356,15 +359,20 @@ public class SanPhamController {
             CallApi callApi = new CallApi();
             String result = callApi.callPostRequestBody(" http://localhost:8080/sanPham/update",convertSanPhamToJson(sanPham));
             System.out.println("DUYEN HAHAHAHHAHAHAHA:"+result);
+            if (result.equals("fail")) {
+                showMessage("UpdateSanPham","FAIL","Lỗi Update sản phẩm "+sanPham.getMasp());
+                return;
+            }
             for (int i = 0 ; i <listSanPham.size() ; i++){
                 if (listSanPham.get(i).getMasp().equals(sanPham.getMasp())){
                     listSanPham.set(i, sanPham);
-                    data =FXCollections.observableArrayList();
+                    data =FXCollections.observableArrayList(listSanPham);
                     break;
                 }
             }
 
-            showMessage("UpdateSanPham","SUCCESS","Thêm sản phẩm "+sanPham.getMasp()+" thành công !");
+            tableView.setItems(data);
+            showMessage("UpdateSanPham","SUCCESS","Cập nhật sản phẩm "+sanPham.getMasp()+" thành công !");
 
 
         }catch (JsonProcessingException e){
