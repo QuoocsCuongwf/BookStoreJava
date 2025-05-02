@@ -23,6 +23,12 @@ public class SanPhamServices {
         return "fail";
     }
     public boolean checkMaSanPham(String maSanPham) {
+        getListSanPham();
+        System.err.println("DUYEN : LIST HIEN TAI");
+        for (SanPham sanPham : listSanPham) {
+            System.out.println(sanPham.getMasp());
+        }
+        System.out.println("DUYEN : LIST HIEN TAI");
         for (SanPham nhanVien : listSanPham) {
             if (nhanVien.getMasp().equals(maSanPham)) {
                 return true;
@@ -31,7 +37,7 @@ public class SanPhamServices {
         return false;
     }
 
-    public void deleteSanPham(String maSanPham) {
+    public String deleteSanPham(String maSanPham) {
         if(checkMaSanPham(maSanPham)){
             for (SanPham sanPham : listSanPham) {
                 if (sanPham.getMasp().equals(maSanPham)) {
@@ -41,10 +47,12 @@ public class SanPhamServices {
             }
             sanPhamDAO.deleteSanPham(maSanPham);
             System.out.println("delete: "+maSanPham);
+            return "success";
         }
+        return "fail";
     }
 
-    public void updateSanPham(SanPham sanPham) {
+    public String updateSanPham(SanPham sanPham) {
             for (SanPham sanPham1 : listSanPham) {
                 if (sanPham1.getMasp().equals(sanPham.getMasp())) {
                     listSanPham.remove(sanPham1);
@@ -52,7 +60,9 @@ public class SanPhamServices {
                     break;
                 }
             sanPhamDAO.updateSanPham(sanPham);
-        }
+            return "success";
+            }
+            return "fail";
     }
 
     public List<SanPham> searchSanPham(String find) {

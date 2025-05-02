@@ -21,28 +21,29 @@ public class SanPhamControllerSpring {
         return sanPhamServices.searchSanPham(find);
     }
     @PostMapping("/update")
-    public void updateSanPham(@RequestBody SanPham sanPham) {
-        sanPhamServices.updateSanPham(sanPham);
+    public String updateSanPham(@RequestBody SanPham sanPham) {
+         return sanPhamServices.updateSanPham(sanPham);
     }
     @PostMapping("/delete")
-    public void deleteSanPham(@RequestParam String maSanPham) {
-        sanPhamServices.deleteSanPham(maSanPham);
+    public String deleteSanPham(@RequestParam String maSanPham) {
+        return sanPhamServices.deleteSanPham(maSanPham);
     }
     @PostMapping("/insert")
-    public void insertSanPham(@RequestBody SanPham sanPham) {
+    public String insertSanPham(@RequestBody SanPham sanPham) {
 
-        try {
-            String result = sanPhamServices.insertSanPham(sanPham);
-            if ("fail".equals(result)) {
-                System.err.println("Failed to insert product. Product already exists.");
-                System.err.println("DUYEN : HÀM INSERT TRONG SpringController thành công");
-            } else {
-                System.out.println("Product inserted successfully.");
-                System.err.println("DUYEN : HÀM INSERT TRONG SpringController thành công");
-            }
-        } catch (Exception e) {
-            System.err.println("Error occurred while inserting product: " + e.getMessage());
-            e.printStackTrace();
-        }
-    }
+//        try {
+//            String result = sanPhamServices.insertSanPham(sanPham);
+//            if ("fail".equals(result)) {
+//                System.err.println("Failed to insert product. Product already exists.");
+//                System.err.println("DUYEN : HÀM INSERT TRONG SpringController thành công");
+//            } else {
+//                System.out.println("Product inserted successfully.");
+//                System.err.println("DUYEN : HÀM INSERT TRONG SpringController thành công");
+//            }
+//        } catch (Exception e) {
+//            System.err.println("Error occurred while inserting product: " + e.getMessage());
+//            e.printStackTrace();
+//        }
+//    }
+        return sanPhamServices.insertSanPham(sanPham);}
 }
