@@ -37,7 +37,7 @@ public class KhachHangDAO {
                 khachHang.getTenkh() + "', '" +
                 khachHang.getEmail() + "', '" +
                 khachHang.getSdt() + "', '" +
-                khachHang.getDiachi() + "', '" + ")";
+                khachHang.getDiachi()  + "')";
 
        connectDatabase.insert(query);
     }

@@ -15,14 +15,14 @@ public class SanPhamServices {
         return listSanPham;
     }
     public String insertSanPham(SanPham sanPham) {
-        if(!findBySanPham(sanPham.getMasp())){
+        if(!checkMaSanPham(sanPham.getMasp())){
             listSanPham.add(sanPham);
             sanPhamDAO.insertSanPham(sanPham);
             return "success";
         };
-        return "error";
+        return "fail";
     }
-    public boolean findBySanPham(String maSanPham) {
+    public boolean checkMaSanPham(String maSanPham) {
         for (SanPham nhanVien : listSanPham) {
             if (nhanVien.getMasp().equals(maSanPham)) {
                 return true;
@@ -32,7 +32,7 @@ public class SanPhamServices {
     }
 
     public void deleteSanPham(String maSanPham) {
-        if(findBySanPham(maSanPham)){
+        if(checkMaSanPham(maSanPham)){
             for (SanPham sanPham : listSanPham) {
                 if (sanPham.getMasp().equals(maSanPham)) {
                     listSanPham.remove(sanPham);
