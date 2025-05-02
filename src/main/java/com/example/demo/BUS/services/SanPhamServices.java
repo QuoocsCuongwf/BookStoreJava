@@ -24,11 +24,7 @@ public class SanPhamServices {
     }
     public boolean checkMaSanPham(String maSanPham) {
         getListSanPham();
-        System.err.println("DUYEN : LIST HIEN TAI");
-        for (SanPham sanPham : listSanPham) {
-            System.out.println(sanPham.getMasp());
-        }
-        System.out.println("DUYEN : LIST HIEN TAI");
+
         for (SanPham nhanVien : listSanPham) {
             if (nhanVien.getMasp().equals(maSanPham)) {
                 return true;
