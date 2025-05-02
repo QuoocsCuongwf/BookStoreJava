@@ -45,15 +45,15 @@ public class SanPhamServices {
     }
 
     public void updateSanPham(SanPham sanPham) {
-            for (SanPham sanPham1 : listSanPham) {
-                if (sanPham1.getMasp().equals(sanPham.getMasp())) {
-                    listSanPham.remove(sanPham1);
-                    listSanPham.add(sanPham);
-                    break;
-                }
-            sanPhamDAO.updateSanPham(sanPham);
+        for (int i = 0; i < listSanPham.size(); i++) {
+            if (listSanPham.get(i).getMasp().equals(sanPham.getMasp())) {
+                listSanPham.set(i, sanPham); // cập nhật tại chỗ, không cần xoá rồi thêm
+                sanPhamDAO.updateSanPham(sanPham);
+                break;
+            }
         }
     }
+
 
     public List<SanPham> searchSanPham(String find) {
         List<SanPham> resultSearch=new ArrayList<>();

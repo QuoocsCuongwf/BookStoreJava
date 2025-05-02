@@ -86,6 +86,7 @@ public class SanPhamDAO {
                 "SOTRANG = " + sp.getSotrang() + ", " +
                 "ANHBIA = '" + sp.getAnhbia() + "' " +
                 "WHERE MASP = '" + sp.getMasp() + "'";
+        System.out.println(sql);
         cnn.update(sql);
     }
 

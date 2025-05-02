@@ -201,7 +201,7 @@ public class SanPhamController {
         File file = fileChooser.showOpenDialog(iconfolder.getScene().getWindow());
         if (file != null) {
             System.out.println("File được chọn: " + file.getAbsolutePath());
-            pathImage=file.getAbsolutePath().replace("\\", "\\\\");
+            pathImage=file.getAbsolutePath().replace("\\", "/");
             System.out.println(pathImage);
         } else {
             System.out.println("Không có file nào được chọn.");
@@ -390,6 +390,7 @@ public class SanPhamController {
     }
     public void showSelectedItem(SanPham sanPham) {
         inforContainer.setVisible(true);
+        pathImage=sanPham.getAnhbia();
         textFieldMaSach.setText(sanPham.getMasp());
         textFieldMaTG.setText(sanPham.getMatg());
         textFieldTenSach.setText(sanPham.getTensp());

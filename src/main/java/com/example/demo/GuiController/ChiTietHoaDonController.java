@@ -294,7 +294,7 @@ public class ChiTietHoaDonController implements Initializable {
         textFieldMaKH.clear();
         textFieldMaHoaDon.clear();
         String maHoaDon=listHoaDon.get(listHoaDon.size()-1).getMahd();
-        maHoaDon.replace("HD","");
+        maHoaDon=maHoaDon.replace("HD","");
         textFieldMaHoaDon.setText("HD"+(Integer.parseInt(maHoaDon)+1));
         tongTienLabel.setText("Tổng tiền thanh toán: ");
     }

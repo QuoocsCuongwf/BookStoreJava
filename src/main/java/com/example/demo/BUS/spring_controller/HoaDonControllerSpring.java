@@ -1,5 +1,6 @@
 package com.example.demo.BUS.spring_controller;
 
+import com.example.demo.BUS.services.ChiTietHoaDonServices;
 import com.example.demo.model.HoaDon;
 import com.example.demo.BUS.services.HoaDonServices;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +25,8 @@ public class HoaDonControllerSpring {
     @PostMapping("/Delete")
     public String deleteHoaDon(@RequestParam String maHoaDon) {
         hoaDonServices.deleteHoaDon(maHoaDon);
+        ChiTietHoaDonServices chiTietHoaDonServices=new ChiTietHoaDonServices();
+        chiTietHoaDonServices.deleteList(maHoaDon);
         return "success";
     }
 

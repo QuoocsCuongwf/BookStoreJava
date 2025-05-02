@@ -11,7 +11,7 @@ public class ConnectDatabase {
     private String driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
     private String url = "jdbc:sqlserver://localhost:1433;databaseName=bookstore;encrypt=true;trustServerCertificate=true;";
     private String user = "sa";
-    private String password = "abc123";
+    private String password = "Admin123@";
     private Connection conn = null;
     private ResultSet rs = null;
     public ConnectDatabase() {

@@ -2,89 +2,102 @@ package com.example.demo.BUS.services;
 
 import com.example.demo.databaseAccesssObject.ChiTietHoaDonDAO;
 import com.example.demo.model.ChiTietHoaDon;
-import com.example.demo.model.HoaDon;
 import com.example.demo.model.SanPham;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class ChiTietHoaDonServices {
-    private static ChiTietHoaDonDAO chiTietHoaDonDAO=new ChiTietHoaDonDAO();
-    private static List<ChiTietHoaDon> list=new ArrayList<ChiTietHoaDon>();
-    public List<ChiTietHoaDon> getList(){
-        list=chiTietHoaDonDAO.getList();
+    private static final ChiTietHoaDonDAO chiTietHoaDonDAO = new ChiTietHoaDonDAO();
+    private static final List<ChiTietHoaDon> list = new ArrayList<>();
+
+    public List<ChiTietHoaDon> getList() {
+        list.clear();
+        list.addAll(chiTietHoaDonDAO.getList());
         return list;
     }
-    public List<ChiTietHoaDon> getList(String maHoaDon){
-        List<ChiTietHoaDon> listResults=new ArrayList<ChiTietHoaDon>();
-        if(list.size()==0){
+
+    public List<ChiTietHoaDon> getList(String maHoaDon) {
+        if (list.isEmpty()) {
             getList();
         }
-        for(ChiTietHoaDon c:list){
-            if (c.getMahd().equals(maHoaDon)){
-                listResults.add(c);
+
+        List<ChiTietHoaDon> resultList = new ArrayList<>();
+        for (ChiTietHoaDon c : list) {
+            if (c.getMahd().equals(maHoaDon)) {
+                resultList.add(c);
             }
         }
-        return listResults;
+        return resultList;
     }
-    public int checkChiTietHoaDon(ChiTietHoaDon c){
-        SanPhamServices sanPhamServices=new SanPhamServices();
-        List<SanPham> listSanPham=sanPhamServices.getListSanPham();
-        System.out.println("find: "+c.getMasp());
-        for(SanPham s:listSanPham){
-            if (s.getMasp().equals(c.getMasp())){
-                if(sanPhamServices.searchSanPham(c.getMasp()).get(0).getSl()-c.getSl()>=0){
-                    list.add(c);
-                    sanPhamServices.searchSanPham(c.getMasp()).get(0).setSl(sanPhamServices.searchSanPham(c.getMasp()).get(0).getSl()-c.getSl());
-                    return 200;
-                }
-                return 400;
+
+    public boolean isValidChiTietHoaDon(ChiTietHoaDon c) {
+        SanPhamServices sanPhamServices = new SanPhamServices();
+        List<SanPham> listSanPham = sanPhamServices.getListSanPham();
+        for (SanPham s : listSanPham) {
+            if (s.getMasp().equals(c.getMasp())) {
+                return s.getSl() >= c.getSl();
             }
-            System.out.println("find: "+s.getMasp());
         }
-        System.out.println("Khong tim thay san pham");
-        return 404;
+        return false; // Không tìm thấy sản phẩm
     }
-    public void addChiTietHoaDon(ChiTietHoaDon c){
+
+    public int checkChiTietHoaDon(ChiTietHoaDon c) {
+        if (isValidChiTietHoaDon(c)) {
+            return 200; // OK
+        }
+
+        SanPhamServices sanPhamServices = new SanPhamServices();
+        if (sanPhamServices.searchSanPham(c.getMasp()).isEmpty()) {
+            return 404; // Not Found
+        }
+        return 400; // Không đủ số lượng
+    }
+
+    public void addChiTietHoaDon(ChiTietHoaDon c) {
         list.add(c);
-        SanPhamServices sanPhamServices=new SanPhamServices();
-        int sl=sanPhamServices.searchSanPham(c.getMasp()).get(0).getSl();
-        sanPhamServices.searchSanPham(c.getMasp()).get(0).setSl(sl-c.getSl());
+        SanPhamServices sanPhamServices = new SanPhamServices();
+        SanPham sanPham = sanPhamServices.searchSanPham(c.getMasp()).get(0);
+        sanPham.setSl(sanPham.getSl() - c.getSl());
+        sanPhamServices.updateSanPham(sanPham);
         chiTietHoaDonDAO.addChiTietHoaDon(c);
     }
-    public int updateList(ChiTietHoaDon chiTietHoaDonNew, ChiTietHoaDon chiTietHoaDonOld){
-        int status=checkChiTietHoaDon(chiTietHoaDonNew);
-        if(status==200){
-            list.remove(chiTietHoaDonOld);
-            deleteList(chiTietHoaDonOld.getMahd(), chiTietHoaDonNew.getMahd());
-            SanPhamServices sanPhamServices=new SanPhamServices();
-            sanPhamServices.searchSanPham(chiTietHoaDonNew.getMasp()).get(0).setSl(sanPhamServices.searchSanPham(chiTietHoaDonNew.getMasp()).get(0).getSl()+chiTietHoaDonNew.getSl());
-            return 200;
+
+    public int updateList(ChiTietHoaDon newItem, ChiTietHoaDon oldItem) {
+        int status = checkChiTietHoaDon(newItem);
+        if (status == 200) {
+            deleteList(oldItem.getMahd(), oldItem.getMasp());
+            addChiTietHoaDon(newItem); // Gồm cập nhật cả list và DB
         }
         return status;
     }
-    public void deleteList(String maHoaDon, String maSanPham){
-        chiTietHoaDonDAO.deleteChiTietHoaDon(maHoaDon,maSanPham);
-        for(ChiTietHoaDon c:list){
-            if (c.getMahd().equals(maHoaDon) && c.getMasp().equals(maSanPham)){
-                list.remove(c);
-                chiTietHoaDonDAO.deleteChiTietHoaDon(maHoaDon,maSanPham);
+
+    public void deleteList(String maHoaDon, String maSanPham) {
+        Iterator<ChiTietHoaDon> iterator = list.iterator();
+        while (iterator.hasNext()) {
+            ChiTietHoaDon c = iterator.next();
+            if (c.getMahd().equals(maHoaDon) && c.getMasp().equals(maSanPham)) {
+                iterator.remove();
+                break;
             }
         }
+        chiTietHoaDonDAO.deleteChiTietHoaDon(maHoaDon, maSanPham);
     }
-    public void deleteList(String maHoaDon){
-        chiTietHoaDonDAO.deleteChiTietHoaDon(maHoaDon);
-        getList();
-        for(ChiTietHoaDon c:list){
-            if (c.getMahd().equals(maHoaDon) ){
-                list.remove(c);
-                chiTietHoaDonDAO.deleteChiTietHoaDon(maHoaDon);
+
+    public void deleteList(String maHoaDon) {
+        Iterator<ChiTietHoaDon> iterator = list.iterator();
+        while (iterator.hasNext()) {
+            ChiTietHoaDon c = iterator.next();
+            if (c.getMahd().equals(maHoaDon)) {
+                iterator.remove();
             }
         }
+        chiTietHoaDonDAO.deleteChiTietHoaDon(maHoaDon);
     }
 
     public static void main(String[] args) {
-        ChiTietHoaDonServices chiTietHoaDonServices=new ChiTietHoaDonServices();
+        ChiTietHoaDonServices chiTietHoaDonServices = new ChiTietHoaDonServices();
         chiTietHoaDonServices.deleteList("HD8");
     }
 }
