@@ -221,9 +221,16 @@ public class SanPhamController {
             inforFormButtonContainer.getChildren().set(index, btnAddBook);
         }
         inforContainer.setVisible(false);
+        //
+//        textFieldMaSach.setText("");
+//        textFieldTenSach.setText("");
+//        textFieldDonGia.setText("");
+//        textFieldMaNXB.setText("");
+//        textFieldMaTG.setText("");
+//        textFieldSoTrang.setText("");
+//        textFieldMaTL.setText("");
     }
     public void openInforContainer() {
-        textFieldMaSach.setEditable(true);
         textFieldMaSach.setText("");
         textFieldTenSach.setText("");
         textFieldDonGia.setText("");
@@ -231,8 +238,8 @@ public class SanPhamController {
         textFieldMaTG.setText("");
         textFieldSoTrang.setText("");
         textFieldMaTL.setText("");
-        inforContainer.setVisible(true);
         pathImage ="";
+        inforContainer.setVisible(true);
     }
 
 
@@ -399,7 +406,9 @@ public class SanPhamController {
         alert.showAndWait(); // hoặc .show() nếu không cần chờ
     }
     public void showSelectedItem(SanPham sanPham) {
+        textFieldMaSach.setEditable(false);
         inforContainer.setVisible(true);
+        openInforContainer();
         textFieldMaSach.setText(sanPham.getMasp());
         textFieldMaTG.setText(sanPham.getMatg());
         textFieldTenSach.setText(sanPham.getTensp());

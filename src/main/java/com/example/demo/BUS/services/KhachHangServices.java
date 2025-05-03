@@ -43,7 +43,7 @@ public class KhachHangServices {
     public String addKhachHang(KhachHang khachHang){
         if (!checkMaKhachHang(khachHang.getMakh())){
             khachHangDAO.addKhachHang(khachHang);
-            System.out.println("add sucess");
+            System.out.println("add success");
             return "Add success";
         }
         return "fail";

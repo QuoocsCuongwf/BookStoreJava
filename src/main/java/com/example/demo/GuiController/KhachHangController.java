@@ -144,7 +144,7 @@ public class KhachHangController implements Initializable {
 
         CallApi callApi = new CallApi();
         String result = callApi.callPostRequestBody("http://localhost:8080/KhachHang/addKhachHang", convertKhachHangToJSON(khachHang));
-        if (result.contains("Success")) {
+        if (result.contains("success")) {
             khachHangList.add(khachHang);
             data.add(khachHang);
             showMessage("Add Khach Hang", "Success", "Khách hàng đã được thêm!");
