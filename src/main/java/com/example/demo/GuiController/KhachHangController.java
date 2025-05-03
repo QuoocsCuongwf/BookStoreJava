@@ -114,7 +114,7 @@ public class KhachHangController implements Initializable {
             System.out.println("Khach hang selected: " + khachHang.getMakh());
             CallApi callApi = new CallApi();
             String result = callApi.callPostRequestParam("http://localhost:8080/KhachHang/deleteKhachHang", "maKhachHang=", khachHang.getMakh());
-            if (result.contains("Success")) {
+            if (result.contains("success")) {
                 data.remove(indexSelected);
                 khachHangList.remove(indexSelected);
                 tableView.getSelectionModel().clearSelection();
@@ -239,6 +239,7 @@ public class KhachHangController implements Initializable {
         String find = textFieldTimKiem.getText();
         CallApi callApi = new CallApi();
         String json = callApi.callPostRequestParam("http://localhost:8080/KhachHang/timKiemKhachHang", "find=", find);
+
         data = FXCollections.observableArrayList(convertJSONToListKhachHang(json));
         tableView.setItems(data);
     }

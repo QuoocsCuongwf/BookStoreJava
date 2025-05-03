@@ -48,9 +48,19 @@ public class KhachHangServices {
         }
         return "fail";
     }
-    public void deleteKhachHang(String maKhachHang){
-        listKhachHang.removeIf(khachHang -> khachHang.getMakh().equals(maKhachHang));
-        khachHangDAO.deleteKhachHang(maKhachHang);
+    public String deleteKhachHang(String maKhachHang){
+
+//        listKhachHang.removeIf(khachHang -> khachHang.getMakh().equals(maKhachHang)
+//        );
+        for (KhachHang khachHang : listKhachHang) {
+            if (khachHang.getMakh().equals(maKhachHang)) {
+                listKhachHang.remove(khachHang);
+                khachHangDAO.deleteKhachHang(maKhachHang);
+                return "success" ;
+            }
+        }
+        return "fail" ;
+
     }
     public String updateKhachHang(KhachHang khachHang){
         khachHangDAO.updateKhachHang(khachHang);

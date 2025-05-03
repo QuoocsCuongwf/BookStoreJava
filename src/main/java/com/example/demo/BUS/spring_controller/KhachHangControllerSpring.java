@@ -18,8 +18,8 @@ public class KhachHangControllerSpring {
         return khachHangServices.getListKhachHang();
     }
     @PostMapping("/timKiemKhachHang")
-    public List<KhachHang> timKiem( @RequestParam String timkiem){
-        return khachHangServices.searchKhachHang(timkiem);
+    public List<KhachHang> timKiem( @RequestParam String find){
+        return khachHangServices.searchKhachHang(find);
     }
     @PostMapping("/deleteKhachHang")
     public String DeleteKhachHang(@RequestParam String maKhachHang){ // tham số phải trùng với key truyền vào trong callPost... kkhi gọi ở controller

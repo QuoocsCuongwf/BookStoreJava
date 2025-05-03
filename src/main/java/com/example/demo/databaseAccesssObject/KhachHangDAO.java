@@ -28,7 +28,7 @@ public class KhachHangDAO {
     }
     public void deleteKhachHang (String maKhachHang){
         System.out.println("deleted KhachHang:"+maKhachHang);
-        connectDatabase.insert("SELECT FROM KHACH_HANG WHERE MAKH='"+maKhachHang+"'");
+        connectDatabase.insert("DELETE FROM KHACH_HANG WHERE MAKH='"+maKhachHang+"'");
     }
     public void   addKhachHang (KhachHang khachHang){
         String query = "INSERT INTO KHACH_HANG (makh, hokh, tenkh, email, sdt,diachi) " +
