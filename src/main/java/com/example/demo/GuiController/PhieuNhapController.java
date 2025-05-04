@@ -60,6 +60,7 @@ public class PhieuNhapController  implements Initializable {
     private HBox inforFormButtonContainer;
     @FXML
     private Button btnAddPhieuNhap;
+
     @FXML
     private HBox inforButtonContainer;
 
@@ -132,7 +133,6 @@ public class PhieuNhapController  implements Initializable {
         List<TextField> fields = Arrays.asList(
                 txt_MaPhieuNhap,txt_MaNhanVien,txt_MaNhaCungCap,txt_TongTien
         );
-
         fields.forEach(f -> {
             if (f == null) {
                 System.err.println("Một TextField chưa được inject (null)!");
@@ -154,9 +154,9 @@ public class PhieuNhapController  implements Initializable {
         int selectedIndex = tableView.getSelectionModel().getSelectedIndex();
         if (selectedIndex >= 0 && selectedIndex < data.size()) {
             PhieuNhap phieuNhap = data.get(selectedIndex);
-            System.out.println("Phieu nhap selected "+phieuNhap.getManv());
+            System.out.println("Phieu nhap selected "+phieuNhap.getMapn());
             CallApi callApi=new CallApi();
-            String result=callApi.callPostRequestParam("http://localhost:8080/phieuNhap/Delete","maNhanVien=",phieuNhap.getManv());
+            String result=callApi.callPostRequestParam("http://localhost:8080/phieuNhap/Delete","maPhieuNhap=",phieuNhap.getMapn());
             data.remove(selectedIndex); // Optional: remove from ObservableList to update the table
             tableView.getSelectionModel().clearSelection();
         } else {
@@ -197,7 +197,7 @@ public class PhieuNhapController  implements Initializable {
         }
     }
     public void openInforContainer(){
-        txt_MaPhieuNhap.setText("NV"+phieuNhapList.size()+1);
+        txt_MaPhieuNhap.setText("PN"+phieuNhapList.size()+1);
         datePickerNgayNhap.setValue(LocalDate.now());
         txt_MaNhanVien.setText("");
         txt_MaNhaCungCap.setText("");
@@ -232,17 +232,18 @@ public class PhieuNhapController  implements Initializable {
         phieuNhap.setNgaynhap(datePickerNgayNhap.getValue());
         phieuNhap.setManv(txt_MaNhanVien.getText());
         phieuNhap.setMancc(txt_MaNhaCungCap.getText());
-
         Double tongTien = Double.parseDouble(txt_TongTien.getText());
         phieuNhap.setTongtien(tongTien);
-
 
         CallApi callApi=new CallApi();
         String result=callApi.callPostRequestBody("http://localhost:8080/phieuNhap/Add",convertPhieuNhapToJson(phieuNhap));
         System.out.println(result);
-        if (result.contains("Success")){
+        if (result.contains("success")){
             phieuNhapList.add(phieuNhap);
             data.add(phieuNhap);
+            showMessage("PHIEU NHAP","SUCCESS","Thêm phiếu nhập thành công");
+        }else {
+            showMessage("PHIEU NHAP","FAIL","Thêm phiếu nhập thất bại");
         }
     }
 

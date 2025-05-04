@@ -58,7 +58,7 @@
                                 <Font size="16.0" />
                             </font>
                         </Button>
-                        <Button layoutX="-5.0" layoutY="517.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="233.0" text="Phiếu Nhập">
+                        <Button fx:id="btnPhieuNhap" layoutX="-5.0" layoutY="517.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="233.0" text="Phiếu Nhập">
                             <font>
                                 <Font size="16.0" />
                             </font>
@@ -94,7 +94,7 @@
                                         <HBox fx:id="inforButtonContainer" alignment="CENTER" layoutX="26.0" layoutY="163.0" prefHeight="36.0" prefWidth="249.0" spacing="15.0">
                                             <children>
                                                 <Button fx:id="btnAddPhieuNhap" mnemonicParsing="false" onAction="#addPhieuNhap" text="Thêm" />
-                                                <Button mnemonicParsing="false" onAction="#clossInforContainer" text="Đóng" />
+                                                <Button fx:id="btnDong" mnemonicParsing="false" onAction="#clossInforContainer" text="Đóng" />
                                             </children>
                                         </HBox>
                                         <DatePicker fx:id="datePickerNgayNhap" layoutX="14.0" layoutY="74.0" prefHeight="25.0" prefWidth="136.0" promptText="Ngày Nhập" />
