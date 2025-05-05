@@ -6,14 +6,10 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@Entity
-@Table(name = "ACCOUNT")
 public class Account {
-    @EmbeddedId
-    private AccountId id;
+    private String username;
+    private String password;
+    private String chucvu;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "CHUCVU", referencedColumnName = "CHUCVU")
-    private com.example.demo.model.NhanVien chucvu;
 
 }

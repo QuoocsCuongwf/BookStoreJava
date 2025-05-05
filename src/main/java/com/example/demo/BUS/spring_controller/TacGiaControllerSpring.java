@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 @RestController
-@RequestMapping("TacGia")
+@RequestMapping("tacGia")
 
 public class TacGiaControllerSpring {
     TacGiaServices tacGiaServices = new TacGiaServices();

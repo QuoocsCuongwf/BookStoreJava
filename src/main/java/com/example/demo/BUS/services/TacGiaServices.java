@@ -2,12 +2,12 @@ package com.example.demo.BUS.services;
 
 import com.example.demo.databaseAccesssObject.TacGiaDAO;
 import com.example.demo.model.TacGia;
-import com.example.demo.model.TacGia;
-import com.example.demo.BUS.spring_controller.TacGiaControllerSpring;
+
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+
 
 public class TacGiaServices {
     private TacGiaDAO tacGiaDAO = new TacGiaDAO();
@@ -46,7 +46,8 @@ public class TacGiaServices {
     }
 
     public List<TacGia> searchTacGia(String in4TacGia) {
-        List<TacGia> result = listTacGia.stream().filter( tacGia -> tacGia.getMatg().contains(in4TacGia) || tacGia.getHotg().contains(in4TacGia) || tacGia.getTentg().contains(in4TacGia) || tacGia.getQuequan().contains(in4TacGia) ||  String.valueOf(tacGia.getNamsinh()).contains(in4TacGia))
+        List<TacGia> result = listTacGia.stream()
+                .filter( tacGia -> tacGia.getMatg().contains(in4TacGia) || tacGia.getHotg().contains(in4TacGia) || tacGia.getTentg().contains(in4TacGia) || tacGia.getQuequan().contains(in4TacGia) ||  String.valueOf(tacGia.getNamsinh()).contains(in4TacGia))
                 .collect(Collectors.toList());
         return result;
     }
@@ -54,8 +55,9 @@ public class TacGiaServices {
         listTacGia.removeIf(tacGia -> tacGia.getMatg().equals(maTacGia));
         tacGiaDAO.deleteTacGia(maTacGia);
     }
-    public String updateTacGia (TacGia tacGia) {
+    public String updateTacGia(TacGia tacGia) {
         tacGiaDAO.updateTacGia(tacGia);
+        listTacGia = tacGiaDAO.getListTacGia(); // Cập nhật danh sách từ DB
         return "update success";
     }
 

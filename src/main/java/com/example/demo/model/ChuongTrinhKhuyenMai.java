@@ -11,17 +11,12 @@ import java.time.LocalDate;
 
 @Getter
 @Setter
-@Entity
-@Table(name = "CHUONG_TRINH_KHUYEN_MAI")
 public class ChuongTrinhKhuyenMai {
-    @Id
-    @Column(name = "MACTKM", nullable = false, length = 10)
+
     private String mactkm;
 
-    @Column(name = "NGAYBD")
     private LocalDate ngaybd;
 
-    @Column(name = "NGAYKT")
     private LocalDate ngaykt;
 
 }

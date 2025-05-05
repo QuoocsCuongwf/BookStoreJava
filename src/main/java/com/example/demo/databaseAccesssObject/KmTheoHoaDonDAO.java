@@ -39,6 +39,7 @@ public class KmTheoHoaDonDAO {
     public void addKhuyenMai(KmTheoHoaDon kmTheoHoaDon) {
         String query = "INSERT INTO NHAN_VIEN (mactkm,tongtien,phantramkhuyenmai) " +
                 "VALUES ('" + kmTheoHoaDon.getMactkm() + "', '" +
+                kmTheoHoaDon.getMasanpham() + "', '" +
                 kmTheoHoaDon.getTongtien() + "', '" +
                 kmTheoHoaDon.getPhantramkhuyenmai() + "', '" +
                 ")";
@@ -46,10 +47,10 @@ public class KmTheoHoaDonDAO {
         condb.insert(query);
     }
     public void updateChuongTrinhKhuyenMai(KmTheoHoaDon kmTheoHoaDon) {
-        String query = "UPDATE NHAN_VIEN" +
-                "SET TENNV='" + kmTheoHoaDon.getMactkm()
-                + "', CCCD='" + kmTheoHoaDon.getPhantramkhuyenmai()
-                + "', CHUCVU='" + kmTheoHoaDon.getTongtien()
+        String query = "UPDATE KM_THEO_HOA_DON" +
+                "SET MASANPHAM='" + kmTheoHoaDon.getMasanpham()
+                + "', PHAN TRAM KHUYEN MAI='" + kmTheoHoaDon.getPhantramkhuyenmai()
+                + "', TONG TIEN='" + kmTheoHoaDon.getTongtien()
                 +
                 "'";
         condb.update(query);

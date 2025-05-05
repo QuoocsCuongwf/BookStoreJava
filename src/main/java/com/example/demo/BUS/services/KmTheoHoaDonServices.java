@@ -46,6 +46,7 @@ public class KmTheoHoaDonServices {
         List<KmTheoHoaDon> result= listKmTheoHoaDon.stream()
                 .filter(kmTheoHoaDon ->
                         String.valueOf(kmTheoHoaDon.getMactkm()).contains(in4ChuongTrinh) ||
+                                String.valueOf(kmTheoHoaDon.getMasanpham()).contains(in4ChuongTrinh) ||
                                 String.valueOf(kmTheoHoaDon.getTongtien()).contains(in4ChuongTrinh) ||
                                 String.valueOf(kmTheoHoaDon.getPhantramkhuyenmai()).contains(in4ChuongTrinh)
                 )

@@ -1,28 +1,34 @@
 
 package com.example.demo.GuiController;
 
-import com.example.demo.GuiController.CallApi;
-import com.example.demo.model.NhanVien;
 import com.example.demo.model.TacGia;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.scene.Node;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import com.fasterxml.jackson.core.type.TypeReference;
 
+
 import java.io.IOException;
-import java.net.URL;
+import java.net.*;
 import java.time.LocalDate;
 import java.util.*;
+
 
 @Component
 @Controller
@@ -98,7 +104,7 @@ public class TacGiaController implements Initializable {
         CallApi callApi = new CallApi();
         String json = null;
         try {
-            json = callApi.callGetApi("http://localhost:8080/TacGia/getAllTacGia");
+            json = callApi.callGetApi("http://localhost:8080/tacGia/getAllTacGia");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -106,7 +112,8 @@ public class TacGiaController implements Initializable {
         System.out.println(tacGiaList);
         data = FXCollections.observableArrayList(tacGiaList);
         tableView.setItems(data);
-        btnDeleteTacGia.setOnAction(event -> deleteTacGia());
+        btnDeleteTacGia.setOnAction(event -> deleteTacGia(btnDeleteTacGia));
+        btnUpdateTacGia.setOnAction(event -> updateTacGia());
     }
     public List<TacGia> getListTacGia() {
         System.out.println("List tac gia: "+tacGiaList);
@@ -128,11 +135,13 @@ public class TacGiaController implements Initializable {
     public String convertTacGiaToJson(TacGia tacGia) {
         ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(new JavaTimeModule());
+        String json = null;
         try {
-            return mapper.writeValueAsString(tacGia);
+            json = mapper.writeValueAsString(tacGia);
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
+        return json;
     }
 
     public void listenerChangeValuesOfTacGia() {
@@ -142,7 +151,9 @@ public class TacGiaController implements Initializable {
         );
 
         fields.forEach(f -> {
-            if (f != null) {
+            if (f == null) {
+                System.out.println("Một TextField chưa được inject (null)!");
+            } else{
                 f.textProperty().addListener((obs, oldVal, newVal) -> {
                     System.out.println(f.getId() + " thay đổi: " + newVal);
                     int index = inforButtonContainer.getChildren().indexOf(btnDeleteTacGia);
@@ -156,13 +167,13 @@ public class TacGiaController implements Initializable {
         });
     }
 
-    public void deleteTacGia() {
+    public void deleteTacGia( Button button) {
         int selectedIndex = tableView.getSelectionModel().getSelectedIndex();
         if (selectedIndex >= 0 && selectedIndex < data.size()) {
             TacGia tacGia = data.get(selectedIndex);
             System.out.println("Tac Gia selected " + tacGia.getMatg());
             CallApi callApi = new CallApi();
-            String result = callApi.callPostRequestParam("http://localhost:8080/TacGia/Delete", "maTacGia=",tacGia.getMatg());
+            String result = callApi.callPostRequestParam("http://localhost:8080/tacGia/Delete", "maTacGia=",tacGia.getMatg());
             data.remove(selectedIndex);
             tableView.getSelectionModel().clearSelection();
         } else {
@@ -190,8 +201,16 @@ public class TacGiaController implements Initializable {
         CallApi callApi=new CallApi();
         String resultApi=callApi.callPostRequestBody("http://localhost:8080/tacGia/Update",convertTacGiaToJson(tacGia));
         if (resultApi.contains("Success")) {
-            tacGiaList.add(tacGia);
-            data.add(tacGia);
+            for( int i = 0; i < tacGiaList.size(); i++ ) {
+                if(tacGiaList.get(i).getMatg().equals(tacGia.getMatg())) {
+                    tacGiaList.set(i,tacGia); // thay the dung phan tu
+                    break;
+                }
+            }
+            showMessage("Success"," Sua tac gia thanh cong", resultApi);
+            data = FXCollections.observableArrayList(tacGiaList);
+            tableView.setItems(data);
+
         }
     }
     public void openInforContainer() {
@@ -220,6 +239,7 @@ public class TacGiaController implements Initializable {
     }
 
     public void addTacGia() {
+        TacGia tacGia = new TacGia();
         List<TextField> textFields = Arrays.asList(
                 txt_MaTacGia, txt_HoTacGia, txt_TenTacGia,
                 txt_NamSinhTacGia, txt_QueQuanTacGia
@@ -227,10 +247,10 @@ public class TacGiaController implements Initializable {
         for (TextField tf : textFields) {
             if (tf.getText().equals("")) {
                 showMessage("Error", "Text Field Null", "Vui lòng nhập đầy đủ thông tin!");
+                System.out.println("Text Field Null");
                 return;
             }
         }
-        TacGia tacGia = new TacGia();
         tacGia.setMatg(txt_MaTacGia.getText());
         tacGia.setHotg(txt_HoTacGia.getText());
         tacGia.setTentg(txt_TenTacGia.getText());
@@ -239,12 +259,13 @@ public class TacGiaController implements Initializable {
         tacGiaList.add(tacGia);
         data.add(tacGia);
         CallApi callApi = new CallApi();
-        String result = callApi.callPostRequestBody("http://localhost:8080/TacGia/Add", convertTacGiaToJson(tacGia));
+        String result = callApi.callPostRequestBody("http://localhost:8080/tacGia/Add", convertTacGiaToJson(tacGia));
         System.out.println(result);
     }
 
     public void showSelectedItem(TacGia tacGia) {
         openInforContainer();
+        txt_MaTacGia.setEditable(false);
         txt_MaTacGia.setText(tacGia.getMatg());
         txt_HoTacGia.setText(tacGia.getHotg());
         txt_TenTacGia.setText(tacGia.getTentg());
@@ -269,7 +290,7 @@ public class TacGiaController implements Initializable {
     public void timKiem() {
         String find = textFieldTimKiem.getText();
         CallApi callApi = new CallApi();
-        String json = callApi.callPostRequestParam("http://localhost:8080/TacGia/timKiem", "find=", find);
+        String json = callApi.callPostRequestParam("http://localhost:8080/tacGia/timKiem", "find=", find);
         data = FXCollections.observableArrayList(convertJsonToListTacGia(json));
         tableView.setItems(data);
     }

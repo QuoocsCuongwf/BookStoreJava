@@ -35,6 +35,8 @@ public class KmTheoHoaDonController implements Initializable {
     @FXML
     private TableColumn<KmTheoHoaDon, Integer> maChuongTrinhKMColumn;
     @FXML
+    private TableColumn<KmTheoHoaDon, String> maSanPhamColumn;
+    @FXML
     private TableColumn<KmTheoHoaDon, String> tongTienColumn;
     @FXML
     private TableColumn<KmTheoHoaDon, String> phanTramKMColumn;
@@ -46,6 +48,8 @@ public class KmTheoHoaDonController implements Initializable {
     private TextField textFieldTimKiem;
     @FXML
     private TextField txt_maChuongTrinhKhuyenMai, txt_tongTien, txt_phanTramKhuyenMai;
+    @FXML
+    private TextField txt_maSanPham;
     @FXML
     private Pane inforForm;
     @FXML
@@ -68,6 +72,7 @@ public class KmTheoHoaDonController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         inforContainer.setVisible(false);
         maChuongTrinhKMColumn.setCellValueFactory(new PropertyValueFactory<>("mactkm"));
+        maSanPhamColumn.setCellValueFactory(new PropertyValueFactory<>("maSanPham"));
         tongTienColumn.setCellValueFactory(new PropertyValueFactory<>("tongTien"));
         phanTramKMColumn.setCellValueFactory(new PropertyValueFactory<>("phantramkhuyenmai"));
         tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
@@ -120,7 +125,7 @@ public class KmTheoHoaDonController implements Initializable {
 
     public void listenerChangeValuesOfKmTheoHoaDon() {
         List<TextField> fields = Arrays.asList(
-                txt_maChuongTrinhKhuyenMai, txt_tongTien, txt_phanTramKhuyenMai
+                txt_maChuongTrinhKhuyenMai, txt_tongTien, txt_phanTramKhuyenMai,txt_maSanPham
                 );
         fields.forEach(f -> {
             if (f != null) {
@@ -151,6 +156,7 @@ public class KmTheoHoaDonController implements Initializable {
     }
     public void openInforContainer() {
         txt_maChuongTrinhKhuyenMai.setText("");
+        txt_maSanPham.setText("");
         txt_tongTien.setText("");
         txt_phanTramKhuyenMai.setText("");
         inforContainer.setVisible(true);
@@ -171,7 +177,7 @@ public class KmTheoHoaDonController implements Initializable {
     }
     public void addKhuyenMai() {
         List<TextField> textFields = Arrays.asList(
-                txt_maChuongTrinhKhuyenMai,txt_tongTien,txt_phanTramKhuyenMai
+                txt_maChuongTrinhKhuyenMai,txt_tongTien,txt_phanTramKhuyenMai,txt_maSanPham
         );
         for (TextField tf : textFields) {
             if (tf.getText().equals("")) {
@@ -182,12 +188,15 @@ public class KmTheoHoaDonController implements Initializable {
         KmTheoHoaDon kmTheoHoaDon = new KmTheoHoaDon();
 
         kmTheoHoaDon.setMactkm(txt_maChuongTrinhKhuyenMai.getText());
+        kmTheoHoaDon.setMasanpham(txt_maSanPham.getText());
 
         Double phanTram = Double.parseDouble(txt_phanTramKhuyenMai.getText());
         Double tongTien = Double.parseDouble(txt_tongTien.getText());
 
         kmTheoHoaDon.setPhantramkhuyenmai(phanTram);
         kmTheoHoaDon.setTongtien(tongTien);
+
+
 
         kmTheoHoaDonList.add(kmTheoHoaDon);
         data.add(kmTheoHoaDon);
@@ -198,6 +207,7 @@ public class KmTheoHoaDonController implements Initializable {
     public void showSelectedItem(KmTheoHoaDon kmTheoHoaDon) {
         openInforContainer();
         txt_maChuongTrinhKhuyenMai.setText(kmTheoHoaDon.getMactkm());
+        txt_maSanPham.setText(String.valueOf(kmTheoHoaDon.getMasanpham()));
         txt_tongTien.setText(String.valueOf(kmTheoHoaDon.getTongtien()));
         txt_phanTramKhuyenMai.setText(String.valueOf(kmTheoHoaDon.getPhantramkhuyenmai()));
 

@@ -41,12 +41,12 @@ public class TacGiaDAO {
         condbtg.insert(query);
     }
     public void updateTacGia(TacGia tacGia){
-        String query = "UPDATE TAC_GIA" +
-                "SET HOTG= "+tacGia.getTentg()
-                +",TENTG= "+tacGia.getTentg()
-                +",QUEQUAN= "+tacGia.getQuequan()
-                +",NAMSINH= "+tacGia.getNamsinh()
-                +"WHERE MATG='"+tacGia.getMatg()+"'";
+        String query = "UPDATE TAC_GIA SET " +
+                "HOTG = '" + tacGia.getHotg() + "', " +
+                "TENTG = '" + tacGia.getTentg() + "', " +
+                "QUEQUAN = '" + tacGia.getQuequan() + "', " +
+                "NAMSINH = " + tacGia.getNamsinh() + " " +  // Không cần dấu nháy đơn cho giá trị số
+                "WHERE MATG = '" + tacGia.getMatg() + "'";
         condbtg.update(query);
 
     }
