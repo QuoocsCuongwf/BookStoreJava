@@ -34,7 +34,7 @@ public class KhachHangController implements Initializable {
     @FXML private TableColumn<KhachHang, String> maKhachHangColumn, hoKhachHangColumn, tenKhachHangColumn, diaChiKhachHangColumn, emailKhachHangColumn, sdtKhachHangColumn;
     @FXML private TextField textFieldMaKhachHang, textFieldHoKhachHang, textFieldTenKhachHang, textFieldDiaChiKhachHang, textFieldEmailKhachHang, textFieldSdtKhachHang, textFieldTimKiem;
     @FXML private Button btnThemKhachHang, btnAddKhachHang, btnThoatFormKhachHang;
-    @FXML private Button btnThongKe, btnKhachHang, btnSanPham, btnNhanVien, btnNCC, btnTacGia, btnHoaDon, btnTHD, btnKhuyenMai, btnTheLoai, btnNhaXuatBan;
+    @FXML private Button btnThongKe, btnKhachHang, btnSanPham, btnNhanVien, btnNCC, btnTacGia, btnHoaDon, btnTHD, btnKhuyenMai, btnTheLoai, btnNhaXuatBan,btnPhieuNhap;
 
     private Button btnDeleteKhachHang = new Button("Xóa");
     private Button btnUpdateKhachHang = new Button("Cập nhật");
@@ -44,7 +44,7 @@ public class KhachHangController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        leftMenuController.bindHandlers(btnThongKe, btnKhachHang, btnSanPham, btnNhanVien, btnNCC, btnTacGia, btnHoaDon, btnTHD, btnKhuyenMai);
+        leftMenuController.bindHandlers(btnThongKe, btnKhachHang, btnSanPham, btnNhanVien, btnNCC, btnTacGia, btnHoaDon, btnTHD, btnKhuyenMai,btnPhieuNhap);
 
         inforContainer.setVisible(false);
 

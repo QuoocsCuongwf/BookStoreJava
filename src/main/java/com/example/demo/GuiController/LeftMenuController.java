@@ -15,7 +15,8 @@ public class LeftMenuController {
     public void bindHandlers(
             Button btnThongKe, Button btnKhachHang, Button btnSanPham,
             Button btnNhanVien, Button btnNCC, Button btnTacGia,
-            Button btnHoaDon, Button btnTHD, Button btnKhuyenMai
+            Button btnHoaDon, Button btnTHD, Button btnKhuyenMai,
+            Button btnPhieuNhap
     ) {
         btnThongKe.setOnAction(e -> handleThongKe(e));
         btnKhachHang.setOnAction(e -> handleKhachHang(e));
@@ -26,6 +27,7 @@ public class LeftMenuController {
         btnHoaDon.setOnAction(e -> handleHoaDon(e));
         btnTHD.setOnAction(e -> handleTHD(e));
         btnKhuyenMai.setOnAction(e -> handleKhuyenMai(e));
+        btnPhieuNhap.setOnAction(e -> handlePhieuNhap(e));
     }
 
     private void handleThongKe(ActionEvent event) {
@@ -71,6 +73,10 @@ public class LeftMenuController {
     private void handleKhuyenMai(ActionEvent event) {
         System.out.println("Khuyến mãi clicked");
         loadScene(event, "/KmTheoHoaDon.fxml");
+    }
+    private void handlePhieuNhap( ActionEvent event) {
+        System.out.println("Phiếu nhập clicked");
+        loadScene(event, "/PhieuNhap.fxml");
     }
 
     private void loadScene(ActionEvent event, String fxmlPath) {
