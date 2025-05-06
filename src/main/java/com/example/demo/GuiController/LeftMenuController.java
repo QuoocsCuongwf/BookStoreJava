@@ -70,7 +70,7 @@ public class LeftMenuController {
 
     private void handleKhuyenMai(ActionEvent event) {
         System.out.println("Khuyến mãi clicked");
-        loadScene(event, "/KmTheoHoaDon.fxml");
+        loadScene(event, "/KhuyenMai.fxml");
     }
 
     private void loadScene(ActionEvent event, String fxmlPath) {
