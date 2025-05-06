@@ -41,14 +41,14 @@ public class KhuyenMaiController implements Initializable {
     @FXML
     private TableColumn<KhuyenMai, String> phanTramKMColumn;
 
-//    @FXML
-//    private TableColumn<KhuyenMai, LocalDate> ngayBatDauColumn;
-//    @FXML
-//    private TableColumn<KhuyenMai, LocalDate> ngayKetThucColumn;
-//    @FXML
-//    private DatePicker datePickerNgayBatDau;
-//    @FXML
-//    private DatePicker datePickerNgayKetThuc;
+    @FXML
+    private TableColumn<KhuyenMai, LocalDate> ngayBatDauColumn;
+    @FXML
+    private TableColumn<KhuyenMai, LocalDate> ngayKetThucColumn;
+    @FXML
+    private DatePicker datePickerNgayBatDau;
+    @FXML
+    private DatePicker datePickerNgayKetThuc;
 
     private  ObservableList<KhuyenMai> data;
     List<KhuyenMai> khuyenMaiList=new ArrayList<>();
@@ -59,22 +59,22 @@ public class KhuyenMaiController implements Initializable {
     private TextField txt_maChuongTrinhKhuyenMai, txt_tongTien, txt_phanTramKhuyenMai;
 //    @FXML
 //    private TextField txt_maSanPham;
-//    @FXML
-//    private Pane inforForm;
+    @FXML
+    private Pane inforForm;
     @FXML
     private Button btnAddKM;
-//    @FXML
-//    private Button timKiem;
-//    @FXML
-//    private Button openInforContainer;
-//    @FXML
-//    private Button clossInforContainer;
+    @FXML
+    private Button timKiem;
+    @FXML
+    private Button openInforContainer;
+    @FXML
+    private Button clossInforContainer;
     @FXML
     private HBox inforFormButtonContainer;
 
-  //  private LocalDate ngayBatDau;
+    private LocalDate ngayBatDau;
 
- //   private LocalDate ngayKetThuc;
+    private LocalDate ngayKetThuc;
 
 //    public LocalDate getNgayBatDau() {
 //        return ngayBatDau;
@@ -118,10 +118,11 @@ public class KhuyenMaiController implements Initializable {
                 System.out.println("No item selected");
             }
         });
+
         CallApi callApi = new CallApi();
         String json = null;
         try {
-            json = callApi.callGetApi("http://localhost:8080/khuyenMai/getAllKhuyenMai");
+            json = callApi.callGetApi("http://localhost:8080/KhuyenMai/getAllKhuyenMai");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -131,55 +132,55 @@ public class KhuyenMaiController implements Initializable {
         tableView.setItems(data);
         btnDeleteKhuyenMai.setOnAction(event -> DeleteKhuyenMai(btnDeleteKhuyenMai));
         btnUpdateKhuyenMai.setOnAction(event -> UpdateKhuyenMai());
-//        ngayBatDauColumn.setCellFactory(column -> new TableCell<KhuyenMai, LocalDate>()
-//        {
-//            private final DatePicker datePicker = new DatePicker();
-//
-//            {
-//                datePicker.setOnAction(event -> {
-//                    KhuyenMai khuyenMai = getTableView().getItems().get(getIndex());
-//                    khuyenMai.setNgayBatDau(datePicker.getValue());
-//                });
-//                setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
-//            }
-//
-//            @Override
-//            protected void updateItem(LocalDate item, boolean empty) {
-//                super.updateItem(item, empty);
-//
-//                if (empty || item == null) {
-//                    setGraphic(null);
-//                } else {
-//                    datePicker.setValue(item);
-//                    setGraphic(datePicker);
-//                }
-//            }
-//        });
-//        ngayKetThucColumn.setCellFactory(column -> new TableCell<KhuyenMai, LocalDate>()
-//        {
-//            private final DatePicker datePicker = new DatePicker();
-//
-//            {
-//                datePicker.setOnAction(event -> {
-//                    KhuyenMai khuyenMai = getTableView().getItems().get(getIndex());
-//                    khuyenMai.setNgayBatDau(datePicker.getValue());
-//                });
-//                setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
-//            }
-//
-//            @Override
-//            protected void updateItem(LocalDate item, boolean empty) {
-//                super.updateItem(item, empty);
-//
-//                if (empty || item == null) {
-//                    setGraphic(null);
-//                } else {
-//                    datePicker.setValue(item);
-//                    setGraphic(datePicker);
-//                }
-//            }
-//        });
-   }
+        ngayBatDauColumn.setCellFactory(column -> new TableCell<KhuyenMai, LocalDate>()
+        {
+            private final DatePicker datePicker = new DatePicker();
+
+            {
+                datePicker.setOnAction(event -> {
+                    KhuyenMai khuyenMai = getTableView().getItems().get(getIndex());
+                    khuyenMai.setNgayBatDau(datePicker.getValue());
+                });
+                setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
+            }
+
+            @Override
+            protected void updateItem(LocalDate item, boolean empty) {
+                super.updateItem(item, empty);
+
+                if (empty || item == null) {
+                    setGraphic(null);
+                } else {
+                    datePicker.setValue(item);
+                    setGraphic(datePicker);
+                }
+            }
+        });
+        ngayKetThucColumn.setCellFactory(column -> new TableCell<KhuyenMai, LocalDate>()
+        {
+            private final DatePicker datePicker = new DatePicker();
+
+            {
+                datePicker.setOnAction(event -> {
+                    KhuyenMai khuyenMai = getTableView().getItems().get(getIndex());
+                    khuyenMai.setNgayBatDau(datePicker.getValue());
+                });
+                setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
+            }
+
+            @Override
+            protected void updateItem(LocalDate item, boolean empty) {
+                super.updateItem(item, empty);
+
+                if (empty || item == null) {
+                    setGraphic(null);
+                } else {
+                    datePicker.setValue(item);
+                    setGraphic(datePicker);
+                }
+            }
+        });
+    }
 
     public List<KhuyenMai> convertJsonToListKhuyenMai(String json) {
         ObjectMapper objectMapper = new ObjectMapper();
@@ -193,24 +194,25 @@ public class KhuyenMaiController implements Initializable {
             throw new RuntimeException(e);
         }
         return khuyenMaiList;
+
     }
+
     public String convertKhuyenMaiToJson(KhuyenMai khuyenMai) {
         ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(new JavaTimeModule());
-        String json= null;
         try {
-            json = mapper.writeValueAsString(khuyenMai);
+            return mapper.writeValueAsString(khuyenMai);
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
-        return json;
     }
+
     public void listenerChangeValuesOfKhuyenMai() {
         List<TextField> fields = Arrays.asList(
                 txt_maChuongTrinhKhuyenMai, txt_tongTien, txt_phanTramKhuyenMai
                 );
         fields.forEach(f -> {
-            if (f == null) {
+            if (f != null) {
                 f.textProperty().addListener((obs, oldVal, newVal) -> {
                     System.out.println(f.getId() + " thay đổi: " + newVal);
                     int index = inforFormButtonContainer.getChildren().indexOf(btnDeleteKhuyenMai);
