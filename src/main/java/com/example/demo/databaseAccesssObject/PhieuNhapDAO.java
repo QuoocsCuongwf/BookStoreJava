@@ -32,20 +32,20 @@ public class PhieuNhapDAO {
         condbtg.insert("delete from PHIEU_NHAP where MAPN='"+maPhieuNhap+"'");
     }
     public void addPhieuNhap(PhieuNhap phieuNhap) {
-        String query = "INSERT INTO PHIEU_NHAP (mapn,ngaynhap,manv,mancc,tongtien)"+
+        String query = "INSERT INTO PHIEU_NHAP (MAPN,NGAYNHAP,MANV,MANCC,TONGTIEN)"+
                 "VALUES('"+phieuNhap.getMapn() + "','" +
-                phieuNhap.getNgaynhap() +"', " +
+                phieuNhap.getNgaynhap() +"', '" +
                 phieuNhap.getManv()+"', '" +
-                phieuNhap.getMancc() + "', '" +
+                phieuNhap.getMancc() + "'," +
                 phieuNhap.getTongtien() +")";
         condbtg.insert(query);
     }
     public void updatePhieuNhap(PhieuNhap phieuNhap){
-        String query = "UPDATE PHIEU_NHAP" +
-                "SET NGAYNHAP= "+phieuNhap.getNgaynhap()
-                +",MANV= "+phieuNhap.getManv()
-                +",MANCC= "+phieuNhap.getMancc()
-                +",TONGTIEN= "+phieuNhap.getTongtien()
+        String query = "UPDATE PHIEU_NHAP " +
+                "SET NGAYNHAP= '"+phieuNhap.getNgaynhap()
+                +"',MANV= '"+phieuNhap.getManv()
+                +"',MANCC= '"+phieuNhap.getMancc()
+                +"',TONGTIEN= "+phieuNhap.getTongtien()
                 +"WHERE MAPN='"+phieuNhap.getMapn()+"'";
         condbtg.update(query);
 

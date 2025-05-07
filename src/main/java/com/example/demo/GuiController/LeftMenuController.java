@@ -76,6 +76,8 @@ public class LeftMenuController {
     }
     private void handlePhieuNhap( ActionEvent event) {
         System.out.println("Phiếu nhập clicked");
+        System.out.println("Load path: " + getClass().getResource("/PhieuNhap.fxml"));
+
         loadScene(event, "/PhieuNhap.fxml");
     }
 
@@ -89,8 +91,12 @@ public class LeftMenuController {
             scene.getStylesheets().add(getClass().getResource("/asset/css/main.css").toExternalForm());
             stage.setScene(scene);
             stage.show();
-        } catch (IOException e) {
+        }  catch (IOException e) {
+            System.err.println("Lỗi load FXML: " + fxmlPath);
             e.printStackTrace();
+        } catch (Exception ex) {
+            System.err.println("Lỗi khác khi load scene:");
+            ex.printStackTrace();
         }
     }
 }

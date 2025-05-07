@@ -33,7 +33,7 @@ public class NhaXuatBanController implements Initializable {
     private Pane inforContainer;
     @FXML
     private Button btnThongKe, btnKhachHang, btnSanPham, btnNhanVien,
-            btnNCC, btnTacGia, btnHoaDon, btnTHD, btnKhuyenMai;
+            btnNCC, btnTacGia, btnHoaDon, btnTHD, btnKhuyenMai,btnPhieuNhap;
     LeftMenuController leftMenuController=new LeftMenuController();
     @FXML
     private Pane nhanVienPane;
@@ -62,7 +62,7 @@ public class NhaXuatBanController implements Initializable {
 
         leftMenuController.bindHandlers(btnThongKe, btnKhachHang, btnSanPham,
                 btnNhanVien, btnNCC, btnTacGia,
-                btnHoaDon, btnTHD, btnKhuyenMai);
+                btnHoaDon, btnTHD, btnKhuyenMai,btnPhieuNhap);
         tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 System.out.println("Selected Item: " + newValue.getTennxb());

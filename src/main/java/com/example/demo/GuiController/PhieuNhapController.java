@@ -57,25 +57,23 @@ public class PhieuNhapController  implements Initializable {
     @FXML
     private DatePicker datePickerNgayNhap;
     @FXML
-    private HBox inforFormButtonContainer;
+    private HBox inforButtonContainer;
     @FXML
     private Button btnAddPhieuNhap;
-
-    @FXML
-    private HBox inforButtonContainer;
 
     private Button btnDeletePhieuNhap=new Button("    Xóa    ");
     private Button btnUpdatePhieuNhap=new Button("Cập nhật");
     @FXML
     private Button btnThongKe, btnKhachHang, btnSanPham, btnNhanVien,
-            btnNCC, btnTacGia, btnHoaDon, btnTHD, btnKhuyenMai;
+            btnNCC, btnTacGia, btnHoaDon, btnTHD, btnKhuyenMai,btnPhieuNhap;
 
     LeftMenuController leftMenuController=new LeftMenuController();
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
         leftMenuController.bindHandlers(btnThongKe, btnKhachHang, btnSanPham,
                 btnNhanVien, btnNCC, btnTacGia,
-                btnHoaDon, btnTHD, btnKhuyenMai);
+                btnHoaDon, btnTHD, btnKhuyenMai,btnPhieuNhap);
         inforContainer.setVisible(false);
         maPhieuNhapColumn.setCellValueFactory(new PropertyValueFactory<>("mapn"));
         maNhanVienColumn.setCellValueFactory(new PropertyValueFactory<>("manv"));
@@ -85,6 +83,7 @@ public class PhieuNhapController  implements Initializable {
         tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 showSelectedItem(newValue);
+
                 listenerChangeValuesOfPhieuNhap();
                 // Thực hiện các hành động khác với dữ kiện được chọn
             } else {
@@ -133,15 +132,16 @@ public class PhieuNhapController  implements Initializable {
         List<TextField> fields = Arrays.asList(
                 txt_MaPhieuNhap,txt_MaNhanVien,txt_MaNhaCungCap,txt_TongTien
         );
+
         fields.forEach(f -> {
             if (f == null) {
                 System.err.println("Một TextField chưa được inject (null)!");
             } else {
                 f.textProperty().addListener((obs, oldVal, newVal) -> {
                     System.out.println(f.getId() + " thay đổi: " + newVal);
-                    int index = inforFormButtonContainer.getChildren().indexOf(btnDeletePhieuNhap);
+                    int index = inforButtonContainer.getChildren().indexOf(btnDeletePhieuNhap);
                     if (index >= 0) {
-                        inforFormButtonContainer.getChildren().set(index, btnUpdatePhieuNhap);
+                        inforButtonContainer.getChildren().set(index, btnUpdatePhieuNhap);
                     } else {
                         System.err.println("btnDeletePhieuNhap không tồn tại trong inforFormButtonContainer!");
                     }
@@ -178,26 +178,31 @@ public class PhieuNhapController  implements Initializable {
         phieuNhap.setManv(txt_MaNhanVien.getText());
         phieuNhap.setMancc(txt_MaNhaCungCap.getText());
 
-        Double tongTien = Double.parseDouble(txt_TongTien.getText());
+        int tongTien = Integer.parseInt(txt_TongTien.getText());
         phieuNhap.setTongtien(tongTien);
 
 
         CallApi callApi=new CallApi();
         String resultApi=callApi.callPostRequestBody("http://localhost:8080/phieuNhap/Update",convertPhieuNhapToJson(phieuNhap));
-        if (resultApi.contains("Success")) {
+        if (resultApi.contains("success")) {
             for (int i = 0; i < phieuNhapList.size(); i++) {
                 if (phieuNhapList.get(i).getManv().equals(phieuNhap.getManv())) {
                     phieuNhapList.set(i, phieuNhap); // thay thế đúng phần tử
                     break;
                 }
             }
+
             showMessage("Success","Sua sach thanh cong",resultApi);
             data = FXCollections.observableArrayList(phieuNhapList);
             tableView.setItems(data);
         }
     }
     public void openInforContainer(){
-        txt_MaPhieuNhap.setText("PN"+phieuNhapList.size()+1);
+        int tmp= phieuNhapList.size()+1;
+        if (tmp < 10){txt_MaPhieuNhap.setText("PN0"+tmp);}
+        else {
+            txt_MaPhieuNhap.setText("PN"+tmp);
+        }
         datePickerNgayNhap.setValue(LocalDate.now());
         txt_MaNhanVien.setText("");
         txt_MaNhaCungCap.setText("");
@@ -205,9 +210,9 @@ public class PhieuNhapController  implements Initializable {
         inforContainer.setVisible(true);
     }
     public void clossInforContainer(){
-        int index = inforFormButtonContainer.getChildren().indexOf(btnDeletePhieuNhap);
+        int index = inforButtonContainer.getChildren().indexOf(btnDeletePhieuNhap);
         if (index >= 0) {
-            inforFormButtonContainer.getChildren().set(index, btnAddPhieuNhap);
+            inforButtonContainer.getChildren().set(index, btnAddPhieuNhap);
         }
         inforContainer.setVisible(false);
     }
@@ -219,6 +224,7 @@ public class PhieuNhapController  implements Initializable {
         alert.showAndWait(); // hoặc .show() nếu không cần chờ
     }
     public void addPhieuNhap(){
+        System.out.println(">>> addPhieuNhap() được gọi");
         PhieuNhap phieuNhap = new PhieuNhap();
         List<TextField> textFields=Arrays.asList(txt_MaPhieuNhap,txt_MaNhanVien,txt_MaNhaCungCap,txt_TongTien);
         for(TextField tf:textFields) {
@@ -232,7 +238,7 @@ public class PhieuNhapController  implements Initializable {
         phieuNhap.setNgaynhap(datePickerNgayNhap.getValue());
         phieuNhap.setManv(txt_MaNhanVien.getText());
         phieuNhap.setMancc(txt_MaNhaCungCap.getText());
-        Double tongTien = Double.parseDouble(txt_TongTien.getText());
+        int tongTien = Integer.parseInt(txt_TongTien.getText());
         phieuNhap.setTongtien(tongTien);
 
         CallApi callApi=new CallApi();
@@ -249,26 +255,26 @@ public class PhieuNhapController  implements Initializable {
 
     public void showSelectedItem(PhieuNhap phieuNhap) {
         openInforContainer();
-
+        System.out.println("DUYEN DUYEN DUYEN DUYEN");
+        System.out.println("PhieuNhap duowc click ");
+        System.out.println("tongtien : " + phieuNhap.getTongtien());
         txt_MaPhieuNhap.setEditable(false);
         txt_MaPhieuNhap.setText(phieuNhap.getMapn());
         datePickerNgayNhap.setValue(phieuNhap.getNgaynhap());
         txt_MaNhanVien.setText(phieuNhap.getManv());
         txt_MaNhaCungCap.setText(phieuNhap.getMancc());
-
-        Double tongTien = Double.parseDouble(txt_TongTien.getText());
-        phieuNhap.setTongtien(tongTien);
+        txt_TongTien.setText(String.valueOf(phieuNhap.getTongtien()));
 
 
-        int index = inforFormButtonContainer.getChildren().indexOf(btnAddPhieuNhap);
+        int index = inforButtonContainer.getChildren().indexOf(btnAddPhieuNhap);
         if (index >= 0) {
-            inforFormButtonContainer.getChildren().set(index, btnDeletePhieuNhap);
+            inforButtonContainer.getChildren().set(index, btnDeletePhieuNhap);
         } else {
             System.err.println(" error sbtnAddPhieuNhap không tồn tại trong inforFormButtonContainer!");
         }
-        index = inforFormButtonContainer.getChildren().indexOf(btnUpdatePhieuNhap);
+        index = inforButtonContainer.getChildren().indexOf(btnUpdatePhieuNhap);
         if (index >= 0) {
-            inforFormButtonContainer.getChildren().set(index, btnDeletePhieuNhap);
+            inforButtonContainer.getChildren().set(index, btnDeletePhieuNhap);
         } else {
             System.err.println("btnDeletePhieuNhap không tồn tại trong inforFormButtonContainer!");
         }
@@ -277,7 +283,7 @@ public class PhieuNhapController  implements Initializable {
     public void timKiem(){
         String find=textFieldTimKiem.getText();
         CallApi callApi=new CallApi();
-        String json=callApi.callPostRequestParam("http://localhost:8080/phieuNhap/timKiem","find=",find);
+        String json=callApi.callPostRequestParam("http://localhost:8080/phieuNhap/Search","find=",find);
         data=FXCollections.observableArrayList(convertJsonToListPhieuNhap(json));
         tableView.setItems(data);
     }
