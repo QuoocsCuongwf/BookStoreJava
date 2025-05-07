@@ -9,22 +9,24 @@ import java.time.LocalDate;
 @Getter
 @Setter
 
-public class KmTheoHoaDon {
+public class KhuyenMai {
 
     @JsonProperty("MACTKM")
     private String mactkm;
 
-    @JsonProperty("MASP")
+
     private String masanpham;
 
     @JsonProperty("PHANTRAMKHUYENMAI")
     private Double phantramkhuyenmai;
 
-    @JsonProperty("SOTIENHOADON")
-    private Double tongtien;
+    @JsonProperty("TONGTIEN")
+    private int tongtien;
 
-
+    @JsonProperty("NGAYBATDAU")
     private LocalDate ngayBatDau;
+
+    @JsonProperty("NGAYKETTHUC")
     private LocalDate ngayKetThuc;
 
     // Getter/Setter

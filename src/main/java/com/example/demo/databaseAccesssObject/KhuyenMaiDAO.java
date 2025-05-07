@@ -1,6 +1,6 @@
 package com.example.demo.databaseAccesssObject;
 
-import com.example.demo.model.KmTheoHoaDon;
+import com.example.demo.model.KhuyenMai;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -12,18 +12,18 @@ import java.util.List;
 
 public class KhuyenMaiDAO {
 
-    List<KmTheoHoaDon> listKhuyenMai = new ArrayList<KmTheoHoaDon>();
+    List<KhuyenMai> listKhuyenMai = new ArrayList<KhuyenMai>();
     ConnectDatabase condb = new ConnectDatabase();
 
     public KhuyenMaiDAO() {
     }
 
-    public List<KmTheoHoaDon> getListKhuyenMai() {
+    public List<KhuyenMai> getListKhuyenMai() {
         String values = condb.query("select * from KM_THEO_HOA_DON");
         ObjectMapper mapper = new ObjectMapper();
         try {
             mapper.registerModule(new JavaTimeModule());
-            listKhuyenMai = mapper.readValue(values, new TypeReference<List<KmTheoHoaDon>>() {
+            listKhuyenMai = mapper.readValue(values, new TypeReference<List<KhuyenMai>>() {
             });
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
@@ -36,16 +36,15 @@ public class KhuyenMaiDAO {
         condb.insert("delete from KM_THEO_HOA_DON where MACTKM='" + maChuongTrinhKhuyenMai + "'");
     }
 
-    public void addKhuyenMai(KmTheoHoaDon kmTheoHoaDon) {
+    public void addKhuyenMai(KhuyenMai kmTheoHoaDon) {
         String query = "INSERT INTO KM_THEO_HOA_DON (mactkm,tongtien,phantramkhuyenmai) " +
-                "VALUES ('" + kmTheoHoaDon.getMactkm() + "', '" +
-                kmTheoHoaDon.getTongtien() + "', '" +
-                kmTheoHoaDon.getPhantramkhuyenmai() + "', '" +
-                ")";
+                "VALUES ('" + kmTheoHoaDon.getMactkm() + "'," +
+                kmTheoHoaDon.getTongtien() + ", " +
+                kmTheoHoaDon.getPhantramkhuyenmai() + ")";
 
         condb.insert(query);
     }
-    public void updateChuongTrinhKhuyenMai(KmTheoHoaDon kmTheoHoaDon) {
+    public void updateChuongTrinhKhuyenMai(KhuyenMai kmTheoHoaDon) {
         String query = "UPDATE KM_THEO_HOA_DON" +
            //     "SET MASANPHAM='" + kmTheoHoaDon.getMasanpham()
                  "SET PHAN TRAM KHUYEN MAI='" + kmTheoHoaDon.getPhantramkhuyenmai()
