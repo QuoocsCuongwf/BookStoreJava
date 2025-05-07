@@ -27,7 +27,8 @@ public class KhuyenMaiControllerSpring {
         return "delete success";
     }
     @PostMapping("/Add")
-    public String AddKhuyenMai(@RequestBody KhuyenMai khuyenMai) {return khuyenMaiServices.addKhuyenMai(khuyenMai);};
+    public String AddKhuyenMai(@RequestBody KhuyenMai khuyenMai) {return khuyenMaiServices.addKhuyenMai(khuyenMai);}
+
     @PostMapping("/Update")
     public String UpdateKhuyenMai(@RequestBody KhuyenMai khuyenMai) { return khuyenMaiServices.UpdateKhuyenMai(khuyenMai); }
 

@@ -37,10 +37,12 @@ public class KhuyenMaiDAO {
     }
 
     public void addKhuyenMai(KhuyenMai kmTheoHoaDon) {
-        String query = "INSERT INTO KM_THEO_HOA_DON (mactkm,tongtien,phantramkhuyenmai) " +
+        String query = "INSERT INTO KM_THEO_HOA_DON (mactkm, tongtien, phantramkhuyenmai, ngaybatdau, ngayketthuc) " +
                 "VALUES ('" + kmTheoHoaDon.getMactkm() + "'," +
                 kmTheoHoaDon.getTongtien() + ", " +
-                kmTheoHoaDon.getPhantramkhuyenmai() + ")";
+                kmTheoHoaDon.getPhantramkhuyenmai() + "," +
+                "'" + kmTheoHoaDon.getNgayBatDau() + "'" + "," +
+                "'" + kmTheoHoaDon.getNgayKetThuc() + "'" + ")";
 
         condb.insert(query);
     }
