@@ -1,10 +1,8 @@
-
 package com.example.demo.GuiController;
 
-import com.example.demo.GuiController.CallApi;
-import com.example.demo.model.NhanVien;
 import com.example.demo.model.TacGia;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import javafx.collections.FXCollections;
@@ -17,75 +15,42 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
-import com.fasterxml.jackson.core.type.TypeReference;
 
 import java.io.IOException;
 import java.net.URL;
-import java.time.LocalDate;
 import java.util.*;
 
 @Component
 @Controller
 public class TacGiaController implements Initializable {
 
-    @FXML
-    private Pane inforContainer;
+    @FXML private Pane inforContainer;
+    @FXML private Pane tacGiaPane;
+    @FXML private TableView<TacGia> tableView;
+    @FXML private TableColumn<TacGia, String> maTacGiaColumn, hoTacGiaColumn, tenTacGiaColumn, queQuanTacGiaColumn;
+    @FXML private TableColumn<TacGia, Integer> namSinhTacGiaColumn;
+    @FXML private TextField textFieldTimKiem, txt_MaTacGia, txt_HoTacGia, txt_TenTacGia, txt_NamSinhTacGia, txt_QueQuanTacGia;
+    @FXML private Button btnAddTacGia, timKiem, openInforContainer, clossInforContainer;
+    @FXML private HBox inforButtonContainer;
+    @FXML private Button btnThongKe, btnKhachHang, btnSanPham, btnNhanVien, btnNCC, btnTacGia, btnHoaDon, btnTHD, btnKhuyenMai, btnTheLoai, btnNhaXuatBan;
 
-    @FXML
-    private Pane tacGiaPane;
-    @FXML
-    private TableView<TacGia> tableView;
-    @FXML
-    private TableColumn<TacGia, String> maTacGiaColumn;
-    @FXML
-    private TableColumn<TacGia, String> hoTacGiaColumn;
-    @FXML
-    private TableColumn<TacGia, String> tenTacGiaColumn;
-    @FXML
-    private TableColumn<TacGia, String> queQuanTacGiaColumn;
-    @FXML
-    private TableColumn<TacGia, Integer> namSinhTacGiaColumn;
-
+    private Button btnDeleteTacGia = new Button("Xóa");
+    private Button btnUpdateTacGia = new Button("Cập nhật");
     private ObservableList<TacGia> data;
     private static List<TacGia> tacGiaList = new ArrayList<>();
+    private LeftMenuController leftMenuController = new LeftMenuController();
 
-    @FXML
-    private TextField textFieldTimKiem;
-    @FXML
-    private TextField txt_MaTacGia, txt_HoTacGia, txt_TenTacGia, txt_NamSinhTacGia, txt_QueQuanTacGia;
-    @FXML
-    private Pane inforFormTacGia;
-
-    @FXML
-    private Button btnAddTacGia;
-    @FXML
-    private Button timKiem;
-    @FXML
-    private Button openInforContainer;
-    @FXML
-    private Button clossInforContainer;
-    @FXML
-    private HBox inforButtonContainer;
-
-
-
-    private Button btnDeleteTacGia = new Button("    Xóa    ");
-    private Button btnUpdateTacGia = new Button("Cập nhật");
-    @FXML
-    private Button btnThongKe, btnKhachHang, btnSanPham, btnNhanVien,
-            btnNCC, btnTacGia, btnHoaDon, btnTHD, btnKhuyenMai;
-    LeftMenuController leftMenuController=new LeftMenuController();
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        leftMenuController.bindHandlers(btnThongKe, btnKhachHang, btnSanPham,
-                btnNhanVien, btnNCC, btnTacGia,
-                btnHoaDon, btnTHD, btnKhuyenMai);
+        leftMenuController.bindHandlers(btnThongKe, btnKhachHang, btnSanPham, btnNhanVien, btnNCC, btnTacGia, btnHoaDon, btnTHD, btnKhuyenMai, btnTheLoai, btnNhaXuatBan);
         inforContainer.setVisible(false);
+
         maTacGiaColumn.setCellValueFactory(new PropertyValueFactory<>("matg"));
         hoTacGiaColumn.setCellValueFactory(new PropertyValueFactory<>("hotg"));
         tenTacGiaColumn.setCellValueFactory(new PropertyValueFactory<>("tentg"));
         queQuanTacGiaColumn.setCellValueFactory(new PropertyValueFactory<>("quequan"));
         namSinhTacGiaColumn.setCellValueFactory(new PropertyValueFactory<>("namsinh"));
+
         tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 showSelectedItem(newValue);
@@ -95,45 +60,49 @@ public class TacGiaController implements Initializable {
             }
         });
 
-        if(tacGiaList.size()==0){
-            CallApi callApi = new CallApi();
-            String json = null;
-            try {
-                json = callApi.callGetApi("http://localhost:8080/TacGia/getAllTacGia");
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-            btnUpdateTacGia.setOnAction(event -> updateTacGia());
-            tacGiaList = convertJsonToListTacGia(json);
-        }
-        System.out.println(tacGiaList);
-        btnUpdateTacGia.setOnAction(event -> updateTacGia());
+        refreshTacGiaList(); // Làm mới danh sách ban đầu
+
         data = FXCollections.observableArrayList(tacGiaList);
         tableView.setItems(data);
+
         btnDeleteTacGia.setOnAction(event -> deleteTacGia());
+        btnUpdateTacGia.setOnAction(event -> updateTacGia());
+        btnAddTacGia.setOnAction(event -> addTacGia());
     }
+
     public List<TacGia> getListTacGia() {
-        if(tacGiaList.size()==0){
+        if (tacGiaList.isEmpty()) {
             CallApi callApi = new CallApi();
-            String json = null;
+            String json;
             try {
                 json = callApi.callGetApi("http://localhost:8080/TacGia/getAllTacGia");
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-            btnUpdateTacGia.setOnAction(event -> updateTacGia());
             tacGiaList = convertJsonToListTacGia(json);
         }
-        System.out.println("List tac gia: "+tacGiaList);
+        System.out.println("List tac gia: " + tacGiaList);
         return tacGiaList;
     }
+
+    private void refreshTacGiaList() {
+        CallApi callApi = new CallApi();
+        String json;
+        try {
+            json = callApi.callGetApi("http://localhost:8080/TacGia/getAllTacGia");
+            tacGiaList = convertJsonToListTacGia(json);
+        } catch (IOException e) {
+            System.err.println("Error refreshing tacGiaList: " + e.getMessage());
+            tacGiaList = new ArrayList<>();
+        }
+    }
+
     public List<TacGia> convertJsonToListTacGia(String json) {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.registerModule(new JavaTimeModule());
         List<TacGia> tacGiaList = new ArrayList<>();
-        System.out.println("json: " + json);
         try {
-            tacGiaList = objectMapper.readValue(json, new TypeReference<List<TacGia>>() {});
+            tacGiaList = objectMapper.readValue(json, new TypeReference<>() {});
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
@@ -151,11 +120,7 @@ public class TacGiaController implements Initializable {
     }
 
     public void listenerChangeValuesOfTacGia() {
-        List<TextField> fields = Arrays.asList(
-                txt_MaTacGia, txt_HoTacGia, txt_TenTacGia,
-                txt_NamSinhTacGia, txt_QueQuanTacGia
-        );
-
+        List<TextField> fields = Arrays.asList(txt_MaTacGia, txt_HoTacGia, txt_TenTacGia, txt_NamSinhTacGia, txt_QueQuanTacGia);
         fields.forEach(f -> {
             if (f != null) {
                 f.textProperty().addListener((obs, oldVal, newVal) -> {
@@ -164,7 +129,7 @@ public class TacGiaController implements Initializable {
                     if (index >= 0) {
                         inforButtonContainer.getChildren().set(index, btnUpdateTacGia);
                     } else {
-                        System.err.println("btnDeleteTacGia không tồn tại trong inforFormButtonContainer!");
+                        System.err.println("btnDeleteTacGia không tồn tại trong inforButtonContainer!");
                     }
                 });
             }
@@ -175,51 +140,62 @@ public class TacGiaController implements Initializable {
         int selectedIndex = tableView.getSelectionModel().getSelectedIndex();
         if (selectedIndex >= 0 && selectedIndex < data.size()) {
             TacGia tacGia = data.get(selectedIndex);
-            System.out.println("Tac Gia selected " + tacGia.getMatg());
+            System.out.println("Tac Gia selected: " + tacGia.getMatg());
             CallApi callApi = new CallApi();
-            String result = callApi.callPostRequestParam("http://localhost:8080/TacGia/Delete", "maTacGia=",tacGia.getMatg());
-            data.remove(selectedIndex);
-            tableView.getSelectionModel().clearSelection();
+            String result = callApi.callPostRequestParam("http://localhost:8080/TacGia/Delete", "maTacGia=", tacGia.getMatg());
+            if (result.contains("Success")) {
+                data.remove(selectedIndex);
+                tacGiaList.remove(selectedIndex);
+                tableView.getSelectionModel().clearSelection();
+                showMessage("Success", "Xóa thành công", "Tác giả đã được xóa!");
+            } else {
+                showMessage("Error", "Xóa thất bại", "Không thể xóa tác giả: " + result);
+            }
         } else {
-            System.out.println("No valid selection!");
+            showMessage("Error", "Không có lựa chọn", "Vui lòng chọn một tác giả để xóa!");
         }
     }
+
     public void updateTacGia() {
-        TacGia tacGia = new TacGia();
-        List<TextField> textFields=Arrays.asList(txt_MaTacGia, txt_HoTacGia, txt_TenTacGia,
-                txt_QueQuanTacGia, txt_NamSinhTacGia
-                );
-        for(TextField tf:textFields) {
-            if(tf.getText().equals("")){
-                showMessage("Error","Text Field Null","Vui lòng nhập đầy đủ thông tin!");
-                System.out.println("Text Field Null");
+        List<TextField> textFields = Arrays.asList(txt_MaTacGia, txt_HoTacGia, txt_TenTacGia, txt_QueQuanTacGia, txt_NamSinhTacGia);
+        for (TextField tf : textFields) {
+            if (tf.getText().isEmpty()) {
+                showMessage("Error", "Text Field Null", "Vui lòng nhập đầy đủ thông tin!");
                 return;
             }
-        };
+        }
+
+        int namSinh;
+        try {
+            namSinh = Integer.parseInt(txt_NamSinhTacGia.getText());
+        } catch (NumberFormatException e) {
+            showMessage("Error", "Năm sinh không hợp lệ", "Vui lòng nhập một số hợp lệ cho năm sinh!");
+            return;
+        }
+
+        TacGia tacGia = new TacGia();
         tacGia.setMatg(txt_MaTacGia.getText());
         tacGia.setHotg(txt_HoTacGia.getText());
         tacGia.setTentg(txt_TenTacGia.getText());
         tacGia.setQuequan(txt_QueQuanTacGia.getText());
-        tacGia.setNamsinh(Integer.parseInt( txt_NamSinhTacGia.getText()));
+        tacGia.setNamsinh(namSinh);
 
-        CallApi callApi=new CallApi();
-        String resultApi=callApi.callPostRequestBody("http://localhost:8080/tacGia/Update",convertTacGiaToJson(tacGia));
-        if (resultApi.contains("Success")) {
-            for (int i = 0; i < tacGiaList.size(); i++) {
-                if(tacGiaList.get(i).getMatg().equals(tacGia.getMatg())){
-                    tacGiaList.set(i,tacGia);
-                    break;
-                }
-                showMessage("Success","Sua sach thanh cong",resultApi);
-                data = FXCollections.observableArrayList(tacGiaList);
-                tableView.setItems(data);
-            }
+        CallApi callApi = new CallApi();
+        String result = callApi.callPostRequestBody("http://localhost:8080/TacGia/Update", convertTacGiaToJson(tacGia));
+        System.out.println("Update response: " + result);
+        if (result.contains("success")) {
+            refreshTacGiaList(); // Làm mới danh sách từ API
+            data.setAll(tacGiaList);
+            tableView.refresh();
+            showMessage("Success", "Sửa tác giả thành công", "Tác giả đã được cập nhật!");
+            closeInforContainer();
         } else {
-            showMessage("Error","Sua thong tin bi loi",resultApi);
+            showMessage("Error", "Sửa tác giả thất bại", "Không thể cập nhật tác giả: " + result);
         }
     }
+
     public void openInforContainer() {
-        txt_MaTacGia.setText("TG"+tacGiaList.size()+1);
+        txt_MaTacGia.setText("TG" + (tacGiaList.size() + 1));
         txt_HoTacGia.setText("");
         txt_TenTacGia.setText("");
         txt_QueQuanTacGia.setText("");
@@ -227,7 +203,7 @@ public class TacGiaController implements Initializable {
         inforContainer.setVisible(true);
     }
 
-    public void clossInforContainer() {
+    public void closeInforContainer() {
         int index = inforButtonContainer.getChildren().indexOf(btnDeleteTacGia);
         if (index >= 0) {
             inforButtonContainer.getChildren().set(index, btnAddTacGia);
@@ -235,36 +211,42 @@ public class TacGiaController implements Initializable {
         inforContainer.setVisible(false);
     }
 
-    public void showMessage(String title, String header, String content) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(title);
-        alert.setHeaderText(header);
-        alert.setContentText(content);
-        alert.showAndWait();
-    }
-
     public void addTacGia() {
-        List<TextField> textFields = Arrays.asList(
-                txt_MaTacGia, txt_HoTacGia, txt_TenTacGia,
-                txt_NamSinhTacGia, txt_QueQuanTacGia
-        );
+        List<TextField> textFields = Arrays.asList(txt_MaTacGia, txt_HoTacGia, txt_TenTacGia, txt_NamSinhTacGia, txt_QueQuanTacGia);
         for (TextField tf : textFields) {
-            if (tf.getText().equals("")) {
+            if (tf.getText().isEmpty()) {
                 showMessage("Error", "Text Field Null", "Vui lòng nhập đầy đủ thông tin!");
                 return;
             }
         }
+
+        int namSinh;
+        try {
+            namSinh = Integer.parseInt(txt_NamSinhTacGia.getText());
+        } catch (NumberFormatException e) {
+            showMessage("Error", "Năm sinh không hợp lệ", "Vui lòng nhập một số hợp lệ cho năm sinh!");
+            return;
+        }
+
         TacGia tacGia = new TacGia();
         tacGia.setMatg(txt_MaTacGia.getText());
         tacGia.setHotg(txt_HoTacGia.getText());
         tacGia.setTentg(txt_TenTacGia.getText());
         tacGia.setQuequan(txt_QueQuanTacGia.getText());
-        tacGia.setNamsinh(Integer.parseInt( txt_NamSinhTacGia.getText()));
-        tacGiaList.add(tacGia);
-        data.add(tacGia);
+        tacGia.setNamsinh(namSinh);
+
         CallApi callApi = new CallApi();
         String result = callApi.callPostRequestBody("http://localhost:8080/TacGia/Add", convertTacGiaToJson(tacGia));
-        System.out.println(result);
+        if (result.contains("Success")) {
+            refreshTacGiaList(); // Làm mới danh sách từ API
+            tacGiaList.add(tacGia);
+            data.add(tacGia);
+            tableView.refresh();
+            showMessage("Success", "Thêm tác giả thành công", "Tác giả đã được thêm!");
+            closeInforContainer();
+        } else {
+            showMessage("Error", "Thêm tác giả thất bại", "Không thể thêm tác giả: " + result);
+        }
     }
 
     public void showSelectedItem(TacGia tacGia) {
@@ -279,14 +261,12 @@ public class TacGiaController implements Initializable {
         if (index >= 0) {
             inforButtonContainer.getChildren().set(index, btnDeleteTacGia);
         } else {
-            System.err.println("btnAddTacGia không tồn tại trong inforFormButtonContainer!");
-        }
-         index = inforButtonContainer.getChildren().indexOf(btnUpdateTacGia);
-        if (index >= 0) {
-            inforButtonContainer.getChildren().set(index, btnDeleteTacGia);
-        } else {
-            System.err.println("btnDeleteTacGia không tồn tại trong in4FormTacGia !");
-
+            index = inforButtonContainer.getChildren().indexOf(btnUpdateTacGia);
+            if (index >= 0) {
+                inforButtonContainer.getChildren().set(index, btnDeleteTacGia);
+            } else {
+                System.err.println("btnAddTacGia or btnUpdateTacGia not found in inforButtonContainer!");
+            }
         }
     }
 
@@ -296,5 +276,13 @@ public class TacGiaController implements Initializable {
         String json = callApi.callPostRequestParam("http://localhost:8080/TacGia/timKiem", "find=", find);
         data = FXCollections.observableArrayList(convertJsonToListTacGia(json));
         tableView.setItems(data);
+    }
+
+    public void showMessage(String title, String header, String content) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.setContentText(content);
+        alert.showAndWait();
     }
 }

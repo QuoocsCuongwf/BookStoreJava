@@ -57,7 +57,7 @@ public class SanPhamController {
     private ObservableList<SanPham> data;
     @FXML
     private Button btnThongKe, btnKhachHang, btnSanPham, btnNhanVien,
-            btnNCC, btnTacGia, btnHoaDon, btnTHD, btnKhuyenMai;
+            btnNCC, btnTacGia, btnHoaDon, btnTHD, btnKhuyenMai,  btnTheLoai,  btnNhaXuatBan;
     @FXML
     private TextField textFieldTimKiem;
     @FXML
@@ -84,6 +84,9 @@ public class SanPhamController {
     private LeftMenuController leftMenuController=new LeftMenuController();
     @FXML
     public void initialize() {
+        leftMenuController.bindHandlers(btnThongKe, btnKhachHang, btnSanPham,
+                btnNhanVien, btnNCC, btnTacGia,
+                btnHoaDon, btnTHD, btnKhuyenMai, btnTheLoai, btnNhaXuatBan);
         Map<String, TacGia> tacGiaMap = new HashMap<>();
         TacGiaController tacGiaController=new TacGiaController();
         List<TacGia> listTacGia = tacGiaController.getListTacGia(); // gọi 1 API hoặc DAO lấy tất cả

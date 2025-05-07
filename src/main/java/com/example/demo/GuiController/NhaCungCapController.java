@@ -51,13 +51,13 @@ public class NhaCungCapController implements Initializable {
     private List<NhaCungCap> listNhaCungCap = new ArrayList<>();
     @FXML
     private Button btnThongKe, btnKhachHang, btnSanPham,
-            btnNCC, btnTacGia, btnHoaDon, btnTHD, btnKhuyenMai;
+            btnNCC, btnTacGia, btnHoaDon, btnTHD, btnKhuyenMai, btnNhaXuatBan, btnTheLoai;
     LeftMenuController leftMenuController=new LeftMenuController();
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         leftMenuController.bindHandlers(btnThongKe, btnKhachHang, btnSanPham,
                 btnNhanVien, btnNCC, btnTacGia,
-                btnHoaDon, btnTHD, btnKhuyenMai);
+                btnHoaDon, btnTHD, btnKhuyenMai, btnTheLoai,  btnNhaXuatBan);
         inforContainer.setVisible(false);
         maNCCColumn.setCellValueFactory(new PropertyValueFactory<>("maNhaCungCap"));
         tenNCCColumn.setCellValueFactory(new PropertyValueFactory<>("tenNhaCungCap"));

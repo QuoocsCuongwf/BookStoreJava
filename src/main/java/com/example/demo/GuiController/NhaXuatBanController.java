@@ -1,134 +1,278 @@
 package com.example.demo.GuiController;
 
-import com.example.demo.GuiController.LeftMenuController;
 import com.example.demo.model.NhaXuatBan;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
-import com.fasterxml.jackson.core.type.TypeReference;
 
-
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 
+@Component
 @Controller
 public class NhaXuatBanController implements Initializable {
+    @FXML private Pane nhaXuatBanPane;
+    @FXML private Pane inforContainer;
+    @FXML private TableView<NhaXuatBan> tableView;
+    @FXML private TableColumn<NhaXuatBan, String> maNXBColumn;
+    @FXML private TableColumn<NhaXuatBan, String> tenNXBColumn;
+    @FXML private TableColumn<NhaXuatBan, String> diaChiColumn;
+    @FXML private TableColumn<NhaXuatBan, String> sdtColumn;
+    @FXML private TableColumn<NhaXuatBan, String> emailColumn;
+    @FXML private TextField textFieldMaNXB, textFieldTenNXB, textFieldDiaChi, textFieldSDT, textFieldEmail, textFieldTimKiem;
+    @FXML private HBox inforFormButtonContainer;
+    @FXML private Button btnAddNhaXuatBan, btnThemNXB, btnThoatFormNXB;
+    @FXML private Button btnThongKe, btnKhachHang, btnSanPham, btnNhanVien, btnNCC, btnTacGia, btnHoaDon, btnTHD, btnKhuyenMai, btnTheLoai, btnNhaXuatBan;
 
-    @FXML
-    private Pane inforContainer;
-    @FXML
-    private Button btnThongKe, btnKhachHang, btnSanPham, btnNhanVien,
-            btnNCC, btnTacGia, btnHoaDon, btnTHD, btnKhuyenMai;
-    LeftMenuController leftMenuController=new LeftMenuController();
-    @FXML
-    private Pane nhanVienPane;
-    @FXML
-    private TableView<NhaXuatBan> tableView;
-    @FXML
-    private TableColumn<NhaXuatBan, Integer> maNhaXuatBanColumn;
-    @FXML
-    private TableColumn<NhaXuatBan, String> tenNhaXuatBanColumn;
-    @FXML
-    private TableColumn<NhaXuatBan, String> diaChiColumn;
-    @FXML
-    private TableColumn<NhaXuatBan, String> soDienThoaiColumn;
-    @FXML
+    private final Button btnDeleteNhaXuatBan = new Button("Xóa");
+    private final Button btnUpdateNhaXuatBan = new Button("Cập nhật");
 
     private ObservableList<NhaXuatBan> data;
+    private List<NhaXuatBan> listNhaXuatBan = new ArrayList<>();
+    private final LeftMenuController leftMenuController = new LeftMenuController();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        leftMenuController.bindHandlers(btnThongKe, btnKhachHang, btnSanPham,
+                btnNhanVien, btnNCC, btnTacGia, btnHoaDon, btnTHD, btnKhuyenMai, btnTheLoai, btnNhaXuatBan);
+
         inforContainer.setVisible(false);
 
-        maNhaXuatBanColumn.setCellValueFactory(new PropertyValueFactory<>("manxb"));
-        tenNhaXuatBanColumn.setCellValueFactory(new PropertyValueFactory<>("tennxb"));
-        diaChiColumn.setCellValueFactory(new PropertyValueFactory<>("diachi"));
-        soDienThoaiColumn.setCellValueFactory(new PropertyValueFactory<>("sodienthoai"));
+        // Set up TableView columns
+        maNXBColumn.setCellValueFactory(new PropertyValueFactory<>("maNhaXuatBan"));
+        tenNXBColumn.setCellValueFactory(new PropertyValueFactory<>("tenNhaXuatBan"));
+        sdtColumn.setCellValueFactory(new PropertyValueFactory<>("sdt"));
+        diaChiColumn.setCellValueFactory(new PropertyValueFactory<>("diaChi"));
+        emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
 
-        leftMenuController.bindHandlers(btnThongKe, btnKhachHang, btnSanPham,
-                btnNhanVien, btnNCC, btnTacGia,
-                btnHoaDon, btnTHD, btnKhuyenMai);
-        tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue != null) {
-                System.out.println("Selected Item: " + newValue.getTennxb());
+        // Set button IDs
+        btnDeleteNhaXuatBan.setId("delete-button");
+        btnUpdateNhaXuatBan.setId("update-button");
 
-
-                // Thực hiện các hành động khác với dữ kiện được chọn
+        // Handle selection in TableView
+        tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldVal, newVal) -> {
+            if (newVal != null) {
+                showSelectedItem(newVal);
+                listenerChangeValuesNhaXuatBan();
             } else {
-                System.out.println("No item selected!");
+                System.out.println("No item selected");
             }
         });
-        String json = callApi("http://localhost:8080/nhaXuatBan/getAllNhaXuatBan");
-        ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.registerModule(new JavaTimeModule());
-        List<NhaXuatBan> nhaXBList = new ArrayList<NhaXuatBan>();
-        System.out.println("json: " + json);
+
+        // Load initial data
+        CallApi callApi = new CallApi();
+        String json;
         try {
-            nhaXBList = objectMapper.readValue(json, new TypeReference<List<NhaXuatBan>>() {});
+            json = callApi.callGetApi("http://localhost:8080/nhaXuatBan/getAllNhaXuatBan");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        listNhaXuatBan = convertJsonToList(json);
+        System.out.println(listNhaXuatBan);
+        data = FXCollections.observableArrayList(listNhaXuatBan);
+        tableView.setItems(data);
+
+        // Set button actions
+        btnDeleteNhaXuatBan.setOnAction(event -> deleteNhaXuatBan());
+        btnUpdateNhaXuatBan.setOnAction(event -> updateNhaXuatBan());
+        btnAddNhaXuatBan.setOnAction(event -> addNhaXuatBan());
+    }
+
+    public List<NhaXuatBan> convertJsonToList(String json) {
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.registerModule(new JavaTimeModule());
+        List<NhaXuatBan> nhaXuatBanList = new ArrayList<>();
+        try {
+            nhaXuatBanList = mapper.readValue(json, new TypeReference<>() {});
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
-        System.out.println(nhaXBList);
-        data = FXCollections.observableArrayList(nhaXBList);
-        tableView.setItems(data);
+        return nhaXuatBanList;
     }
 
-    public String callApi(String urlApi) {
-        String values="";
+    public String convertNhaXuatBanToJson(NhaXuatBan nhaXuatBan) {
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.registerModule(new JavaTimeModule());
+        String json;
         try {
-            URL url = new URL(urlApi);
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setRequestMethod("GET");
-            connection.connect();
-            BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-            StringBuilder response = new StringBuilder();
-            String line;
-            while ((line = in.readLine()) != null) {
-                response.append(line);
-            }
-            in.close();
-            values=response.toString();
-
-        } catch (Exception e) {
+            json = mapper.writeValueAsString(nhaXuatBan);
+        } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
-        return values;
+        return json;
     }
 
-    public void deleteNhaXB() {
+    public void listenerChangeValuesNhaXuatBan() {
+        List<TextField> fields = Arrays.asList(textFieldMaNXB, textFieldTenNXB, textFieldSDT, textFieldDiaChi, textFieldEmail);
+        fields.forEach(f -> {
+            if (f == null) {
+                System.err.println("A TextField is not injected (null)!");
+            } else {
+                f.textProperty().addListener((obs, oldVal, newVal) -> {
+                    System.out.println(f.getId() + " changed: " + newVal);
+                    int index = inforFormButtonContainer.getChildren().indexOf(btnDeleteNhaXuatBan);
+                    if (index >= 0) {
+                        inforFormButtonContainer.getChildren().set(index, btnUpdateNhaXuatBan);
+                    } else {
+                        System.err.println("btnDeleteNhaXuatBan not found in inforFormButtonContainer!");
+                    }
+                });
+            }
+        });
+    }
+
+    public void deleteNhaXuatBan() {
         int selectedIndex = tableView.getSelectionModel().getSelectedIndex();
         if (selectedIndex >= 0 && selectedIndex < data.size()) {
             NhaXuatBan nhaXuatBan = data.get(selectedIndex);
-            data.remove(selectedIndex); // Optional: remove from ObservableList to update the table
-            tableView.getSelectionModel().clearSelection();
+            System.out.println("Nha xuat ban selected: " + nhaXuatBan.getMaNhaXuatBan());
+            CallApi callApi = new CallApi();
+            String result = callApi.callPostRequestParam("http://localhost:8080/nhaXuatBan/Delete", "maNhaXuatBan=", nhaXuatBan.getMaNhaXuatBan());
+            if (result.contains("Success")) {
+                data.remove(selectedIndex);
+                tableView.getSelectionModel().clearSelection();
+            } else {
+                showMessage("Error", "Delete Failed", "Xóa nhà xuất bản thất bại. Vui lòng thử lại!");
+            }
         } else {
-            System.out.println("No valid selection!");
+            showMessage("Error", "No Selection", "Vui lòng chọn một nhà xuất bản để xóa!");
         }
     }
 
-    public void openInforContainer(){
+    public void updateNhaXuatBan() {
+        int selectedIndex = tableView.getSelectionModel().getSelectedIndex();
+        if (selectedIndex < 0 || selectedIndex >= data.size()) {
+            showMessage("Error", "No Selection", "Vui lòng chọn một nhà xuất bản để cập nhật!");
+            return;
+        }
+
+        NhaXuatBan nhaXuatBan = data.get(selectedIndex);
+
+        List<TextField> textFields = Arrays.asList(textFieldMaNXB, textFieldTenNXB, textFieldSDT, textFieldDiaChi, textFieldEmail);
+        for (TextField tf : textFields) {
+            if (tf.getText().isEmpty()) {
+                showMessage("Error", "Text Field Empty", "Vui lòng nhập đầy đủ thông tin!");
+                return;
+            }
+        }
+
+        nhaXuatBan.setTenNhaXuatBan(textFieldTenNXB.getText());
+        nhaXuatBan.setSdt(textFieldSDT.getText());
+        nhaXuatBan.setDiaChi(textFieldDiaChi.getText());
+        nhaXuatBan.setEmail(textFieldEmail.getText());
+
+        CallApi callApi = new CallApi();
+        String resultApi = callApi.callPostRequestBody("http://localhost:8080/nhaXuatBan/Update", convertNhaXuatBanToJson(nhaXuatBan));
+
+        if (resultApi.contains("Success")) {
+            for (int i = 0; i < listNhaXuatBan.size(); i++) {
+                if (listNhaXuatBan.get(i).getMaNhaXuatBan().equals(nhaXuatBan.getMaNhaXuatBan())) {
+                    listNhaXuatBan.set(i, nhaXuatBan);
+                    break;
+                }
+            }
+            data.set(selectedIndex, nhaXuatBan);
+            tableView.refresh();
+        } else {
+            showMessage("Error", "Update Failed", "Cập nhật nhà xuất bản thất bại. Vui lòng thử lại!");
+        }
+    }
+
+    public void addNhaXuatBan() {
+        NhaXuatBan nhaXuatBan = new NhaXuatBan();
+        List<TextField> textFields = Arrays.asList(textFieldMaNXB, textFieldTenNXB, textFieldSDT, textFieldDiaChi, textFieldEmail);
+        for (TextField tf : textFields) {
+            if (tf.getText().isEmpty()) {
+                showMessage("Error", "Text Field Empty", "Vui lòng nhập đầy đủ thông tin!");
+                return;
+            }
+        }
+
+        nhaXuatBan.setMaNhaXuatBan(textFieldMaNXB.getText());
+        nhaXuatBan.setTenNhaXuatBan(textFieldTenNXB.getText());
+        nhaXuatBan.setSdt(textFieldSDT.getText());
+        nhaXuatBan.setDiaChi(textFieldDiaChi.getText());
+        nhaXuatBan.setEmail(textFieldEmail.getText());
+
+        CallApi callApi = new CallApi();
+        String result = callApi.callPostRequestBody("http://localhost:8080/nhaXuatBan/Add", convertNhaXuatBanToJson(nhaXuatBan));
+        if (result.contains("Success")) {
+            listNhaXuatBan.add(nhaXuatBan);
+            data.add(nhaXuatBan);
+            clossInforContainer();
+        } else {
+            showMessage("Error", "Add Failed", "Thêm nhà xuất bản thất bại: " + result);
+        }
+    }
+
+    public void showSelectedItem(NhaXuatBan nhaXuatBan) {
+        openInforContainer();
+        textFieldMaNXB.setEditable(true);
+        textFieldMaNXB.setText(nhaXuatBan.getMaNhaXuatBan());
+        textFieldTenNXB.setText(nhaXuatBan.getTenNhaXuatBan());
+        textFieldSDT.setText(nhaXuatBan.getSdt());
+        textFieldDiaChi.setText(nhaXuatBan.getDiaChi());
+        textFieldEmail.setText(nhaXuatBan.getEmail());
+
+        int index = inforFormButtonContainer.getChildren().indexOf(btnAddNhaXuatBan);
+        if (index >= 0) {
+            inforFormButtonContainer.getChildren().set(index, btnDeleteNhaXuatBan);
+        } else {
+            System.err.println("btnAddNhaXuatBan not found in inforFormButtonContainer!");
+        }
+        index = inforFormButtonContainer.getChildren().indexOf(btnUpdateNhaXuatBan);
+        if (index >= 0) {
+            inforFormButtonContainer.getChildren().set(index, btnDeleteNhaXuatBan);
+        }
+    }
+
+    @FXML
+    public void openInforContainer() {
+        textFieldMaNXB.setText("");
+        textFieldTenNXB.setText("");
+        textFieldSDT.setText("");
+        textFieldDiaChi.setText("");
+        textFieldEmail.setText("");
         inforContainer.setVisible(true);
     }
-    public void clossInforContainer(){
+
+    @FXML
+    public void clossInforContainer() {
+        int index = inforFormButtonContainer.getChildren().indexOf(btnDeleteNhaXuatBan);
+        if (index >= 0) {
+            inforFormButtonContainer.getChildren().set(index, btnAddNhaXuatBan);
+        }
         inforContainer.setVisible(false);
     }
-    public void addNNhaXuatBan(){
 
+    public void timKiem() {
+        CallApi callApi = new CallApi();
+        String json = callApi.callPostRequestParam("http://localhost:8080/nhaXuatBan/timKiem", "find=", textFieldTimKiem.getText());
+        data = FXCollections.observableArrayList(convertJsonToList(json));
+        tableView.setItems(data);
     }
 
+    public void showMessage(String title, String header, String content) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
 }

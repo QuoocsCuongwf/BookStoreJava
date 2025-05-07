@@ -8,23 +8,17 @@ import lombok.Setter;
 @Setter
 public class NhaXuatBan {
     @JsonProperty("MANXB")
-    private String manxb;
+    private String maNhaXuatBan;
 
     @JsonProperty("TENNXB")
-    private String tennxb;
+    private String tenNhaXuatBan;
 
     @JsonProperty("DIACHI")
-    private String diachi;
+    private String diaChi;
 
     @JsonProperty("SDT")
     private String sdt;
 
-    public NhaXuatBan() {}
-
-    public NhaXuatBan(String manxb, String tennxb, String diachi, String sdt) {
-        this.manxb = manxb;
-        this.tennxb = tennxb;
-        this.diachi = diachi;
-        this.sdt = sdt;
-    }
+    @JsonProperty("EMAIL")
+    private String email;
 }

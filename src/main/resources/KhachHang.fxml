@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.Cursor?>
-<?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -14,168 +14,126 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<<<<<<<< HEAD:src/main/resources/KhachHang.fxml
 <Pane fx:id="khachHangPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="958.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.GuiController.KhachHangController">
-========
-<Pane fx:id="khuyenMaiTheoHoaDonPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="958.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
->>>>>>>> origin/MinhThu:src/main/resources/KmtheoSanPham.fxml
     <children>
         <SplitPane dividerPositions="0.23755750731911332" layoutX="-1.0" layoutY="-5.0" prefHeight="567.0" prefWidth="958.0">
             <items>
                 <AnchorPane fx:id="anchorPaneMenu" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" style="-fx-background-color: #00A4EF;">
                     <children>
-                        <Button fx:id="btnThongKe" layoutY="57.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="224.0" styleClass="btn" text="Thống kê">
-                            <font>
-                                <Font size="16.0" />
-                            </font></Button>
-                        <Button fx:id="btnKhachHang" layoutY="210.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="224.0" styleClass="btn" text="Khách hàng">
-                            <font>
-                                <Font size="16.0" />
-                            </font></Button>
-                        <Button fx:id="btnSanPham" layoutY="159.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="224.0" styleClass="btn" text="Sản phẩm">
-                            <font>
-                                <Font size="16.0" />
-                            </font></Button>
-                        <Button fx:id="btnNhanVien" layoutY="108.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="224.0" styleClass="btn" text="Nhân viên">
-                            <font>
-                                <Font size="16.0" />
-                            </font></Button>
-                        <Button fx:id="btnNCC" layoutY="261.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="224.0" text="Nhà cung cấp">
+                        <Button fx:id="btnThongKe" layoutY="14.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="224.0" styleClass="btn" text="Thống kê">
                             <font>
                                 <Font size="16.0" />
                             </font>
                         </Button>
-                        <Button fx:id="btnTacGia" layoutY="312.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="224.0" text="Tác giả">
+                        <Button fx:id="btnKhachHang" layoutY="149.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="224.0" styleClass="btn" text="Khách hàng">
                             <font>
                                 <Font size="16.0" />
                             </font>
                         </Button>
-                        <Button fx:id="btnHoaDon" layoutY="363.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="224.0" text="Hóa đơn">
+                        <Button fx:id="btnSanPham" layoutY="104.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="224.0" styleClass="btn" text="Sản phẩm">
                             <font>
                                 <Font size="16.0" />
                             </font>
                         </Button>
-                        <Button fx:id="btnTHD" layoutY="414.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="224.0" text="Tạo hóa đơn">
+                        <Button fx:id="btnNhanVien" layoutY="59.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="224.0" styleClass="btn" text="Nhân viên">
                             <font>
                                 <Font size="16.0" />
                             </font>
                         </Button>
-                        <Button fx:id="btnKhuyenMai" layoutY="465.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="224.0" text="Khuyến mãi">
+                        <Button fx:id="btnNCC" layoutY="194.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="224.0" styleClass="btn" text="Nhà cung cấp">
+                            <font>
+                                <Font size="16.0" />
+                            </font>
+                        </Button>
+                        <Button fx:id="btnTacGia" layoutY="284.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="224.0" styleClass="btn" text="Tác giả">
+                            <font>
+                                <Font size="16.0" />
+                            </font>
+                        </Button>
+                        <Button fx:id="btnHoaDon" layoutY="329.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="224.0" styleClass="btn" text="Hóa đơn">
+                            <font>
+                                <Font size="16.0" />
+                            </font>
+                        </Button>
+                        <Button fx:id="btnTHD" layoutY="374.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="224.0" styleClass="btn" text="Tạo hóa đơn">
+                            <font>
+                                <Font size="16.0" />
+                            </font>
+                        </Button>
+                        <Button fx:id="btnKhuyenMai" layoutY="419.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="224.0" styleClass="btn" text="Khuyến mãi">
+                            <font>
+                                <Font size="16.0" />
+                            </font>
+                        </Button>
+                        <Button fx:id="btnTheLoai" layoutY="464.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="224.0" styleClass="btn" text="Thể loại">
+                            <font>
+                                <Font size="16.0" />
+                            </font>
+                        </Button>
+                        <Button fx:id="btnNhaXuatBan" layoutY="239.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="224.0" styleClass="btn" text="Nhà xuất bản">
                             <font>
                                 <Font size="16.0" />
                             </font>
                         </Button>
                     </children>
                 </AnchorPane>
-                <AnchorPane fx:id="khachHangAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                     <children>
-                        <TableView fx:id="tableView" layoutY="196.0" prefHeight="384.0" prefWidth="742.0" AnchorPane.leftAnchor="0.0">
+                        <Button fx:id="btnThemKhachHang" layoutX="549.0" layoutY="114.0" mnemonicParsing="false" onAction="#openInforContainer" prefHeight="26.0" prefWidth="162.0" styleClass="btn" text="Thêm Khách Hàng" />
+                        <TableView fx:id="tableView" layoutY="171.0" prefHeight="409.0" prefWidth="742.0" AnchorPane.leftAnchor="0.0">
                             <columns>
-<<<<<<<< HEAD:src/main/resources/KhachHang.fxml
-                                <TableColumn fx:id="maKhachHangColumn" prefWidth="101.6000549197197" text="Mã khách hàng" />
-                                <TableColumn fx:id="hoKhachHangColumn" prefWidth="141.5999755859375" text="Họ " />
-                                <TableColumn fx:id="tenKhachHangColumn" prefWidth="100.79997253417969" text="Tên" />
-                                <TableColumn fx:id="diaChiKhachHangColumn" prefWidth="139.20001220703125" text="Địa chỉ" />
-                                <TableColumn fx:id="emailKhachHangColumn" prefWidth="106.39996337890625" text="Email" />
-                                <TableColumn fx:id="sdtKhachHangColumn" prefWidth="135.2000732421875" text="Số điện thoại" />
+                                <TableColumn fx:id="maKhachHangColumn" prefWidth="101.6" text="Mã khách hàng" />
+                                <TableColumn fx:id="hoKhachHangColumn" prefWidth="141.6" text="Họ" />
+                                <TableColumn fx:id="tenKhachHangColumn" prefWidth="100.8" text="Tên" />
+                                <TableColumn fx:id="diaChiKhachHangColumn" prefWidth="139.2" text="Địa chỉ" />
+                                <TableColumn fx:id="emailKhachHangColumn" prefWidth="106.4" text="Email" />
+                                <TableColumn fx:id="sdtKhachHangColumn" prefWidth="135.2" text="Số điện thoại" />
                             </columns>
                         </TableView>
-                        <TextField fx:id="txt_timKiemKhachHang" layoutX="33.0" layoutY="29.0" promptText="Tìm kiếm..." styleClass="text-field-box" />
-                        <Button fx:id="btn_timKiemKhachHang" layoutX="217.0" layoutY="29.0" mnemonicParsing="false" onAction="#timKiem" styleClass="btn" text="Tìm kiếm" />
-                        <Button fx:id="btn_themKhachHang" layoutX="602.0" layoutY="150.0" mnemonicParsing="false" onAction="#openInforContainer" styleClass="btn" text="Thêm khách hàng" />
-                        <Pane fx:id="inforContainerKhachHang" prefHeight="566.0" prefWidth="726.0">
-========
-                                <TableColumn fx:id="maChuongTrinhKMColumn" prefWidth="251.3333282470703" text="Mã Chương Trình Khuyến Mãi" />
-                                <TableColumn fx:id="maSanPhamColumn" prefWidth="217.3333740234375" text="Mã Sản Phẩm" />
-                                <TableColumn fx:id="phanTramKMColumn" prefWidth="219.33331298828125" text="\% Khuyến Mãi" />
-                            </columns>
-                        </TableView>
-                        <TextField fx:id="textFieldTimKiem" layoutX="33.0" layoutY="29.0" promptText="Tìm kiếm..." styleClass="text-field-box" />
-                        <Button layoutX="217.0" layoutY="29.0" mnemonicParsing="false" onAction="#timKiem" styleClass="btn" text="Tìm kiếm" />
-                        <Button layoutX="602.0" layoutY="150.0" mnemonicParsing="false" onAction="#openInforContainer" styleClass="btn" text="Thêm" />
-                        <Pane fx:id="inforContainer" layoutX="-2.0" prefHeight="567.0" prefWidth="984.0">
->>>>>>>> origin/MinhThu:src/main/resources/KmtheoSanPham.fxml
+                        <TextField fx:id="textFieldTimKiem" layoutX="37.0" layoutY="32.0" prefHeight="30.0" prefWidth="174.0" promptText="Tìm kiếm..." styleClass="text-field-box" />
+                        <Button layoutX="238.0" layoutY="35.0" mnemonicParsing="false" onAction="#timKiem" styleClass="btn" text="Tìm kiếm" />
+                        <Pane fx:id="inforContainer" prefHeight="566.0" prefWidth="726.0" AnchorPane.leftAnchor="0.0">
                             <children>
-                                <VBox fx:id="inforForm" layoutX="219.0" layoutY="75.0" prefHeight="188.0" prefWidth="273.0" spacing="15.0" styleClass="inforForm">
+                                <Pane layoutX="162.0" layoutY="69.0" prefHeight="476.0" prefWidth="332.0">
                                     <children>
-                                        <HBox prefHeight="26.0" prefWidth="322.0" spacing="20.0">
-<<<<<<<< HEAD:src/main/resources/KhachHang.fxml
+                                        <VBox prefHeight="486.0" prefWidth="326.0" spacing="20.0">
                                             <children>
-                                                <TextField fx:id="txt_maKhachHang" prefHeight="25.0" prefWidth="375.0" promptText="Mã khách hàng" />
-                                            </children>
-========
->>>>>>>> origin/MinhThu:src/main/resources/KmtheoSanPham.fxml
-                                            <VBox.margin>
-                                                <Insets />
-                                            </VBox.margin>
-                                        </HBox>
-                                        <HBox prefHeight="26.0" prefWidth="322.0" spacing="20.0">
-                                            <children>
-<<<<<<<< HEAD:src/main/resources/KhachHang.fxml
-                                                <TextField fx:id="txt_hoKhachHang" prefHeight="26.0" prefWidth="369.0" promptText="Họ tên lót" />
-========
-                                                <TextField fx:id="txt_maChuongTrinhKhuyenMai" prefHeight="26.0" prefWidth="234.0" promptText="Mã Chương Trình Khyến Mãi" />
->>>>>>>> origin/MinhThu:src/main/resources/KmtheoSanPham.fxml
-                                            </children>
-                                        </HBox>
-                                        <HBox prefHeight="26.0" prefWidth="322.0" spacing="20.0">
-                                            <children>
-<<<<<<<< HEAD:src/main/resources/KhachHang.fxml
-                                                <TextField fx:id="txt_tenKhachHang" prefHeight="26.0" prefWidth="369.0" promptText="Tên" />
-========
-                                                <TextField fx:id="txt_maSanPham" prefHeight="26.0" prefWidth="235.0" promptText="Mã Sản Phẩm" />
->>>>>>>> origin/MinhThu:src/main/resources/KmtheoSanPham.fxml
-                                            </children>
-                                        </HBox>
-                                        <HBox prefHeight="26.0" prefWidth="322.0" spacing="20.0">
-                                            <children>
-<<<<<<<< HEAD:src/main/resources/KhachHang.fxml
-                                                <TextField fx:id="txt_emailKhachHang" prefHeight="25.0" prefWidth="369.0" promptText="Email" />
-                                                <TextField fx:id="txt_sdtKhachHang" prefHeight="25.0" prefWidth="283.0" promptText="Thông tin liên lạc" />
-========
-                                                <TextField fx:id="txt_phanTramKhuyenMai" prefHeight="26.0" prefWidth="234.0" promptText="\% Khuyến Mãi" />
->>>>>>>> origin/MinhThu:src/main/resources/KmtheoSanPham.fxml
-                                            </children>
-                                        </HBox>
-                                        <HBox prefHeight="26.0" prefWidth="322.0" spacing="20.0">
-                                            <children>
-<<<<<<<< HEAD:src/main/resources/KhachHang.fxml
-                                                <TextField fx:id="txt_diaChiKhachHang" prefHeight="25.0" prefWidth="424.0" promptText="Địa chỉ" />
-                                            </children>
-                                        </HBox>
-                                        <HBox fx:id="inforFormButtonContainer" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="15.0">
-                                            <children>
-                                                <Button fx:id="btnAddKhachHang" mnemonicParsing="false" onAction="#addKhachHang" text="Thêm" />
-                                                <Button mnemonicParsing="false" onAction="#closeInforContainer" text="Đóng" />
-                                            </children>
-                                            <cursor>
-                                                <Cursor fx:constant="DEFAULT" />
-                                            </cursor>
-                                        </HBox>
-========
-                                                <HBox fx:id="inforFormButtonContainer" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="15.0">
+                                                <Label alignment="CENTER" prefHeight="69.0" prefWidth="312.0" text="THÊM KHÁCH HÀNG" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS">
+                                                    <font>
+                                                        <Font size="14.0" />
+                                                    </font>
+                                                </Label>
+                                                <TextField fx:id="textFieldMaKhachHang" prefHeight="48.0" prefWidth="309.0" promptText="Mã khách hàng" />
+                                                <TextField fx:id="textFieldHoKhachHang" prefHeight="48.0" prefWidth="309.0" promptText="Họ" />
+                                                <TextField fx:id="textFieldTenKhachHang" prefHeight="48.0" prefWidth="309.0" promptText="Tên" />
+                                                <TextField fx:id="textFieldDiaChiKhachHang" prefHeight="48.0" prefWidth="309.0" promptText="Địa chỉ" />
+                                                <TextField fx:id="textFieldSdtKhachHang" prefHeight="48.0" prefWidth="309.0" promptText="Số điện thoại" />
+                                                <TextField fx:id="textFieldEmailKhachHang" prefHeight="48.0" prefWidth="309.0" promptText="Email" />
+                                                <HBox fx:id="inforFormButtonContainer" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                                                     <children>
-                                                        <Button fx:id="btnAddKM" mnemonicParsing="false" onAction="#addKhuyenMai" text="Thêm" />
-                                                        <Button mnemonicParsing="false" onAction="#clossInforContainer" text="Đóng" />
+                                                        <Button fx:id="btnAddKhachHang" contentDisplay="CENTER" mnemonicParsing="false" onAction="#addKhachHang" prefHeight="70.0" prefWidth="98.0" text="Thêm" />
+                                                        <Button fx:id="btnThoatFormKhachHang" mnemonicParsing="false" onAction="#closeInforContainer" prefHeight="70.0" prefWidth="98.0" text="Thoát" />
                                                     </children>
-                                                    <cursor>
-                                                        <Cursor fx:constant="DEFAULT" />
-                                                    </cursor>
+                                                    <padding>
+                                                        <Insets bottom="30.0" top="30.0" />
+                                                    </padding>
                                                 </HBox>
                                             </children>
-                                        </HBox>
->>>>>>>> origin/MinhThu:src/main/resources/KmtheoSanPham.fxml
+                                            <padding>
+                                                <Insets left="20.0" right="20.0" />
+                                            </padding>
+                                        </VBox>
                                     </children>
-                                    <padding>
-                                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
-                                    </padding>
-                                </VBox>
+                                    <styleClass>
+                                        <String fx:value="form-container" />
+                                        <String fx:value="inforForm" />
+                                    </styleClass>
+                                </Pane>
                             </children>
                         </Pane>
                     </children>
                 </AnchorPane>
             </items>
         </SplitPane>
-        <Accordion />
     </children>
 </Pane>

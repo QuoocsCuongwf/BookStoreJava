@@ -68,13 +68,13 @@ public class NhanVienController implements Initializable {
     private Button btnUpdateNhanVien=new Button("Cập nhật");
     @FXML
     private Button btnThongKe, btnKhachHang, btnSanPham, btnNhanVien,
-            btnNCC, btnTacGia, btnHoaDon, btnTHD, btnKhuyenMai;
+            btnNCC, btnTacGia, btnHoaDon, btnTHD, btnKhuyenMai,  btnTheLoai,  btnNhaXuatBan;
     LeftMenuController leftMenuController=new LeftMenuController();
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         leftMenuController.bindHandlers(btnThongKe, btnKhachHang, btnSanPham,
                 btnNhanVien, btnNCC, btnTacGia,
-                btnHoaDon, btnTHD, btnKhuyenMai);
+                btnHoaDon, btnTHD, btnKhuyenMai, btnTheLoai, btnNhaXuatBan);
         inforContainer.setVisible(false);
         maNhanVienColumn.setCellValueFactory(new PropertyValueFactory<>("manv"));
         tenNhanVienColumn.setCellValueFactory(new PropertyValueFactory<>("tennv"));

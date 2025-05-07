@@ -47,7 +47,7 @@ public class ChiTietHoaDonController implements Initializable {
 
 
     @FXML
-    private Button btnThongKe, btnKhachHang, btnSanPham, btnNhanVien, btnNCC, btnTacGia, btnHoaDon, btnTHD, btnKhuyenMai;
+    private Button btnThongKe, btnKhachHang, btnSanPham, btnNhanVien, btnNCC, btnTacGia, btnHoaDon, btnTHD, btnKhuyenMai, btnTheLoai, btnNhaXuatBan;
 
     private final ObservableList<ChiTietHoaDon> danhSachChiTietHoaDon = FXCollections.observableArrayList();
     LeftMenuController leftMenuController=new LeftMenuController();
@@ -55,7 +55,7 @@ public class ChiTietHoaDonController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         leftMenuController.bindHandlers(btnThongKe, btnKhachHang, btnSanPham,
                 btnNhanVien, btnNCC, btnTacGia,
-                btnHoaDon, btnTHD, btnKhuyenMai);
+                btnHoaDon, btnTHD, btnKhuyenMai, btnTheLoai, btnNhaXuatBan);
         // Liên kết cột với thuộc tính đối tượng ChiTietHoaDon
         maSachColumn.setCellValueFactory(new PropertyValueFactory<>("masp"));
         donGiaColumn.setCellValueFactory(new PropertyValueFactory<>("dongia"));

@@ -68,14 +68,17 @@ public class HoaDonController implements Initializable {
     @FXML
     private Pane inforContainer;
     @FXML
-    private Button btnThongKe, btnKhachHang, btnSanPham, btnNhanVien, btnNCC, btnTacGia, btnHoaDon, btnTHD, btnKhuyenMai;
+    private Button btnThongKe, btnKhachHang, btnSanPham, btnNhanVien, btnNCC, btnTacGia, btnHoaDon, btnTHD, btnKhuyenMai, btnTheLoai, btnNhaXuatBan;
     private static List<ChiTietHoaDon> listChiTietHoaDon=new ArrayList<>();
     private ObservableList<ChiTietHoaDon> danhSachChiTiet = FXCollections.observableArrayList();
     private ObservableList<HoaDon> data = FXCollections.observableArrayList();
 
-
+    LeftMenuController leftMenuController=new LeftMenuController();
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        leftMenuController.bindHandlers(btnThongKe, btnKhachHang, btnSanPham,
+                btnNhanVien, btnNCC, btnTacGia,
+                btnHoaDon, btnTHD, btnKhuyenMai, btnTheLoai, btnNhaXuatBan);
         inforContainer.setVisible(false);
         maHDColumn.setCellValueFactory(new PropertyValueFactory<>("mahd"));
         maKHColumn.setCellValueFactory(new PropertyValueFactory<>("makh"));
