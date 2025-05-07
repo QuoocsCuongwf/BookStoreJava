@@ -1,6 +1,6 @@
 package com.example.demo.databaseAccesssObject;
 
-import com.example.demo.model.KhuyenMai;
+import com.example.demo.model.KmTheoHoaDon;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -12,18 +12,18 @@ import java.util.List;
 
 public class KhuyenMaiDAO {
 
-    List<KhuyenMai> listKhuyenMai = new ArrayList<KhuyenMai>();
+    List<KmTheoHoaDon> listKhuyenMai = new ArrayList<KmTheoHoaDon>();
     ConnectDatabase condb = new ConnectDatabase();
 
     public KhuyenMaiDAO() {
     }
 
-    public List<KhuyenMai> getListKhuyenMai() {
+    public List<KmTheoHoaDon> getListKhuyenMai() {
         String values = condb.query("select * from KM_THEO_HOA_DON");
         ObjectMapper mapper = new ObjectMapper();
         try {
             mapper.registerModule(new JavaTimeModule());
-            listKhuyenMai = mapper.readValue(values, new TypeReference<List<KhuyenMai>>() {
+            listKhuyenMai = mapper.readValue(values, new TypeReference<List<KmTheoHoaDon>>() {
             });
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
@@ -36,7 +36,7 @@ public class KhuyenMaiDAO {
         condb.insert("delete from KM_THEO_HOA_DON where MACTKM='" + maChuongTrinhKhuyenMai + "'");
     }
 
-    public void addKhuyenMai(KhuyenMai kmTheoHoaDon) {
+    public void addKhuyenMai(KmTheoHoaDon kmTheoHoaDon) {
         String query = "INSERT INTO KM_THEO_HOA_DON (mactkm,tongtien,phantramkhuyenmai) " +
                 "VALUES ('" + kmTheoHoaDon.getMactkm() + "', '" +
                 kmTheoHoaDon.getTongtien() + "', '" +
@@ -45,7 +45,7 @@ public class KhuyenMaiDAO {
 
         condb.insert(query);
     }
-    public void updateChuongTrinhKhuyenMai(KhuyenMai kmTheoHoaDon) {
+    public void updateChuongTrinhKhuyenMai(KmTheoHoaDon kmTheoHoaDon) {
         String query = "UPDATE KM_THEO_HOA_DON" +
            //     "SET MASANPHAM='" + kmTheoHoaDon.getMasanpham()
                  "SET PHAN TRAM KHUYEN MAI='" + kmTheoHoaDon.getPhantramkhuyenmai()

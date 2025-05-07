@@ -1,6 +1,6 @@
 package com.example.demo.GuiController;
 
-import com.example.demo.model.KhuyenMai;
+import com.example.demo.model.KmTheoHoaDon;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -21,9 +21,9 @@ import java.net.URL;
 
 import java.time.LocalDate;
 import java.util.*;
+
 @Component
 @Controller
-
 public class KhuyenMaiController implements Initializable {
 
     @FXML
@@ -31,27 +31,27 @@ public class KhuyenMaiController implements Initializable {
     @FXML
     private Pane khuyenMaiTheoHoaDonPane;
     @FXML
-    private TableView<KhuyenMai> tableView;
+    private TableView<KmTheoHoaDon> tableView;
     @FXML
-    private TableColumn<KhuyenMai, Integer> maChuongTrinhKMColumn;
+    private TableColumn<KmTheoHoaDon, Integer> maChuongTrinhKMColumn;
     @FXML
-    private TableColumn<KhuyenMai, String> maSanPhamColumn;
+    private TableColumn<KmTheoHoaDon, String> maSanPhamColumn;
     @FXML
-    private TableColumn<KhuyenMai, String> tongTienColumn;
+    private TableColumn<KmTheoHoaDon, String> tongTienColumn;
     @FXML
-    private TableColumn<KhuyenMai, String> phanTramKMColumn;
+    private TableColumn<KmTheoHoaDon, String> phanTramKMColumn;
 
     @FXML
-    private TableColumn<KhuyenMai, LocalDate> ngayBatDauColumn;
+    private TableColumn<KmTheoHoaDon, LocalDate> ngayBatDauColumn;
     @FXML
-    private TableColumn<KhuyenMai, LocalDate> ngayKetThucColumn;
+    private TableColumn<KmTheoHoaDon, LocalDate> ngayKetThucColumn;
     @FXML
     private DatePicker datePickerNgayBatDau;
     @FXML
     private DatePicker datePickerNgayKetThuc;
 
-    private  ObservableList<KhuyenMai> data;
-    List<KhuyenMai> khuyenMaiList=new ArrayList<>();
+    private  ObservableList<KmTheoHoaDon> data;
+    List<KmTheoHoaDon> khuyenMaiList=new ArrayList<>();
 
     @FXML
     private TextField textFieldTimKiem;
@@ -132,13 +132,13 @@ public class KhuyenMaiController implements Initializable {
         tableView.setItems(data);
         btnDeleteKhuyenMai.setOnAction(event -> DeleteKhuyenMai(btnDeleteKhuyenMai));
         btnUpdateKhuyenMai.setOnAction(event -> UpdateKhuyenMai());
-        ngayBatDauColumn.setCellFactory(column -> new TableCell<KhuyenMai, LocalDate>()
+        ngayBatDauColumn.setCellFactory(column -> new TableCell<KmTheoHoaDon, LocalDate>()
         {
             private final DatePicker datePicker = new DatePicker();
 
             {
                 datePicker.setOnAction(event -> {
-                    KhuyenMai khuyenMai = getTableView().getItems().get(getIndex());
+                    KmTheoHoaDon khuyenMai = getTableView().getItems().get(getIndex());
                     khuyenMai.setNgayBatDau(datePicker.getValue());
                 });
                 setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
@@ -156,13 +156,13 @@ public class KhuyenMaiController implements Initializable {
                 }
             }
         });
-        ngayKetThucColumn.setCellFactory(column -> new TableCell<KhuyenMai, LocalDate>()
+        ngayKetThucColumn.setCellFactory(column -> new TableCell<KmTheoHoaDon, LocalDate>()
         {
             private final DatePicker datePicker = new DatePicker();
 
             {
                 datePicker.setOnAction(event -> {
-                    KhuyenMai khuyenMai = getTableView().getItems().get(getIndex());
+                    KmTheoHoaDon khuyenMai = getTableView().getItems().get(getIndex());
                     khuyenMai.setNgayBatDau(datePicker.getValue());
                 });
                 setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
@@ -182,13 +182,13 @@ public class KhuyenMaiController implements Initializable {
         });
     }
 
-    public List<KhuyenMai> convertJsonToListKhuyenMai(String json) {
+    public List<KmTheoHoaDon> convertJsonToListKhuyenMai(String json) {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.registerModule(new JavaTimeModule());
-        List<KhuyenMai> khuyenMaiList = new ArrayList<>();
+        List<KmTheoHoaDon> khuyenMaiList = new ArrayList<>();
         System.out.println("json: " + json);
         try {
-            khuyenMaiList = objectMapper.readValue(json, new TypeReference<List<KhuyenMai>>() {
+            khuyenMaiList = objectMapper.readValue(json, new TypeReference<List<KmTheoHoaDon>>() {
             });
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
@@ -197,7 +197,7 @@ public class KhuyenMaiController implements Initializable {
 
     }
 
-    public String convertKhuyenMaiToJson(KhuyenMai khuyenMai) {
+    public String convertKhuyenMaiToJson(KmTheoHoaDon khuyenMai) {
         ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(new JavaTimeModule());
         try {
@@ -228,7 +228,7 @@ public class KhuyenMaiController implements Initializable {
     public void DeleteKhuyenMai(Button button) {
         int selectedIndex = tableView.getSelectionModel().getSelectedIndex();
         if (selectedIndex >= 0 && selectedIndex < data.size()) {
-            KhuyenMai khuyenMai = data.get(selectedIndex);
+            KmTheoHoaDon khuyenMai = data.get(selectedIndex);
             System.out.println("Khuyen Mai Theo Hoa Don selected " + khuyenMai.getMactkm());
             CallApi callApi = new CallApi();
             String result = callApi.callPostRequestParam("http://localhost:8080/KhuyenMai/Delete", "maKm=",khuyenMai.getMactkm());
@@ -239,7 +239,7 @@ public class KhuyenMaiController implements Initializable {
         }
     }
     public void UpdateKhuyenMai() {
-        KhuyenMai khuyenMai = new KhuyenMai();
+        KmTheoHoaDon khuyenMai = new KmTheoHoaDon();
         List<TextField> textFields=Arrays.asList(txt_maChuongTrinhKhuyenMai, txt_phanTramKhuyenMai, txt_tongTien
                 );
         for(TextField tf:textFields) {
@@ -299,7 +299,7 @@ public class KhuyenMaiController implements Initializable {
         alert.showAndWait();
     }
     public void addKhuyenMai() {
-        KhuyenMai khuyenMai = new KhuyenMai();
+        KmTheoHoaDon khuyenMai = new KmTheoHoaDon();
         List<TextField> textFields = Arrays.asList(
                 txt_maChuongTrinhKhuyenMai,txt_phanTramKhuyenMai,txt_tongTien);
         for (TextField tf : textFields) {
@@ -330,7 +330,7 @@ public class KhuyenMaiController implements Initializable {
             data.add(khuyenMai);
         }
     }
-    public void showSelectedItem(KhuyenMai khuyenMai) {
+    public void showSelectedItem(KmTheoHoaDon khuyenMai) {
         openInforContainer();
         txt_maChuongTrinhKhuyenMai.setText(khuyenMai.getMactkm());
 //        txt_maSanPham.setText(String.valueOf(khuyenMai.getMasanpham()));

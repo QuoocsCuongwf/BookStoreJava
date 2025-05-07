@@ -1,5 +1,6 @@
 package com.example.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,15 +9,18 @@ import java.time.LocalDate;
 @Getter
 @Setter
 
-public class KhuyenMai {
+public class KmTheoHoaDon {
 
-
+    @JsonProperty("MACTKM")
     private String mactkm;
 
+    @JsonProperty("MASP")
     private String masanpham;
 
+    @JsonProperty("PHANTRAMKHUYENMAI")
     private Double phantramkhuyenmai;
 
+    @JsonProperty("SOTIENHOADON")
     private Double tongtien;
 
 

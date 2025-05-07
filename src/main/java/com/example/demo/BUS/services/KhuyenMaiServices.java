@@ -1,31 +1,32 @@
 package com.example.demo.BUS.services;
 
 import com.example.demo.databaseAccesssObject.KhuyenMaiDAO;
-import com.example.demo.model.KhuyenMai;
-
+import com.example.demo.model.KmTheoHoaDon;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Service
 public class KhuyenMaiServices {
     private KhuyenMaiDAO khuyenMaiDAO = new KhuyenMaiDAO();
-    private List<KhuyenMai> listKhuyenMai = new ArrayList<KhuyenMai>();
-    public List<KhuyenMai>getKhuyenMaiList() {
+    private List<KmTheoHoaDon> listKhuyenMai = new ArrayList<KmTheoHoaDon>();
+    public List<KmTheoHoaDon>getKhuyenMaiList() {
         listKhuyenMai=khuyenMaiDAO.getListKhuyenMai();
         System.out.println(listKhuyenMai);
         return listKhuyenMai;
     }
-    public List<KhuyenMai> findByIDMaChuongTrinh (String idmaChuongTrinh){
-        List<KhuyenMai> listResult = new ArrayList<KhuyenMai>();
-        for (KhuyenMai khuyenMai : listKhuyenMai) {
+    public List<KmTheoHoaDon> findByIDMaChuongTrinh (String idmaChuongTrinh){
+        List<KmTheoHoaDon> listResult = new ArrayList<KmTheoHoaDon>();
+        for (KmTheoHoaDon khuyenMai : listKhuyenMai) {
             if(khuyenMai.getMactkm().contains(idmaChuongTrinh)){
                 listResult.add(khuyenMai);
             }
         }
         return listResult;
     }
-    public String addKhuyenMai(KhuyenMai khuyenMai) {
+    public String addKhuyenMai(KmTheoHoaDon khuyenMai) {
         if(!checkMaChuongTrinh(khuyenMai.getMactkm())){
             khuyenMaiDAO.addKhuyenMai(khuyenMai);
             return " Add Success";
@@ -34,7 +35,7 @@ public class KhuyenMaiServices {
     }
 
     public boolean checkMaChuongTrinh(String mact) {
-        for(KhuyenMai kmTheoHoaDon : listKhuyenMai){
+        for(KmTheoHoaDon kmTheoHoaDon : listKhuyenMai){
             if(kmTheoHoaDon.getMactkm().equals(mact)){
                 return true;
             }
@@ -42,8 +43,8 @@ public class KhuyenMaiServices {
         return false;
     }
 
-    public List<KhuyenMai> searchChuongTrinh(String in4ChuongTrinh) {
-        List<KhuyenMai> result= listKhuyenMai.stream()
+    public List<KmTheoHoaDon> searchChuongTrinh(String in4ChuongTrinh) {
+        List<KmTheoHoaDon> result= listKhuyenMai.stream()
                 .filter(khuyenMai ->
                         String.valueOf(khuyenMai.getMactkm()).contains(in4ChuongTrinh) ||
                                 String.valueOf(khuyenMai.getMasanpham()).contains(in4ChuongTrinh) ||
@@ -58,7 +59,7 @@ public class KhuyenMaiServices {
         listKhuyenMai.removeIf(khuyenMai -> khuyenMai.getMactkm().equals(maChuongTrinhKhuyenMai));
         khuyenMaiDAO.deleteKhuyenMai(maChuongTrinhKhuyenMai);
     }
-    public String UpdateKhuyenMai (KhuyenMai khuyenMai) {
+    public String UpdateKhuyenMai (KmTheoHoaDon khuyenMai) {
         khuyenMaiDAO.updateChuongTrinhKhuyenMai(khuyenMai);
         return "update success";
     }
