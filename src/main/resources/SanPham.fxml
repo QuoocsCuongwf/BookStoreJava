@@ -170,6 +170,9 @@
                   </Pane>
                   <Button layoutX="685.0" layoutY="126.0" mnemonicParsing="false" onAction="#xuatExcel" text="xuất file Excel" />
                   <Button layoutX="553.0" layoutY="126.0" mnemonicParsing="false" text="Nhập file Excel" />
+                  <TextField fx:id="giaMin" layoutX="37.0" layoutY="83.0" promptText="Giá thấp nhất" />
+                  <TextField fx:id="giaMax" layoutX="233.0" layoutY="83.0" promptText="Giá cao nhất" />
+                  <Label layoutX="199.0" layoutY="87.0" text="Đến" />
                     </children>
                 </AnchorPane>
             </items>

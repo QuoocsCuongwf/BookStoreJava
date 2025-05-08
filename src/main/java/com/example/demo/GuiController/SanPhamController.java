@@ -1,5 +1,6 @@
 package com.example.demo.GuiController;
 
+import com.example.demo.BUS.services.SanPhamServices;
 import com.example.demo.model.NhaXuatBan;
 import com.example.demo.model.NhanVien;
 import com.example.demo.model.SanPham;
@@ -55,7 +56,7 @@ public class SanPhamController {
     @FXML
     private Button btnThongKe, btnKhachHang, btnSanPham, btnNhanVien, btnNCC, btnTacGia, btnHoaDon, btnTHD, btnKhuyenMai,btnPhieuNhap;
     @FXML
-    private TextField textFieldTimKiem;
+    private TextField textFieldTimKiem,giaMin,giaMax;
     @FXML
     private ImageView iconfolder;
     @FXML
@@ -296,9 +297,7 @@ public class SanPhamController {
                 listSanPham.add(sanPham);
                 data.add(sanPham);
                 pathImage = "";
-
-//            listSanPham.add(sanPham);
-//            data.add(sanPham);
+            tableView.setItems(data);
         }catch (JsonProcessingException e){
             showMessage("LỖI HÀM","hàm insertSanPham","Lỗi chuyển đổi dữ liệu sang JSON");
         }catch (IOException e){
@@ -357,10 +356,10 @@ public class SanPhamController {
                 if (listSanPham.get(i).getMasp().equals(sanPham.getMasp())){
                     listSanPham.set(i, sanPham);
                     data =FXCollections.observableArrayList();
+                    tableView.setItems(data);
                     break;
                 }
             }
-
             showMessage("UpdateSanPham","SUCCESS","Thêm sản phẩm "+sanPham.getMasp()+" thành công !");
 
 
@@ -417,10 +416,21 @@ public class SanPhamController {
 
 
    public void timKiem(){
-        CallApi callApi=new CallApi();
-        String json=callApi.callPostRequestParam("http://localhost:8080/sanPham/search","find=",textFieldTimKiem.getText());
-        data=FXCollections.observableArrayList(convertJsonToSanPham(json));
-        tableView.setItems(data);
+        if(giaMin.getText()=="" && giaMax.getText()==""){
+            CallApi callApi=new CallApi();
+            String json=callApi.callPostRequestParam("http://localhost:8080/sanPham/search","find=",textFieldTimKiem.getText());
+            data=FXCollections.observableArrayList(convertJsonToSanPham(json));
+            tableView.setItems(data);
+        }
+        if(giaMin.getText()!="" && giaMax.getText()!=""){
+            System.out.println("tim kiem nang cao");
+            int giaMinInt=Integer.parseInt(giaMin.getText());
+            int giaMaxInt=Integer.parseInt(giaMax.getText());
+            SanPhamServices sanPhamServices=new SanPhamServices();
+            data=FXCollections.observableArrayList(sanPhamServices.timKiemNangCao(textFieldTimKiem.getText(),giaMinInt,giaMaxInt));
+            tableView.setItems(data);
+        }
+
     }
    public void deleteSanPham(){
        int selectedIndex = tableView.getSelectionModel().getSelectedIndex();

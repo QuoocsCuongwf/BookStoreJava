@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 @Service
 public class TheLoaiServices {
     private final TheLoaiDAO theLoaiDAO = new TheLoaiDAO();
-    private List<TheLoai> listTheLoai = new ArrayList<>();
+    private static List<TheLoai> listTheLoai = new ArrayList<>();
 
     public List<TheLoai> getListTheLoai() {
         listTheLoai = theLoaiDAO.getListTheLoai();
@@ -64,6 +64,11 @@ public class TheLoaiServices {
     }
 
     public String updateTheLoai(TheLoai theLoai) {
+        for (int i = 0; i < listTheLoai.size(); i++) {
+            if (listTheLoai.get(i).getMaTheLoai().equals(theLoai.getMaTheLoai())) {
+                listTheLoai.set(i, theLoai);
+            }
+        }
         theLoaiDAO.updateTheLoai(theLoai);
         return "Update Success";
     }

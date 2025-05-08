@@ -7,6 +7,7 @@ import com.example.demo.model.SanPham;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -47,8 +48,12 @@ public class SanPhamControllerSpring {
             e.printStackTrace();
         }
     }
-     @PostMapping("/xuatExcel")
+    @PostMapping("/xuatExcel")
     public void xuatExcel() throws IOException {
          Excel.exportSanPhamToExcel();
-     }
+    }
+    @PostMapping("/timKiemTheoKhoangGia")
+    public List<SanPham> timKiemTheoKhoangGia(@RequestParam String find, int giaMin, int giaMax) {
+        return sanPhamServices.timKiemNangCao(find, giaMin, giaMax);
+    }
 }

@@ -53,6 +53,25 @@ public class SanPhamServices {
             }
         }
     }
+    public List<SanPham> timKiemNangCao(String find, int giaMin, int giaMax) {
+        List<SanPham> reslist = new ArrayList<>();
+        String findLower = find.toLowerCase();
+
+        for (SanPham sanPham : listSanPham) {
+            String maspLower = sanPham.getMasp().toLowerCase();
+            String tenspLower = sanPham.getTensp().toLowerCase();
+            int dongia = sanPham.getDongia();
+
+            boolean matchesKeyword = maspLower.contains(findLower) || tenspLower.contains(findLower);
+            boolean inPriceRange = dongia >= giaMin && dongia <= giaMax;
+
+            if (matchesKeyword && inPriceRange) {
+                reslist.add(sanPham);
+            }
+        }
+
+        return reslist;
+    }
 
 
     public List<SanPham> searchSanPham(String find) {

@@ -68,6 +68,11 @@ public class NhaCungCapServices {
     }
 
     public String updateNhaCungCap(NhaCungCap nhaCungCap) {
+        for (int i = 0; i < listNhaCungCap.size(); i++) {
+            if (listNhaCungCap.get(i).getMaNhaCungCap().equals(nhaCungCap.getMaNhaCungCap())){
+                listNhaCungCap.set(i, nhaCungCap);
+            }
+        }
         nhaCungCapDAO.updateNhaCungCap(nhaCungCap);
         return "update Success";
     }
