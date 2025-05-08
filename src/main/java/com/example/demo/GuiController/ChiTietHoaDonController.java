@@ -51,7 +51,7 @@ public class ChiTietHoaDonController implements Initializable {
 
     boolean isSuaHoaDon = false;
     @FXML
-    private Button btnThongKe, btnKhachHang, btnSanPham, btnNhanVien, btnNCC, btnTacGia, btnHoaDon, btnTHD, btnKhuyenMai;
+    private Button btnThongKe, btnKhachHang, btnSanPham, btnNhanVien, btnNCC, btnTacGia, btnHoaDon, btnTHD, btnKhuyenMai, btnPhieuNhap;
     @FXML DatePicker ngayTaoHoaDon;
     @FXML ChoiceBox<String> thanhToan;
     @FXML Tab tabTaoHD,tabPayment;
@@ -64,7 +64,7 @@ public class ChiTietHoaDonController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         leftMenuController.bindHandlers(btnThongKe, btnKhachHang, btnSanPham,
                 btnNhanVien, btnNCC, btnTacGia,
-                btnHoaDon, btnTHD, btnKhuyenMai);
+                btnHoaDon, btnTHD, btnKhuyenMai, btnPhieuNhap);
         // Liên kết cột với thuộc tính đối tượng ChiTietHoaDon
         maSachColumn.setCellValueFactory(new PropertyValueFactory<>("masp"));
         donGiaColumn.setCellValueFactory(new PropertyValueFactory<>("dongia"));

@@ -53,8 +53,7 @@ public class SanPhamController {
     private TextField textFieldMaSach, textFieldTenSach, textFieldDonGia, textFieldMaTG, textFieldMaNXB, textFieldSoTrang, textFieldMaTL;
     private ObservableList<SanPham> data;
     @FXML
-    private Button btnThongKe, btnKhachHang, btnSanPham, btnNhanVien,
-            btnNCC, btnTacGia, btnHoaDon, btnTHD, btnKhuyenMai;
+    private Button btnThongKe, btnKhachHang, btnSanPham, btnNhanVien, btnNCC, btnTacGia, btnHoaDon, btnTHD, btnKhuyenMai,btnPhieuNhap;
     @FXML
     private TextField textFieldTimKiem;
     @FXML
@@ -123,7 +122,7 @@ public class SanPhamController {
         tableView.setItems(data);
         leftMenuController.bindHandlers(btnThongKe, btnKhachHang, btnSanPham,
                 btnNhanVien, btnNCC, btnTacGia,
-                btnHoaDon, btnTHD, btnKhuyenMai);
+                btnHoaDon, btnTHD, btnKhuyenMai,btnPhieuNhap);
         inforContainer.setVisible(false);
 
         btnThemSach.setOnAction(event -> inforContainer.setVisible(true));

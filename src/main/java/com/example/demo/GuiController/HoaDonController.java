@@ -61,7 +61,7 @@ public class HoaDonController implements Initializable {
 
     private static List<HoaDon> listHoaDon=new ArrayList<>();
     @FXML
-    private Button btnThongKe, btnKhachHang, btnSanPham, btnNhanVien, btnNCC, btnTacGia, btnHoaDon, btnTHD, btnKhuyenMai;
+    private Button btnThongKe, btnKhachHang, btnSanPham, btnNhanVien, btnNCC, btnTacGia, btnHoaDon, btnTHD, btnKhuyenMai,btnPhieuNhap;
     private static List<ChiTietHoaDon> listChiTietHoaDon=new ArrayList<>();
     private ObservableList<ChiTietHoaDon> danhSachChiTiet = FXCollections.observableArrayList();
     private ObservableList<HoaDon> data = FXCollections.observableArrayList();
@@ -72,7 +72,7 @@ public class HoaDonController implements Initializable {
         LeftMenuController leftMenuController=new LeftMenuController();
         leftMenuController.bindHandlers(btnThongKe, btnKhachHang, btnSanPham,
                 btnNhanVien, btnNCC, btnTacGia,
-                btnHoaDon, btnTHD, btnKhuyenMai);
+                btnHoaDon, btnTHD, btnKhuyenMai,btnPhieuNhap);
         // Liên kết cột với thuộc tính đối tượng HoaDon
         maHDColumn.setCellValueFactory(new PropertyValueFactory<>("mahd"));
         maKHColumn.setCellValueFactory(new PropertyValueFactory<>("makh"));

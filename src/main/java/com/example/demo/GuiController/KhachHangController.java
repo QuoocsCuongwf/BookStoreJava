@@ -34,7 +34,7 @@ public class KhachHangController implements Initializable {
     @FXML private TableColumn<KhachHang, String> maKhachHangColumn, hoKhachHangColumn, tenKhachHangColumn, diaChiKhachHangColumn, emailKhachHangColumn, sdtKhachHangColumn;
     @FXML private TextField textFieldMaKhachHang, textFieldHoKhachHang, textFieldTenKhachHang, textFieldDiaChiKhachHang, textFieldEmailKhachHang, textFieldSdtKhachHang, textFieldTimKiem;
     @FXML private Button btnThemKhachHang, btnAddKhachHang, btnThoatFormKhachHang;
-    @FXML private Button btnThongKe, btnKhachHang, btnSanPham, btnNhanVien, btnNCC, btnTacGia, btnHoaDon, btnTHD, btnKhuyenMai, btnTheLoai, btnNhaXuatBan;
+    @FXML private Button btnThongKe, btnKhachHang, btnSanPham, btnNhanVien, btnNCC, btnTacGia, btnHoaDon, btnTHD, btnKhuyenMai, btnTheLoai, btnNhaXuatBan,btnPhieuNhap;
 
     private Button btnDeleteKhachHang = new Button("Xóa");
     private Button btnUpdateKhachHang = new Button("Cập nhật");
@@ -44,7 +44,7 @@ public class KhachHangController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        leftMenuController.bindHandlers(btnThongKe, btnKhachHang, btnSanPham, btnNhanVien, btnNCC, btnTacGia, btnHoaDon, btnTHD, btnKhuyenMai);
+        leftMenuController.bindHandlers(btnThongKe, btnKhachHang, btnSanPham, btnNhanVien, btnNCC, btnTacGia, btnHoaDon, btnTHD, btnKhuyenMai,btnPhieuNhap);
 
         inforContainer.setVisible(false);
 
@@ -114,7 +114,7 @@ public class KhachHangController implements Initializable {
             System.out.println("Khach hang selected: " + khachHang.getMakh());
             CallApi callApi = new CallApi();
             String result = callApi.callPostRequestParam("http://localhost:8080/KhachHang/deleteKhachHang", "maKhachHang=", khachHang.getMakh());
-            if (result.contains("Success")) {
+            if (result.contains("success")) {
                 data.remove(indexSelected);
                 khachHangList.remove(indexSelected);
                 tableView.getSelectionModel().clearSelection();
@@ -144,7 +144,7 @@ public class KhachHangController implements Initializable {
 
         CallApi callApi = new CallApi();
         String result = callApi.callPostRequestBody("http://localhost:8080/KhachHang/addKhachHang", convertKhachHangToJSON(khachHang));
-        if (result.contains("Success")) {
+        if (result.contains("success")) {
             khachHangList.add(khachHang);
             data.add(khachHang);
             showMessage("Add Khach Hang", "Success", "Khách hàng đã được thêm!");
@@ -239,6 +239,7 @@ public class KhachHangController implements Initializable {
         String find = textFieldTimKiem.getText();
         CallApi callApi = new CallApi();
         String json = callApi.callPostRequestParam("http://localhost:8080/KhachHang/timKiemKhachHang", "find=", find);
+
         data = FXCollections.observableArrayList(convertJSONToListKhachHang(json));
         tableView.setItems(data);
     }
