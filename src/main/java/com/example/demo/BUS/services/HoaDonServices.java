@@ -9,22 +9,28 @@ import java.util.stream.Collectors;
 
 public class HoaDonServices {
     private HoaDonDAO hoaDonDAO = new HoaDonDAO();
-    private List<HoaDon> listHoaDon = new ArrayList<>();
+    private static List<HoaDon> listHoaDon = new ArrayList<>();
 
     public List<HoaDon> getHoaDonList() {
         listHoaDon = hoaDonDAO.getListHoaDon();
-        System.out.println(listHoaDon);
         return listHoaDon;
     }
 
-    public List<HoaDon> findByIdHoaDon(String maHoaDon) {
-        return listHoaDon.stream()
-                .filter(hd -> hd.getMahd().contains(maHoaDon))
-                .collect(Collectors.toList());
+    public HoaDon findByIdHoaDon(String maHoaDon) {
+        for (HoaDon hoaDon : listHoaDon) {
+            if(hoaDon.getMahd().equals(maHoaDon)){
+                System.out.println("findByIdHoaDon "+hoaDon.getMahd());
+                return hoaDon;
+            }
+        }
+        System.out.println("not found");
+        return null;
     }
 
     public String addHoaDon(HoaDon hoaDon) {
         if (!checkMaHoaDon(hoaDon.getMahd())) {
+            listHoaDon.add(hoaDon);
+            System.out.println("HoaDon: " + hoaDon.getMahd());
             hoaDonDAO.addHoaDon(hoaDon);
             return "Add Success";
         }

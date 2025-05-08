@@ -2,6 +2,7 @@ package com.example.demo.BUS.services;
 
 import com.example.demo.databaseAccesssObject.ChiTietHoaDonDAO;
 import com.example.demo.model.ChiTietHoaDon;
+import com.example.demo.model.HoaDon;
 import com.example.demo.model.SanPham;
 
 import java.util.ArrayList;
@@ -19,9 +20,7 @@ public class ChiTietHoaDonServices {
     }
 
     public List<ChiTietHoaDon> getList(String maHoaDon) {
-        if (list.isEmpty()) {
             getList();
-        }
 
         List<ChiTietHoaDon> resultList = new ArrayList<>();
         for (ChiTietHoaDon c : list) {
@@ -55,20 +54,33 @@ public class ChiTietHoaDonServices {
         return 400; // Không đủ số lượng
     }
 
-    public void addChiTietHoaDon(ChiTietHoaDon c) {
-        list.add(c);
-        SanPhamServices sanPhamServices = new SanPhamServices();
-        SanPham sanPham = sanPhamServices.searchSanPham(c.getMasp()).get(0);
-        sanPham.setSl(sanPham.getSl() - c.getSl());
-        sanPhamServices.updateSanPham(sanPham);
-        chiTietHoaDonDAO.addChiTietHoaDon(c);
+    public void addChiTietHoaDon(List<ChiTietHoaDon> chiTietHoaDonList) throws Exception {
+        for(ChiTietHoaDon c:chiTietHoaDonList) {
+            list.add(c);
+            SanPhamServices sanPhamServices = new SanPhamServices();
+            if (sanPhamServices.searchSanPham(c.getMasp()).isEmpty()) {
+                sanPhamServices.getListSanPham();
+            }
+            SanPham sanPham = sanPhamServices.searchSanPham(c.getMasp()).get(0);
+            sanPham.setSl(sanPham.getSl() - c.getSl());
+            sanPhamServices.updateSanPham(sanPham);
+            chiTietHoaDonDAO.addChiTietHoaDon(c);
+        }
+        HoaDonServices hoaDonServices = new HoaDonServices();
+        if(hoaDonServices.getHoaDonList().isEmpty()){
+            hoaDonServices.getHoaDonList();
+        }
+        HoaDon hoaDon=hoaDonServices.findByIdHoaDon(chiTietHoaDonList.get(0).getMahd());
+        String outputPath = "D:\\code\\BookStoreJava\\src\\main\\resources\\Output\\HoaDon\\" + hoaDon.getMahd() + ".pdf";
+        PdfExporter.xuatHoaDonPDF(hoaDon,chiTietHoaDonList,outputPath);
+
     }
 
     public int updateList(ChiTietHoaDon newItem, ChiTietHoaDon oldItem) {
         int status = checkChiTietHoaDon(newItem);
         if (status == 200) {
             deleteList(oldItem.getMahd(), oldItem.getMasp());
-            addChiTietHoaDon(newItem); // Gồm cập nhật cả list và DB
+            list.add(newItem) ;// Gồm cập nhật cả list và DB
         }
         return status;
     }

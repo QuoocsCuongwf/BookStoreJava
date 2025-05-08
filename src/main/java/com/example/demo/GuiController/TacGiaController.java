@@ -186,37 +186,56 @@ public class TacGiaController implements Initializable {
     }
     public void updateTacGia() {
         TacGia tacGia = new TacGia();
-        List<TextField> textFields=Arrays.asList(txt_MaTacGia, txt_HoTacGia, txt_TenTacGia,
-                txt_QueQuanTacGia, txt_NamSinhTacGia
-                );
-        for(TextField tf:textFields) {
-            if(tf.getText().equals("")){
-                showMessage("Error","Text Field Null","Vui lòng nhập đầy đủ thông tin!");
+        List<TextField> textFields = Arrays.asList(txt_MaTacGia, txt_HoTacGia, txt_TenTacGia,
+                txt_QueQuanTacGia, txt_NamSinhTacGia);
+
+        // Kiểm tra các TextField có trống không
+        for (TextField tf : textFields) {
+            if (tf.getText().trim().equals("")) {
+                showMessage("Error", "Text Field Null", "Vui lòng nhập đầy đủ thông tin!");
                 System.out.println("Text Field Null");
                 return;
             }
-        };
-        tacGia.setMatg(txt_MaTacGia.getText());
-        tacGia.setHotg(txt_HoTacGia.getText());
-        tacGia.setTentg(txt_TenTacGia.getText());
-        tacGia.setQuequan(txt_QueQuanTacGia.getText());
-        tacGia.setNamsinh(Integer.parseInt( txt_NamSinhTacGia.getText()));
+        }
 
-        CallApi callApi=new CallApi();
-        String resultApi=callApi.callPostRequestBody("http://localhost:8080/tacGia/Update",convertTacGiaToJson(tacGia));
-        if (resultApi.contains("Success")) {
+        // Kiểm tra và chuyển đổi năm sinh
+        try {
+            tacGia.setMatg(txt_MaTacGia.getText());
+            tacGia.setHotg(txt_HoTacGia.getText());
+            tacGia.setTentg(txt_TenTacGia.getText());
+            tacGia.setQuequan(txt_QueQuanTacGia.getText());
+            tacGia.setNamsinh(Integer.parseInt(txt_NamSinhTacGia.getText().trim()));
+        } catch (NumberFormatException e) {
+            showMessage("Error", "Dữ liệu không hợp lệ", "Năm sinh phải là số nguyên!");
+            System.out.println("Invalid year format: " + e.getMessage());
+            return;
+        }
+
+        // Gọi API để cập nhật
+        CallApi callApi = new CallApi();
+        String resultApi = callApi.callPostRequestBody("http://localhost:8080/TacGia/Update", convertTacGiaToJson(tacGia));
+
+        if (resultApi.contains("update success")) {
+            boolean updated = false;
             for (int i = 0; i < tacGiaList.size(); i++) {
-                if(tacGiaList.get(i).getMatg().equals(tacGia.getMatg())){
-                    tacGiaList.set(i,tacGia);
+                if (tacGiaList.get(i).getMatg().equals(tacGia.getMatg())) {
+                    tacGiaList.set(i, tacGia);
+                    updated = true;
+                    data.set(i, tacGia);
+                    tableView.setItems(data);
                     break;
                 }
-                showMessage("Success","Sua sach thanh cong",resultApi);
+            }
+            if (updated) {
                 data = FXCollections.observableArrayList(tacGiaList);
                 tableView.setItems(data);
+                showMessage("Success", "Sửa thông tin tác giả thành công", resultApi);
             }
-        } else {
-            showMessage("Error","Sua thong tin bi loi",resultApi);
+        }else {
+                showMessage("Error", "Sửa thông tin bị lỗi", resultApi);
         }
+
+
     }
     public void openInforContainer() {
         txt_MaTacGia.setText("TG"+tacGiaList.size()+1);

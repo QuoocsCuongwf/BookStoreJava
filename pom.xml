@@ -39,6 +39,26 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-ooxml</artifactId>
+			<version>5.2.3</version>
+		</dependency>
+		<dependency>
+			<groupId>com.itextpdf</groupId>
+			<artifactId>kernel</artifactId>
+			<version>7.2.5</version>
+		</dependency>
+		<dependency>
+			<groupId>com.itextpdf</groupId>
+			<artifactId>barcodes</artifactId>
+			<version>7.2.5</version>
+		</dependency>
+		<dependency>
+			<groupId>com.itextpdf</groupId>
+			<artifactId>layout</artifactId>
+			<version>7.2.5</version>
+		</dependency>
 
 		<dependency>
 			<groupId>com.microsoft.sqlserver</groupId>
@@ -73,12 +93,17 @@
 		<dependency>
 			<groupId>org.openjfx</groupId>
 			<artifactId>javafx-controls</artifactId>
-			<version>21.0.1</version>
+			<version>23.0.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.openjfx</groupId>
+			<artifactId>javafx-web</artifactId>
+			<version>23.0.2</version>
 		</dependency>
 		<dependency>
 			<groupId>org.openjfx</groupId>
 			<artifactId>javafx-fxml</artifactId>
-			<version>21.0.1</version>
+			<version>23.0.2</version>
     	</dependency>
 	</dependencies>
 
@@ -96,6 +121,24 @@
                 <mainClass>your.package.Main</mainClass>
             </configuration>
         </plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<version>3.1.0</version>
+				<configuration>
+					<mainClass>com.example.Main</mainClass>
+					<arguments>
+						<argument>--module-path</argument>
+						<argument>D:\code\BookStoreJava\javafx-sdk-23.0.2\lib</argument>
+						<argument>--add-modules</argument>
+						<argument>javafx.controls,javafx.fxml,javafx.web</argument>
+						<argument>--add-exports</argument>
+						<argument>javafx.graphics/com.sun.javafx.sg.prism=ALL-UNNAMED</argument>
+					</arguments>
+				</configuration>
+			</plugin>
+
+
 		</plugins>
 	</build>
 	<repositories>
@@ -106,6 +149,15 @@
 			<snapshots>
 				<enabled>false</enabled>
 			</snapshots>
+		</repository>
+		<repository>
+			<id>central</id>
+			<name>Maven Central Repository</name>
+			<url>https://repo.maven.apache.org/maven2</url>
+		</repository>
+		<repository>
+			<id>spring-milestones</id>
+			<url>https://repo.spring.io/milestone</url>
 		</repository>
 	</repositories>
 	<pluginRepositories>

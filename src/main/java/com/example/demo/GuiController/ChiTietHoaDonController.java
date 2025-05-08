@@ -16,7 +16,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import org.springframework.stereotype.Component;
-
+import java.util.UUID;
+import javafx.scene.web.WebView;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +28,8 @@ public class ChiTietHoaDonController implements Initializable {
 
     @FXML
     private TableView<ChiTietHoaDon> table;
-    @FXML Label tongTienLabel;
+    @FXML
+    Label tongTienLabel;
     @FXML
     private TableColumn<ChiTietHoaDon, String> maSachColumn;
 
@@ -41,18 +43,23 @@ public class ChiTietHoaDonController implements Initializable {
     private TableColumn<ChiTietHoaDon, Double> thanhTienColumn;
 
     @FXML
-    private TextField textFieldMaNV,textFieldMaKH,textFieldMaSach,textFieldMaHoaDon,textFieldSL;
+    private TextField textFieldMaNV, textFieldMaKH, textFieldMaSach, textFieldMaHoaDon, textFieldSL;
 
-    private static List<HoaDon> listHoaDon=new ArrayList<>();
+    private static List<HoaDon> listHoaDon = new ArrayList<>();
     @FXML
     private Button btnAdd;
 
-    boolean isSuaHoaDon=false;
+    boolean isSuaHoaDon = false;
     @FXML
     private Button btnThongKe, btnKhachHang, btnSanPham, btnNhanVien, btnNCC, btnTacGia, btnHoaDon, btnTHD, btnKhuyenMai;
-
+    @FXML DatePicker ngayTaoHoaDon;
+    @FXML ChoiceBox<String> thanhToan;
+    @FXML Tab tabTaoHD,tabPayment;
+    @FXML TabPane tabPane;
+    @FXML WebView webMoMo;
     private ObservableList<ChiTietHoaDon> danhSachChiTietHoaDon = FXCollections.observableArrayList();
-    LeftMenuController leftMenuController=new LeftMenuController();
+    LeftMenuController leftMenuController = new LeftMenuController();
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         leftMenuController.bindHandlers(btnThongKe, btnKhachHang, btnSanPham,
@@ -63,20 +70,10 @@ public class ChiTietHoaDonController implements Initializable {
         donGiaColumn.setCellValueFactory(new PropertyValueFactory<>("dongia"));
         soLuongColumn.setCellValueFactory(new PropertyValueFactory<>("sl"));
         thanhTienColumn.setCellValueFactory(new PropertyValueFactory<>("thanhtien"));
-        btnAdd.setOnAction(event -> onAddClicked(event ));
+        btnAdd.setOnAction(event -> onAddClicked(event));
         table.setItems(danhSachChiTietHoaDon);
-        if(listHoaDon.isEmpty()){
-            System.out.println("listHoaDon is empty");
-            HoaDonController hoaDonController=new HoaDonController();
-            listHoaDon=hoaDonController.getHoaDonList();
-        }
-        if(!listHoaDon.isEmpty()) {
-            String maHoaDon = listHoaDon.get(listHoaDon.size() - 1).getMahd();
-            maHoaDon = maHoaDon.replace("HD", "");
-            textFieldMaHoaDon.setText("HD" + (Integer.parseInt(maHoaDon) + 1));
-        } else {
-            textFieldMaHoaDon.setText("HD1");
-        }
+            String maHoaDon = UUID.randomUUID().toString();
+            textFieldMaHoaDon.setText("HD" +maHoaDon.substring(maHoaDon.length() - 8));
         textFieldMaHoaDon.setDisable(true);
         table.setOnMouseClicked((MouseEvent event) -> {
             ChiTietHoaDon selected = table.getSelectionModel().getSelectedItem();
@@ -86,58 +83,60 @@ public class ChiTietHoaDonController implements Initializable {
                 // Nếu bạn có thêm thông tin khác, có thể set thêm vào các TextField tương ứng
             }
         });
-
-
-    }
-    public void xuatHoaDon(){
+        thanhToan.getItems().addAll("Tiền mặt","Chuyển khoản");
 
     }
+
+    public void xuatHoaDon() {
+
+    }
+
     @FXML
     void onAddClicked(ActionEvent event) {
+        ChiTietHoaDon chiTiet = new ChiTietHoaDon();
         try {
-            boolean isTonTai=false;
-            List<SanPham> listSanPham=new ArrayList<>();
-            if(listSanPham.size()==0){
-                SanPhamController sanPhamController=new SanPhamController();
-                listSanPham=sanPhamController.getListSanPham();
+            boolean isTonTai = false;
+            List<SanPham> listSanPham = new ArrayList<>();
+            if (listSanPham.size() == 0) {
+                SanPhamController sanPhamController = new SanPhamController();
+                listSanPham = sanPhamController.getListSanPham();
             }
             String masp = textFieldMaSach.getText();
             int soluong = Integer.parseInt(textFieldSL.getText());
             System.out.println(listSanPham.size());
-            ChiTietHoaDon chiTiet = new ChiTietHoaDon();
             chiTiet.setMasp(masp);
             chiTiet.setMahd(textFieldMaHoaDon.getText());
             chiTiet.setSl(Integer.parseInt(textFieldSL.getText()));
-            for (SanPham sp:listSanPham){
-                if (sp.getMasp().equals(textFieldMaSach.getText())){
+            for (SanPham sp : listSanPham) {
+                if (sp.getMasp().equals(textFieldMaSach.getText())) {
                     chiTiet.setDongia(sp.getDongia());
                     break;
                 }
             }
             for (int i = 0; i < danhSachChiTietHoaDon.size(); i++) {
-                if (danhSachChiTietHoaDon.get(i).getMasp().equals(textFieldMaSach.getText())){
-                    danhSachChiTietHoaDon.get(i).setSl(danhSachChiTietHoaDon.get(i).getSl()+Integer.parseInt(textFieldSL.getText()));
+                if (danhSachChiTietHoaDon.get(i).getMasp().equals(textFieldMaSach.getText())) {
+                    danhSachChiTietHoaDon.get(i).setSl(danhSachChiTietHoaDon.get(i).getSl() + Integer.parseInt(textFieldSL.getText()));
                     table.setItems(danhSachChiTietHoaDon);
                     textFieldMaSach.clear();
                     textFieldSL.clear();
-                    isTonTai=true;
+                    isTonTai = true;
                     break;
                 }
             }
-            if (!isTonTai){
-                chiTiet.setThanhtien(chiTiet.getDongia()*chiTiet.getSl());
-                CallApi callApi=new CallApi();
-                int result=Integer.parseInt(callApi.callPostRequestBody("http://localhost:8080/chiTietHoaDon/check",convertCTHDtoJson(chiTiet)));
-                if (result==200) {
+            if (!isTonTai) {
+
+                CallApi callApi = new CallApi();
+                int result = Integer.parseInt(callApi.callPostRequestBody("http://localhost:8080/chiTietHoaDon/check", convertCTHDtoJson(chiTiet)));
+                if (result == 200) {
                     danhSachChiTietHoaDon.add(chiTiet);
                     textFieldMaSach.clear();
                     textFieldSL.clear();
                 }
-                if (result==400) {
-                    showMessage("error","Lỗi số lượng","Số lượng sản phẩm trong kho không đủ");
+                if (result == 400) {
+                    showMessage("error", "Lỗi số lượng", "Số lượng sản phẩm trong kho không đủ");
                 }
-                if (result==404) {
-                    showMessage("Not find","Lỗi không tìm thấy","Sản phẩm không tồn tại");
+                if (result == 404) {
+                    showMessage("Not find", "Lỗi không tìm thấy", "Sản phẩm không tồn tại");
                 }
             }
         } catch (NumberFormatException e) {
@@ -147,12 +146,14 @@ public class ChiTietHoaDonController implements Initializable {
             alert.setContentText("Vui lòng nhập đúng định dạng số cho số lượng.");
             alert.showAndWait();
         }
-        int tongTien=0;
+        chiTiet.setThanhtien(chiTiet.getDongia() * chiTiet.getSl());
+        int tongTien = 0;
         for (int i = 0; i < danhSachChiTietHoaDon.size(); i++) {
-            tongTien+=danhSachChiTietHoaDon.get(i).getDongia()*danhSachChiTietHoaDon.get(i).getSl();
+            tongTien += danhSachChiTietHoaDon.get(i).getDongia() * danhSachChiTietHoaDon.get(i).getSl();
         }
-        tongTienLabel.setText("Tổng tiền thanh toán: "+String.valueOf(tongTien));
+        tongTienLabel.setText("Tổng tiền thanh toán: " + String.valueOf(tongTien));
     }
+
     public void showMessage(String title, String header, String content) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(title);
@@ -160,6 +161,7 @@ public class ChiTietHoaDonController implements Initializable {
         alert.setContentText(content);
         alert.showAndWait(); // hoặc .show() nếu không cần chờ
     }
+
     public String convertCTHDtoJson(ChiTietHoaDon chiTietHoaDon) {
         ObjectMapper objectMapper = new ObjectMapper();
         try {
@@ -171,20 +173,20 @@ public class ChiTietHoaDonController implements Initializable {
     }
 
     @FXML
-    void onXuatHoaDonClicked() {
-        if (isSuaHoaDon){
-            isSuaHoaDon=false;
-            HoaDon hoaDon=new HoaDon();
+    void onXuatHoaDonClicked() throws JsonProcessingException {
+        if (isSuaHoaDon) {
+            isSuaHoaDon = false;
+            HoaDon hoaDon = new HoaDon();
             hoaDon.setMahd(textFieldMaHoaDon.getText());
-            hoaDon.setNgaylap(java.time.LocalDate.now());
+            hoaDon.setNgaylap(ngayTaoHoaDon.getValue());
             hoaDon.setManv(textFieldMaNV.getText());
             hoaDon.setMakh(textFieldMaKH.getText());
-            for(ChiTietHoaDon cthd:danhSachChiTietHoaDon){
-                hoaDon.setTongtien(hoaDon.getTongtien()+cthd.getThanhtien());
+            for (ChiTietHoaDon cthd : danhSachChiTietHoaDon) {
+                hoaDon.setTongtien(hoaDon.getTongtien() + cthd.getThanhtien());
             }
-            HoaDonController hoaDonController=new HoaDonController();
+            HoaDonController hoaDonController = new HoaDonController();
             hoaDonController.getHoaDonList().add(hoaDon);
-            CallApi callApi=new CallApi();
+            CallApi callApi = new CallApi();
             ObjectMapper objectMapper = new ObjectMapper();
             objectMapper.registerModule(new JavaTimeModule());
             String json = null;
@@ -193,36 +195,30 @@ public class ChiTietHoaDonController implements Initializable {
             } catch (JsonProcessingException e) {
                 throw new RuntimeException(e);
             }
-            callApi.callPostRequestBody("http://localhost:8080/hoaDon/Update",json);
-            callApi.callPostRequestParam("http://localhost:8080/chiTietHoaDon/deleteAllCTHD","maHoaDon=",hoaDon.getMahd());
-            for(ChiTietHoaDon cthd:danhSachChiTietHoaDon){
-                cthd.setThanhtien(cthd.getDongia()*cthd.getSl());
-                try {
-                    json = objectMapper.writeValueAsString(cthd);
-                } catch (JsonProcessingException e) {
-                    throw new RuntimeException(e);
-                }
-                System.out.println(json);
-                callApi.callPostRequestBody("http://localhost:8080/chiTietHoaDon/add",json);
-            }
+            callApi.callPostRequestBody("http://localhost:8080/hoaDon/Update", json);
+            callApi.callPostRequestParam("http://localhost:8080/chiTietHoaDon/deleteAllCTHD", "maHoaDon=", hoaDon.getMahd());
+            json = objectMapper.writeValueAsString(danhSachChiTietHoaDon);
+            System.out.println("chuoi cthd"+json);
+            callApi.callPostRequestBody("http://localhost:8080/chiTietHoaDon/add", json);
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setHeaderText("Xuất hóa đơn");
             alert.setContentText("Hóa đơn đã được xuất thành công!");
             alert.showAndWait();
             return;
-        }
+    }
+
         // Thực hiện lưu thông tin hóa đơn vào CSDL
-        HoaDon hoaDon=new HoaDon();
+        HoaDon hoaDon = new HoaDon();
         hoaDon.setMahd(textFieldMaHoaDon.getText());
         hoaDon.setNgaylap(java.time.LocalDate.now());
         hoaDon.setManv(textFieldMaNV.getText());
         hoaDon.setMakh(textFieldMaKH.getText());
-        for(ChiTietHoaDon cthd:danhSachChiTietHoaDon){
-            hoaDon.setTongtien(hoaDon.getTongtien()+cthd.getThanhtien());
+        for (ChiTietHoaDon cthd : danhSachChiTietHoaDon) {
+            hoaDon.setTongtien(hoaDon.getTongtien() + cthd.getThanhtien());
         }
-        HoaDonController hoaDonController=new HoaDonController();
+        HoaDonController hoaDonController = new HoaDonController();
         hoaDonController.getHoaDonList().add(hoaDon);
-        CallApi callApi=new CallApi();
+        CallApi callApi = new CallApi();
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.registerModule(new JavaTimeModule());
         String json = null;
@@ -231,22 +227,22 @@ public class ChiTietHoaDonController implements Initializable {
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
-        callApi.callPostRequestBody("http://localhost:8080/hoaDon/Add",json);
-        for(ChiTietHoaDon cthd:danhSachChiTietHoaDon){
-            cthd.setThanhtien(cthd.getDongia()*cthd.getSl());
-            try {
-                json = objectMapper.writeValueAsString(cthd);
-            } catch (JsonProcessingException e) {
-                throw new RuntimeException(e);
-            }
-            System.out.println(json);
-            callApi.callPostRequestBody("http://localhost:8080/chiTietHoaDon/add",json);
+        callApi.callPostRequestBody("http://localhost:8080/hoaDon/Add", json);
+        json = objectMapper.writeValueAsString(danhSachChiTietHoaDon);
+        System.out.println("chuoi cthd"+json);
+        callApi.callPostRequestBody("http://localhost:8080/chiTietHoaDon/add", json);
+        if (thanhToan.getValue().equals("Chuyển khoản")) {
+            tabPane.getSelectionModel().selectNext();
+            String payUrl=callApi.callPostRequestParam("http://localhost:8080/chiTietHoaDon/momoPayment","maHoaDon=", hoaDon.getMahd());
+            System.out.println(payUrl);
+            webMoMo.getEngine().load(payUrl);
         }
         // Có thể gọi services đã viết: ChiTietHoaDonServices
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setHeaderText("Xuất hóa đơn");
         alert.setContentText("Hóa đơn đã được xuất thành công!");
         alert.showAndWait();
+
     }
     public void deleteChiTietHoaDon() {
         String maCanXoa = textFieldMaSach.getText();
@@ -293,9 +289,8 @@ public class ChiTietHoaDonController implements Initializable {
         textFieldSL.clear();
         textFieldMaKH.clear();
         textFieldMaHoaDon.clear();
-        String maHoaDon=listHoaDon.get(listHoaDon.size()-1).getMahd();
-        maHoaDon=maHoaDon.replace("HD","");
-        textFieldMaHoaDon.setText("HD"+(Integer.parseInt(maHoaDon)+1));
+        String maHoaDon = UUID.randomUUID().toString();
+        textFieldMaHoaDon.setText("HD" +maHoaDon.substring(maHoaDon.length() - 8));
         tongTienLabel.setText("Tổng tiền thanh toán: ");
     }
     public void suaHoaDon(HoaDon hoaDon){

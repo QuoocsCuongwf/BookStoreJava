@@ -1,10 +1,12 @@
 package com.example.demo.BUS.spring_controller;
 
 
+import com.example.demo.BUS.services.Excel;
 import com.example.demo.BUS.services.SanPhamServices;
 import com.example.demo.model.SanPham;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -45,4 +47,8 @@ public class SanPhamControllerSpring {
             e.printStackTrace();
         }
     }
+     @PostMapping("/xuatExcel")
+    public void xuatExcel() throws IOException {
+         Excel.exportSanPhamToExcel();
+     }
 }

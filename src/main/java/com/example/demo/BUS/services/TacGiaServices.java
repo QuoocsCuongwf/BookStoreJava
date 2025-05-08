@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 
 public class TacGiaServices {
     private TacGiaDAO tacGiaDAO = new TacGiaDAO();
-    private List<TacGia> listTacGia = new ArrayList<TacGia>();
+    private static List<TacGia> listTacGia = new ArrayList<TacGia>();
     public List<TacGia>getTacGiaList() {
         listTacGia=tacGiaDAO.getListTacGia();
         System.out.println(listTacGia);
@@ -56,23 +56,26 @@ public class TacGiaServices {
         tacGiaDAO.deleteTacGia(maTacGia);
     }
     public String updateTacGia (TacGia tacGia) {
+        for (int i = 0; i < listTacGia.size(); i++) {
+            if (listTacGia.get(i).getMatg().equals(tacGia.getMatg())) {
+                listTacGia.set(i, tacGia);
+            }
+        }
         tacGiaDAO.updateTacGia(tacGia);
         return "update success";
     }
 
 
-//    public static void main(String[] args){
-//        TacGiaServices tacGiaServices=new TacGiaServices();
-//        TacGia tacGia = new TacGia();
-//        tacGia.setMatg("TG001");
-//        tacGia.setHotg("Nguyễn");
-//        tacGia.setTentg("Nhật Ánh");
-//        tacGia.setQuequan("Quảng Nam");
-//        tacGia.setNamsinh(1955);
-//
-//        tacGiaServices.addTacGia(tacGia);
-//        tacGiaServices.getTacGiaList();
-//
-//
-//    }
+    public static void main(String[] args){
+        TacGiaServices tacGiaServices=new TacGiaServices();
+        TacGia tacGia = new TacGia();
+        tacGia.setMatg("TG01");
+        tacGia.setHotg("Nguyễn");
+        tacGia.setTentg("Nhật Ánh");
+        tacGia.setQuequan("Quảng Nam");
+        tacGia.setNamsinh(1955);
+        tacGiaServices.updateTacGia(tacGia);
+
+
+    }
 }

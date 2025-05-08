@@ -2,6 +2,8 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.Tab?>
@@ -11,13 +13,15 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.web.WebView?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="958.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.GuiController.ChiTietHoaDonController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="707.0" prefWidth="1254.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.GuiController.ChiTietHoaDonController">
    <children>
-      <SplitPane dividerPositions="0.23755750731911332" layoutX="-1.0" layoutY="-5.0" prefHeight="567.0" prefWidth="958.0">
+      <SplitPane dividerPositions="0.23755750731911332" layoutX="-1.0" layoutY="-5.0" prefHeight="719.0" prefWidth="1262.0">
         <items>
-            <AnchorPane fx:id="anchorPaneMenu" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" style="-fx-background-color: #00A4EF;">
+            <AnchorPane fx:id="anchorPaneMenu" minHeight="0.0" minWidth="0.0" prefHeight="683.0" prefWidth="224.0" style="-fx-background-color: #00A4EF;">
                <children>
                   <Button fx:id="btnThongKe" alignment="BOTTOM_LEFT" contentDisplay="CENTER" layoutY="57.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="224.0" styleClass="btn" text="Thống kê" AnchorPane.leftAnchor="0.0">
                      <font>
@@ -71,43 +75,55 @@
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
-                  <TabPane layoutY="2.0" prefHeight="566.0" prefWidth="726.0" tabClosingPolicy="UNAVAILABLE">
+                  <TabPane fx:id="tabPane" layoutY="2.0" prefHeight="717.0" prefWidth="958.0" tabClosingPolicy="UNAVAILABLE">
                     <tabs>
-                      <Tab text="Untitled Tab 1">
+                      <Tab fx:id="tabTaoHD" text="Tạo HD">
                         <content>
-                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="654.0" prefWidth="642.0">
                                  <children>
-                                    <TableView fx:id="table" layoutX="294.0" layoutY="-1.0" prefHeight="538.0" prefWidth="432.0">
+                                    <TableView fx:id="table" layoutX="524.0" layoutY="-1.0" prefHeight="690.0" prefWidth="436.0">
                                       <columns>
-                                        <TableColumn fx:id="maSachColumn" prefWidth="104.80006712675095" text="Mã sách" />
-                                          <TableColumn fx:id="donGiaColumn" prefWidth="95.2000732421875" text="Đơn giá" />
-                                          <TableColumn fx:id="soLuongColumn" minWidth="0.0" prefWidth="115.9998779296875" text="Số lượng" />
-                                          <TableColumn fx:id="thanhTienColumn" prefWidth="113.60009765625" text="Thành tiền" />
+                                        <TableColumn fx:id="maSachColumn" prefWidth="120.79998779296875" text="Mã sách" />
+                                          <TableColumn fx:id="donGiaColumn" prefWidth="88.79998779296875" text="Đơn giá" />
+                                          <TableColumn fx:id="soLuongColumn" minWidth="0.0" prefWidth="120.000244140625" text="Số lượng" />
+                                          <TableColumn fx:id="thanhTienColumn" prefWidth="104.79998779296875" text="Thành tiền" />
                                       </columns>
                                     </TableView>
-                                    <TextField fx:id="textFieldMaSach" layoutX="75.0" layoutY="207.0" prefHeight="30.0" prefWidth="150.0" promptText="Mã sách" styleClass="text-field-box" />
-                                    <TextField fx:id="textFieldSL" layoutX="75.0" layoutY="253.0" prefHeight="30.0" prefWidth="150.0" promptText="Số lượng" styleClass="text-field-box" />
-                                    <Button fx:id="btnAdd" layoutX="30.0" layoutY="307.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="75.0" styleClass="btn" text="Thêm" />
-                                    <TextField fx:id="textFieldMaNV" layoutX="76.0" layoutY="118.0" prefHeight="30.0" prefWidth="150.0" promptText="Mã NV" styleClass="text-field-box" />
-                                    <TextField fx:id="textFieldMaKH" layoutX="77.0" layoutY="163.0" prefHeight="30.0" prefWidth="146.0" promptText="Mã KH" styleClass="text-field-box" />
-                                    <Button layoutX="155.0" layoutY="480.0" mnemonicParsing="false" onAction="#onXuatHoaDonClicked" prefHeight="26.0" prefWidth="123.0" text="Xuất hóa đơn" />
+                                    <TextField fx:id="textFieldMaSach" layoutX="75.0" layoutY="207.0" prefHeight="30.0" prefWidth="293.0" promptText="Mã sách" styleClass="text-field-box" />
+                                    <TextField fx:id="textFieldSL" layoutX="75.0" layoutY="253.0" prefHeight="30.0" prefWidth="294.0" promptText="Số lượng" styleClass="text-field-box" />
+                                    <Button fx:id="btnAdd" layoutX="89.0" layoutY="379.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="75.0" styleClass="btn" text="Thêm" />
+                                    <TextField fx:id="textFieldMaNV" layoutX="76.0" layoutY="118.0" prefHeight="30.0" prefWidth="290.0" promptText="Mã NV" styleClass="text-field-box" />
+                                    <TextField fx:id="textFieldMaKH" layoutX="77.0" layoutY="163.0" prefHeight="30.0" prefWidth="290.0" promptText="Mã KH" styleClass="text-field-box" />
+                                    <Button layoutX="259.0" layoutY="604.0" mnemonicParsing="false" onAction="#onXuatHoaDonClicked" prefHeight="26.0" prefWidth="123.0" text="Xuất hóa đơn" />
                                     <Label layoutX="14.0" layoutY="79.0" prefHeight="18.0" prefWidth="54.0" text="Mã HD " />
-                                    <TextField fx:id="textFieldMaHoaDon" layoutX="76.0" layoutY="75.0" prefHeight="30.0" prefWidth="150.0" />
+                                    <TextField fx:id="textFieldMaHoaDon" layoutX="76.0" layoutY="75.0" prefHeight="30.0" prefWidth="290.0" />
                                     <Label layoutX="14.0" layoutY="124.0" prefHeight="18.0" prefWidth="54.0" text="Mã NV " />
                                     <Label layoutX="14.0" layoutY="169.0" prefHeight="18.0" prefWidth="54.0" text="Mã KH " />
                                     <Label layoutX="14.0" layoutY="213.0" prefHeight="18.0" prefWidth="54.0" text="Mã  sách" />
                                     <Label layoutX="14.0" layoutY="259.0" prefHeight="18.0" prefWidth="54.0" text="SL" />
-                                    <Button layoutX="112.0" layoutY="307.0" mnemonicParsing="false" onAction="#deleteChiTietHoaDon" prefHeight="30.0" prefWidth="75.0" text="Xóa" />
-                                    <Button layoutX="193.0" layoutY="307.0" mnemonicParsing="false" onAction="#updateChiTietHoaDon" prefHeight="30.0" prefWidth="75.0" text="Sửa" />
-                                    <Label fx:id="tongTienLabel" layoutX="27.0" layoutY="354.0" prefHeight="38.0" prefWidth="224.0" text="Tổng tiền: " />
-                                    <Button layoutX="15.0" layoutY="480.0" mnemonicParsing="false" onAction="#themHoaDonMoi" prefHeight="26.0" prefWidth="121.0" text="Thêm hóa đơn mới" />
+                                    <Button layoutX="194.0" layoutY="380.0" mnemonicParsing="false" onAction="#deleteChiTietHoaDon" prefHeight="30.0" prefWidth="75.0" text="Xóa" />
+                                    <Button layoutX="295.0" layoutY="380.0" mnemonicParsing="false" onAction="#updateChiTietHoaDon" prefHeight="30.0" prefWidth="75.0" text="Sửa" />
+                                    <Label fx:id="tongTienLabel" layoutX="12.0" layoutY="412.0" prefHeight="38.0" prefWidth="235.0" text="Tổng tiền: " />
+                                    <Button layoutX="11.0" layoutY="602.0" mnemonicParsing="false" onAction="#themHoaDonMoi" prefHeight="26.0" prefWidth="121.0" text="Thêm hóa đơn mới" />
+                                    <ChoiceBox fx:id="thanhToan" layoutX="166.0" layoutY="471.0" prefHeight="26.0" prefWidth="212.0" />
+                                    <DatePicker fx:id="ngayTaoHoaDon" layoutX="75.0" layoutY="298.0" prefHeight="30.0" prefWidth="295.0" />
+                                    <Label layoutX="14.0" layoutY="305.0" prefHeight="18.0" prefWidth="53.0" text="Ngày" />
+                                    <Label layoutX="14.0" layoutY="474.0" prefHeight="18.0" prefWidth="168.0" text="Phương thức thanh toán" />
                                  </children>
                               </AnchorPane>
                         </content>
                       </Tab>
-                      <Tab text="Untitled Tab 2">
+                      <Tab fx:id="tabPayment" text="Payment">
                         <content>
-                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <VBox layoutX="49.0" layoutY="49.0" prefHeight="550.0" prefWidth="862.0">
+                                       <children>
+                                          <WebView fx:id="webMoMo" prefHeight="550.0" prefWidth="584.0" />
+                                       </children>
+                                    </VBox>
+                                    <Button layoutX="812.0" layoutY="640.0" mnemonicParsing="false" text="Hủy thanh toán" />
+                                 </children></AnchorPane>
                         </content>
                       </Tab>
                     </tabs>

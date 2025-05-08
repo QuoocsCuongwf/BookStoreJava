@@ -451,6 +451,13 @@ public class SanPhamController {
         }
         return listSanPham;
    }
+    public void xuatExcel(){
+        CallApi callApi=new CallApi();
+        int result=callApi.callPostRequestBody("http://localhost:8080/sanPham/xuatExcel");
+        if (result==200){
+            showMessage("Success","Xuất Excel Thành công","Đã xuất thành công file Excel");
+        }
+    }
 
 
 

@@ -70,7 +70,6 @@ public class ConnectDatabase {
 
             // Convert JSON array to string
             jsonString = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(jsonArray);
-            System.out.println(jsonString);
 
         } catch (SQLException e) {
             throw new RuntimeException(e);

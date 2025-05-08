@@ -138,5 +138,46 @@ public class CallApi {
         }
         return resultsApi;
     }
+    public int callPostRequestBody(String api) {
+        String resultsApi = "";
+        HttpURLConnection connection = null;
+
+        try {
+            URL url = new URL(api);
+            connection = (HttpURLConnection) url.openConnection();
+
+            connection.setRequestMethod("POST");
+            connection.setRequestProperty("Content-Type", "application/json; utf-8");
+            connection.setRequestProperty("Accept", "application/json");
+            connection.setDoOutput(true);
+
+            int responseCode = connection.getResponseCode();
+            System.out.println("Response Code: " + responseCode);
+
+            try (BufferedReader reader = new BufferedReader(
+                    new InputStreamReader(
+                            responseCode >= 200 && responseCode < 300 ?
+                                    connection.getInputStream() :
+                                    connection.getErrorStream(),
+                            StandardCharsets.UTF_8))) {
+
+                StringBuilder response = new StringBuilder();
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    response.append(line.trim());
+                }
+
+                resultsApi = response.toString();
+                System.out.println("Response: " + resultsApi);
+            }
+            return responseCode;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } finally {
+            if (connection != null) {
+                connection.disconnect();
+            }
+        }
+    }
 
 }

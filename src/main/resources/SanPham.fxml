@@ -16,9 +16,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<Pane fx:id="nhanVienPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="958.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.GuiController.SanPhamController">
+<Pane fx:id="nhanVienPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="710.0" prefWidth="1250.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.GuiController.SanPhamController">
     <children>
-        <SplitPane dividerPositions="0.23755750731911332" layoutX="-1.0" layoutY="-5.0" prefHeight="567.0" prefWidth="958.0">
+        <SplitPane dividerPositions="0.23755750731911332" layoutX="-1.0" layoutY="-5.0" prefHeight="730.0" prefWidth="1260.0">
             <items>
                 <AnchorPane fx:id="anchorPaneMenu" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" style="-fx-background-color: #00A4EF;">
                     <children>
@@ -70,8 +70,8 @@
                 </AnchorPane>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                     <children>
-                  <Button fx:id="btnThemSach" layoutX="600.0" layoutY="126.0" mnemonicParsing="false" onAction="#openInforContainer" styleClass="btn" text="Icon Thêm sách" />
-                        <TableView fx:id="tableView" layoutY="171.0" prefHeight="409.0" prefWidth="742.0" AnchorPane.leftAnchor="0.0">
+                  <Button fx:id="btnThemSach" layoutX="804.0" layoutY="126.0" mnemonicParsing="false" onAction="#openInforContainer" prefHeight="26.0" prefWidth="134.0" styleClass="btn" text="Thêm sách" />
+                        <TableView fx:id="tableView" layoutY="171.0" prefHeight="566.0" prefWidth="955.0" AnchorPane.leftAnchor="0.0">
                             <columns>
                                 <TableColumn fx:id="anhBia" prefWidth="101.6000549197197" text="Ảnh bìa" />
                                 <TableColumn fx:id="maSachColumn" prefWidth="141.5999755859375" text="Mã sách" />
@@ -81,11 +81,11 @@
                                 <TableColumn fx:id="tacGiaColumn" prefWidth="100.79997253417969" text="Tác giả" />
                             </columns>
                         </TableView>
-                  <TextField fx:id="textFieldTimKiem" layoutX="37.0" layoutY="32.0" prefHeight="30.0" prefWidth="174.0" promptText="Tìm kiếm..." styleClass="text-field-box" />
-                  <Button layoutX="238.0" layoutY="35.0" mnemonicParsing="false" onAction="#timKiem" styleClass="btn" text="Tìm kiếm" />
-                  <Pane fx:id="inforContainer" layoutX="-3.0" prefHeight="566.0" prefWidth="726.0" AnchorPane.leftAnchor="0.0">
+                  <TextField fx:id="textFieldTimKiem" layoutX="37.0" layoutY="32.0" prefHeight="30.0" prefWidth="450.0" promptText="Tìm kiếm..." styleClass="text-field-box" />
+                  <Button layoutX="510.0" layoutY="34.0" mnemonicParsing="false" onAction="#timKiem" styleClass="btn" text="Tìm kiếm" />
+                  <Pane fx:id="inforContainer" layoutX="150.4" layoutY="306.0" prefHeight="346.0" prefWidth="505.0" AnchorPane.leftAnchor="150.0">
                      <children>
-                        <VBox fx:id="themSach" layoutX="180.0" layoutY="78.0" prefHeight="305.0" prefWidth="394.0" spacing="20.0" style="-fx-background-color: FF4040;" styleClass="form-container">
+                        <VBox fx:id="themSach" layoutX="114.0" layoutY="-54.0" prefHeight="305.0" prefWidth="394.0" spacing="20.0" style="-fx-background-color: FF4040;" styleClass="form-container">
                            <children>
                               <HBox prefHeight="28.0" prefWidth="382.0" spacing="20.0">
                                  <children>
@@ -163,6 +163,8 @@
                         </VBox>
                      </children>
                   </Pane>
+                  <Button layoutX="685.0" layoutY="126.0" mnemonicParsing="false" onAction="#xuatExcel" text="xuất file Excel" />
+                  <Button layoutX="553.0" layoutY="126.0" mnemonicParsing="false" text="Nhập file Excel" />
                     </children>
                 </AnchorPane>
             </items>
