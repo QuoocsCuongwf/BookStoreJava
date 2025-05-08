@@ -8,23 +8,58 @@ import lombok.Setter;
 @Setter
 public class NhaXuatBan {
     @JsonProperty("MANXB")
-    private String manxb;
+    private String maNhaXuatBan;
 
     @JsonProperty("TENNXB")
-    private String tennxb;
+    private String tenNhaXuatBan;
 
     @JsonProperty("DIACHI")
-    private String diachi;
+    private String diaChi;
 
     @JsonProperty("SDT")
     private String sdt;
 
-    public NhaXuatBan() {}
+    @JsonProperty("EMAIL")
+    private String email;
 
-    public NhaXuatBan(String manxb, String tennxb, String diachi, String sdt) {
-        this.manxb = manxb;
-        this.tennxb = tennxb;
-        this.diachi = diachi;
+    public String getMaNhaXuatBan() {
+        return maNhaXuatBan;
+    }
+
+    public void setMaNhaXuatBan(String maNhaXuatBan) {
+        this.maNhaXuatBan = maNhaXuatBan;
+    }
+
+    public String getTenNhaXuatBan() {
+        return tenNhaXuatBan;
+    }
+
+    public void setTenNhaXuatBan(String tenNhaXuatBan) {
+        this.tenNhaXuatBan = tenNhaXuatBan;
+    }
+
+    public String getDiaChi() {
+        return diaChi;
+    }
+
+    public void setDiaChi(String diaChi) {
+        this.diaChi = diaChi;
+    }
+
+    public String getSdt() {
+        return sdt;
+    }
+
+    public void setSdt(String sdt) {
         this.sdt = sdt;
     }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
 }

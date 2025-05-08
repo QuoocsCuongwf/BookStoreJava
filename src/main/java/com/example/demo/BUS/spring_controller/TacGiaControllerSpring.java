@@ -2,33 +2,53 @@ package com.example.demo.BUS.spring_controller;
 
 import com.example.demo.model.TacGia;
 import com.example.demo.BUS.services.TacGiaServices;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-@RestController
-@RequestMapping("TacGia")
 
+@RestController
+@RequestMapping("/TacGia")
 public class TacGiaControllerSpring {
-    TacGiaServices tacGiaServices = new TacGiaServices();
+    private final TacGiaServices tacGiaServices;
+
+    @Autowired
+    public TacGiaControllerSpring(TacGiaServices tacGiaServices) {
+        this.tacGiaServices = tacGiaServices;
+    }
+
     @GetMapping("/getAllTacGia")
     public List<TacGia> getAllTacGia() {
-        System.out.println(tacGiaServices.getTacGiaList());
         return tacGiaServices.getTacGiaList();
     }
 
     @PostMapping("/timKiem")
-    public  List<TacGia> timKiem(@RequestParam String find){
+    public List<TacGia> timKiem(@RequestParam String find) {
         return tacGiaServices.searchTacGia(find);
     }
+
     @PostMapping("/Delete")
-    public String DeleteTacGia(@RequestParam String maTacGia){
+    public String deleteTacGia(@RequestParam String maTacGia) {
+        if (maTacGia == null || maTacGia.isEmpty()) {
+            return "Delete Fail: Invalid MaTacGia";
+        }
         tacGiaServices.deleteTacGia(maTacGia);
-        return "delete success";
+        return "Delete Success";
     }
+
     @PostMapping("/Add")
-    public String AddTacGia(@RequestBody TacGia tacGia) {return tacGiaServices.addTacGia(tacGia);};
+    public String addTacGia(@RequestBody TacGia tacGia) {
+        if (tacGia == null || tacGia.getMatg() == null || tacGia.getMatg().isEmpty()) {
+            return "Add Fail: Invalid TacGia or MaTacGia";
+        }
+        return tacGiaServices.addTacGia(tacGia);
+    }
+
     @PostMapping("/Update")
-    public String UpdateTacGia(@RequestBody TacGia tacGia) { return tacGiaServices.updateTacGia(tacGia); }
-
-
+    public String updateTacGia(@RequestBody TacGia tacGia) {
+        if (tacGia == null || tacGia.getMatg() == null || tacGia.getMatg().isEmpty()) {
+            return "Update Fail: Invalid TacGia or MaTacGia";
+        }
+        return tacGiaServices.updateTacGia(tacGia);
+    }
 }

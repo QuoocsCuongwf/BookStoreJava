@@ -4,12 +4,13 @@ import com.example.demo.databaseAccesssObject.TacGiaDAO;
 import com.example.demo.model.TacGia;
 import com.example.demo.model.TacGia;
 import com.example.demo.BUS.spring_controller.TacGiaControllerSpring;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-
+@Service
 public class TacGiaServices {
     private TacGiaDAO tacGiaDAO = new TacGiaDAO();
     private static List<TacGia> listTacGia = new ArrayList<TacGia>();

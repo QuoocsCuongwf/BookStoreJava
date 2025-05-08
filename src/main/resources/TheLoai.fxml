@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<Pane fx:id="nhaXuatBanPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="958.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.GuiController.NhaXuatBanController">
+<Pane fx:id="theLoaiPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="958.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.GuiController.TheLoaiController">
     <children>
         <SplitPane dividerPositions="0.23755750731911332" layoutX="-1.0" layoutY="-5.0" prefHeight="567.0" prefWidth="958.0">
             <items>
@@ -70,7 +70,7 @@
                                 <Font size="16.0" />
                             </font>
                         </Button>
-                        <Button fx:id="btnNhaXuatBan" layoutY="239.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="224.0" text="Nhà xuất bản">
+                        <Button fx:id="btnNhaXuatBan" layoutY="239.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="224.0" styleClass="btn" text="Nhà xuất bản">
                             <font>
                                 <Font size="16.0" />
                             </font>
@@ -79,14 +79,11 @@
                 </AnchorPane>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                     <children>
-                        <Button fx:id="btnThemNXB" layoutX="549.0" layoutY="114.0" mnemonicParsing="false" onAction="#openInforContainer" prefHeight="26.0" prefWidth="162.0" styleClass="btn" text="Thêm Nhà Xuất Bản" />
+                        <Button fx:id="btnThemTheLoai" layoutX="549.0" layoutY="114.0" mnemonicParsing="false" onAction="#openInforContainer" prefHeight="26.0" prefWidth="162.0" styleClass="btn" text="Thêm Thể Loại" />
                         <TableView fx:id="tableView" layoutY="171.0" prefHeight="409.0" prefWidth="742.0" AnchorPane.leftAnchor="0.0">
                             <columns>
-                                <TableColumn fx:id="maNXBColumn" prefWidth="148.8000060915947" text="Mã nhà xuất bản" />
-                                <TableColumn fx:id="tenNXBColumn" prefWidth="143.99998474121094" text="Tên nhà xuất bản" />
-                                <TableColumn fx:id="diaChiColumn" prefWidth="153.60003662109375" text="Địa chỉ" />
-                                <TableColumn fx:id="sdtColumn" prefWidth="109.5999755859375" text="Số điện thoại" />
-                                <TableColumn fx:id="emailColumn" prefWidth="186.4000244140625" text="Email" />
+                                <TableColumn fx:id="maTheLoaiColumn" prefWidth="370.0" text="Mã thể loại" />
+                                <TableColumn fx:id="tenTheLoaiColumn" prefWidth="370.0" text="Tên thể loại" />
                             </columns>
                         </TableView>
                         <TextField fx:id="textFieldTimKiem" layoutX="37.0" layoutY="32.0" prefHeight="30.0" prefWidth="174.0" promptText="Tìm kiếm..." styleClass="text-field-box" />
@@ -97,20 +94,17 @@
                                     <children>
                                         <VBox prefHeight="486.0" prefWidth="326.0" spacing="20.0">
                                             <children>
-                                                <Label alignment="CENTER" prefHeight="69.0" prefWidth="312.0" text="THÊM NHÀ XUẤT BẢN" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS">
-                                                <font>
-                                                    <Font size="14.0" />
-                                                </font>
+                                                <Label alignment="CENTER" prefHeight="69.0" prefWidth="312.0" text="THÊM THỂ LOẠI" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS">
+                                                    <font>
+                                                        <Font size="14.0" />
+                                                    </font>
                                                 </Label>
-                                                <TextField fx:id="textFieldMaNXB" prefHeight="48.0" prefWidth="309.0" promptText="Mã nhà xuất bản" />
-                                                <TextField fx:id="textFieldTenNXB" prefHeight="48.0" prefWidth="309.0" promptText="Tên nhà xuất bản" />
-                                                <TextField fx:id="textFieldDiaChi" prefHeight="48.0" prefWidth="309.0" promptText="Địa chỉ" />
-                                                <TextField fx:id="textFieldSDT" prefHeight="48.0" prefWidth="309.0" promptText="Số điện thoại" />
-                                                <TextField fx:id="textFieldEmail" prefHeight="48.0" prefWidth="309.0" promptText="Email" />
+                                                <TextField fx:id="textFieldMaTheLoai" prefHeight="48.0" prefWidth="309.0" promptText="Mã thể loại" />
+                                                <TextField fx:id="textFieldTenTheLoai" prefHeight="48.0" prefWidth="309.0" promptText="Tên thể loại" />
                                                 <HBox fx:id="inforFormButtonContainer" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                                                     <children>
-                                                        <Button fx:id="btnAddNhaXuatBan" contentDisplay="CENTER" mnemonicParsing="false" onAction="#addNhaXuatBan" prefHeight="70.0" prefWidth="98.0" text="Thêm" />
-                                                        <Button fx:id="btnThoatFormNXB" mnemonicParsing="false" onAction="#clossInforContainer" prefHeight="70.0" prefWidth="98.0" text="Thoát" />
+                                                        <Button fx:id="btnAddTheLoai" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="70.0" prefWidth="98.0" text="Thêm" />
+                                                        <Button fx:id="btnThoatFormTheLoai" mnemonicParsing="false" onAction="#clossInforContainer" prefHeight="70.0" prefWidth="98.0" text="Thoát" />
                                                     </children>
                                                     <padding>
                                                         <Insets bottom="30.0" top="30.0" />

@@ -30,6 +30,25 @@ public class LeftMenuController {
         btnPhieuNhap.setOnAction(e -> handlePhieuNhap(e));
     }
 
+    public void bindHandlers(
+            Button btnThongKe, Button btnKhachHang, Button btnSanPham,
+            Button btnNhanVien, Button btnNCC, Button btnTacGia,
+            Button btnHoaDon, Button btnTHD, Button btnKhuyenMai,
+            Button btnTheLoai, Button btnNhaXuatBan
+    ) {
+        btnThongKe.setOnAction(e -> handleThongKe(e));
+        btnKhachHang.setOnAction(e -> handleKhachHang(e));
+        btnSanPham.setOnAction(e -> handleSanPham(e));
+        btnNhanVien.setOnAction(e -> handleNhanVien(e));
+        btnNCC.setOnAction(e -> handleNCC(e));
+        btnTacGia.setOnAction(e -> handleTacGia(e));
+        btnHoaDon.setOnAction(e -> handleHoaDon(e));
+        btnTHD.setOnAction(e -> handleTHD(e));
+        btnKhuyenMai.setOnAction(e -> handleKhuyenMai(e));
+        btnTheLoai.setOnAction(e -> handleTheLoai(e));
+        btnNhaXuatBan.setOnAction(e -> handleNhaXuatBan(e));
+    }
+
     private void handleThongKe(ActionEvent event) {
         System.out.println("Thống kê clicked");
         loadScene(event, "/ThongKe.fxml");
@@ -79,6 +98,16 @@ public class LeftMenuController {
         System.out.println("Load path: " + getClass().getResource("/PhieuNhap.fxml"));
 
         loadScene(event, "/PhieuNhap.fxml");
+    }
+
+    private void handleTheLoai(ActionEvent event) {
+        System.out.println("Thể loại clicked");
+        loadScene(event, "/TheLoai.fxml");
+    }
+
+    private void handleNhaXuatBan(ActionEvent event) {
+        System.out.println("Nhà xuất bản clicked");
+        loadScene(event, "/NhaXuatBan.fxml");
     }
 
     private void loadScene(ActionEvent event, String fxmlPath) {
