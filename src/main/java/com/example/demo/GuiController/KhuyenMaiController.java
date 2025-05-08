@@ -76,20 +76,20 @@ public class KhuyenMaiController implements Initializable {
 
     private LocalDate ngayKetThuc;
 
-//    public LocalDate getNgayBatDau() {
-//        return ngayBatDau;
-//    }
-//
-//    public void setNgayBatDau(LocalDate ngayBatDau) {
-//        this.ngayBatDau = ngayBatDau;
-//    }
-//
-//    public LocalDate getNgayKetThuc() {
-//        return ngayKetThuc;
-//    }
-//    public void setNgayKetThuc(LocalDate ngayKetThuc) {
-//        this.ngayKetThuc = ngayKetThuc;
-//    }
+    public LocalDate getNgayBatDau() {
+        return ngayBatDau;
+    }
+
+    public void setNgayBatDau(LocalDate ngayBatDau) {
+        this.ngayBatDau = ngayBatDau;
+    }
+
+    public LocalDate getNgayKetThuc() {
+        return ngayKetThuc;
+    }
+    public void setNgayKetThuc(LocalDate ngayKetThuc) {
+        this.ngayKetThuc = ngayKetThuc;
+    }
 
     private Button btnDeleteKhuyenMai = new Button("    Xóa    ");
     private Button btnUpdateKhuyenMai = new Button("Cập nhật");
@@ -231,7 +231,7 @@ public class KhuyenMaiController implements Initializable {
             KhuyenMai khuyenMai = data.get(selectedIndex);
             System.out.println("Khuyen Mai Theo Hoa Don selected " + khuyenMai.getMactkm());
             CallApi callApi = new CallApi();
-            String result = callApi.callPostRequestParam("http://localhost:8080/KhuyenMai/Delete", "maKm=",khuyenMai.getMactkm());
+            String result = callApi.callPostRequestParam("http://localhost:8080/KhuyenMai/Delete", "maChuongTrinh=",khuyenMai.getMactkm());
             data.remove(selectedIndex);
             tableView.getSelectionModel().clearSelection();
         } else {
@@ -262,7 +262,7 @@ public class KhuyenMaiController implements Initializable {
 
 
         CallApi callApi=new CallApi();
-        String resultApi=callApi.callPostRequestBody("http://localhost:8080/khuyenMai/Update",convertKhuyenMaiToJson(khuyenMai));
+        String resultApi=callApi.callPostRequestBody("http://localhost:8080/KhuyenMai/Update",convertKhuyenMaiToJson(khuyenMai));
         if (resultApi.contains("Success")) {
             for (int i = 0; i < khuyenMaiList.size(); i++) {
                 if (khuyenMaiList.get(i).getMactkm().equals(khuyenMai.getMactkm())) {
@@ -270,7 +270,7 @@ public class KhuyenMaiController implements Initializable {
                     break;
                 }
             }
-            showMessage("Success","Sua sach thanh cong",resultApi);
+            showMessage("Success","Sua ma thanh cong",resultApi);
             data = FXCollections.observableArrayList(khuyenMaiList);
             tableView.setItems(data);
         }
@@ -336,8 +336,8 @@ public class KhuyenMaiController implements Initializable {
 //        txt_maSanPham.setText(String.valueOf(khuyenMai.getMasanpham()));
         txt_tongTien.setText(String.valueOf(khuyenMai.getTongtien()));
         txt_phanTramKhuyenMai.setText(String.valueOf(khuyenMai.getPhantramkhuyenmai()));
-//        datePickerNgayBatDau.setValue(khuyenMai.getNgayBatDau());
-//        datePickerNgayKetThuc.setValue(khuyenMai.getNgayKetThuc());
+        datePickerNgayBatDau.setValue(khuyenMai.getNgayBatDau());
+      datePickerNgayKetThuc.setValue(khuyenMai.getNgayKetThuc());
 
 
         int index = inforFormButtonContainer.getChildren().indexOf(btnAddKM);
