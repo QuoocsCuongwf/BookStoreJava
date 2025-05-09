@@ -92,6 +92,7 @@ public class TacGiaController implements Initializable {
         tenTacGiaColumn.setCellValueFactory(new PropertyValueFactory<>("tentg"));
         queQuanTacGiaColumn.setCellValueFactory(new PropertyValueFactory<>("quequan"));
         namSinhTacGiaColumn.setCellValueFactory(new PropertyValueFactory<>("namsinh"));
+
         tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 showSelectedItem(newValue);
@@ -191,7 +192,7 @@ public class TacGiaController implements Initializable {
                 System.out.println("Text Field Null");
                 return;
             }
-        };
+        }
         tacGia.setMatg(txt_MaTacGia.getText());
         tacGia.setHotg(txt_HoTacGia.getText());
         tacGia.setTentg(txt_TenTacGia.getText());
@@ -200,7 +201,7 @@ public class TacGiaController implements Initializable {
 
         CallApi callApi=new CallApi();
         String resultApi=callApi.callPostRequestBody("http://localhost:8080/tacGia/Update",convertTacGiaToJson(tacGia));
-        if (resultApi.contains("Success")) {
+        if (resultApi.contains("success")) {
             for( int i = 0; i < tacGiaList.size(); i++ ) {
                 if(tacGiaList.get(i).getMatg().equals(tacGia.getMatg())) {
                     tacGiaList.set(i,tacGia); // thay the dung phan tu
@@ -211,7 +212,9 @@ public class TacGiaController implements Initializable {
             data = FXCollections.observableArrayList(tacGiaList);
             tableView.setItems(data);
 
+
         }
+
     }
     public void openInforContainer() {
         txt_MaTacGia.setText("TG"+tacGiaList.size()+1);

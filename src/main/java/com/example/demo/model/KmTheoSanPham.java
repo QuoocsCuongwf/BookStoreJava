@@ -5,16 +5,19 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDate;
+
 @Getter
 @Setter
-public class KmTheoSanPham {
-    @JsonProperty("MACTKM")
-    private String mactkm;
+public class KmTheoSanPham extends ChuongTrinhKhuyenMai {
 
     @JsonProperty("MASP")
     private String masp;
 
-    @JsonProperty("PHANTRAMKHUYENMAI")
-    private Double phantramkhuyenmai;
+
+    public KmTheoSanPham(String mactkm,Double phantramkhuyenmai, LocalDate ngayBatDau,LocalDate ngayKetThuc,String masp) {
+        super(mactkm,phantramkhuyenmai,ngayBatDau,ngayKetThuc);
+        this.masp = masp;
+    }
 
 }

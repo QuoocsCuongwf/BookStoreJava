@@ -1,5 +1,6 @@
 package com.example.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -13,10 +14,27 @@ import java.time.LocalDate;
 @Setter
 public class ChuongTrinhKhuyenMai {
 
+    @JsonProperty("MACTKM")
     private String mactkm;
+    @JsonProperty("PHANTRAMKHUYENMAI")
+    private Double phantramkhuyenmai;
+    @JsonProperty("NGAYBATDAU")
+    private LocalDate ngayBatDau;
+    @JsonProperty("NGAYKETTHUC")
+    private LocalDate ngayKetThuc;
 
-    private LocalDate ngaybd;
 
-    private LocalDate ngaykt;
+    public ChuongTrinhKhuyenMai() {}
 
+    public ChuongTrinhKhuyenMai(String mactkm,Double phantramkhuyenmai, LocalDate ngayBatDau,LocalDate ngayKetThuc) {
+        this.mactkm = mactkm;
+        this.phantramkhuyenmai=phantramkhuyenmai
+        this.ngayBatDau = ngayBatDau;
+        this.ngayKetThuc = ngayKetThuc;
+    }
+    public LocalDate getNgayBatDau() { return ngayBatDau; }
+    public void setNgayBatDau(LocalDate ngayBatDau) { this.ngayBatDau = ngayBatDau; }
+
+    public LocalDate getNgayKetThuc() { return ngayKetThuc; }
+    public void setNgayKetThuc(LocalDate ngayKetThuc) { this.ngayKetThuc = ngayKetThuc; }
 }

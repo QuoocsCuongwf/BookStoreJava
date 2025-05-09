@@ -66,24 +66,22 @@
                         <Insets left="20.0" />
                     </padding>
                 </AnchorPane>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="334.0" prefWidth="725.0">
                     <children>
                         <TableView fx:id="tableView" layoutY="199.0" prefHeight="365.0" prefWidth="742.0" AnchorPane.leftAnchor="0.0">
                             <columns>
                                 <TableColumn fx:id="maChuongTrinhKMColumn" prefWidth="139.3333282470703" text="Mã Chương Trình KM" />
-                                <TableColumn fx:id="maSanPhamColumn" prefWidth="117.33331298828125" text="Mã Sản Phẩm" />
-                                <TableColumn fx:id="phanTramKMColumn" minWidth="0.0" prefWidth="113.33334350585938" text="\% Khuyến Mãi" />
-                        <TableColumn fx:id="ngayBatDauColumn" prefWidth="120.66668701171875" text="Ngày Bắt Đầu" />
-                        <TableColumn fx:id="ngayKetThucColumn" prefWidth="121.3333740234375" text="Ngày Kết Thúc" />
-                        <TableColumn fx:id="tongTienColumn" prefWidth="113.3333740234375" text="Tổng Tiền" />
+                                <TableColumn fx:id="phanTramKMColumn" minWidth="0.0" prefWidth="204.00003051757812" text="\% Khuyến Mãi" />
+                        <TableColumn fx:id="ngayBatDauColumn" prefWidth="160.66668701171875" text="Ngày Bắt Đầu" />
+                        <TableColumn fx:id="ngayKetThucColumn" prefWidth="237.3333740234375" text="Ngày Kết Thúc" />
                             </columns>
                         </TableView>
                         <TextField fx:id="textFieldTimKiem" layoutX="33.0" layoutY="29.0" promptText="Tìm kiếm..." styleClass="text-field-box" />
                         <Button layoutX="217.0" layoutY="29.0" mnemonicParsing="false" onAction="#timKiem" styleClass="btn" text="Tìm kiếm" />
-                        <Button layoutX="624.0" layoutY="151.0" mnemonicParsing="false" onAction="#openInforContainer" prefHeight="25.0" prefWidth="84.0" styleClass="btn" text="Thêm" />
-                        <Pane fx:id="inforContainer" layoutX="-1.0" layoutY="70.0" prefHeight="492.0" prefWidth="983.0">
+                        <Button layoutX="573.0" layoutY="151.0" mnemonicParsing="false" onAction="#openInforContainer" prefHeight="25.0" prefWidth="135.0" styleClass="btn" text="Thêm KMTT" />
+                        <Pane fx:id="inforContainer" layoutX="-1.0" layoutY="232.0" prefHeight="330.0" prefWidth="983.0">
                      <children>
-                                <VBox fx:id="inforForm" layoutX="178.0" layoutY="114.0" prefHeight="275.0" prefWidth="355.0" spacing="15.0" styleClass="inforForm">
+                                <VBox fx:id="inforForm" layoutX="184.0" layoutY="82.0" prefHeight="275.0" prefWidth="355.0" spacing="15.0" styleClass="inforForm">
                                     <children>
                                         <HBox prefHeight="26.0" prefWidth="322.0" spacing="20.0">
                                             <VBox.margin>
@@ -110,7 +108,7 @@
                               <HBox fx:id="inforFormButtonContainer" alignment="CENTER" nodeOrientation="RIGHT_TO_LEFT" prefHeight="50.0" prefWidth="212.0" spacing="20.0">
                                  <children>
                                                 <Button mnemonicParsing="false" onAction="#clossInforContainer" prefHeight="22.0" prefWidth="95.0" text="Đóng" />
-                                                <Button fx:id="btnAddKM" mnemonicParsing="false" onAction="#addKhuyenMai" prefHeight="25.0" prefWidth="83.0" text="Thêm" />
+                                                <Button fx:id="btnAddKM" mnemonicParsing="false" onAction="#addKmTheoTongTien" prefHeight="25.0" prefWidth="83.0" text="Thêm" />
                                  </children>
                               </HBox>
                                     </children>
@@ -120,6 +118,38 @@
                                 </VBox>
                      </children>
                         </Pane>
+                  <Button layoutX="572.0" layoutY="120.0" mnemonicParsing="false" onAction="#openInforContainerKmTheoSanPham" prefHeight="25.0" prefWidth="135.0" text="Thêm KMSP" />
+                  <AnchorPane fx:id="inforContainerr" layoutX="33.0" layoutY="12.0" prefHeight="237.0" prefWidth="481.0">
+                     <children>
+                        <Pane fx:id="inforFormm" layoutX="32.0" layoutY="19.0" prefHeight="200.0" prefWidth="394.0">
+                           <children>
+                              <HBox layoutX="28.0" layoutY="14.0" prefHeight="36.0" prefWidth="338.0" spacing="15.0">
+                                 <children>
+                                    <TextField fx:id="txt_maChuongTrinhKhuyenMaii" promptText="Mã Chương Trình Khuyến Mãi" />
+                                    <TextField fx:id="txt_maSanPham" promptText="Mã Sản Phẩm" />
+                                 </children>
+                              </HBox>
+                              <HBox layoutX="28.0" layoutY="50.0" prefHeight="36.0" prefWidth="271.0">
+                                 <children>
+                                    <TextField fx:id="txt_phanTramKhuyenMaii" prefHeight="25.0" prefWidth="213.0" promptText="\% Khuyến Mãi" />
+                                 </children>
+                              </HBox>
+                              <HBox layoutX="28.0" layoutY="86.0" prefHeight="36.0" prefWidth="316.0" spacing="15.0">
+                                 <children>
+                                    <DatePicker fx:id="datePickerNgayBatDauu" promptText="Ngày Bắt Đầu" />
+                                    <DatePicker fx:id="datePickerNgayKetThucc" promptText="Ngày Kết Thúc" />
+                                 </children>
+                              </HBox>
+                              <HBox fx:id="inforFormButtonContainers" layoutX="106.0" layoutY="132.0" prefHeight="44.0" prefWidth="200.0" spacing="15.0">
+                                 <children>
+                                    <Button fx:id="btnAddKMm" mnemonicParsing="false" onAction="#addKmTheoSanPham" prefHeight="25.0" prefWidth="79.0" text="Thêm" />
+                                    <Button mnemonicParsing="false" onAction="#clossInforContainerKmTheoSanPham" prefHeight="25.0" prefWidth="82.0" text="Đóng" />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </Pane>
+                     </children>
+                  </AnchorPane>
                     </children>
                 </AnchorPane>
             </items>
