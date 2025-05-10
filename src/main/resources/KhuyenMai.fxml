@@ -79,7 +79,7 @@
                         <TextField fx:id="textFieldTimKiem" layoutX="33.0" layoutY="29.0" promptText="Tìm kiếm..." styleClass="text-field-box" />
                         <Button layoutX="217.0" layoutY="29.0" mnemonicParsing="false" onAction="#timKiem" styleClass="btn" text="Tìm kiếm" />
                         <Button layoutX="573.0" layoutY="151.0" mnemonicParsing="false" onAction="#openInforContainer" prefHeight="25.0" prefWidth="135.0" styleClass="btn" text="Thêm KMTT" />
-                        <Pane fx:id="inforContainer" layoutX="-1.0" layoutY="232.0" prefHeight="330.0" prefWidth="983.0">
+                        <Pane fx:id="inforContainer" layoutX="-1.0" layoutY="246.0" prefHeight="316.0" prefWidth="983.0">
                      <children>
                                 <VBox fx:id="inforForm" layoutX="184.0" layoutY="82.0" prefHeight="275.0" prefWidth="355.0" spacing="15.0" styleClass="inforForm">
                                     <children>
@@ -119,7 +119,7 @@
                      </children>
                         </Pane>
                   <Button layoutX="572.0" layoutY="120.0" mnemonicParsing="false" onAction="#openInforContainerKmTheoSanPham" prefHeight="25.0" prefWidth="135.0" text="Thêm KMSP" />
-                  <AnchorPane fx:id="inforContainerr" layoutX="33.0" layoutY="12.0" prefHeight="237.0" prefWidth="481.0">
+                  <AnchorPane fx:id="inforContainerr" layoutX="33.0" layoutY="12.0" prefHeight="237.0" prefWidth="515.0">
                      <children>
                         <Pane fx:id="inforFormm" layoutX="32.0" layoutY="19.0" prefHeight="200.0" prefWidth="394.0">
                            <children>
@@ -140,7 +140,7 @@
                                     <DatePicker fx:id="datePickerNgayKetThucc" promptText="Ngày Kết Thúc" />
                                  </children>
                               </HBox>
-                              <HBox fx:id="inforFormButtonContainers" layoutX="106.0" layoutY="132.0" prefHeight="44.0" prefWidth="200.0" spacing="15.0">
+                              <HBox fx:id="inforFormButtonContainerr" layoutX="106.0" layoutY="132.0" prefHeight="44.0" prefWidth="200.0" spacing="15.0">
                                  <children>
                                     <Button fx:id="btnAddKMm" mnemonicParsing="false" onAction="#addKmTheoSanPham" prefHeight="25.0" prefWidth="79.0" text="Thêm" />
                                     <Button mnemonicParsing="false" onAction="#clossInforContainerKmTheoSanPham" prefHeight="25.0" prefWidth="82.0" text="Đóng" />

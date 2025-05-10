@@ -53,8 +53,8 @@ public class KmTheoSanPhamDAO {
     }
     public void UpdateKmTheoSanPham(KmTheoSanPham kmTheoSanPham) {
         String query = "UPDATE KM_THEO_SAN_PHAM SET " +
-                "PHANTRAMKHUYENMAI = '" + kmTheoSanPham.getPhantramkhuyenmai() + "', " +
                 "MASANPHAM = '" + kmTheoSanPham.getMasp() + "', " +
+                "PHANTRAMKHUYENMAI = '" + kmTheoSanPham.getPhantramkhuyenmai() + "', " +
                 "NGAYBATDAU = '" + kmTheoSanPham.getNgayBatDau() + "', " +
                 "NGAYKETTHUC = '" + kmTheoSanPham.getNgayKetThuc() + "' " + // Không có dấu phẩy cuối
                 "WHERE MACTKM = '" + kmTheoSanPham.getMactkm() + "';" +

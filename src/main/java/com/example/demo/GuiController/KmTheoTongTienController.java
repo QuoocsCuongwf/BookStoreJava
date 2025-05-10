@@ -31,6 +31,8 @@ public class KmTheoTongTienController implements Initializable {
     @FXML
     private Pane inforContainer;
     @FXML
+    private Pane inforContainerr;
+    @FXML
     private Pane khuyenMaiTheoHoaDonPane;
     @FXML
     private TableView<KmTheoTongTien> tableView;
@@ -419,41 +421,41 @@ public class KmTheoTongTienController implements Initializable {
         }
     }
     public void openInforContainerKmTheoSanPham() {
-        txt_maChuongTrinhKhuyenMai.setText("");
+        txt_maChuongTrinhKhuyenMaii.setText("");
         txt_maSanPham.setText("");
-        txt_phanTramKhuyenMai.setText("");
-        datePickerNgayBatDau.setValue(LocalDate.now());
-        datePickerNgayKetThuc.setValue(LocalDate.now());
-        inforContainer.setVisible(true);
+        txt_phanTramKhuyenMaii.setText("");
+        datePickerNgayBatDauu.setValue(LocalDate.now());
+        datePickerNgayKetThucc.setValue(LocalDate.now());
+        inforContainerr.setVisible(true);
     }
     public void clossInforContainerKmTheoSanPham() {
-        int index = inforFormButtonContainer.getChildren().indexOf(btnDeleteKhuyenMai);
+        int index = inforFormButtonContainerr.getChildren().indexOf(btnDeleteKhuyenMai);
         if (index >= 0) {
-            inforFormButtonContainer.getChildren().set(index, btnAddKM);
+            inforFormButtonContainerr.getChildren().set(index, btnAddKMm);
         }
-        inforContainer.setVisible(false);
+        inforContainerr.setVisible(false);
     }
     public void addKmTheoSanPham() {
         KmTheoSanPham kmTheoSanPham = new KmTheoSanPham();
         List<TextField> textFields = Arrays.asList(
-                txt_maChuongTrinhKhuyenMai,txt_phanTramKhuyenMai,txt_maSanPham);
+                txt_maChuongTrinhKhuyenMaii,txt_phanTramKhuyenMaii,txt_maSanPham);
         for (TextField tf : textFields) {
             if (tf.getText().equals("")) {
                 showMessage("Error", "Text Field Null", "Vui lòng nhập đầy đủ thông tin!");
                 return;
             }
         }
-        kmTheoSanPham.setMactkm(txt_maChuongTrinhKhuyenMai.getText());
+        kmTheoSanPham.setMactkm(txt_maChuongTrinhKhuyenMaii.getText());
         kmTheoSanPham.setMasp(txt_maSanPham.getText());
 
-        Double phanTram = Double.parseDouble(txt_phanTramKhuyenMai.getText());
+        Double phanTram = Double.parseDouble(txt_phanTramKhuyenMaii.getText());
 
 
         kmTheoSanPham.setPhantramkhuyenmai(phanTram);
 
 
-        kmTheoSanPham.setNgayBatDau(datePickerNgayBatDau.getValue());
-        kmTheoSanPham.setNgayKetThuc(datePickerNgayKetThuc.getValue());
+        kmTheoSanPham.setNgayBatDau(datePickerNgayBatDauu.getValue());
+        kmTheoSanPham.setNgayKetThuc(datePickerNgayKetThucc.getValue());
 
         CallApi callApi = new CallApi();
         String result = callApi.callPostRequestBody("http://localhost:8080/KmTheoSanPham/Add", convertKmTheoSanPhamToJson(kmTheoSanPham));
@@ -465,22 +467,22 @@ public class KmTheoTongTienController implements Initializable {
     }
     public void showSelectedItemKmtheoSanPham(KmTheoSanPham khuyenMai) {
         openInforContainer();
-        txt_maChuongTrinhKhuyenMai.setText(khuyenMai.getMactkm());
+        txt_maChuongTrinhKhuyenMaii.setText(khuyenMai.getMactkm());
         txt_maSanPham.setText(String.valueOf(khuyenMai.getMasp()));
-        txt_phanTramKhuyenMai.setText(String.valueOf(khuyenMai.getPhantramkhuyenmai()));
-        datePickerNgayBatDau.setValue(khuyenMai.getNgayBatDau());
-        datePickerNgayKetThuc.setValue(khuyenMai.getNgayKetThuc());
+        txt_phanTramKhuyenMaii.setText(String.valueOf(khuyenMai.getPhantramkhuyenmai()));
+        datePickerNgayBatDauu.setValue(khuyenMai.getNgayBatDau());
+        datePickerNgayKetThucc.setValue(khuyenMai.getNgayKetThuc());
 
 
-        int index = inforFormButtonContainer.getChildren().indexOf(btnAddKM);
+        int index = inforFormButtonContainerr.getChildren().indexOf(btnAddKMm);
         if (index >= 0) {
-            inforFormButtonContainer.getChildren().set(index, btnDeleteKhuyenMai);
+            inforFormButtonContainerr.getChildren().set(index, btnDeleteKhuyenMai);
         } else {
             System.err.println("btnAddKhuyenMai không tồn tại trong inforFormButtonContainers!");
         }
-        index = inforFormButtonContainer.getChildren().indexOf(btnUpdateKhuyenMai);
+        index = inforFormButtonContainerr.getChildren().indexOf(btnUpdateKhuyenMai);
         if (index >= 0) {
-            inforFormButtonContainer.getChildren().set(index, btnDeleteKhuyenMai);
+            inforFormButtonContainerr.getChildren().set(index, btnDeleteKhuyenMai);
         } else {
             System.err.println("btnDeleteKhuyenMai không tồn tại trong inforFormButtonContainers !");
 
