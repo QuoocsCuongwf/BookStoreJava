@@ -24,7 +24,7 @@ public class ChuongTrinhKM {
 
     public ChuongTrinhKM(String mactkm, Double phantramkhuyenmai, LocalDate ngayBatDau, LocalDate ngayKetThuc) {
         this.mactkm = mactkm;
-        this.phantramkhuyenmai=phantramkhuyenmai
+        this.phantramkhuyenmai=phantramkhuyenmai;
         this.ngayBatDau = ngayBatDau;
         this.ngayKetThuc = ngayKetThuc;
     }
