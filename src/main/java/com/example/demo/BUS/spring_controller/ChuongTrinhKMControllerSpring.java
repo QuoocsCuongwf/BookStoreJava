@@ -13,20 +13,19 @@ public class ChuongTrinhKMControllerSpring {
     private final ChuongTrinhKMServices chuongTrinhKMServices = new ChuongTrinhKMServices();
     @GetMapping("/getAllChuongTrinhKM")
     public List<ChuongTrinhKM> getAllChuongTrinhKM() {
-        System.out.println(chuongTrinhKMServices.getChuongTrinhKMList());
-        return chuongTrinhKMServices.getChuongTrinhKMList();
-    }
-    @PostMapping("/timkiem")
-    public List<ChuongTrinhKM> timKiem (@RequestParam String timkiem) {
-        return chuongTrinhKMServices.searchChuongTrinh(timkiem);
-    }
-    @PostMapping("/Add")
-    public String AddChuongTrinh(@RequestBody ChuongTrinhKM chuongTrinhKhuyenMai)
-    {return chuongTrinhKMServices.addChuongTrinhKhuyenMai(chuongTrinhKhuyenMai);}
+        return chuongTrinhKMServices.getAllChuongTrinhKM();
+//    }
+//    @PostMapping("/timkiem")
+//    public List<ChuongTrinhKM> timKiem (@RequestParam String timkiem) {
+//        return chuongTrinhKMServices.searchChuongTrinh(timkiem);
+//    }
+//    @PostMapping("/Add")
+//    public String AddChuongTrinh(@RequestBody ChuongTrinhKM chuongTrinhKhuyenMai)
+//    {return chuongTrinhKMServices.addChuongTrinhKhuyenMai(chuongTrinhKhuyenMai);}
+//
+//    @PostMapping("Update")
+//    public String UpdateChuongTrinhKM(@RequestBody ChuongTrinhKM chuongTrinhKM)
+//    { return chuongTrinhKMServices.updateChuongTrinhKhuyenMai(chuongTrinhKM); }
 
-    @PostMapping("Update")
-    public String UpdateChuongTrinhKM(@RequestBody ChuongTrinhKM chuongTrinhKM)
-    { return chuongTrinhKMServices.updateChuongTrinhKhuyenMai(chuongTrinhKM); }
 
-
-}
+    }}

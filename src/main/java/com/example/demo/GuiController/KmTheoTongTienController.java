@@ -27,38 +27,6 @@ import java.util.*;
 @Component
 @Controller
 public class KmTheoTongTienController implements Initializable {
-
-    @FXML
-    private Pane inforContainer;
-    @FXML
-    private Pane inforContainerr;
-    @FXML
-    private Pane khuyenMaiTheoHoaDonPane;
-    @FXML
-    private TableView<KmTheoTongTien> tableView;
-    @FXML
-    private TableColumn<KmTheoTongTien, Integer> maChuongTrinhKMColumn;
-//    @FXML
-//    private TableColumn<KhuyenMai, String> maSanPhamColumn;
-//    @FXML
-//    private TableColumn<KhuyenMai, String> tongTienColumn;
-    @FXML
-    private TableColumn<KmTheoTongTien, String> phanTramKMColumn;
-
-    @FXML
-    private TableColumn<KmTheoTongTien, LocalDate> ngayBatDauColumn;
-    @FXML
-    private TableColumn<KmTheoTongTien, LocalDate> ngayKetThucColumn;
-    @FXML
-    private DatePicker datePickerNgayBatDau;
-    @FXML
-    private DatePicker datePickerNgayKetThuc;
-    @FXML
-    private DatePicker datePickerNgayBatDauu;
-    @FXML
-    private DatePicker datePickerNgayKetThucc;
-
-
     private ObservableList<ChuongTrinhKM> listTongQuat ;
     List <ChuongTrinhKM> chuongTrinhKMList = new ArrayList<>();
 
@@ -69,15 +37,38 @@ public class KmTheoTongTienController implements Initializable {
     List<KmTheoSanPham> kmTheoSanPhamList=new ArrayList<>();
 
     @FXML
-    private TextField textFieldTimKiem;
+    private Pane inforContainer;
     @FXML
-    private TextField txt_maChuongTrinhKhuyenMai, txt_tongTien, txt_phanTramKhuyenMai;
+    private Pane inforContainerr;
     @FXML
-    private TextField txt_maSanPham,txt_maChuongTrinhKhuyenMaii,txt_phanTramKhuyenMaii;
+    private Pane khuyenMaiTheoHoaDonPane;
     @FXML
-    private Pane inforForm;
+    private TableView<ChuongTrinhKM> tableView;
     @FXML
-    private Pane inforFormm;
+    private TableColumn<ChuongTrinhKM, Integer> maChuongTrinhKMColumn;
+    @FXML
+    private TableColumn<ChuongTrinhKM, String> phanTramKMColumn;
+
+    @FXML
+    private TableColumn<ChuongTrinhKM, LocalDate> ngayBatDauColumn;
+    @FXML
+    private TableColumn<ChuongTrinhKM, LocalDate> ngayKetThucColumn;
+    @FXML
+    private DatePicker datePickerNgayBatDau;
+    @FXML
+    private DatePicker datePickerNgayKetThuc;
+    @FXML private TextField textFieldTimKiem;
+    @FXML private TextField txt_maChuongTrinhKhuyenMai, txt_tongTien, txt_phanTramKhuyenMai;
+//    @FXML private TextField txt_maSanPham,txt_maChuongTrinhKhuyenMaii,txt_phanTramKhuyenMaii;
+
+    // KMSP
+    @FXML private TextField txt_CTKMSanPham,txt_maSanPham,txt_phanTramKhuyenMaiSP;
+    @FXML private DatePicker datePickerNgayBatDauSP, datePickerNgayKetThucSP;
+
+//    @FXML
+//    private Pane inforForm;
+//    @FXML
+//    private Pane inforFormm;
     @FXML
     private Button btnAddKM;
     @FXML
@@ -100,22 +91,23 @@ public class KmTheoTongTienController implements Initializable {
     private LocalDate ngayBatDau;
 
     private LocalDate ngayKetThuc;
+//
+//    public LocalDate getNgayBatDau() {
+//        return ngayBatDau;
+//    }
+//
+//    public void setNgayBatDau(LocalDate ngayBatDau) {
+//        this.ngayBatDau = ngayBatDau;
+//    }
+//
+//    public LocalDate getNgayKetThuc() {
+//        return ngayKetThuc;
+//    }
+//    public void setNgayKetThuc(LocalDate ngayKetThuc) {
+//        this.ngayKetThuc = ngayKetThuc;
+//    }
 
-    public LocalDate getNgayBatDau() {
-        return ngayBatDau;
-    }
-
-    public void setNgayBatDau(LocalDate ngayBatDau) {
-        this.ngayBatDau = ngayBatDau;
-    }
-
-    public LocalDate getNgayKetThuc() {
-        return ngayKetThuc;
-    }
-    public void setNgayKetThuc(LocalDate ngayKetThuc) {
-        this.ngayKetThuc = ngayKetThuc;
-    }
-
+    //KMTT
     private Button btnDeleteKhuyenMai = new Button("    Xóa    ");
     private Button btnUpdateKhuyenMai = new Button("Cập nhật");
     @FXML
@@ -137,7 +129,7 @@ public class KmTheoTongTienController implements Initializable {
         ngayKetThucColumn.setCellValueFactory(new PropertyValueFactory<>("ngayKetThuc"));
         tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
-                showSelectedItem(newValue);
+                showSelectedItemTongQuat(newValue);
                 listenerChangeValuesOfKmTheoTongTien();
             } else {
                 System.out.println("No item selected");
@@ -146,14 +138,19 @@ public class KmTheoTongTienController implements Initializable {
         CallApi callApi = new CallApi();
         String json = null;
         try {
-            json = callApi.callGetApi("http://localhost:8080/KhuyenMai/getAllKhuyenMai");
+            json = callApi.callGetApi("http://localhost:8080/ChuonngTrinhKM/getAllChuongTrinhKM");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        kmTheoTongTienList = convertJsonToListKmTheoTongTien(json);
-        System.out.println(kmTheoTongTienList);
-        data = FXCollections.observableArrayList(kmTheoTongTienList);
-        tableView.setItems(data);
+        chuongTrinhKMList = convertJsonToListChuongTrinhKM(json);
+        listTongQuat = FXCollections.observableArrayList(chuongTrinhKMList);
+        tableView.setItems(listTongQuat);
+
+//        kmTheoTongTienList = convertJsonToListKmTheoTongTien(json);
+//        System.out.println(kmTheoTongTienList);
+//        data = FXCollections.observableArrayList(kmTheoTongTienList);
+//        tableView.setItems(data);
+
         btnDeleteKhuyenMai.setOnAction(event -> DeleteKmTheoTongTien(btnDeleteKhuyenMai));
         btnUpdateKhuyenMai.setOnAction(event -> UpdateKmTheoTongTien());
 
@@ -300,7 +297,7 @@ public class KmTheoTongTienController implements Initializable {
             data.add(kmTheoTongTien);
         }
     }
-    public void showSelectedItem(KmTheoTongTien kmTheoTongTien) {
+    public void showSelectedItemTongTien(KmTheoTongTien kmTheoTongTien) {
         openInforContainer();
         txt_maChuongTrinhKhuyenMai.setText(kmTheoTongTien.getMactkm());
         txt_tongTien.setText(String.valueOf(kmTheoTongTien.getTongtien()));
@@ -319,6 +316,17 @@ public class KmTheoTongTienController implements Initializable {
         } else {
             System.err.println("btnDeleteKhuyenMai không tồn tại trong inforFormButtonContainer !");
 
+        }
+    }
+    public void showSelectedItemTongQuat( ChuongTrinhKM chuongTrinhKM) {
+        if(chuongTrinhKM  instanceof KmTheoTongTien) {
+            KmTheoTongTien kmTheoTongTien = (KmTheoTongTien) chuongTrinhKM;
+            showSelectedItemTongTien(kmTheoTongTien);
+            return;
+        }else if(chuongTrinhKM instanceof KmTheoSanPham) {
+            KmTheoSanPham kmTheoSanPham = (KmTheoSanPham) chuongTrinhKM;
+            showSelectedItemKmtheoSanPham(kmTheoSanPham);
+            return;
         }
     }
     public void timKiem() {
@@ -353,6 +361,18 @@ public class KmTheoTongTienController implements Initializable {
         }
         return json;
     }
+    public List<ChuongTrinhKM> convertJsonToListChuongTrinhKM(String json) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.registerModule(new JavaTimeModule());
+        List<ChuongTrinhKM> chuongTrinhKMListTmp = new ArrayList<>();
+        try{
+            chuongTrinhKMListTmp = objectMapper.readValue(json, new TypeReference<List<ChuongTrinhKM>>() {});
+        } catch (JsonProcessingException e) {
+            System.err.println("LỖI CHUYỂN ĐỔI JSON->LIST CTKM HÀM CONVERT");
+            throw new RuntimeException(e);
+        }
+        return chuongTrinhKMListTmp;
+    }
     public void listenerChangeValuesOfKmtheoSanPham() { // san pham
         List<TextField> fields = Arrays.asList(
                 txt_maChuongTrinhKhuyenMai, txt_maSanPham, txt_phanTramKhuyenMai
@@ -383,6 +403,7 @@ public class KmTheoTongTienController implements Initializable {
         } else {
             System.out.println("No valid selection!");
         }
+
     }
     public void UpdateKmTheoSanPham() {
         KmTheoSanPham khuyenMai = new KmTheoSanPham();
@@ -460,9 +481,10 @@ public class KmTheoTongTienController implements Initializable {
         CallApi callApi = new CallApi();
         String result = callApi.callPostRequestBody("http://localhost:8080/KmTheoSanPham/Add", convertKmTheoSanPhamToJson(kmTheoSanPham));
         System.out.println(result);
-        if (result.contains("success")){
+        if (result.contains("Success")){
             kmTheoSanPhamList.add(kmTheoSanPham);
             data1.add(kmTheoSanPham);
+            showMessage("them" , "Success","okkkkkk");
         }
     }
     public void showSelectedItemKmtheoSanPham(KmTheoSanPham khuyenMai) {

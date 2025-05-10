@@ -37,18 +37,23 @@ public class KmTheoSanPhamDAO {
 
     public void addKmTheoSanPham(KmTheoSanPham kmTheoSanPham) {
         String query =
-                "INSERT INTO KM_THEO_SAN_PHAM (mactkm, masp, phantramkhuyenmai) " +
+                "INSERT INTO KM_THEO_SAN_PHAM (mactkm, masp, phantramkhuyenmai, ngaybatdau, ngayketthuc) " +
                         "VALUES ('" + kmTheoSanPham.getMactkm() + "', '" +
                         kmTheoSanPham.getMasp() + "', " +
-                        kmTheoSanPham.getPhantramkhuyenmai() + "); " +
+                        kmTheoSanPham.getPhantramkhuyenmai() + ", '" +
+                        kmTheoSanPham.getNgayBatDau() + "', '" +
+                        kmTheoSanPham.getNgayKetThuc() + "');";
 
+        String query2 =
                 "INSERT INTO CHUONG_TRINH_KHUYEN_MAI (mactkm, phantramkhuyenmai, ngaybatdau, ngayketthuc) " +
-                    "VALUES ('" + kmTheoSanPham.getMactkm() + "', '" +
-                    kmTheoSanPham.getPhantramkhuyenmai() + "', '" +
-                    kmTheoSanPham.getNgayBatDau() + "', '" +
-                    kmTheoSanPham.getNgayKetThuc() + "');";
+                        "VALUES ('" + kmTheoSanPham.getMactkm() + "', " +
+                        kmTheoSanPham.getPhantramkhuyenmai() + ", '" +
+                        kmTheoSanPham.getNgayBatDau() + "', '" +
+                        kmTheoSanPham.getNgayKetThuc() + "');";
 
         condb.insert(query);
+        condb.insert(query2);
+
     }
 
     public void UpdateKmTheoSanPham(KmTheoSanPham kmTheoSanPham) {

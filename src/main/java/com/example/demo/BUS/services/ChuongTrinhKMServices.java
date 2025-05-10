@@ -2,6 +2,8 @@ package com.example.demo.BUS.services;
 
 import com.example.demo.databaseAccesssObject.ChuongTrinhKMDAO;
 import com.example.demo.model.ChuongTrinhKM;
+import com.example.demo.model.KmTheoSanPham;
+import com.example.demo.model.KmTheoTongTien;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,10 +12,27 @@ import java.util.stream.Collectors;
 public class ChuongTrinhKMServices {
     private ChuongTrinhKMDAO chuongTrinhKMDAO  = new ChuongTrinhKMDAO();
     private List<ChuongTrinhKM> listChuongTrinhKM = new ArrayList<ChuongTrinhKM>();
-    public List<ChuongTrinhKM>getChuongTrinhKMList() {
-        listChuongTrinhKM=chuongTrinhKMDAO.getListChuongTrinhKM();
-        System.out.println(listChuongTrinhKM);
-        return listChuongTrinhKM;
+
+//    public List<ChuongTrinhKM>getChuongTrinhKMList() {
+//        listChuongTrinhKM=chuongTrinhKMDAO.getListChuongTrinhKM();
+//        System.out.println(listChuongTrinhKM);
+//        return listChuongTrinhKM;
+//    }
+    public List<ChuongTrinhKM> getAllChuongTrinhKM() {
+        List<KmTheoSanPham> kmTheoSanPhamList =  new ArrayList<>();
+        KmTheoSanPhamServices  kmTheoSanPhamServices= new KmTheoSanPhamServices();
+        kmTheoSanPhamServices.getKmTheoSanPhamList();
+
+        List<KmTheoTongTien> kmTheoTongTienList  = new ArrayList<>();
+        KmTheoTongTienServices kmTheoTongTienServices = new KmTheoTongTienServices();
+        kmTheoTongTienServices.getKmTheoTongTienList();
+
+        List<ChuongTrinhKM> ChuongTrinhKMList =  new ArrayList<>();
+
+        ChuongTrinhKMList.addAll(kmTheoSanPhamList);
+        ChuongTrinhKMList.addAll(kmTheoTongTienList);
+        return ChuongTrinhKMList;
+
     }
     public List<ChuongTrinhKM> findByIDChuongTrinhKhuyenMai (String idkMai){
         List<ChuongTrinhKM> listResult = new ArrayList<ChuongTrinhKM>();
@@ -26,13 +45,13 @@ public class ChuongTrinhKMServices {
     }
 
 
-    public String addChuongTrinhKhuyenMai(ChuongTrinhKM kMai) {
-        if(!checkMaKhuyenMai(kMai.getMactkm())){
-            chuongTrinhKMDAO.addChuongTrinhKhuyenMai(kMai);
-            return " Add Success";
-        }
-        return " Add Fail";
-    }
+//    public String addChuongTrinhKhuyenMai(ChuongTrinhKM kMai) {
+//        if(!checkMaKhuyenMai(kMai.getMactkm())){
+//            chuongTrinhKMDAO.addChuongTrinhKhuyenMai(kMai);
+//            return " Add Success";
+//        }
+//        return " Add Fail";
+//    }
 
     public boolean checkMaKhuyenMai(String makm) {
         for(ChuongTrinhKM kMai : listChuongTrinhKM){
@@ -54,13 +73,13 @@ public class ChuongTrinhKMServices {
                 .collect(Collectors.toList());
         return result;
     }
-    public void deleteChuongTrinhKhuyenMai(String maKmai) {
-        listChuongTrinhKM.removeIf(ChuongTrinhKM -> ChuongTrinhKM.getMactkm().equals(maKmai));
-        chuongTrinhKMDAO.deleteChuongTrinhKhuyenMai(maKmai);
-    }
-    public String updateChuongTrinhKhuyenMai(ChuongTrinhKM kMai) {
-        chuongTrinhKMDAO.UpdateChuongTrinhKhuyenMai(kMai);
-        listChuongTrinhKM = chuongTrinhKMDAO.getListChuongTrinhKM(); // Cập nhật danh sách từ DB
-        return "update success";
-    }
+//    public void deleteChuongTrinhKhuyenMai(String maKmai) {
+//        listChuongTrinhKM.removeIf(ChuongTrinhKM -> ChuongTrinhKM.getMactkm().equals(maKmai));
+//        chuongTrinhKMDAO.deleteChuongTrinhKhuyenMai(maKmai);
+//    }
+//    public String updateChuongTrinhKhuyenMai(ChuongTrinhKM kMai) {
+//        chuongTrinhKMDAO.UpdateChuongTrinhKhuyenMai(kMai);
+//        listChuongTrinhKM = chuongTrinhKMDAO.getListChuongTrinhKM(); // Cập nhật danh sách từ DB
+//        return "update success";
+//    }
 }
