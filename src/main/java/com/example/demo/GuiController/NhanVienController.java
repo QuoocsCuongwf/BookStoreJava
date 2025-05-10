@@ -196,7 +196,7 @@ public class NhanVienController implements Initializable {
                     break;
                 }
             }
-            showMessage("Success","Sua thanh cong",resultApi);
+            showMessage("Success","Sua sach thanh cong",resultApi);
             data = FXCollections.observableArrayList(nhanVienList);
             tableView.setItems(data);
         }

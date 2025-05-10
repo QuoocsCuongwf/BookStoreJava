@@ -19,11 +19,11 @@ public class KmTheoTongTienControllerSpring {
 
     @PostMapping("/timKiem")
     public  List<KmTheoTongTien> timKiem(@RequestParam String find){
-        return KmTheoTongTienServices.searchChuongTrinh(find);
+        return kmTheoTongTienServices.searchChuongTrinh(find);
     }
     @PostMapping("/Delete")
     public String DeleteKmTheoTongTien(@RequestParam String maChuongTrinh) {
-        KmTheoTongTienServices.DeleteKmTheoTongTien(maChuongTrinh);
+        kmTheoTongTienServices.DeleteKmTheoTongTien(maChuongTrinh);
         return "delete success";
     }
     @PostMapping("/Add")

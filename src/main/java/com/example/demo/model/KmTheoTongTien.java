@@ -9,7 +9,7 @@ import java.time.LocalDate;
 @Getter
 @Setter
 
-public class KmTheoTongTien extends ChuongTrinhKhuyenMai {
+public class KmTheoTongTien extends ChuongTrinhKM {
 
 //    @JsonProperty("MACTKM")
 //    private String mactkm;

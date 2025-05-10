@@ -1,41 +1,41 @@
 package com.example.demo.BUS.services;
 
-import com.example.demo.databaseAccesssObject.ChuongTrinhKhuyenMaiDAO;
-import com.example.demo.model.ChuongTrinhKhuyenMai;
+import com.example.demo.databaseAccesssObject.ChuongTrinhKMDAO;
+import com.example.demo.model.ChuongTrinhKM;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ChuongTrinhKhuyenMaiServices {
-    private ChuongTrinhKhuyenMaiDAO chuongTrinhKhuyenMaiDAO  = new ChuongTrinhKhuyenMaiDAO();
-    private List<ChuongTrinhKhuyenMai> listChuongTrinhKhuyenMai = new ArrayList<ChuongTrinhKhuyenMai>();
-    public List<ChuongTrinhKhuyenMai>getChuongTrinhKhuyenMaiList() {
-        listChuongTrinhKhuyenMai=chuongTrinhKhuyenMaiDAO.getListChuongTrinhKhuyenMai();
-        System.out.println(listChuongTrinhKhuyenMai);
-        return listChuongTrinhKhuyenMai;
+public class ChuongTrinhKMServices {
+    private ChuongTrinhKMDAO chuongTrinhKMDAO  = new ChuongTrinhKMDAO();
+    private List<ChuongTrinhKM> listChuongTrinhKM = new ArrayList<ChuongTrinhKM>();
+    public List<ChuongTrinhKM>getChuongTrinhKMList() {
+        listChuongTrinhKM=chuongTrinhKMDAO.getListChuongTrinhKM();
+        System.out.println(listChuongTrinhKM);
+        return listChuongTrinhKM;
     }
-    public List<ChuongTrinhKhuyenMai> findByIDChuongTrinhKhuyenMai (String idkMai){
-        List<ChuongTrinhKhuyenMai> listResult = new ArrayList<ChuongTrinhKhuyenMai>();
-        for (ChuongTrinhKhuyenMai chuongTrinhKhuyenMai : listChuongTrinhKhuyenMai) {
-            if(chuongTrinhKhuyenMai.getMactkm().contains(idkMai)){
-                listResult.add(chuongTrinhKhuyenMai);
+    public List<ChuongTrinhKM> findByIDChuongTrinhKhuyenMai (String idkMai){
+        List<ChuongTrinhKM> listResult = new ArrayList<ChuongTrinhKM>();
+        for (ChuongTrinhKM chuongTrinhKM : listChuongTrinhKM) {
+            if(chuongTrinhKM.getMactkm().contains(idkMai)){
+                listResult.add(chuongTrinhKM);
             }
         }
         return listResult;
     }
 
 
-    public String addChuongTrinhKhuyenMai(ChuongTrinhKhuyenMai kMai) {
+    public String addChuongTrinhKhuyenMai(ChuongTrinhKM kMai) {
         if(!checkMaKhuyenMai(kMai.getMactkm())){
-            chuongTrinhKhuyenMaiDAO.addChuongTrinhKhuyenMai(kMai);
+            chuongTrinhKMDAO.addChuongTrinhKhuyenMai(kMai);
             return " Add Success";
         }
         return " Add Fail";
     }
 
     public boolean checkMaKhuyenMai(String makm) {
-        for(ChuongTrinhKhuyenMai kMai : listChuongTrinhKhuyenMai){
+        for(ChuongTrinhKM kMai : listChuongTrinhKM){
             if(kMai.getMactkm().equals(makm)){
                 return true;
             }
@@ -43,24 +43,24 @@ public class ChuongTrinhKhuyenMaiServices {
         return false;
     }
 
-    public List<ChuongTrinhKhuyenMai> searchChuongTrinh(String in4KMai) {
-        List<ChuongTrinhKhuyenMai> result= listChuongTrinhKhuyenMai.stream()
-                .filter(ChuongTrinhKhuyenMai ->
-                        String.valueOf(ChuongTrinhKhuyenMai.getMactkm()).contains(in4KMai) ||
-                                String.valueOf(ChuongTrinhKhuyenMai.getPhantramkhuyenmai()).contains(in4KMai) ||
-                                String.valueOf(ChuongTrinhKhuyenMai.getNgayBatDau()).contains(in4KMai) ||
-                                String.valueOf(ChuongTrinhKhuyenMai.getNgayKetThuc()).contains(in4KMai))
+    public List<ChuongTrinhKM> searchChuongTrinh(String in4KMai) {
+        List<ChuongTrinhKM> result= listChuongTrinhKM.stream()
+                .filter(ChuongTrinhKM ->
+                        String.valueOf(ChuongTrinhKM.getMactkm()).contains(in4KMai) ||
+                                String.valueOf(ChuongTrinhKM.getPhantramkhuyenmai()).contains(in4KMai) ||
+                                String.valueOf(ChuongTrinhKM.getNgayBatDau()).contains(in4KMai) ||
+                                String.valueOf(ChuongTrinhKM.getNgayKetThuc()).contains(in4KMai))
 
                 .collect(Collectors.toList());
         return result;
     }
     public void deleteChuongTrinhKhuyenMai(String maKmai) {
-        listChuongTrinhKhuyenMai.removeIf(ChuongTrinhKhuyenMai -> ChuongTrinhKhuyenMai.getMactkm().equals(maKmai));
-        chuongTrinhKhuyenMaiDAO.deleteChuongTrinhKhuyenMai(maKmai);
+        listChuongTrinhKM.removeIf(ChuongTrinhKM -> ChuongTrinhKM.getMactkm().equals(maKmai));
+        chuongTrinhKMDAO.deleteChuongTrinhKhuyenMai(maKmai);
     }
-    public String updateChuongTrinhKhuyenMai(ChuongTrinhKhuyenMai kMai) {
-        chuongTrinhKhuyenMaiDAO.UpdateChuongTrinhKhuyenMai(kMai);
-        listChuongTrinhKhuyenMai = chuongTrinhKhuyenMaiDAO.getListChuongTrinhKhuyenMai(); // Cập nhật danh sách từ DB
+    public String updateChuongTrinhKhuyenMai(ChuongTrinhKM kMai) {
+        chuongTrinhKMDAO.UpdateChuongTrinhKhuyenMai(kMai);
+        listChuongTrinhKM = chuongTrinhKMDAO.getListChuongTrinhKM(); // Cập nhật danh sách từ DB
         return "update success";
     }
 }

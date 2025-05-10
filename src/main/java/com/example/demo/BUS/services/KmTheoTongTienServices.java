@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 public class KmTheoTongTienServices {
     private KmTheoTongTienDAO kmTheoTongTienDAO = new KmTheoTongTienDAO();
     private List<KmTheoTongTien> listKmTheoTongTien = new ArrayList<KmTheoTongTien>();
-    public List<KmTheoTongTien>getListKmTheoTongTien() {
+    public List<KmTheoTongTien>getKmTheoTongTienList() {
         listKmTheoTongTien=kmTheoTongTienDAO.getListKmTheoTongTien();
         System.out.println(listKmTheoTongTien);
         return listKmTheoTongTien;

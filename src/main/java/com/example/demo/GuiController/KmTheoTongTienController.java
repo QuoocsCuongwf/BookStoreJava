@@ -1,6 +1,6 @@
 package com.example.demo.GuiController;
 
-import com.example.demo.model.ChuongTrinhKhuyenMai;
+import com.example.demo.model.ChuongTrinhKM;
 import com.example.demo.model.KmTheoSanPham;
 import com.example.demo.model.KmTheoTongTien;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -51,10 +51,14 @@ public class KmTheoTongTienController implements Initializable {
     private DatePicker datePickerNgayBatDau;
     @FXML
     private DatePicker datePickerNgayKetThuc;
+    @FXML
+    private DatePicker datePickerNgayBatDauu;
+    @FXML
+    private DatePicker datePickerNgayKetThucc;
 
 
-    private ObservableList<ChuongTrinhKhuyenMai> listTongQuat ;
-    List <ChuongTrinhKhuyenMai> chuongTrinhKhuyenMaiList = new ArrayList<>();
+    private ObservableList<ChuongTrinhKM> listTongQuat ;
+    List <ChuongTrinhKM> chuongTrinhKhuyenMaiList = new ArrayList<>();
 
     private  ObservableList<KmTheoTongTien> data;
     List<KmTheoTongTien> kmTheoTongTienList=new ArrayList<>();
@@ -67,15 +71,15 @@ public class KmTheoTongTienController implements Initializable {
     @FXML
     private TextField txt_maChuongTrinhKhuyenMai, txt_tongTien, txt_phanTramKhuyenMai;
     @FXML
-    private TextField txt_maSanPham;
+    private TextField txt_maSanPham,txt_maChuongTrinhKhuyenMaii,txt_phanTramKhuyenMaii;
     @FXML
     private Pane inforForm;
     @FXML
-    private Pane inforForms;
+    private Pane inforFormm;
     @FXML
     private Button btnAddKM;
     @FXML
-    private Button btnAddKMs;
+    private Button btnAddKMm;
     @FXML
     private Button timKiem;
     @FXML
@@ -83,7 +87,13 @@ public class KmTheoTongTienController implements Initializable {
     @FXML
     private Button clossInforContainer;
     @FXML
+    private Button openInforContainerKmTheoSanPham;
+    @FXML
+    private Button clossInforContainerKmTheoSanPham;
+    @FXML
     private HBox inforFormButtonContainer;
+    @FXML
+    private HBox inforFormButtonContainerr;
 
     private LocalDate ngayBatDau;
 

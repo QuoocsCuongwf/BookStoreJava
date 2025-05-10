@@ -1,6 +1,6 @@
 package com.example.demo.databaseAccesssObject;
 
-import com.example.demo.model.ChuongTrinhKhuyenMai;
+import com.example.demo.model.ChuongTrinhKM;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -10,23 +10,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ChuongTrinhKMDAO {
-    List<ChuongTrinhKhuyenMai> listChuongTrinhKhuyenMai = new ArrayList<ChuongTrinhKhuyenMai>();
+    List<ChuongTrinhKM> listChuongTrinhKM= new ArrayList<ChuongTrinhKM>();
     ConnectDatabase condb = new ConnectDatabase();
 
     public ChuongTrinhKMDAO() {
     }
 
-    public List<ChuongTrinhKhuyenMai> getListChuongTrinhKhuyenMai() {
+    public List<ChuongTrinhKM> getListChuongTrinhKM() {
         String values = condb.query("select * from CHUONG_TRINH_KHUYEN_MAI");
         ObjectMapper mapper = new ObjectMapper();
         try {
             mapper.registerModule(new JavaTimeModule());
-            listChuongTrinhKhuyenMai = mapper.readValue(values, new TypeReference<List<ChuongTrinhKhuyenMai>>() {
+            listChuongTrinhKM = mapper.readValue(values, new TypeReference<List<ChuongTrinhKM>>() {
             });
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
-        return listChuongTrinhKhuyenMai;
+        return listChuongTrinhKM;
     }
 
     public void deleteChuongTrinhKhuyenMai(String maChuongTrinh) {
@@ -34,7 +34,7 @@ public class ChuongTrinhKMDAO {
         condb.insert("delete from CHUONG_TRINH_KHUYEN_MAI where MACTKM='" + maChuongTrinh + "'");
     }
 
-    public void addChuongTrinhKhuyenMai(ChuongTrinhKhuyenMai kmTheoHoaDon) {
+    public void addChuongTrinhKhuyenMai(ChuongTrinhKM kmTheoHoaDon) {
         String query = "INSERT INTO KM_THEO_HOA_DON (mactkm, phantramkhuyenmai, ngaybatdau, ngayketthuc) " +
                 "VALUES ('" + kmTheoHoaDon.getMactkm() + "'," +
                 kmTheoHoaDon.getPhantramkhuyenmai() + "," +
@@ -43,7 +43,7 @@ public class ChuongTrinhKMDAO {
 
         condb.insert(query);
     }
-    public void UpdateChuongTrinhChuongTrinhKhuyenMai(ChuongTrinhKhuyenMai kmTheoHoaDon) {
+    public void UpdateChuongTrinhKhuyenMai(ChuongTrinhKM kmTheoHoaDon) {
         String query = "UPDATE CHUONG_TRINH_KHUYEN_MAI SET " +
                 "PHANTRAMKHUYENMAI = '" + kmTheoHoaDon.getPhantramkhuyenmai() + "', " +
               ///  "TONGTIEN = '" + kmTheoHoaDon.getTongtien() + "', " +
