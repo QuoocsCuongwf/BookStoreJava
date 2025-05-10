@@ -16,6 +16,7 @@ public class PhieuNhapServices {
         return phieuNhapList;
     }
     public boolean checkPhieuNhap( String maPhieuNhap) {
+        phieuNhapList = phieuNhapDAO.getListPhieuNhap();
         for (PhieuNhap p : phieuNhapList) {
             if (p.getMapn().equals(maPhieuNhap)) {
                 return true;
@@ -52,8 +53,10 @@ public class PhieuNhapServices {
         return "fail";
     }
     public List<PhieuNhap> searchPhieuNhap(String searchPhieuNhap) {
+        phieuNhapList=getPhieuNhapList();
         List<PhieuNhap> searchPhieuNhapList = phieuNhapList.stream()
-                .filter(phieuNhap ->phieuNhap.getMapn().contains(searchPhieuNhap) || phieuNhap.getManv().contains(searchPhieuNhap))
+                .filter(phieuNhap ->phieuNhap.getMapn().contains(searchPhieuNhap) ||
+                        phieuNhap.getManv().contains(searchPhieuNhap) ||  phieuNhap.getMancc().contains(searchPhieuNhap))
                 .collect(Collectors.toList());
         return searchPhieuNhapList;
     }
