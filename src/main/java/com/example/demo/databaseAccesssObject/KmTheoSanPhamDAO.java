@@ -17,7 +17,7 @@ public class KmTheoSanPhamDAO {
     }
 
     public List<KmTheoSanPham> getListKmTheoSanPham() {
-        String values = condb.query("select * from KM_THEO_SAN_PHAM");
+        String values = condb.query("select * from CHUONG_TRINH_KHUYEN_MAI");
         ObjectMapper mapper = new ObjectMapper();
         try {
             mapper.registerModule(new JavaTimeModule());
@@ -36,21 +36,21 @@ public class KmTheoSanPhamDAO {
     }
 
     public void addKmTheoSanPham(KmTheoSanPham kmTheoSanPham) {
-        String query = "INSERT INTO KM_THEO_SAN_PHAM (mactkm, masp, phantramkhuyenmai, ngaybatdau, ngayketthuc) " +
-                "VALUES ('" + kmTheoSanPham.getMactkm() + "'," +
-                kmTheoSanPham.getMasp() + ", " +
-                kmTheoSanPham.getPhantramkhuyenmai() + "," +
-                "'" + kmTheoSanPham.getNgayBatDau() + "'" + "," +
-                "'" + kmTheoSanPham.getNgayKetThuc() + "'" + "); "+
-        "INSERT INTO CHUONG_TRINH_KHUYEN_MAI (mactkm, phantramkhuyenmai, ngaybatdau, ngayketthuc) " +
-                "VALUES ('" + kmTheoSanPham.getMactkm() + "', " +
-                kmTheoSanPham.getPhantramkhuyenmai() + ", '" +
-                kmTheoSanPham.getNgayBatDau() + "', '" +
-                kmTheoSanPham.getNgayKetThuc() + "');";
+        String query =
+                "INSERT INTO KM_THEO_SAN_PHAM (mactkm, masp, phantramkhuyenmai) " +
+                        "VALUES ('" + kmTheoSanPham.getMactkm() + "', '" +
+                        kmTheoSanPham.getMasp() + "', " +
+                        kmTheoSanPham.getPhantramkhuyenmai() + "); " +
 
+                "INSERT INTO CHUONG_TRINH_KHUYEN_MAI (mactkm, phantramkhuyenmai, ngaybatdau, ngayketthuc) " +
+                    "VALUES ('" + kmTheoSanPham.getMactkm() + "', '" +
+                    kmTheoSanPham.getPhantramkhuyenmai() + "', '" +
+                    kmTheoSanPham.getNgayBatDau() + "', '" +
+                    kmTheoSanPham.getNgayKetThuc() + "');";
 
         condb.insert(query);
     }
+
     public void UpdateKmTheoSanPham(KmTheoSanPham kmTheoSanPham) {
         String query = "UPDATE KM_THEO_SAN_PHAM SET " +
                 "MASANPHAM = '" + kmTheoSanPham.getMasp() + "', " +

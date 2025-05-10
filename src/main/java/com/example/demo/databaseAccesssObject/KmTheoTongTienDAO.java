@@ -20,7 +20,7 @@ public class KmTheoTongTienDAO {
     }
 
     public List<KmTheoTongTien> getListKmTheoTongTien() {
-        String values = condb.query("select * from KM_THEO_HOA_DON");
+        String values = condb.query("select * from CHUONG_TRINH_KHUYEN_MAI");
         ObjectMapper mapper = new ObjectMapper();
         try {
             mapper.registerModule(new JavaTimeModule());
@@ -39,8 +39,9 @@ public class KmTheoTongTienDAO {
     }
     public void addKmTheoTongTien(KmTheoTongTien kmTheoHoaDon) {
         String query =
-                "INSERT INTO CHUONG_TRINH_KHUYEN_MAI (mactkm, ngaybd, ngaykt) " +
+                "INSERT INTO CHUONG_TRINH_KHUYEN_MAI (mactkm, phantramkhuyenmai, ngaybatdau, ngayketthuc) " +
                         "VALUES ('" + kmTheoHoaDon.getMactkm() + "', '" +
+                        kmTheoHoaDon.getPhantramkhuyenmai() + "', '" +
                         kmTheoHoaDon.getNgayBatDau() + "', '" +
                         kmTheoHoaDon.getNgayKetThuc() + "'); " +
 
