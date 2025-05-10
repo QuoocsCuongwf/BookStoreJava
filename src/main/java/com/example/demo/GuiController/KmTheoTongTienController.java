@@ -58,7 +58,7 @@ public class KmTheoTongTienController implements Initializable {
 
 
     private ObservableList<ChuongTrinhKM> listTongQuat ;
-    List <ChuongTrinhKM> chuongTrinhKhuyenMaiList = new ArrayList<>();
+    List <ChuongTrinhKM> chuongTrinhKMList = new ArrayList<>();
 
     private  ObservableList<KmTheoTongTien> data;
     List<KmTheoTongTien> kmTheoTongTienList=new ArrayList<>();

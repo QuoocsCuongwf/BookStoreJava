@@ -9,6 +9,10 @@ import java.time.LocalDate;
 @Getter
 @Setter
 public class KmTheoSanPham extends ChuongTrinhKM {
+    public KmTheoSanPham() {
+        super(); // gọi constructor mặc định của lớp cha
+    }
+
 
     @JsonProperty("MASP")
     private String masp;
