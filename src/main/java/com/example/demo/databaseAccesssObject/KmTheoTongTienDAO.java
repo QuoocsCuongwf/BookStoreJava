@@ -39,18 +39,17 @@ public class KmTheoTongTienDAO {
     }
     public void addKmTheoTongTien(KmTheoTongTien kmTheoHoaDon) {
         String query =
-                "INSERT INTO CHUONG_TRINH_KHUYEN_MAI (mactkm, phantramkhuyenmai, ngaybatdau, ngayketthuc) " +
-                        "VALUES ('" + kmTheoHoaDon.getMactkm() + "', " +
-                        kmTheoHoaDon.getPhantramkhuyenmai() + ", '" +
+                "INSERT INTO CHUONG_TRINH_KHUYEN_MAI (mactkm, ngaybd, ngaykt) " +
+                        "VALUES ('" + kmTheoHoaDon.getMactkm() + "', '" +
                         kmTheoHoaDon.getNgayBatDau() + "', '" +
                         kmTheoHoaDon.getNgayKetThuc() + "'); " +
 
-                        "INSERT INTO KM_THEO_HOA_DON (mactkm, tongtien, phantramkhuyenmai, ngaybatdau, ngayketthuc) " +
-                        "VALUES ('" + kmTheoHoaDon.getMactkm() + "', " +
-                        kmTheoHoaDon.getTongtien() + ", " +
-                        kmTheoHoaDon.getPhantramkhuyenmai() + ", '" +
-                        kmTheoHoaDon.getNgayBatDau() + "', '" +
-                        kmTheoHoaDon.getNgayKetThuc() + "');";
+                "INSERT INTO KM_THEO_HOA_DON (mactkm, tongtien, phantramkhuyenmai, ngaybatdau, ngayketthuc) " +
+                    "VALUES ('" + kmTheoHoaDon.getMactkm() + "', " +
+                    kmTheoHoaDon.getTongtien() + ", " +
+                    kmTheoHoaDon.getPhantramkhuyenmai() + ", '" +
+                    kmTheoHoaDon.getNgayBatDau() + "', '" +
+                    kmTheoHoaDon.getNgayKetThuc() + "');";
 
         condb.insert(query);
     }
