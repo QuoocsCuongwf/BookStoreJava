@@ -1,5 +1,6 @@
 package com.example.demo.BUS.spring_controller;
 
+import com.example.demo.BUS.services.ChiTietPhieuNhapServices;
 import com.example.demo.BUS.services.PhieuNhapServices;
 import com.example.demo.model.PhieuNhap;
 import org.springframework.web.bind.annotation.*;
@@ -27,7 +28,15 @@ public class PhieuNhapControllerSpring {
     }
     @PostMapping("/Delete")
     public String deletePhieuNhap(@RequestParam String maPhieuNhap) {
-        return phieuNhapServices.deletePhieuNhap(maPhieuNhap);
+         try {
+             phieuNhapServices.deletePhieuNhap(maPhieuNhap);
+             new ChiTietPhieuNhapServices().deleteList(maPhieuNhap);
+             return "success";
+         }catch (Exception e){
+             System.err.println("PhieuNhapControllerSpring:"+e.getMessage());
+             System.out.println("PhieuNhapControllerSpring: LỖI DELETE");
+         }
+        return "fail";
     }
     @PostMapping("/Update")
     public String updatePhieuNhap(@RequestBody PhieuNhap p) {

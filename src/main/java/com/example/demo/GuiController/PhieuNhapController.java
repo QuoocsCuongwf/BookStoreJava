@@ -2,6 +2,8 @@ package com.example.demo.GuiController;
 
 
 
+import com.example.demo.BUS.services.PhieuNhapServices;
+import com.example.demo.model.ChiTietPhieuNhap;
 import com.example.demo.model.PhieuNhap;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -9,10 +11,10 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.scene.Node;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -31,79 +33,82 @@ import java.time.LocalDate;
 import java.util.*;
 @Component
 @Controller
-public class PhieuNhapController  implements Initializable {
-    @FXML
-    private Pane inforContainer;
+public class PhieuNhapController implements Initializable {
+    @FXML private Pane inforContainer;
+    @FXML private Pane phieuNhapPane;
+    @FXML private TableView<PhieuNhap> tableView;
+    @FXML private TableView<ChiTietPhieuNhap> chiTietPhieuNhapTable;
+    @FXML private TableColumn<PhieuNhap, String> maPhieuNhapColumn;
+    @FXML private TableColumn<PhieuNhap, String> ngayNhapColumn;
+    @FXML private TableColumn<PhieuNhap, String> maNhanVienColumn;
+    @FXML private TableColumn<PhieuNhap, String> maNhaCungCapColumn;
+    @FXML private TableColumn<PhieuNhap, String> tongTienColumn;
+    @FXML private TableColumn<ChiTietPhieuNhap,String> maSanPhamColum;
+    @FXML private TableColumn<ChiTietPhieuNhap,Integer> thanhTienColumn,soLuongColumn;
+    private ObservableList<PhieuNhap> data = FXCollections.observableArrayList();
+    private ObservableList<ChiTietPhieuNhap> ob_danhSachChiTiet = FXCollections.observableArrayList();
+    static List<PhieuNhap> phieuNhapList=new ArrayList<>();
 
-    @FXML
-    private Pane phieuNhapPane;
-    @FXML
-    private TableView<PhieuNhap> tableView;
-    @FXML
-    private TableColumn<PhieuNhap, String> maPhieuNhapColumn;
-    @FXML
-    private TableColumn<PhieuNhap, String> maNhanVienColumn;
-    @FXML
-    private TableColumn<PhieuNhap, String> maNhaCungCapColumn;
-    @FXML
-    private TableColumn<PhieuNhap, String> tongTienColumn;
-
-    private ObservableList<PhieuNhap> data;
-    List<PhieuNhap> phieuNhapList=new ArrayList<>();
-    @FXML
-    private TextField textFieldTimKiem;
-    @FXML
-    private TextField txt_MaPhieuNhap,txt_MaNhanVien,txt_MaNhaCungCap,txt_TongTien;
-    @FXML
-    private DatePicker datePickerNgayNhap;
-    @FXML
-    private HBox inforButtonContainer;
-    @FXML
-    private Button btnAddPhieuNhap;
-
-    private Button btnDeletePhieuNhap=new Button("    Xóa    ");
-    private Button btnUpdatePhieuNhap=new Button("Cập nhật");
-    @FXML
-    private Button btnThongKe, btnKhachHang, btnSanPham, btnNhanVien,
-            btnNCC, btnTacGia, btnHoaDon, btnTHD, btnKhuyenMai,btnPhieuNhap;
+    @FXML private PhieuNhap phieuNhapDuocChon;
+    @FXML private TextField textFieldTimKiem;
+    @FXML private TextField txt_MaPhieuNhap,txt_MaNhanVien,txt_MaNhaCungCap,txt_TongTien,txt_MaSach;
+    @FXML private DatePicker datePickerNgayNhap;
+    @FXML private HBox inforButtonContainer;
+    @FXML private Button btnAdd;
+    @FXML private Button btnThongKe, btnKhachHang, btnSanPham, btnNhanVien,
+            btnNCC, btnTacGia, btnHoaDon, btnTHD, btnKhuyenMai,btnPhieuNhap,btnTaoPhieuNhap;
 
     LeftMenuController leftMenuController=new LeftMenuController();
+
+    //xong
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         leftMenuController.bindHandlers(btnThongKe, btnKhachHang, btnSanPham,
                 btnNhanVien, btnNCC, btnTacGia,
                 btnHoaDon, btnTHD, btnKhuyenMai,btnPhieuNhap);
-        inforContainer.setVisible(false);
+        leftMenuController.newButtonClicked(btnTaoPhieuNhap);
         maPhieuNhapColumn.setCellValueFactory(new PropertyValueFactory<>("mapn"));
+        ngayNhapColumn.setCellValueFactory(new PropertyValueFactory<>("ngaynhap"));
         maNhanVienColumn.setCellValueFactory(new PropertyValueFactory<>("manv"));
         maNhaCungCapColumn.setCellValueFactory(new PropertyValueFactory<>("mancc"));
         tongTienColumn.setCellValueFactory(new PropertyValueFactory<>("tongtien"));
 
+
+        maSanPhamColum.setCellValueFactory(new PropertyValueFactory<>("masp"));
+        soLuongColumn.setCellValueFactory(new PropertyValueFactory<>("sl"));
+        thanhTienColumn.setCellValueFactory(new PropertyValueFactory<>("thanhtien"));
+        CallApi callApi=new CallApi();
+        String json = null;
+        try {
+            json = callApi.callGetApi("http://localhost:8080/phieuNhap/getAllPhieuNhap");
+            phieuNhapList = convertJsonToListPhieuNhap(json);
+        } catch (IOException e) {
+            System.err.println("PHIEUNHAP_CONTROLLER_BUG : hàm init");
+            throw new RuntimeException(e);
+        }
+
+        System.out.println(phieuNhapList);
+        data = FXCollections.observableArrayList(phieuNhapList);
+        tableView.setItems(data);
+
         tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
-                showSelectedItem(newValue);
-
-                listenerChangeValuesOfPhieuNhap();
+                try {
+                    phieuNhapDuocChon = newValue;
+                    showSelectedItem(newValue);
+                } catch (RuntimeException e) {
+                    System.err.println("PHIEUNHAP_CONTROLLER_BUG : hàm init");
+                    throw new RuntimeException(e);
+                }
                 // Thực hiện các hành động khác với dữ kiện được chọn
             } else {
                 System.out.println("No item selected!");
             }
         });
-        CallApi callApi=new CallApi();
-        String json = null;
-        try {
-            json = callApi.callGetApi("http://localhost:8080/phieuNhap/getAllPhieuNhap");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        phieuNhapList=convertJsonToListPhieuNhap(json);
-        System.out.println(phieuNhapList);
-        data = FXCollections.observableArrayList(phieuNhapList);
-        tableView.setItems(data);
-        btnDeletePhieuNhap.setOnAction(event -> deletePhieuNhap(btnDeletePhieuNhap));
-        btnUpdatePhieuNhap.setOnAction(event -> updatePhieuNhap());
+        chiTietPhieuNhapTable.setItems(ob_danhSachChiTiet); // hiển thị trống từ đầu , khi được gọi ở showselected thì hiển thị danh sách ctpn
     }
+    //xong convertJSON
     public List<PhieuNhap> convertJsonToListPhieuNhap(String json) {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.registerModule(new JavaTimeModule());
@@ -116,6 +121,38 @@ public class PhieuNhapController  implements Initializable {
         }
         return phieuNhapList;
     }
+    //xong showSelec
+    public void showSelectedItem(PhieuNhap newValue) throws RuntimeException {
+        CallApi callApi=new CallApi();
+        String json = null;
+        List<ChiTietPhieuNhap> chiTietPhieuNhapList=new ArrayList<>();
+        json = callApi.callPostRequestParam("http://localhost:8080/ChiTietPhieuNhap/getByMaPhieuNhap","find=", newValue.getMapn());
+        System.err.println("DUYEN SHOW json: " + json);
+       try {
+           ObjectMapper objectMapper = new ObjectMapper();
+           chiTietPhieuNhapList = objectMapper.readValue(json, new TypeReference<List<ChiTietPhieuNhap>>() {});
+       }catch (JsonProcessingException e) {
+           System.out.println("BUGGGGGG");
+           throw new RuntimeException(e);
+       }
+
+        ob_danhSachChiTiet = FXCollections.observableArrayList(chiTietPhieuNhapList);
+        chiTietPhieuNhapTable.setItems(ob_danhSachChiTiet);
+    }
+    //xong getPhieuNhapList
+    public List<PhieuNhap> getPhieuNhapList(){
+        if (phieuNhapList.isEmpty() || phieuNhapList == null) {
+            CallApi callApi=new CallApi();
+            try {
+                phieuNhapList = convertJsonToListPhieuNhap(callApi.callGetApi("http://localhost:8080/phieuNhap/getAllPhieuNhap"));
+            } catch (IOException e) {
+                System.err.println("PN_Controller BUG: lỗi hàm getPhieuNhapList");
+                throw new RuntimeException(e);
+            }
+        }
+        return phieuNhapList;
+    }
+    //xong
     public String convertPhieuNhapToJson(PhieuNhap phieuNhap)  {
         ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(new JavaTimeModule());
@@ -127,95 +164,35 @@ public class PhieuNhapController  implements Initializable {
         }
         return json;
     }
-
-    public void listenerChangeValuesOfPhieuNhap(){
-        List<TextField> fields = Arrays.asList(
-                txt_MaPhieuNhap,txt_MaNhanVien,txt_MaNhaCungCap,txt_TongTien
-        );
-
-        fields.forEach(f -> {
-            if (f == null) {
-                System.err.println("Một TextField chưa được inject (null)!");
-            } else {
-                f.textProperty().addListener((obs, oldVal, newVal) -> {
-                    System.out.println(f.getId() + " thay đổi: " + newVal);
-                    int index = inforButtonContainer.getChildren().indexOf(btnDeletePhieuNhap);
-                    if (index >= 0) {
-                        inforButtonContainer.getChildren().set(index, btnUpdatePhieuNhap);
-                    } else {
-                        System.err.println("btnDeletePhieuNhap không tồn tại trong inforFormButtonContainer!");
-                    }
-                });
-            }
-        });
-    }
-
-    public void deletePhieuNhap(Button button) {
-        int selectedIndex = tableView.getSelectionModel().getSelectedIndex();
-        if (selectedIndex >= 0 && selectedIndex < data.size()) {
-            PhieuNhap phieuNhap = data.get(selectedIndex);
-            System.out.println("Phieu nhap selected "+phieuNhap.getMapn());
+    //xong
+    public void deletePhieuNhap() {
+        if ( phieuNhapDuocChon != null){
             CallApi callApi=new CallApi();
-            String result=callApi.callPostRequestParam("http://localhost:8080/phieuNhap/Delete","maPhieuNhap=",phieuNhap.getMapn());
-            data.remove(selectedIndex); // Optional: remove from ObservableList to update the table
-            tableView.getSelectionModel().clearSelection();
-        } else {
-            System.out.println("No valid selection!");
-        }
-    }
-    public void updatePhieuNhap() {
-        PhieuNhap phieuNhap = new PhieuNhap();
-        List<TextField> textFields=Arrays.asList(txt_MaPhieuNhap,txt_MaNhanVien,txt_MaNhaCungCap,txt_TongTien);
-        for(TextField tf:textFields) {
-            if(tf.getText().equals("")){
-                showMessage("Error","Text Field Null","Vui lòng nhập đầy đủ thông tin!");
-                System.out.println("Text Field Null");
-                return;
+            String result = null;
+            result = callApi.callPostRequestParam("http://localhost:8080/phieuNhap/Delete","maPhieuNhap=",phieuNhapDuocChon.getMapn());
+            if (result.contains("success")){
+                data.remove(phieuNhapDuocChon);
+                tableView.setItems(data);
+                    showMessage("PhieuNhapController","SUCCESS","XÓA THÀNH CÔNG");
+            }else {
+                showMessage("PhieuNhapController","FAIL","XÓA PHIẾU NHẬP THẤT BẠI");
             }
-        };
-        phieuNhap.setMapn(txt_MaPhieuNhap.getText());
-        phieuNhap.setNgaynhap(datePickerNgayNhap.getValue());
-        phieuNhap.setManv(txt_MaNhanVien.getText());
-        phieuNhap.setMancc(txt_MaNhaCungCap.getText());
-
-        int tongTien = Integer.parseInt(txt_TongTien.getText());
-        phieuNhap.setTongtien(tongTien);
-
-
-        CallApi callApi=new CallApi();
-        String resultApi=callApi.callPostRequestBody("http://localhost:8080/phieuNhap/Update",convertPhieuNhapToJson(phieuNhap));
-        if (resultApi.contains("success")) {
-            for (int i = 0; i < phieuNhapList.size(); i++) {
-                if (phieuNhapList.get(i).getManv().equals(phieuNhap.getManv())) {
-                    phieuNhapList.set(i, phieuNhap); // thay thế đúng phần tử
-                    break;
-                }
-            }
-
-            showMessage("Success","Sua sach thanh cong",resultApi);
-            data = FXCollections.observableArrayList(phieuNhapList);
-            tableView.setItems(data);
         }
     }
-    public void openInforContainer(){
-        int tmp= phieuNhapList.size()+1;
-        if (tmp < 10){txt_MaPhieuNhap.setText("PN0"+tmp);}
-        else {
-            txt_MaPhieuNhap.setText("PN"+tmp);
-        }
-        datePickerNgayNhap.setValue(LocalDate.now());
-        txt_MaNhanVien.setText("");
-        txt_MaNhaCungCap.setText("");
-        txt_TongTien.setText("");
-        inforContainer.setVisible(true);
+    //xong
+    @FXML
+    private void updatePhieuNhap(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/TaoPhieuNhap.fxml"));
+        Parent root = loader.load();
+        ChiTietPhieuNhapController controller=loader.getController();
+        controller.updatePhieuNhapInfor(phieuNhapDuocChon);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add(getClass().getResource("/asset/css/main.css").toExternalForm());
+        stage.setScene(scene);
+        stage.show();
     }
-    public void clossInforContainer(){
-        int index = inforButtonContainer.getChildren().indexOf(btnDeletePhieuNhap);
-        if (index >= 0) {
-            inforButtonContainer.getChildren().set(index, btnAddPhieuNhap);
-        }
-        inforContainer.setVisible(false);
-    }
+
     public void showMessage(String title, String header, String content) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(title);
@@ -223,68 +200,13 @@ public class PhieuNhapController  implements Initializable {
         alert.setContentText(content);
         alert.showAndWait(); // hoặc .show() nếu không cần chờ
     }
-    public void addPhieuNhap(){
-        System.out.println(">>> addPhieuNhap() được gọi");
-        PhieuNhap phieuNhap = new PhieuNhap();
-        List<TextField> textFields=Arrays.asList(txt_MaPhieuNhap,txt_MaNhanVien,txt_MaNhaCungCap,txt_TongTien);
-        for(TextField tf:textFields) {
-            if(tf.getText().equals("")){
-                showMessage("Error","Text Field Null","Vui lòng nhập đầy đủ thông tin!");
-                System.out.println("Text Field Null");
-                return;
-            }
-        };
-        phieuNhap.setMapn(txt_MaPhieuNhap.getText());
-        phieuNhap.setNgaynhap(datePickerNgayNhap.getValue());
-        phieuNhap.setManv(txt_MaNhanVien.getText());
-        phieuNhap.setMancc(txt_MaNhaCungCap.getText());
-        int tongTien = Integer.parseInt(txt_TongTien.getText());
-        phieuNhap.setTongtien(tongTien);
-
-        CallApi callApi=new CallApi();
-        String result=callApi.callPostRequestBody("http://localhost:8080/phieuNhap/Add",convertPhieuNhapToJson(phieuNhap));
-        System.out.println(result);
-        if (result.contains("success")){
-            phieuNhapList.add(phieuNhap);
-            data.add(phieuNhap);
-            showMessage("PHIEU NHAP","SUCCESS","Thêm phiếu nhập thành công");
-        }else {
-            showMessage("PHIEU NHAP","FAIL","Thêm phiếu nhập thất bại");
-        }
-    }
-
-    public void showSelectedItem(PhieuNhap phieuNhap) {
-        openInforContainer();
-        System.out.println("DUYEN DUYEN DUYEN DUYEN");
-        System.out.println("PhieuNhap duowc click ");
-        System.out.println("tongtien : " + phieuNhap.getTongtien());
-        txt_MaPhieuNhap.setEditable(false);
-        txt_MaPhieuNhap.setText(phieuNhap.getMapn());
-        datePickerNgayNhap.setValue(phieuNhap.getNgaynhap());
-        txt_MaNhanVien.setText(phieuNhap.getManv());
-        txt_MaNhaCungCap.setText(phieuNhap.getMancc());
-        txt_TongTien.setText(String.valueOf(phieuNhap.getTongtien()));
-
-
-        int index = inforButtonContainer.getChildren().indexOf(btnAddPhieuNhap);
-        if (index >= 0) {
-            inforButtonContainer.getChildren().set(index, btnDeletePhieuNhap);
-        } else {
-            System.err.println(" error sbtnAddPhieuNhap không tồn tại trong inforFormButtonContainer!");
-        }
-        index = inforButtonContainer.getChildren().indexOf(btnUpdatePhieuNhap);
-        if (index >= 0) {
-            inforButtonContainer.getChildren().set(index, btnDeletePhieuNhap);
-        } else {
-            System.err.println("btnDeletePhieuNhap không tồn tại trong inforFormButtonContainer!");
-        }
-    }
 
     public void timKiem(){
         String find=textFieldTimKiem.getText();
         CallApi callApi=new CallApi();
-        String json=callApi.callPostRequestParam("http://localhost:8080/phieuNhap/Search","find=",find);
-        data=FXCollections.observableArrayList(convertJsonToListPhieuNhap(json));
+        String json = callApi.callPostRequestParam("http://localhost:8080/phieuNhap/Search","find=",find);
+        phieuNhapList = convertJsonToListPhieuNhap(json);
+        data = FXCollections.observableArrayList(phieuNhapList);
         tableView.setItems(data);
     }
 

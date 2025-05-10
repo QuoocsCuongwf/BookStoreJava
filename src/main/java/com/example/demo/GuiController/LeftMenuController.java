@@ -29,7 +29,9 @@ public class LeftMenuController {
         btnKhuyenMai.setOnAction(e -> handleKhuyenMai(e));
         btnPhieuNhap.setOnAction(e -> handlePhieuNhap(e));
     }
-
+    public void newButtonClicked(Button btnTaoPhieuNhap)  {
+        btnTaoPhieuNhap.setOnAction(e -> handleTaoPhieuNhap(e));
+    }
     public void bindHandlers(
             Button btnThongKe, Button btnKhachHang, Button btnSanPham,
             Button btnNhanVien, Button btnNCC, Button btnTacGia,
@@ -48,6 +50,7 @@ public class LeftMenuController {
         btnTheLoai.setOnAction(e -> handleTheLoai(e));
         btnNhaXuatBan.setOnAction(e -> handleNhaXuatBan(e));
     }
+
 
     private void handleThongKe(ActionEvent event) {
         System.out.println("Thống kê clicked");
@@ -108,6 +111,10 @@ public class LeftMenuController {
     private void handleNhaXuatBan(ActionEvent event) {
         System.out.println("Nhà xuất bản clicked");
         loadScene(event, "/NhaXuatBan.fxml");
+    }
+    private void handleTaoPhieuNhap(ActionEvent event) {
+        System.out.println("Tạo phiếu nhập clicked");
+        loadScene(event, "/TaoPhieuNhap.fxml");
     }
 
     private void loadScene(ActionEvent event, String fxmlPath) {
