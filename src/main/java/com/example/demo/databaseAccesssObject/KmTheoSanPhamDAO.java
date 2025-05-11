@@ -38,19 +38,24 @@ public class KmTheoSanPhamDAO {
     }
 
     public void addKmTheoSanPham(KmTheoSanPham kmTheoSanPham) {
+        String ngaybd = kmTheoSanPham.getNgaybd() != null ? kmTheoSanPham.getNgaybd().toString() : "NULL";
+        String ngaykt = kmTheoSanPham.getNgaykt() != null ? kmTheoSanPham.getNgaykt().toString() : "NULL";
+
+        // Escape single quotes in tenchuongtrinh to prevent SQL injection
+        String tenchuongtrinh = kmTheoSanPham.getTenchuongtrinh() != null
+                ? kmTheoSanPham.getTenchuongtrinh().replace("'", "''")
+                : "";
+
         String query1 =
-                "INSERT INTO CHUONG_TRINH_KHUYEN_MAI (mactkm, phantramkhuyenmai, ngaybd, ngaykt) " +
-                        "VALUES ('" + kmTheoSanPham.getMactkm() + "', " +
-                        kmTheoSanPham.getPhantramkhuyenmai() + ", '" +
-                        kmTheoSanPham.getNgaybd() + "', '" +
-                        kmTheoSanPham.getNgaykt() + "');";
+                "INSERT INTO CHUONG_TRINH_KHUYEN_MAI (mactkm, tenchuongtrinh, ngaybd, ngaykt) " +
+                        "VALUES ('" + kmTheoSanPham.getMactkm() + "', '" + tenchuongtrinh + "', " +
+                        (ngaybd.equals("NULL") ? "NULL" : "'" + ngaybd + "'") + ", " +
+                        (ngaykt.equals("NULL") ? "NULL" : "'" + ngaykt + "'") + ")";
         String query2 =
-                "INSERT INTO KM_THEO_SAN_PHAM (mactkm, masp, phantramkhuyenmai, ngaybd, ngaykt) " +
+                "INSERT INTO KM_THEO_SAN_PHAM (mactkm, masp, phantramkhuyenmai) " +
                         "VALUES ('" + kmTheoSanPham.getMactkm() + "', '" +
-                        kmTheoSanPham.getMasp() + "', " +
-                        kmTheoSanPham.getPhantramkhuyenmai() + ", '" +
-                        kmTheoSanPham.getNgaybd() + "', '" +
-                        kmTheoSanPham.getNgaykt() + "');";
+                        kmTheoSanPham.getMasp() + "', '" +
+                        kmTheoSanPham.getPhantramkhuyenmai() + "');";
         condb.insert(query1);
         condb.insert(query2);
 
@@ -58,15 +63,13 @@ public class KmTheoSanPhamDAO {
 
     public void UpdateKmTheoSanPham(KmTheoSanPham kmTheoSanPham) {
         String query1= "UPDATE CHUONG_TRINH_KHUYEN_MAI " +
-                "PHANTRAMKHUYENMAI = " + kmTheoSanPham.getPhantramkhuyenmai() + "', " +
+                "tenchuongtrinh = " + kmTheoSanPham.getTenchuongtrinh() + "', " +
                 "NGAYBD = " + kmTheoSanPham.getNgaybd() + "', " +
                 "NGAYKT = '" + kmTheoSanPham.getNgaykt() +"' "+
                 "WHERE MACTKM = '" + kmTheoSanPham.getMactkm() + "'" ;
         String query2 = "UPDATE KM_THEO_SAN_PHAM SET " +
                 "MASANPHAM = '" + kmTheoSanPham.getMasp() + "', " +
-                "PHANTRAMKHUYENMAI = '" + kmTheoSanPham.getPhantramkhuyenmai() + "', " +
-                "ngaybd = '" + kmTheoSanPham.getNgaybd() + "', " +
-                "NGAYKT = '" + kmTheoSanPham.getNgaykt() + "' " + // Không có dấu phẩy cuối
+                "PHANTRAMKHUYENMAI = '" + kmTheoSanPham.getPhantramkhuyenmai() + "'"+// Không có dấu phẩy cuối
                 "WHERE MACTKM = '" + kmTheoSanPham.getMactkm() + "';" ;
         try {
             condb.update(query1); // Giả sử condb có phương thức update(String)

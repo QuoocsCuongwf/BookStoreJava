@@ -32,9 +32,39 @@ public class ChuongTrinhKhuyenMaiServices {
             }
         }
         if (chuongTrinhKhuyenMai instanceof KmTheoHoaDon) {
-
+            kmTheoHoaDonDAO.updateChuongTrinhKhuyenMai((KmTheoHoaDon) chuongTrinhKhuyenMai);
+        } else {
+            kmTheoSanPhamDAO.UpdateKmTheoSanPham((KmTheoSanPham) chuongTrinhKhuyenMai);
         }
     }
+    public void delete(String mactkm) {
+        for (int i = 0; i < listChuongTrinhKhuyenMai.size(); i++) {
+            if (listChuongTrinhKhuyenMai.get(i).getMactkm().equals(mactkm)) {
+                if (listChuongTrinhKhuyenMai.get(i) instanceof KmTheoHoaDon) {
+                    kmTheoHoaDonDAO.deleteKhuyenMai(mactkm);
+                } else {
+                    kmTheoSanPhamDAO.deleteKmTheoSanPham(mactkm);
+                }
+                listChuongTrinhKhuyenMai.remove(i);
+                break;
+            }
+        }
+    }
+    public void insert(ChuongTrinhKhuyenMai chuongTrinhKhuyenMai) {
+        for (int i = 0; i < listChuongTrinhKhuyenMai.size(); i++) {
+            if (listChuongTrinhKhuyenMai.get(i).getMactkm().equals(chuongTrinhKhuyenMai.getMactkm())) {
+                return;
+            }
+        }
+        listChuongTrinhKhuyenMai.add(chuongTrinhKhuyenMai);
+        if (chuongTrinhKhuyenMai instanceof KmTheoHoaDon) {
+            kmTheoHoaDonDAO.addKhuyenMai((KmTheoHoaDon) chuongTrinhKhuyenMai);
+        }
+        if (chuongTrinhKhuyenMai instanceof KmTheoSanPham) {
+            kmTheoSanPhamDAO.addKmTheoSanPham((KmTheoSanPham) chuongTrinhKhuyenMai);
+        }
+    }
+
 
     public static void main(String[] args) {
         ChuongTrinhKhuyenMaiServices chuongTrinhKhuyenMaiServices=new ChuongTrinhKhuyenMaiServices();
@@ -46,6 +76,13 @@ public class ChuongTrinhKhuyenMaiServices {
                 System.out.println(kmTheoSanPham.getMactkm()+" "+kmTheoSanPham.getMasp());
             }
         }
+        chuongTrinhKhuyenMaiServices.delete("km001");
+//        KmTheoHoaDon kmTheoHoaDon=new KmTheoHoaDon();
+//        kmTheoHoaDon.setMactkm("km001");
+//        kmTheoHoaDon.setTenchuongtrinh("001");
+//        kmTheoHoaDon.setTongtien(10000.0);
+//        kmTheoHoaDon.setPhantramkhuyenmai(15.0);
+//        chuongTrinhKhuyenMaiServices.insert(kmTheoHoaDon);
     }
 
 }
