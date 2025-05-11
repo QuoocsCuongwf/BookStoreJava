@@ -106,6 +106,18 @@ public class NhanVienController implements Initializable {
         btnDeleteNhanVien.setOnAction(event -> deleteNhanVien(btnDeleteNhanVien));
         btnUpdateNhanVien.setOnAction(event -> updateNhanVien());
     }
+    public List<NhanVien> getNhanVienList() {
+        CallApi callApi = new CallApi();
+        List<NhanVien> tmp = new ArrayList<>();
+        try {
+            String json = callApi.callGetApi("http://localhost:8080/nhanVien/getAllNhanVien");
+            tmp = convertJsonToListNhanVien(json);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return tmp;
+
+    }
     public List<NhanVien> convertJsonToListNhanVien(String json) {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.registerModule(new JavaTimeModule());

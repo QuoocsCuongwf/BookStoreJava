@@ -19,6 +19,7 @@ import javafx.scene.web.WebView;
 import org.springframework.boot.actuate.info.JavaInfoContributor;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,17 +33,16 @@ public class ChiTietPhieuNhapController implements Initializable {
     @FXML private Label tongTienLabel;
     @FXML private TableColumn<ChiTietPhieuNhap, String> maSachColumn;
     @FXML private TableColumn<ChiTietPhieuNhap, Integer> donGiaColumn,soLuongColumn,thanhTienColumn;
-    @FXML private TextField txt_MaPhieuNhap,txt_MaNhanVien,txt_MaNhaCungCap,txt_MaSach,txt_SL;
+    @FXML private TextField txt_MaPhieuNhap,txt_MaNhanVien,txt_MaNhaCungCap,txt_MaSach,txt_SL,txt_GiaNhap;
     @FXML private DatePicker ngayTaoPhieu;
     @FXML private static List<ChiTietPhieuNhap> list=new ArrayList<>();
     @FXML private Button btnAdd,btnThongKe, btnKhachHang, btnSanPham,
                             btnNhanVien, btnNCC, btnTacGia,
                             btnHoaDon, btnTHD, btnKhuyenMai,btnPhieuNhap;
-    @FXML private ChoiceBox<String>thanhToan;
+    @FXML private ComboBox<String> cb_NV;
     //
-    @FXML Tab tabTaoHD,tabPayment;
+    @FXML Tab tabTaoHD;
     @FXML TabPane tabPane;
-    @FXML WebView webMoMo;
     Boolean isSuaPhieuNhap = false;
     private ObservableList<ChiTietPhieuNhap> danhSachChiTietPhieuNhap = FXCollections.observableArrayList();
     LeftMenuController leftMenuController = new LeftMenuController();
@@ -58,6 +58,7 @@ public class ChiTietPhieuNhapController implements Initializable {
         soLuongColumn.setCellValueFactory(new PropertyValueFactory<>("sl"));
         thanhTienColumn.setCellValueFactory(new PropertyValueFactory<>("thanhtien"));
         btnAdd.setOnAction(event -> onAddClicked(event));
+        cb_NV.getItems().addAll(comboBoxNhanVien());
         table.setItems(danhSachChiTietPhieuNhap);
 
         String maPhieuNhap = UUID.randomUUID().toString();
@@ -71,7 +72,15 @@ public class ChiTietPhieuNhapController implements Initializable {
                 // Nếu bạn có thêm thông tin khác, có thể set thêm vào các TextField tương ứng
             }
         });
-        thanhToan.getItems().addAll("Tiền mặt","Chuyển khoản");
+
+    }
+    public List<String> comboBoxNhanVien() {
+        NhanVienController nhanVienController = new NhanVienController();
+        List<String> tmp = new ArrayList<>();
+        nhanVienController.getNhanVienList().forEach(nv->{
+            tmp.add(nv.getManv());
+        });
+        return tmp;
     }
     @FXML
     void onAddClicked(ActionEvent event) {
@@ -86,18 +95,24 @@ public class ChiTietPhieuNhapController implements Initializable {
             System.out.println(listSanPham.size());
             chiTiet.setMasp(txt_MaSach.getText());
             chiTiet.setMapn(txt_MaPhieuNhap.getText());
+            chiTiet.setDongia(Integer.parseInt(txt_GiaNhap.getText()));
             System.out.println("DUYENNNNNNNNNNNNNNNNNNNNNNNNNNNN");
             System.err.println("SOLUONG :" +txt_SL.getText());
             chiTiet.setSl(Integer.valueOf(txt_SL.getText()));
             // đoạn for này dùng để kiểm tra masp có đã có trên dữ liệu sản phẩm của kho chưa , nên gọi SANPHAMSERVICE cho gọn
             // à không gọi service mắc công éo hiểu nữa
+            String find = "";
             for (SanPham sp : listSanPham) {
                 if (sp.getMasp().equals(txt_MaSach.getText())) {
-                    chiTiet.setDongia(sp.getDongia());
-                    break;
+                    find = sp.getMasp();
                 }
             }
-
+            if (find.equals("") || txt_SL.getText().isEmpty()||txt_GiaNhap.getText().isEmpty() ||
+                    txt_MaNhaCungCap.getText().isEmpty() || txt_MaSach.getText().isEmpty() ||
+                    txt_SL.getText().isEmpty() || txt_MaNhanVien. getText().isEmpty() ||ngayTaoPhieu.getValue() == null) {
+                showMessage("Thêm chi tiết phiếu nhập","FAIL","Vui lòng điền đầy đủ thông tin");
+                return;
+            }
             // đoạn for này là để khi thê chi tiết hóa đơn trùng sản phẩm thì nó sẽ cộng dồn
             for (int i = 0; i < danhSachChiTietPhieuNhap.size(); i++) {
                 if (danhSachChiTietPhieuNhap.get(i).getMasp().equals(txt_MaSach.getText())) {
@@ -198,19 +213,26 @@ public class ChiTietPhieuNhapController implements Initializable {
             }
             ChiTietPhieuNhap tmp = new ChiTietPhieuNhap();
             tmp.setMapn(txt_MaPhieuNhap.getText());
+            tmp.setDongia(Integer.parseInt((txt_GiaNhap.getText())));
             tmp.setMasp(txt_MaSach.getText());
             tmp.setSl(Integer.parseInt(txt_SL.getText()));
+            String find = "";
             for (SanPham sanPham : listSanPham) {
                 if (sanPham.getMasp().equals(tmp.getMasp())) {
-                    tmp.setDongia(sanPham.getDongia());
-                    tmp.setThanhtien(sanPham.getDongia()* tmp.getSl());
+                    find=sanPham.getMasp();
+                    tmp.setThanhtien(tmp.getDongia()* tmp.getSl());
                     break;
                 }
+            }
+            if (find.equals("") || txt_SL.getText().isEmpty()||txt_GiaNhap.getText().isEmpty() ||
+                    txt_MaNhaCungCap.getText().isEmpty() || txt_MaSach.getText().isEmpty() ||
+                    txt_SL.getText().isEmpty() || txt_MaNhanVien. getText().isEmpty() ||ngayTaoPhieu.getValue() == null) {
+                showMessage("Cập nhật chi tiết phiếu nhập","FAIL","Vui lòng điền đầy đủ thông tin");
+                return;
             }
             System.out.println("ĐỘ DÀI DANH SÁCH CHI TIẾT PHIẾU NHẬP :"+danhSachChiTietPhieuNhap.size());
             for ( int i = 0 ; i < danhSachChiTietPhieuNhap.size(); i++ ) {
                 System.out.println(danhSachChiTietPhieuNhap.get(i).getMasp() +"=====va===="+tmp.getMasp());
-
                 if (danhSachChiTietPhieuNhap.get(i).getMasp().equals(tmp.getMasp())) {
                     showMessage("UPDATECHITIETPHIEUNHAP","??","cập nhật "+danhSachChiTietPhieuNhap.get(i).getMasp());
                     danhSachChiTietPhieuNhap.set(i,tmp);
