@@ -5,7 +5,10 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class ThongKeSanPham {
+public class ThongKe4Quy {
     String tenSach;
-    int soLuong;
+    int soLuongQ1;
+    int soLuongQ2;
+    int soLuongQ3;
+    int soLuongQ4;
 }
