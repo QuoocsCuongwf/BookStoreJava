@@ -19,8 +19,19 @@ public class KmTheoHoaDonDAO {
     }
 
     public List<KmTheoHoaDon> getListKmTheoHoaDon() {
-        String values = condb.query("select * from KM_THEO_HOA_DON");
+        String values = condb.query("SELECT \n" +
+                "    ctkm.mactkm,\n" +
+                "\tctkm.tenchuongtrinh,\n" +
+                "    ctkm.ngaybd,\n" +
+                "    ctkm.ngaykt,\n" +
+                "    kmhd.phantramkhuyenmai,\n" +
+                "    kmhd.SOTIENHOADON\n" +
+                "FROM \n" +
+                "    CHUONG_TRINH_KHUYEN_MAI ctkm\n" +
+                "JOIN \n" +
+                "    KM_THEO_HOA_DON kmhd ON ctkm.mactkm = kmhd.mactkm");
         ObjectMapper mapper = new ObjectMapper();
+        System.out.println(values);
         try {
             mapper.registerModule(new JavaTimeModule());
             listKmTheoHoaDon = mapper.readValue(values, new TypeReference<List<KmTheoHoaDon>>() {
@@ -54,4 +65,5 @@ public class KmTheoHoaDonDAO {
                 "'";
         condb.update(query);
     }
+
 }
