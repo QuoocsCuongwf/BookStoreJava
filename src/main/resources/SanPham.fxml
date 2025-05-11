@@ -18,7 +18,7 @@
 
 <Pane fx:id="nhanVienPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="710.0" prefWidth="1250.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.GuiController.SanPhamController">
     <children>
-        <SplitPane dividerPositions="0.23755750731911332" layoutX="-1.0" layoutY="-5.0" prefHeight="730.0" prefWidth="1260.0">
+        <SplitPane dividerPositions="0.23755750731911332" layoutX="-1.0" layoutY="-5.0" prefHeight="710.0" prefWidth="1250.0">
             <items>
                 <AnchorPane fx:id="anchorPaneMenu" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" style="-fx-background-color: #00A4EF;">
                     <children>
@@ -76,14 +76,14 @@
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                     <children>
                   <Button fx:id="btnThemSach" layoutX="804.0" layoutY="126.0" mnemonicParsing="false" onAction="#openInforContainer" prefHeight="26.0" prefWidth="134.0" styleClass="btn" text="Thêm sách" />
-                        <TableView fx:id="tableView" layoutY="171.0" prefHeight="566.0" prefWidth="955.0" AnchorPane.leftAnchor="0.0">
+                        <TableView fx:id="tableView" layoutY="171.0" prefHeight="539.0" prefWidth="955.0" AnchorPane.leftAnchor="0.0">
                             <columns>
                                 <TableColumn fx:id="anhBia" prefWidth="101.6000549197197" text="Ảnh bìa" />
                                 <TableColumn fx:id="maSachColumn" prefWidth="141.5999755859375" text="Mã sách" />
                                 <TableColumn fx:id="tenSachColumn" prefWidth="139.20001220703125" text="Tên sách" />
                                 <TableColumn fx:id="soLuongColumn" prefWidth="106.39996337890625" text="Số lượng" />
                                 <TableColumn fx:id="donGiaColumn" prefWidth="135.2000732421875" text="Đơn giá" />
-                                <TableColumn fx:id="tacGiaColumn" prefWidth="100.79997253417969" text="Tác giả" />
+                                <TableColumn fx:id="tacGiaColumn" prefWidth="328.00004882812505" text="Tác giả" />
                             </columns>
                         </TableView>
                   <TextField fx:id="textFieldTimKiem" layoutX="37.0" layoutY="32.0" prefHeight="30.0" prefWidth="450.0" promptText="Tìm kiếm..." styleClass="text-field-box" />
@@ -169,10 +169,11 @@
                      </children>
                   </Pane>
                   <Button layoutX="685.0" layoutY="126.0" mnemonicParsing="false" onAction="#xuatExcel" text="xuất file Excel" />
-                  <Button layoutX="553.0" layoutY="126.0" mnemonicParsing="false" text="Nhập file Excel" />
+                  <Button fx:id="nhapExcel" layoutX="553.0" layoutY="126.0" mnemonicParsing="false" onAction="#handleImportExcel" text="Nhập file Excel" />
                   <TextField fx:id="giaMin" layoutX="37.0" layoutY="83.0" promptText="Giá thấp nhất" />
                   <TextField fx:id="giaMax" layoutX="233.0" layoutY="83.0" promptText="Giá cao nhất" />
                   <Label layoutX="199.0" layoutY="87.0" text="Đến" />
+                  <Button fx:id="btnSave" layoutX="436.0" layoutY="126.0" mnemonicParsing="false" onAction="#saveExcel" prefHeight="26.0" prefWidth="87.0" text="Lưu" />
                     </children>
                 </AnchorPane>
             </items>

@@ -4,6 +4,7 @@ import com.example.demo.databaseAccesssObject.SanPhamDAO;
 import com.example.demo.model.SanPham;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class SanPhamServices {
@@ -22,6 +23,29 @@ public class SanPhamServices {
         };
         return "fail";
     }
+    public void insertListSanPham(List<SanPham> listSanPhamExcel) {
+        Iterator<SanPham> iterator = listSanPhamExcel.iterator();
+
+        while (iterator.hasNext()) {
+            SanPham spExcel = iterator.next();
+            boolean exists = false;
+
+            for (SanPham sp : listSanPham) {
+                if (sp.getMasp().equals(spExcel.getMasp())) {
+                    exists = true;
+                    break;
+                }
+            }
+
+            if (exists) {
+                iterator.remove(); // Xoá an toàn khi đang lặp
+            } else {
+                listSanPham.add(spExcel);
+            }
+        }
+        sanPhamDAO.insertListSanPham(listSanPhamExcel); // Chỉ insert sp mới
+    }
+
     public boolean checkMaSanPham(String maSanPham) {
         for (SanPham nhanVien : listSanPham) {
             if (nhanVien.getMasp().equals(maSanPham)) {

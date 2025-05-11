@@ -1,5 +1,6 @@
 package com.example.demo.GuiController;
 
+import com.example.demo.BUS.services.Excel;
 import com.example.demo.BUS.services.SanPhamServices;
 import com.example.demo.model.NhaXuatBan;
 import com.example.demo.model.NhanVien;
@@ -12,6 +13,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
@@ -23,8 +25,10 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Controller
 @Component
@@ -49,7 +53,7 @@ public class SanPhamController {
 
     @FXML
     private TableColumn<SanPham, String> tacGiaColumn; // Cột "Tác giả"
-
+    @FXML Button btnSave;
     @FXML
     private TextField textFieldMaSach, textFieldTenSach, textFieldDonGia, textFieldMaTG, textFieldMaNXB, textFieldSoTrang, textFieldMaTL;
     private ObservableList<SanPham> data;
@@ -77,18 +81,18 @@ public class SanPhamController {
     private ImageView imgAnhBia;
     private static List<SanPham> listSanPham=new ArrayList<SanPham>();
     private String pathImage = "";
-
+    List<SanPham> danhSachExcel=new ArrayList<>();
+    SanPhamServices sanPhamServices=new SanPhamServices();
     private Button btnDeleteBook=new Button("    Xóa    ");
     private Button btnUpdateBook=new Button("Cập nhật");
     private LeftMenuController leftMenuController=new LeftMenuController();
     @FXML
     public void initialize() {
+        btnSave.setDisable(!danhSachExcel.isEmpty());
         Map<String, TacGia> tacGiaMap = new HashMap<>();
         TacGiaController tacGiaController=new TacGiaController();
         List<TacGia> listTacGia = tacGiaController.getListTacGia(); // gọi 1 API hoặc DAO lấy tất cả
-        System.out.println("Tac gia: "+listTacGia.size());
         for (TacGia tg : listTacGia) {
-            System.out.println(tg.toString());
             tacGiaMap.put(tg.getMatg(), tg); // ánh xạ MATG → TacGia
         }
 
@@ -100,7 +104,6 @@ public class SanPhamController {
                 if (empty || item == null) {
                     setText(null);
                 } else {
-                    System.out.println("Item: " + item);
                     TacGia tg = tacGiaMap.get(item);// "item" là mã tác giả (MATG)
                     if (tg != null) {
                         setText(tg.getHotg() + " " + tg.getTentg());
@@ -147,7 +150,6 @@ public class SanPhamController {
         String json;
         try {
             json=callApi.callGetApi("http://localhost:8080/sanPham/getAllSanPham");
-            System.out.println(json);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -190,7 +192,6 @@ public class SanPhamController {
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
-        System.out.println(listSanPham);
         return listSanPham;
     }
     public void chonFile(ActionEvent actionEvent) {
@@ -467,8 +468,47 @@ public class SanPhamController {
             showMessage("Success","Xuất Excel Thành công","Đã xuất thành công file Excel");
         }
     }
+    @FXML
+    private void handleImportExcel(ActionEvent event) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Chọn file Excel");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Excel Files", "*.xlsx", "*.xls"));
 
+        File file = fileChooser.showOpenDialog(((Node) event.getSource()).getScene().getWindow());
 
+        if (file != null) {
+            try (FileInputStream fis = new FileInputStream(file)) {
+                // Đọc dữ liệu từ file
+                danhSachExcel = Excel.readSanPhamFromExcel(fis);
+
+                // Tạo danh sách sản phẩm không trùng mã
+                List<SanPham> sanPhamMoi = new ArrayList<>();
+                Set<String> maDaTonTai = listSanPham.stream()
+                        .map(SanPham::getMasp)
+                        .collect(Collectors.toSet());
+
+                for (SanPham sp : danhSachExcel) {
+                    if (!maDaTonTai.contains(sp.getMasp())) {
+                        sanPhamMoi.add(sp);
+                        listSanPham.add(sp);
+                        data.add(sp); // nếu data là ObservableList
+                    } else {
+                        System.out.println("San pham trung: " + sp.getMasp());
+                    }
+                }
+                tableView.setItems(data);
+                System.out.println("Đã thêm " + sanPhamMoi.size() + " sản phẩm mới từ file Excel.");
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void saveExcel(){
+        sanPhamServices.insertListSanPham(danhSachExcel);
+        danhSachExcel.clear();
+    }
 
 }
 

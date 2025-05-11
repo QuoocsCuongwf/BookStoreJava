@@ -73,6 +73,34 @@ public class SanPhamDAO {
         // Gọi phương thức insert của ConnectDatabase để thực thi câu lệnh
         cnn.insertSP(sql, params);
     }
+    public void insertListSanPham(List<SanPham> listSanPham) {
+        String sql = "INSERT INTO SAN_PHAM (MASP, TENSP, SL, MATL, MATG, MANXB, NAMXB, DONGIA, SOTRANG, ANHBIA) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+        for (SanPham sp : listSanPham) {
+            Object[] params = new Object[] {
+                    sp.getMasp(),
+                    sp.getTensp(),
+                    sp.getSl(),
+                    sp.getMatl(),
+                    sp.getMatg(),
+                    sp.getManxb(),
+                    sp.getNamxb(),
+                    sp.getDongia(),
+                    sp.getSotrang(),
+                    sp.getAnhbia()
+            };
+
+            // Log từng câu lệnh và tham số
+            System.out.println("SQL: " + sql);
+            System.out.println("Parameters: " + Arrays.toString(params));
+
+            cnn.insertSP(sql, params);  // Gọi phương thức đã có
+        }
+
+        System.out.println("Đã thêm " + listSanPham.size() + " sản phẩm vào CSDL.");
+    }
+
 
     public void updateSanPham(SanPham sp) {
         String sql = "UPDATE SAN_PHAM SET " +
