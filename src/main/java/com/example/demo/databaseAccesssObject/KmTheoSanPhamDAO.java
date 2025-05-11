@@ -15,7 +15,10 @@ public class KmTheoSanPhamDAO {
 
 
     public List<KmTheoSanPham> getListKmTheoSanPham() {
-        String values = condb.query("select * from KM_THEO_SAN_PHAM");
+        String values = condb.query( "SELECT ctkm.mactkm, ctkm.tenchuongtrinh, ctkm.ngaybd, ctkm.ngaykt, " +
+                "kmtsp.masp, kmtsp.phantramkhuyenmai " +
+                "FROM CHUONG_TRINH_KHUYEN_MAI ctkm " +
+                "JOIN KM_THEO_SAN_PHAM kmtsp ON ctkm.mactkm = kmtsp.mactkm");
         ObjectMapper mapper = new ObjectMapper();
         try {
             mapper.registerModule(new JavaTimeModule());

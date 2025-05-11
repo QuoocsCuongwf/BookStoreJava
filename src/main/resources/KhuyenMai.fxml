@@ -96,7 +96,7 @@
                                   </HBox>
                                   <HBox prefHeight="26.0" prefWidth="322.0" spacing="20.0">
                                       <children>
-                                          <TextField fx:id="txt_phanTramKhuyenMaiTT" prefHeight="26.0" prefWidth="210.0" promptText="\% Khuyến Mãi" />
+                                          <TextField fx:id="txt_phanTramKhuyenMai" prefHeight="26.0" prefWidth="210.0" promptText="\% Khuyến Mãi" />
                                       </children>
                                   </HBox>
                                   <HBox prefHeight="26.0" prefWidth="322.0" spacing="20.0">
