@@ -39,7 +39,7 @@ public class ChiTietPhieuNhapController implements Initializable {
     @FXML private Button btnAdd,btnThongKe, btnKhachHang, btnSanPham,
                             btnNhanVien, btnNCC, btnTacGia,
                             btnHoaDon, btnTHD, btnKhuyenMai,btnPhieuNhap;
-    @FXML private ComboBox<String> cb_NV;
+    @FXML private ComboBox<String> cb_NV,cb_NCC,cb_SP;
     //
     @FXML Tab tabTaoHD;
     @FXML TabPane tabPane;
@@ -58,7 +58,9 @@ public class ChiTietPhieuNhapController implements Initializable {
         soLuongColumn.setCellValueFactory(new PropertyValueFactory<>("sl"));
         thanhTienColumn.setCellValueFactory(new PropertyValueFactory<>("thanhtien"));
         btnAdd.setOnAction(event -> onAddClicked(event));
-        cb_NV.getItems().addAll(comboBoxNhanVien());
+
+        cb_NV.getItems().addAll(comboBoxNhanVien());cb_SP.getItems().addAll(comboBoxSanPham());
+        cb_NCC.getItems().addAll(comboBoxNhaCungCap());
         table.setItems(danhSachChiTietPhieuNhap);
 
         String maPhieuNhap = UUID.randomUUID().toString();
@@ -82,6 +84,41 @@ public class ChiTietPhieuNhapController implements Initializable {
         });
         return tmp;
     }
+    public void setNhanVien(){
+        String selected = cb_NV.getValue();
+        if (selected != null) {
+            txt_MaNhanVien.setText(selected);
+        }
+    }
+    public List<String> comboBoxSanPham() {
+        SanPhamController sanPhamController = new SanPhamController();
+        List<String> tmp = new ArrayList<>();
+        sanPhamController.getListSanPham().forEach(sanPham->{
+            tmp.add(sanPham.getMasp());
+        });
+        return tmp;
+    }
+    public void setSanPham(){
+        String selected = cb_SP.getValue();
+        if (selected != null) {
+            txt_MaSach.setText(selected);
+        }
+    }
+    public List<String> comboBoxNhaCungCap() {
+        NhaCungCapController nhaCapController = new NhaCungCapController();
+        List<String> tmp = new ArrayList<>();
+        nhaCapController.getListNhaCungCap().forEach( nhaCungCap->{
+            tmp.add(nhaCungCap.getMaNhaCungCap());
+        });
+        return tmp;
+    }
+    public void setNhaCungCap(){
+        String selected = cb_NCC.getValue();
+        if (selected != null) {
+            txt_MaNhaCungCap.setText(selected);
+        }
+    }
+
     @FXML
     void onAddClicked(ActionEvent event) {
         ChiTietPhieuNhap chiTiet = new ChiTietPhieuNhap();

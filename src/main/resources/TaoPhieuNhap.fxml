@@ -92,11 +92,11 @@
                                                         <TableColumn fx:id="thanhTienColumn" prefWidth="104.79998779296875" text="Thành tiền" />
                                                     </columns>
                                                 </TableView>
-                                                <TextField fx:id="txt_MaSach" layoutX="75.0" layoutY="207.0" prefHeight="30.0" prefWidth="293.0" promptText="Mã sách" styleClass="text-field-box" />
+                                                <TextField fx:id="txt_MaSach" layoutX="75.0" layoutY="207.0" prefHeight="30.0" prefWidth="224.0" promptText="Mã sách" styleClass="text-field-box" />
                                                 <TextField fx:id="txt_SL" layoutX="75.0" layoutY="253.0" prefHeight="30.0" prefWidth="109.0" promptText="Số lượng" styleClass="text-field-box" />
                                                 <Button fx:id="btnAdd" layoutX="89.0" layoutY="379.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="75.0" styleClass="btn" text="Thêm" />
-                                                <TextField fx:id="txt_MaNhanVien" layoutX="76.0" layoutY="118.0" prefHeight="30.0" prefWidth="290.0" promptText="Mã nhân viên" styleClass="text-field-box" />
-                                                <TextField fx:id="txt_MaNhaCungCap" layoutX="77.0" layoutY="163.0" prefHeight="30.0" prefWidth="290.0" promptText="Mã nhà cung cấp" styleClass="text-field-box" />
+                                                <TextField fx:id="txt_MaNhanVien" layoutX="76.0" layoutY="118.0" prefHeight="30.0" prefWidth="224.0" promptText="Mã nhân viên" styleClass="text-field-box" />
+                                                <TextField fx:id="txt_MaNhaCungCap" layoutX="77.0" layoutY="163.0" prefHeight="30.0" prefWidth="224.0" promptText="Mã nhà cung cấp" styleClass="text-field-box" />
                                                 <Button layoutX="259.0" layoutY="604.0" mnemonicParsing="false" onAction="#onXuatPhieuNhapClicked" prefHeight="26.0" prefWidth="123.0" text="Xuất phiếu nhập" />
                                                 <Label layoutX="14.0" layoutY="79.0" prefHeight="18.0" prefWidth="54.0" text="Mã PN" />
                                                 <TextField fx:id="txt_MaPhieuNhap" layoutX="76.0" layoutY="75.0" prefHeight="30.0" prefWidth="290.0" promptText="Mã phiếu nhập" />
@@ -112,7 +112,9 @@
                                                 <Label layoutX="14.0" layoutY="305.0" prefHeight="18.0" prefWidth="53.0" text="Ngày" />
                                     <Label layoutX="190.0" layoutY="259.0" prefHeight="18.0" prefWidth="28.0" text="Giá " />
                                     <TextField fx:id="txt_GiaNhap" layoutX="221.0" layoutY="253.0" prefHeight="30.0" prefWidth="146.0" promptText="Giá nhập" styleClass="text-field-box" />
-                                    <ComboBox fx:id="cb_NV" layoutX="146.0" layoutY="493.0" prefWidth="150.0" />
+                                    <ComboBox fx:id="cb_NV" layoutX="317.0" layoutY="119.0" onAction="#setNhanVien" prefHeight="28.0" prefWidth="48.0" />
+                                    <ComboBox fx:id="cb_NCC" layoutX="317.0" layoutY="164.0" onAction="#setNhaCungCap" prefHeight="28.0" prefWidth="48.0" />
+                                    <ComboBox fx:id="cb_SP" layoutX="317.0" layoutY="208.0" onAction="#setSanPham" prefHeight="28.0" prefWidth="48.0" />
                                             </children>
                                         </AnchorPane>
                                     </content>

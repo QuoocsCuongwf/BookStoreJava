@@ -93,7 +93,18 @@ public class NhaCungCapController implements Initializable {
         btnUpdateNhaCungCap.setOnAction(event -> updateNhaCungCap());
 
     }
-
+    public List<NhaCungCap> getListNhaCungCap() {
+        CallApi callApi = new CallApi();
+        String json = null;
+        List<NhaCungCap> listNhaCungCap = new ArrayList<>();
+        try {
+            json = callApi.callGetApi("http://localhost:8080/nhaCungCap/getAllNhaCungCap");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        listNhaCungCap = convertJsonToList(json);
+        return listNhaCungCap;
+    }
     public List<NhaCungCap> convertJsonToList(String json) {
         ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(new JavaTimeModule());
