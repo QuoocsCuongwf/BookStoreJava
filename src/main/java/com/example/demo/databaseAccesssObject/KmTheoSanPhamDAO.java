@@ -62,14 +62,14 @@ public class KmTheoSanPhamDAO {
     }
 
     public void UpdateKmTheoSanPham(KmTheoSanPham kmTheoSanPham) {
-        String query1= "UPDATE CHUONG_TRINH_KHUYEN_MAI " +
-                "tenchuongtrinh = " + kmTheoSanPham.getTenchuongtrinh() + "', " +
-                "NGAYBD = " + kmTheoSanPham.getNgaybd() + "', " +
+        String query1= "UPDATE CHUONG_TRINH_KHUYEN_MAI SET " +
+                "tenchuongtrinh = '" + kmTheoSanPham.getTenchuongtrinh() + "', " +
+                "NGAYBD = '" + kmTheoSanPham.getNgaybd() + "', " +
                 "NGAYKT = '" + kmTheoSanPham.getNgaykt() +"' "+
                 "WHERE MACTKM = '" + kmTheoSanPham.getMactkm() + "'" ;
         String query2 = "UPDATE KM_THEO_SAN_PHAM SET " +
-                "MASANPHAM = '" + kmTheoSanPham.getMasp() + "', " +
-                "PHANTRAMKHUYENMAI = '" + kmTheoSanPham.getPhantramkhuyenmai() + "'"+// Không có dấu phẩy cuối
+                "MASP = '" + kmTheoSanPham.getMasp() + "', " +
+                "PHANTRAMKHUYENMAI = " + kmTheoSanPham.getPhantramkhuyenmai() + " "+// Không có dấu phẩy cuối
                 "WHERE MACTKM = '" + kmTheoSanPham.getMactkm() + "';" ;
         try {
             condb.update(query1); // Giả sử condb có phương thức update(String)

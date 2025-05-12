@@ -76,13 +76,13 @@ public class ChuongTrinhKhuyenMaiServices {
                 System.out.println(kmTheoSanPham.getMactkm()+" "+kmTheoSanPham.getMasp());
             }
         }
-        chuongTrinhKhuyenMaiServices.delete("km001");
-//        KmTheoHoaDon kmTheoHoaDon=new KmTheoHoaDon();
-//        kmTheoHoaDon.setMactkm("km001");
-//        kmTheoHoaDon.setTenchuongtrinh("001");
-//        kmTheoHoaDon.setTongtien(10000.0);
-//        kmTheoHoaDon.setPhantramkhuyenmai(15.0);
-//        chuongTrinhKhuyenMaiServices.insert(kmTheoHoaDon);
+//        chuongTrinhKhuyenMaiServices.delete("km001");
+        KmTheoHoaDon kmTheoHoaDon=new KmTheoHoaDon();
+        kmTheoHoaDon.setMactkm("km001");
+        kmTheoHoaDon.setTenchuongtrinh("001");
+        kmTheoHoaDon.setTongtien(10000.0);
+        kmTheoHoaDon.setPhantramkhuyenmai(99.0);
+        chuongTrinhKhuyenMaiServices.update(kmTheoHoaDon);
     }
 
 }

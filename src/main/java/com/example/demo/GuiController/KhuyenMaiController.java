@@ -58,7 +58,7 @@ public class KhuyenMaiController implements Initializable {
     @FXML private DatePicker datePickerNgayBatDauTT;
     @FXML private DatePicker datePickerNgayKetThucTT;
     @FXML private TextField textFieldTimKiem;
-    @FXML private TextField txt_CTKMTongTien, txt_tongTien, txt_phanTramKhuyenMai;
+    @FXML private TextField txt_CTKMTongTien, txt_tongTien, txt_phanTramKhuyenMai, txt_TenCTKM,txt_TenCTKMSP;
     @FXML private Button btnAddKMTT;
     private List<KmTheoSoTienHoaDon> listKmTheoSoTienHoaDonList=new ArrayList<>();
     List<ChuongTrinhKhuyenMai> listChuongTrinhKhuyenMai = new ArrayList<>();
@@ -80,8 +80,10 @@ public class KhuyenMaiController implements Initializable {
                 btnHoaDon, btnTHD, btnKhuyenMai,btnPhieuNhap);
         inforContainerKMTT.setVisible(false);
         inforContainerKMSP.setVisible(false);
+        listenerChangeValuesOfKmtheoSanPham();
+        listenerChangeValuesOfKmTheoSoTienHoaDon();
         maChuongTrinhKMColumn.setCellValueFactory(new PropertyValueFactory<>("mactkm"));
-        phanTramKMColumn.setCellValueFactory(new PropertyValueFactory<>("phantramkhuyenmai"));
+        phanTramKMColumn.setCellValueFactory(new PropertyValueFactory<>("tenchuongtrinh"));
         ngayBatDauColumn.setCellValueFactory(new PropertyValueFactory<>("ngaybd"));
         ngayKetThucColumn.setCellValueFactory(new PropertyValueFactory<>("ngaykt"));
         CallApi callApi = new CallApi();
@@ -96,25 +98,26 @@ public class KhuyenMaiController implements Initializable {
                 } catch (Exception e) {
                     throw new RuntimeException(e);
                 }
-        /// ////
-                btnDeleteKhuyenMaiSP.setOnAction(event -> DeleteKmTheoSanPham(btnDeleteKhuyenMaiSP));
-                btnUpdateKhuyenMaiSP.setOnAction(event -> UpdateKmTheoSanPham(newValue));
-                btnDeleteKhuyenMaiHD.setOnAction(event -> DeleteKmTheoSoTienHoaDon(btnDeleteKhuyenMaiHD));
-                btnUpdateKhuyenMaiHD.setOnAction(event -> UpdateKmTheoSoTienHoaDon(newValue));
-
-
-
-
+                btnDeleteKhuyenMaiSP.setOnAction(event ->
+                {
+                    String maChuongTrinhKhuyenMai=txt_CTKMSanPham.getText();
+                    delete(maChuongTrinhKhuyenMai);
+                });
+                btnUpdateKhuyenMaiSP.setOnAction(event -> UpdateKmTheoSanPham());
+                btnDeleteKhuyenMaiHD.setOnAction(event ->
+                {
+                    String maChuongTrinh=txt_CTKMTongTien.getText();
+                    delete(maChuongTrinh);
+                });
+                btnUpdateKhuyenMaiHD.setOnAction(event -> UpdateKmTheoSoTienHoaDon());
             } else {
                 System.out.println("No item selected");
             }
         });
+
         listChuongTrinhKhuyenMai=chuongTrinhKhuyenMaiServices.getListChuongTrinhKhuyenMai();
         listTongQuat = FXCollections.observableArrayList(listChuongTrinhKhuyenMai);
         tableView.setItems(listTongQuat);
-
-
-
     }
     public List<KmTheoSoTienHoaDon> convertJsonToListKmTheoSoTienHoaDon(String json) {
         ObjectMapper objectMapper = new ObjectMapper();
@@ -158,21 +161,8 @@ public class KhuyenMaiController implements Initializable {
             }
         });
     }
-    public void DeleteKmTheoSoTienHoaDon(Button button) {
-        int selectedIndex = tableView.getSelectionModel().getSelectedIndex();
-        if (selectedIndex >= 0 && selectedIndex < listKmTheoSoTienHoaDonList.size()) {
-            KmTheoSoTienHoaDon khuyenMai = listKmTheoSoTienHoaDonList.get(selectedIndex);
-            System.out.println("Khuyen Mai Theo Tong Tien selected " + khuyenMai.getMactkm());
-            CallApi callApi = new CallApi();
-            String result = callApi.callPostRequestParam("http://localhost:8080/KhuyenMai/Delete", "maChuongTrinh=",khuyenMai.getMactkm());
-            listKmTheoSoTienHoaDonList.remove(selectedIndex);
-            tableView.getSelectionModel().clearSelection();
-        } else {
-            System.out.println("No valid selection!");
-        }
-    }
-    public void UpdateKmTheoSoTienHoaDon(ChuongTrinhKhuyenMai chuongTrinhKM) {
-        KmTheoSoTienHoaDon KmTheoSoTienHoaDon = new KmTheoSoTienHoaDon();
+    public void UpdateKmTheoSoTienHoaDon() {
+        KmTheoHoaDon KmTheoSoTienHoaDon = new KmTheoHoaDon();
         List<TextField> textFields=Arrays.asList(txt_CTKMTongTien, txt_phanTramKhuyenMai, txt_tongTien
         );
         for(TextField tf:textFields) {
@@ -188,25 +178,23 @@ public class KhuyenMaiController implements Initializable {
         }
         KmTheoSoTienHoaDon.setMactkm(txt_CTKMTongTien.getText());
         int tongTien = Integer.parseInt(txt_tongTien.getText());
-        KmTheoSoTienHoaDon.setSotienhoadon(tongTien);
+        KmTheoSoTienHoaDon.setTongtien(tongTien/1.0);
+        KmTheoSoTienHoaDon.setTenchuongtrinh(txt_TenCTKM.getText());
         Double phanTram = Double.parseDouble(txt_phanTramKhuyenMai.getText());
         KmTheoSoTienHoaDon.setPhantramkhuyenmai(phanTram);
         KmTheoSoTienHoaDon.setNgaybd(datePickerNgayBatDauTT.getValue());
         KmTheoSoTienHoaDon.setNgaykt(datePickerNgayKetThucTT.getValue());
 
-        CallApi callApi=new CallApi();
-        String resultApi=callApi.callPostRequestBody("http://localhost:8080/KhuyenMaiTongTien/Update",convertKmTheoSoTienHoaDonToJson(KmTheoSoTienHoaDon));
-        if (resultApi.contains("success") || resultApi.contains("Success")) {
-            for (int i = 0; i < chuongTrinhKMList.size(); i++) {
-                if (chuongTrinhKMList.get(i).getMactkm().equals(KmTheoSoTienHoaDon.getMactkm())) {
-                    chuongTrinhKMList.set(i,(ChuongTrinhKM) KmTheoSoTienHoaDon); // thay thế đúng phần tử
+            for (int i = 0; i < listChuongTrinhKhuyenMai.size(); i++) {
+                if (listChuongTrinhKhuyenMai.get(i).getMactkm().equals(KmTheoSoTienHoaDon.getMactkm())) {
+                    listChuongTrinhKhuyenMai.set(i, KmTheoSoTienHoaDon); // thay thế đúng phần tử
                     break;
                 }
             }
-            showMessage("Success","Sua thanh cong",resultApi);
-            listTongQuat = FXCollections.observableArrayList(listChuongTrinhKhuyenMai);
-            tableView.setItems(listTongQuat);
-        }
+        chuongTrinhKhuyenMaiServices.update(KmTheoSoTienHoaDon);
+        showMessage("Success","Sua thanh cong","ok");
+        listTongQuat = FXCollections.observableArrayList(listChuongTrinhKhuyenMai);
+        tableView.setItems(listTongQuat);
     }
     public void openInforContainerHD() {
         String maCTKM = "KMHD" + UUID.randomUUID().toString().substring(0, 6).toUpperCase();
@@ -233,7 +221,7 @@ public class KhuyenMaiController implements Initializable {
         alert.showAndWait();
     }
     public void addKmTheoTongTien() {
-        KmTheoSoTienHoaDon KmTheoSoTienHoaDon = new KmTheoSoTienHoaDon();
+        KmTheoHoaDon KmTheoSoTienHoaDon = new KmTheoHoaDon();
         List<TextField> textFields = Arrays.asList(
                 txt_CTKMTongTien,txt_phanTramKhuyenMai,txt_tongTien);
         for (TextField tf : textFields) {
@@ -247,21 +235,20 @@ public class KhuyenMaiController implements Initializable {
         Double phanTram = Double.parseDouble(txt_phanTramKhuyenMai.getText());
         int tongTien = Integer.parseInt(txt_tongTien.getText());
         KmTheoSoTienHoaDon.setPhantramkhuyenmai(phanTram);
-        KmTheoSoTienHoaDon.setSotienhoadon(tongTien);
+        KmTheoSoTienHoaDon.setTenchuongtrinh(txt_TenCTKM.getText());
+        KmTheoSoTienHoaDon.setTongtien(tongTien/1.0);
         KmTheoSoTienHoaDon.setNgaybd(datePickerNgayBatDauTT.getValue());
         KmTheoSoTienHoaDon.setNgaykt(datePickerNgayKetThucTT.getValue());
-        CallApi callApi = new CallApi();
-        String result = callApi.callPostRequestBody("http://localhost:8080/KhuyenMaiTongTien/Add", convertKmTheoSoTienHoaDonToJson(KmTheoSoTienHoaDon));
-        System.out.println(result);
-        if (result.contains("Success") || result.contains("success")) {
-            listKmTheoSoTienHoaDonList.add(KmTheoSoTienHoaDon);
-            showMessage("ADD SUCCESS","KMTT ADD SUCCESS","Them ");
-        }
+        chuongTrinhKhuyenMaiServices.insert(KmTheoSoTienHoaDon);
+        showMessage("ADD SUCCESS","KMTT ADD SUCCESS","Them ");
+        listTongQuat= FXCollections.observableArrayList(listChuongTrinhKhuyenMai);
+        tableView.setItems(listTongQuat);
     }
     public void showSelectedItemHD(KmTheoHoaDon KmTheoSoTienHoaDon) {
         openInforContainerHD();
         txt_CTKMTongTien.setText(KmTheoSoTienHoaDon.getMactkm());
         txt_tongTien.setText(String.valueOf(KmTheoSoTienHoaDon.getTongtien()));
+        txt_TenCTKM.setText(KmTheoSoTienHoaDon.getTenchuongtrinh());
         txt_phanTramKhuyenMai.setText(String.valueOf(KmTheoSoTienHoaDon.getPhantramkhuyenmai()));
         datePickerNgayBatDauTT.setValue(KmTheoSoTienHoaDon.getNgaybd());
         datePickerNgayKetThucTT.setValue(KmTheoSoTienHoaDon.getNgaykt());
@@ -343,22 +330,18 @@ public class KhuyenMaiController implements Initializable {
             }
         });
     }
-    public void DeleteKmTheoSanPham(Button button) {
-        int selectedIndex = tableView.getSelectionModel().getSelectedIndex();
-        ChuongTrinhKhuyenMai selected = tableView.getSelectionModel().getSelectedItem();
-        if (selectedIndex >= 0 && selectedIndex < chuongTrinhKMList.size()) {
-            System.out.println("Khuyen Mai Theo San Pham selected " + selected.getMactkm());
-            CallApi callApi = new CallApi();
-            String result = callApi.callPostRequestParam("http://localhost:8080/KmTheoSanPham/Delete", "find=", selected.getMactkm());
-            chuongTrinhKMList.remove(selectedIndex);
-            listTongQuat = FXCollections.observableArrayList(listChuongTrinhKhuyenMai);
-            tableView.getSelectionModel().clearSelection();
-        } else {
-            System.out.println("No valid selection!");
+    public void delete(String maChuongTrinh) {
+        for (int i=0;i<listChuongTrinhKhuyenMai.size();i++) {
+            if (listChuongTrinhKhuyenMai.get(i).equals(maChuongTrinh)) {
+                listChuongTrinhKhuyenMai.remove(i);
+                break;
+            }
         }
-
+        chuongTrinhKhuyenMaiServices.delete(maChuongTrinh);
+        listTongQuat= FXCollections.observableArrayList(listChuongTrinhKhuyenMai);
+        tableView.setItems(listTongQuat);
     }
-    public void UpdateKmTheoSanPham(ChuongTrinhKhuyenMai chuongTrinhKM) {
+    public void UpdateKmTheoSanPham() {
         KmTheoSanPham khuyenMai = new KmTheoSanPham();
         List<TextField> textFields=Arrays.asList(txt_CTKMSanPham, txt_phanTramKhuyenMaiSP, txt_maSanPham
         );
@@ -369,30 +352,24 @@ public class KhuyenMaiController implements Initializable {
                 return;
             }
         };
-        if (datePickerNgayBatDauSP.getValue()==null ||datePickerNgayBatDauTT.getValue()==null){
-            showMessage("Error","Text Field Null","Vui lòng nhập đầy đủ thông tin!");
-        }
 
         khuyenMai.setMactkm(txt_CTKMSanPham.getText());
         khuyenMai.setMasp(txt_maSanPham.getText());
         Double phanTram = Double.parseDouble(txt_phanTramKhuyenMaiSP.getText());
-        khuyenMai.setTenchuongtrinh(String.valueOf(phanTram));
+        khuyenMai.setPhantramkhuyenmai(phanTram);
+        khuyenMai.setTenchuongtrinh(txt_TenCTKMSP.getText());
         khuyenMai.setNgaybd(datePickerNgayBatDauSP.getValue());
         khuyenMai.setNgaykt(datePickerNgayKetThucSP.getValue());
-
-        CallApi callApi=new CallApi();
-        String resultApi=callApi.callPostRequestBody("http://localhost:8080/KmTheoSanPham/Update",convertKmTheoSanPhamToJson(khuyenMai));
-        if (resultApi.contains("success") || resultApi.contains("Success")) {
+        chuongTrinhKhuyenMaiServices.update(khuyenMai);
             for (int i = 0 ; i < listChuongTrinhKhuyenMai.size() ; i++) {
                 if (listChuongTrinhKhuyenMai.get(i).getMactkm().equals(khuyenMai.getMactkm())){
                     listChuongTrinhKhuyenMai.set(i,khuyenMai);
                     break;
                 }
             }
-            showMessage("Success","Sua thanh cong",resultApi);
+            showMessage("Success","Sua thanh cong","yesssss");
             listTongQuat = FXCollections.observableArrayList(listChuongTrinhKhuyenMai);
             tableView.setItems(listTongQuat);
-        }
     }
     public void openInforContainerKmTheoSanPham() {
         String maCTKM = "KMSP" + UUID.randomUUID().toString().substring(0, 6).toUpperCase();
@@ -424,23 +401,22 @@ public class KhuyenMaiController implements Initializable {
         kmTheoSanPham.setMactkm(txt_CTKMSanPham.getText());
         kmTheoSanPham.setMasp(txt_maSanPham.getText());
         Double phanTram = Double.parseDouble(txt_phanTramKhuyenMaiSP.getText());
+        kmTheoSanPham.setTenchuongtrinh(txt_TenCTKMSP.getText());
         kmTheoSanPham.setPhantramkhuyenmai(phanTram);
         kmTheoSanPham.setNgaybd(datePickerNgayBatDauSP.getValue());
         kmTheoSanPham.setNgaykt(datePickerNgayKetThucSP.getValue());
-        CallApi callApi = new CallApi();
-        String result = callApi.callPostRequestBody("http://localhost:8080/KmTheoSanPham/Add", convertKmTheoSanPhamToJson(kmTheoSanPham));
-        System.out.println(result);
-        if (result.contains("Success")||result.contains("success")) {
-            listKmTheoSanPham.add(kmTheoSanPham);
-            showMessage("them" , "Success","okkkkkk");
-        }
+        chuongTrinhKhuyenMaiServices.insert(kmTheoSanPham);
+        showMessage("them" , "Success","okkkkkk");
+        listTongQuat=FXCollections.observableArrayList(listChuongTrinhKhuyenMai);
+        tableView.setItems(listTongQuat);
     }
 
     public void showSelectedItemKmtheoSanPham(KmTheoSanPham khuyenMai) {
         inforContainerKMSP.setVisible(true);
         txt_CTKMSanPham.setText(khuyenMai.getMactkm());
-        txt_maSanPham.setText(String.valueOf(khuyenMai.getMasp()));
-        txt_phanTramKhuyenMaiSP.setText(String.valueOf(khuyenMai.getPhantramkhuyenmai()));
+        txt_TenCTKMSP.setText(khuyenMai.getTenchuongtrinh());
+        txt_maSanPham.setText(khuyenMai.getMasp());
+        txt_phanTramKhuyenMaiSP.setText(khuyenMai.getPhantramkhuyenmai().toString());
         datePickerNgayBatDauSP.setValue(khuyenMai.getNgaybd());
         datePickerNgayKetThucSP.setValue(khuyenMai.getNgaykt());
 
@@ -457,6 +433,7 @@ public class KhuyenMaiController implements Initializable {
             System.err.println("btnDeleteKhuyenMaiSP không tồn tại trong inforFormButtonContainers !");
 
         }
+        listenerChangeValuesOfKmTheoSoTienHoaDon();
     }
 //    public void timKiemKmTheoSanPham() {
 //        String find = textFieldTimKiem.getText();
