@@ -66,15 +66,15 @@ public class NhanVienController implements Initializable {
 
     private Button btnDeleteNhanVien=new Button("    Xóa    ");
     private Button btnUpdateNhanVien=new Button("Cập nhật");
-    @FXML
-    private Button btnThongKe, btnKhachHang, btnSanPham, btnNhanVien,
-            btnNCC, btnTacGia, btnHoaDon, btnTHD, btnKhuyenMai,btnPhieuNhap;
-    LeftMenuController leftMenuController=new LeftMenuController();
+    @FXML private Button btnThongKe, btnKhachHang, btnSanPham, btnNhanVien, btnNCC, btnTacGia, btnHoaDon, btnTHD, btnKhuyenMai, btnPhieuNhap,btnTaoPhieuNhap,btnNhaXuatBan,btnTheLoai;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        LeftMenuController leftMenuController = new LeftMenuController();
         leftMenuController.bindHandlers(btnThongKe, btnKhachHang, btnSanPham,
                 btnNhanVien, btnNCC, btnTacGia,
-                btnHoaDon, btnTHD, btnKhuyenMai,btnPhieuNhap);
+                btnHoaDon, btnTHD,  btnKhuyenMai,
+                btnTheLoai, btnNhaXuatBan, btnPhieuNhap,
+                btnTaoPhieuNhap);
         inforContainer.setVisible(false);
         maNhanVienColumn.setCellValueFactory(new PropertyValueFactory<>("manv"));
         tenNhanVienColumn.setCellValueFactory(new PropertyValueFactory<>("tennv"));
@@ -105,6 +105,18 @@ public class NhanVienController implements Initializable {
         tableView.setItems(data);
         btnDeleteNhanVien.setOnAction(event -> deleteNhanVien(btnDeleteNhanVien));
         btnUpdateNhanVien.setOnAction(event -> updateNhanVien());
+    }
+    public List<NhanVien> getNhanVienList() {
+        CallApi callApi = new CallApi();
+        List<NhanVien> tmp = new ArrayList<>();
+        try {
+            String json = callApi.callGetApi("http://localhost:8080/nhanVien/getAllNhanVien");
+            tmp = convertJsonToListNhanVien(json);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return tmp;
+
     }
     public List<NhanVien> convertJsonToListNhanVien(String json) {
         ObjectMapper objectMapper = new ObjectMapper();

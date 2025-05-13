@@ -34,7 +34,7 @@ import java.util.*;
 @Component
 @Controller
 public class PhieuNhapController implements Initializable {
-    @FXML private Pane inforContainer;
+//    @FXML private Pane inforContainer;
     @FXML private Pane phieuNhapPane;
     @FXML private TableView<PhieuNhap> tableView;
     @FXML private TableView<ChiTietPhieuNhap> chiTietPhieuNhapTable;
@@ -51,23 +51,20 @@ public class PhieuNhapController implements Initializable {
 
     @FXML private PhieuNhap phieuNhapDuocChon;
     @FXML private TextField textFieldTimKiem;
-    @FXML private TextField txt_MaPhieuNhap,txt_MaNhanVien,txt_MaNhaCungCap,txt_TongTien,txt_MaSach;
-    @FXML private DatePicker datePickerNgayNhap;
-    @FXML private HBox inforButtonContainer;
-    @FXML private Button btnAdd;
-    @FXML private Button btnThongKe, btnKhachHang, btnSanPham, btnNhanVien,
-            btnNCC, btnTacGia, btnHoaDon, btnTHD, btnKhuyenMai,btnPhieuNhap,btnTaoPhieuNhap;
+//    @FXML private TextField txt_MaPhieuNhap,txt_MaNhanVien,txt_MaNhaCungCap,txt_TongTien,txt_MaSach;
+//    @FXML private DatePicker datePickerNgayNhap;
+//    @FXML private HBox inforButtonContainer;
+//    @FXML private Button btnAdd;
 
     LeftMenuController leftMenuController=new LeftMenuController();
-
-    //xong
+    @FXML private Button btnThongKe, btnKhachHang, btnSanPham, btnNhanVien, btnNCC, btnTacGia, btnHoaDon, btnTHD, btnKhuyenMai, btnPhieuNhap,btnTaoPhieuNhap,btnNhaXuatBan,btnTheLoai;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
         leftMenuController.bindHandlers(btnThongKe, btnKhachHang, btnSanPham,
                 btnNhanVien, btnNCC, btnTacGia,
-                btnHoaDon, btnTHD, btnKhuyenMai,btnPhieuNhap);
-        leftMenuController.newButtonClicked(btnTaoPhieuNhap);
+                btnHoaDon, btnTHD,  btnKhuyenMai,
+                btnTheLoai, btnNhaXuatBan, btnPhieuNhap,
+                btnTaoPhieuNhap);
         maPhieuNhapColumn.setCellValueFactory(new PropertyValueFactory<>("mapn"));
         ngayNhapColumn.setCellValueFactory(new PropertyValueFactory<>("ngaynhap"));
         maNhanVienColumn.setCellValueFactory(new PropertyValueFactory<>("manv"));

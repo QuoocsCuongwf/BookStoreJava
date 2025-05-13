@@ -60,19 +60,19 @@ public class HoaDonController implements Initializable {
     private TextField textFieldTimKiem;
 
     private static List<HoaDon> listHoaDon=new ArrayList<>();
-    @FXML
-    private Button btnThongKe, btnKhachHang, btnSanPham, btnNhanVien, btnNCC, btnTacGia, btnHoaDon, btnTHD, btnKhuyenMai,btnPhieuNhap;
     private static List<ChiTietHoaDon> listChiTietHoaDon=new ArrayList<>();
     private ObservableList<ChiTietHoaDon> danhSachChiTiet = FXCollections.observableArrayList();
     private ObservableList<HoaDon> data = FXCollections.observableArrayList();
 
-
+    @FXML private Button btnThongKe, btnKhachHang, btnSanPham, btnNhanVien, btnNCC, btnTacGia, btnHoaDon, btnTHD, btnKhuyenMai, btnPhieuNhap,btnTaoPhieuNhap,btnNhaXuatBan,btnTheLoai;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        LeftMenuController leftMenuController=new LeftMenuController();
+        LeftMenuController leftMenuController = new LeftMenuController();
         leftMenuController.bindHandlers(btnThongKe, btnKhachHang, btnSanPham,
                 btnNhanVien, btnNCC, btnTacGia,
-                btnHoaDon, btnTHD, btnKhuyenMai,btnPhieuNhap);
+                btnHoaDon, btnTHD,  btnKhuyenMai,
+                btnTheLoai, btnNhaXuatBan, btnPhieuNhap,
+                btnTaoPhieuNhap);
         // Liên kết cột với thuộc tính đối tượng HoaDon
         maHDColumn.setCellValueFactory(new PropertyValueFactory<>("mahd"));
         maKHColumn.setCellValueFactory(new PropertyValueFactory<>("makh"));

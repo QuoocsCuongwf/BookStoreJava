@@ -2,7 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.SplitPane?>
@@ -13,9 +13,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.web.WebView?>
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="707.0" prefWidth="1254.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.GuiController.ChiTietPhieuNhapController">
     <children>
@@ -105,11 +103,11 @@
                                                         <TableColumn fx:id="thanhTienColumn" prefWidth="104.79998779296875" text="Thành tiền" />
                                                     </columns>
                                                 </TableView>
-                                                <TextField fx:id="txt_MaSach" layoutX="75.0" layoutY="207.0" prefHeight="30.0" prefWidth="293.0" promptText="Mã sách" styleClass="text-field-box" />
-                                                <TextField fx:id="txt_SL" layoutX="75.0" layoutY="253.0" prefHeight="30.0" prefWidth="294.0" promptText="Số lượng" styleClass="text-field-box" />
+                                                <TextField fx:id="txt_MaSach" layoutX="75.0" layoutY="207.0" prefHeight="30.0" prefWidth="224.0" promptText="Mã sách" styleClass="text-field-box" />
+                                                <TextField fx:id="txt_SL" layoutX="75.0" layoutY="253.0" prefHeight="30.0" prefWidth="109.0" promptText="Số lượng" styleClass="text-field-box" />
                                                 <Button fx:id="btnAdd" layoutX="89.0" layoutY="379.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="75.0" styleClass="btn" text="Thêm" />
-                                                <TextField fx:id="txt_MaNhanVien" layoutX="76.0" layoutY="118.0" prefHeight="30.0" prefWidth="290.0" promptText="Mã nhân viên" styleClass="text-field-box" />
-                                                <TextField fx:id="txt_MaNhaCungCap" layoutX="77.0" layoutY="163.0" prefHeight="30.0" prefWidth="290.0" promptText="Mã nhà cung cấp" styleClass="text-field-box" />
+                                                <TextField fx:id="txt_MaNhanVien" layoutX="76.0" layoutY="118.0" prefHeight="30.0" prefWidth="224.0" promptText="Mã nhân viên" styleClass="text-field-box" />
+                                                <TextField fx:id="txt_MaNhaCungCap" layoutX="77.0" layoutY="163.0" prefHeight="30.0" prefWidth="224.0" promptText="Mã nhà cung cấp" styleClass="text-field-box" />
                                                 <Button layoutX="259.0" layoutY="604.0" mnemonicParsing="false" onAction="#onXuatPhieuNhapClicked" prefHeight="26.0" prefWidth="123.0" text="Xuất phiếu nhập" />
                                                 <Label layoutX="14.0" layoutY="79.0" prefHeight="18.0" prefWidth="54.0" text="Mã PN" />
                                                 <TextField fx:id="txt_MaPhieuNhap" layoutX="76.0" layoutY="75.0" prefHeight="30.0" prefWidth="290.0" promptText="Mã phiếu nhập" />
@@ -121,25 +119,15 @@
                                                 <Button layoutX="295.0" layoutY="380.0" mnemonicParsing="false" onAction="#updateChiTietPhieuNhap" prefHeight="30.0" prefWidth="75.0" text="Sửa" />
                                                 <Label fx:id="tongTienLabel" layoutX="12.0" layoutY="412.0" prefHeight="38.0" prefWidth="235.0" text="Tổng tiền: " />
                                                 <Button layoutX="11.0" layoutY="602.0" mnemonicParsing="false" onAction="#themPhieuNhapMoi" prefHeight="26.0" prefWidth="121.0" text="Thêm phiếu nhập mới" />
-                                                <ChoiceBox fx:id="thanhToan" layoutX="166.0" layoutY="471.0" prefHeight="26.0" prefWidth="212.0" />
                                                 <DatePicker fx:id="ngayTaoPhieu" layoutX="75.0" layoutY="298.0" prefHeight="30.0" prefWidth="295.0" />
                                                 <Label layoutX="14.0" layoutY="305.0" prefHeight="18.0" prefWidth="53.0" text="Ngày" />
-                                                <Label layoutX="14.0" layoutY="474.0" prefHeight="18.0" prefWidth="168.0" text="Phương thức thanh toán" />
+                                    <Label layoutX="190.0" layoutY="259.0" prefHeight="18.0" prefWidth="28.0" text="Giá " />
+                                    <TextField fx:id="txt_GiaNhap" layoutX="221.0" layoutY="253.0" prefHeight="30.0" prefWidth="146.0" promptText="Giá nhập" styleClass="text-field-box" />
+                                    <ComboBox fx:id="cb_NV" layoutX="317.0" layoutY="119.0" onAction="#setNhanVien" prefHeight="28.0" prefWidth="48.0" />
+                                    <ComboBox fx:id="cb_NCC" layoutX="317.0" layoutY="164.0" onAction="#setNhaCungCap" prefHeight="28.0" prefWidth="48.0" />
+                                    <ComboBox fx:id="cb_SP" layoutX="317.0" layoutY="208.0" onAction="#setSanPham" prefHeight="28.0" prefWidth="48.0" />
                                             </children>
                                         </AnchorPane>
-                                    </content>
-                                </Tab>
-                                <Tab fx:id="tabPayment" text="Payment">
-                                    <content>
-                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                            <children>
-                                                <VBox layoutX="49.0" layoutY="49.0" prefHeight="550.0" prefWidth="862.0">
-                                                    <children>
-                                                        <WebView fx:id="webMoMo" prefHeight="550.0" prefWidth="584.0" />
-                                                    </children>
-                                                </VBox>
-                                                <Button layoutX="812.0" layoutY="640.0" mnemonicParsing="false" text="Hủy thanh toán" />
-                                            </children></AnchorPane>
                                     </content>
                                 </Tab>
                             </tabs>

@@ -1,5 +1,6 @@
 package com.example.demo.GuiController;
 
+import com.example.demo.BUS.services.SanPhamServices;
 import com.example.demo.model.HoaDon;
 import com.example.demo.model.SanPham;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -16,12 +17,13 @@ import javafx.scene.input.MouseEvent;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import org.springframework.stereotype.Component;
-import java.util.UUID;
+
+import java.time.LocalDate;
+import java.util.*;
+
 import javafx.scene.web.WebView;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.logging.SimpleFormatter;
 
 @Component
 public class ChiTietHoaDonController implements Initializable {
@@ -50,8 +52,7 @@ public class ChiTietHoaDonController implements Initializable {
     private Button btnAdd;
 
     boolean isSuaHoaDon = false;
-    @FXML
-    private Button btnThongKe, btnKhachHang, btnSanPham, btnNhanVien, btnNCC, btnTacGia, btnHoaDon, btnTHD, btnKhuyenMai, btnPhieuNhap;
+
     @FXML DatePicker ngayTaoHoaDon;
     @FXML ChoiceBox<String> thanhToan;
     @FXML Tab tabTaoHD,tabPayment;
@@ -59,12 +60,14 @@ public class ChiTietHoaDonController implements Initializable {
     @FXML WebView webMoMo;
     private ObservableList<ChiTietHoaDon> danhSachChiTietHoaDon = FXCollections.observableArrayList();
     LeftMenuController leftMenuController = new LeftMenuController();
-
+    @FXML private Button btnThongKe, btnKhachHang, btnSanPham, btnNhanVien, btnNCC, btnTacGia, btnHoaDon, btnTHD, btnKhuyenMai, btnPhieuNhap,btnTaoPhieuNhap,btnNhaXuatBan,btnTheLoai;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         leftMenuController.bindHandlers(btnThongKe, btnKhachHang, btnSanPham,
-                btnNhanVien, btnNCC, btnTacGia,
-                btnHoaDon, btnTHD, btnKhuyenMai,btnPhieuNhap);
+                        btnNhanVien, btnNCC, btnTacGia,
+                        btnHoaDon, btnTHD,  btnKhuyenMai,
+                        btnTheLoai, btnNhaXuatBan, btnPhieuNhap,
+                        btnTaoPhieuNhap);
         // Liên kết cột với thuộc tính đối tượng ChiTietHoaDon
         maSachColumn.setCellValueFactory(new PropertyValueFactory<>("masp"));
         donGiaColumn.setCellValueFactory(new PropertyValueFactory<>("dongia"));
@@ -83,6 +86,9 @@ public class ChiTietHoaDonController implements Initializable {
                 // Nếu bạn có thêm thông tin khác, có thể set thêm vào các TextField tương ứng
             }
         });
+        if (ngayTaoHoaDon.getValue()==null){
+            ngayTaoHoaDon.setValue(LocalDate.now());
+        }
         thanhToan.getItems().addAll("Tiền mặt","Chuyển khoản");
 
     }
@@ -107,12 +113,8 @@ public class ChiTietHoaDonController implements Initializable {
             chiTiet.setMasp(masp);
             chiTiet.setMahd(textFieldMaHoaDon.getText());
             chiTiet.setSl(Integer.parseInt(textFieldSL.getText()));
-            for (SanPham sp : listSanPham) {
-                if (sp.getMasp().equals(textFieldMaSach.getText())) {
-                    chiTiet.setDongia(sp.getDongia());
-                    break;
-                }
-            }
+            SanPhamServices sanPhamServices=new SanPhamServices();
+            chiTiet.setDongia(sanPhamServices.getGia(chiTiet.getMasp(),ngayTaoHoaDon.getValue())*chiTiet.getSl());
             for (int i = 0; i < danhSachChiTietHoaDon.size(); i++) {
                 if (danhSachChiTietHoaDon.get(i).getMasp().equals(textFieldMaSach.getText())) {
                     danhSachChiTietHoaDon.get(i).setSl(danhSachChiTietHoaDon.get(i).getSl() + Integer.parseInt(textFieldSL.getText()));

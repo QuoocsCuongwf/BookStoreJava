@@ -69,15 +69,16 @@ public class KhuyenMaiController implements Initializable {
     private Button btnDeleteKhuyenMaiHD = new Button("    Xóa    ");
     private Button btnUpdateKhuyenMaiHD = new Button("Cập nhật");
     @FXML
-    private Button btnThongKe, btnKhachHang, btnSanPham, btnNhanVien,
-            btnNCC, btnTacGia, btnHoaDon, btnTHD, btnKhuyenMai,btnPhieuNhap;
-    LeftMenuController leftMenuController=new LeftMenuController();
 
+    LeftMenuController leftMenuController=new LeftMenuController();
+    @FXML private Button btnThongKe, btnKhachHang, btnSanPham, btnNhanVien, btnNCC, btnTacGia, btnHoaDon, btnTHD, btnKhuyenMai, btnPhieuNhap,btnTaoPhieuNhap,btnNhaXuatBan,btnTheLoai;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         leftMenuController.bindHandlers(btnThongKe, btnKhachHang, btnSanPham,
                 btnNhanVien, btnNCC, btnTacGia,
-                btnHoaDon, btnTHD, btnKhuyenMai,btnPhieuNhap);
+                btnHoaDon, btnTHD,  btnKhuyenMai,
+                btnTheLoai, btnNhaXuatBan, btnPhieuNhap,
+                btnTaoPhieuNhap);
         inforContainerKMTT.setVisible(false);
         inforContainerKMSP.setVisible(false);
         listenerChangeValuesOfKmtheoSanPham();
@@ -114,9 +115,11 @@ public class KhuyenMaiController implements Initializable {
                 System.out.println("No item selected");
             }
         });
+        if (listChuongTrinhKhuyenMai.isEmpty()){
+            listChuongTrinhKhuyenMai=chuongTrinhKhuyenMaiServices.getListChuongTrinhKhuyenMai();
+            listTongQuat = FXCollections.observableArrayList(listChuongTrinhKhuyenMai);
+        }
 
-        listChuongTrinhKhuyenMai=chuongTrinhKhuyenMaiServices.getListChuongTrinhKhuyenMai();
-        listTongQuat = FXCollections.observableArrayList(listChuongTrinhKhuyenMai);
         tableView.setItems(listTongQuat);
     }
     public List<KmTheoSoTienHoaDon> convertJsonToListKmTheoSoTienHoaDon(String json) {
@@ -202,8 +205,8 @@ public class KhuyenMaiController implements Initializable {
         txt_CTKMTongTien.setText(maCTKM);
         txt_tongTien.setText("");
         txt_phanTramKhuyenMai.setText("");
-        datePickerNgayBatDauTT.setValue(LocalDate.now());
-        datePickerNgayKetThucTT.setValue(LocalDate.now());
+        datePickerNgayBatDauTT.setValue(null);
+        datePickerNgayKetThucTT.setValue(null);
         inforContainerKMTT.setVisible(true);
     }
     public void clossInforContainerKmTheoHoaDon() {
@@ -376,8 +379,8 @@ public class KhuyenMaiController implements Initializable {
         txt_CTKMSanPham.setText(maCTKM);
         txt_maSanPham.setText("");
         txt_phanTramKhuyenMaiSP.setText("");
-        datePickerNgayBatDauSP.setValue(LocalDate.now());
-        datePickerNgayKetThucSP.setValue(LocalDate.now());
+        datePickerNgayBatDauSP.setValue(null);
+        datePickerNgayKetThucSP.setValue(null);
         inforContainerKMSP.setVisible(true);
     }
 

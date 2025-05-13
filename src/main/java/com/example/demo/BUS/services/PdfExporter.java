@@ -2,6 +2,7 @@ package com.example.demo.BUS.services;
 
 import com.example.demo.model.HoaDon;
 import com.example.demo.model.ChiTietHoaDon;
+import com.example.demo.model.ThongKe4Quy;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.kernel.font.PdfFont;
@@ -25,10 +26,177 @@ import com.itextpdf.barcodes.Barcode128;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 public class PdfExporter {
+    public static String generateQuarterlyReport(List<ThongKe4Quy> thongKeList) {
+        if (thongKeList == null || thongKeList.isEmpty()) {
+            return "No data available for the report.";
+        }
 
+        StringBuilder report = new StringBuilder();
+        report.append("Quarterly Sales Report\n");
+        report.append("=====================\n\n");
+
+        report.append(String.format("%-30s %-10s %-10s %-10s %-10s %-10s\n",
+                "Book Name", "Q1", "Q2", "Q3", "Q4", "Total"));
+        report.append("-".repeat(80)).append("\n");
+
+        int totalQ1 = 0, totalQ2 = 0, totalQ3 = 0, totalQ4 = 0;
+        String topBook = "";
+        int maxTotal = -1;
+
+        for (ThongKe4Quy item : thongKeList) {
+            int total = item.getSoLuongQ1() + item.getSoLuongQ2() +
+                    item.getSoLuongQ3() + item.getSoLuongQ4();
+            report.append(String.format("%-30s %-10d %-10d %-10d %-10d %-10d\n",
+                    truncate(item.getTenSach(), 30),
+                    item.getSoLuongQ1(),
+                    item.getSoLuongQ2(),
+                    item.getSoLuongQ3(),
+                    item.getSoLuongQ4(),
+                    total));
+
+            totalQ1 += item.getSoLuongQ1();
+            totalQ2 += item.getSoLuongQ2();
+            totalQ3 += item.getSoLuongQ3();
+            totalQ4 += item.getSoLuongQ4();
+
+            if (total > maxTotal) {
+                maxTotal = total;
+                topBook = item.getTenSach();
+            }
+        }
+
+        report.append("-".repeat(80)).append("\n");
+        report.append(String.format("%-30s %-10d %-10d %-10d %-10d\n",
+                "Total per Quarter", totalQ1, totalQ2, totalQ3, totalQ4));
+
+        report.append("\nInsights:\n");
+        report.append("- Top-selling book: ").append(topBook)
+                .append(" (").append(maxTotal).append(" units)\n");
+
+        int[] quarterTotals = {totalQ1, totalQ2, totalQ3, totalQ4};
+        int maxQuarterSales = quarterTotals[0];
+        int maxQuarter = 1;
+        for (int i = 1; i < quarterTotals.length; i++) {
+            if (quarterTotals[i] > maxQuarterSales) {
+                maxQuarterSales = quarterTotals[i];
+                maxQuarter = i + 1;
+            }
+        }
+        report.append("- Highest sales quarter: Q").append(maxQuarter)
+                .append(" (").append(maxQuarterSales).append(" units)\n");
+
+        return report.toString();
+    }
+
+    public static void saveReportToFile(List<ThongKe4Quy> thongKeList) {
+        try {
+            String filePath="D:\\code\\BookStoreJava\\src\\main\\resources\\Output\\BaoCao.pdf";
+            Path path = Paths.get(filePath);
+            Files.createDirectories(path.getParent());
+            Files.writeString(path, generateQuarterlyReport(thongKeList), java.nio.charset.StandardCharsets.UTF_8);
+        } catch (IOException e) {
+            System.err.println("Error saving report to file: " + e.getMessage());
+        }
+    }
+
+    public static void saveReportToPDF(List<ThongKe4Quy> thongKeList) {
+        try {
+            String filePath="D:\\code\\BookStoreJava\\src\\main\\resources\\Output\\BaoCao.pdf";
+            Path path = Paths.get(filePath);
+            Files.createDirectories(path.getParent());
+
+            PdfWriter writer = new PdfWriter(filePath);
+            PdfDocument pdf = new PdfDocument(writer);
+            Document document = new Document(pdf);
+
+            document.add(new Paragraph("Quarterly Sales Report")
+                    .setTextAlignment(TextAlignment.CENTER)
+                    .setBold()
+                    .setFontSize(16));
+
+            document.add(new Paragraph("\n"));
+
+            if (thongKeList == null || thongKeList.isEmpty()) {
+                document.add(new Paragraph("No data available for the report."));
+                document.close();
+                return;
+            }
+
+            float[] columnWidths = {200, 50, 50, 50, 50, 60};
+            Table table = new Table(columnWidths);
+            table.addHeaderCell("Book Name").setBold();
+            table.addHeaderCell("Q1").setBold();
+            table.addHeaderCell("Q2").setBold();
+            table.addHeaderCell("Q3").setBold();
+            table.addHeaderCell("Q4").setBold();
+            table.addHeaderCell("Total").setBold();
+
+            int totalQ1 = 0, totalQ2 = 0, totalQ3 = 0, totalQ4 = 0;
+            String topBook = "";
+            int maxTotal = -1;
+
+            for (ThongKe4Quy item : thongKeList) {
+                int total = item.getSoLuongQ1() + item.getSoLuongQ2() +
+                        item.getSoLuongQ3() + item.getSoLuongQ4();
+                table.addCell(truncate(item.getTenSach(), 50));
+                table.addCell(String.valueOf(item.getSoLuongQ1()));
+                table.addCell(String.valueOf(item.getSoLuongQ2()));
+                table.addCell(String.valueOf(item.getSoLuongQ3()));
+                table.addCell(String.valueOf(item.getSoLuongQ4()));
+                table.addCell(String.valueOf(total));
+
+                totalQ1 += item.getSoLuongQ1();
+                totalQ2 += item.getSoLuongQ2();
+                totalQ3 += item.getSoLuongQ3();
+                totalQ4 += item.getSoLuongQ4();
+
+                if (total > maxTotal) {
+                    maxTotal = total;
+                    topBook = item.getTenSach();
+                }
+            }
+
+            table.addCell("Total per Quarter");
+            table.addCell(String.valueOf(totalQ1));
+            table.addCell(String.valueOf(totalQ2));
+            table.addCell(String.valueOf(totalQ3));
+            table.addCell(String.valueOf(totalQ4));
+            table.addCell("");
+
+            document.add(table);
+
+            document.add(new Paragraph("\nInsights:"));
+            document.add(new Paragraph("- Top-selling book: " + topBook + " (" + maxTotal + " units)"));
+
+            int[] quarterTotals = {totalQ1, totalQ2, totalQ3, totalQ4};
+            int maxQuarterSales = quarterTotals[0];
+            int maxQuarter = 1;
+            for (int i = 1; i < quarterTotals.length; i++) {
+                if (quarterTotals[i] > maxQuarterSales) {
+                    maxQuarterSales = quarterTotals[i];
+                    maxQuarter = i + 1;
+                }
+            }
+            document.add(new Paragraph("- Highest sales quarter: Q" + maxQuarter + " (" + maxQuarterSales + " units)"));
+
+            document.close();
+        } catch (IOException e) {
+            System.err.println("Error saving report to PDF: " + e.getMessage());
+        }
+    }
+
+    private static String truncate(String str, int maxLength) {
+        if (str == null) return "";
+        if (str.length() <= maxLength) return str;
+        return str.substring(0, maxLength - 3) + "...";
+    }
     public static void xuatHoaDonPDF(HoaDon hoaDon, List<ChiTietHoaDon> chiTietList, String filePath) throws Exception {
         // Kiểm tra và xóa file PDF nếu đã tồn tại
         File file = new File(filePath);
@@ -229,15 +397,7 @@ public class PdfExporter {
     }
 
     public static void main(String[] args) throws Exception {
-        HoaDon hoaDon = new HoaDon();
-        HoaDonServices hoaDonServices = new HoaDonServices();
-        hoaDonServices.getHoaDonList();
-        hoaDon = hoaDonServices.findByIdHoaDon("HD1");
-
-        ChiTietHoaDonServices chiTietHoaDonServices = new ChiTietHoaDonServices();
-        List<ChiTietHoaDon> list = chiTietHoaDonServices.getList("HD1");
-
-        String outputPath = "D:\\code\\BookStoreJava\\src\\main\\resources\\Output\\HoaDon\\" + hoaDon.getMahd() + ".pdf";
-        PdfExporter.xuatHoaDonPDF(hoaDon, list, outputPath);
+        ThongKeServices thongKeServices=new ThongKeServices();
+        PdfExporter.saveReportToPDF(thongKeServices.thongKeSanPhamBanRaTrong4Quy(2025));
     }
 }

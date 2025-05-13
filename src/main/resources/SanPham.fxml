@@ -18,7 +18,7 @@
 
 <Pane fx:id="nhanVienPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="710.0" prefWidth="1250.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.GuiController.SanPhamController">
     <children>
-        <SplitPane dividerPositions="0.23755750731911332" layoutX="-1.0" layoutY="-5.0" prefHeight="710.0" prefWidth="1250.0">
+        <SplitPane dividerPositions="0.23755750731911332" layoutX="-1.0" layoutY="-5.0" prefHeight="724.0" prefWidth="1260.0">
             <items>
                 <AnchorPane fx:id="anchorPaneMenu" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" style="-fx-background-color: #00A4EF;">
                     <children>
@@ -91,7 +91,7 @@
                 </AnchorPane>                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                     <children>
                   <Button fx:id="btnThemSach" layoutX="804.0" layoutY="126.0" mnemonicParsing="false" onAction="#openInforContainer" prefHeight="26.0" prefWidth="134.0" styleClass="btn" text="Thêm sách" />
-                        <TableView fx:id="tableView" layoutY="171.0" prefHeight="539.0" prefWidth="955.0" AnchorPane.leftAnchor="0.0">
+                        <TableView fx:id="tableView" layoutY="171.0" prefHeight="555.0" prefWidth="965.0" AnchorPane.leftAnchor="0.0">
                             <columns>
                                 <TableColumn fx:id="anhBia" prefWidth="101.6000549197197" text="Ảnh bìa" />
                                 <TableColumn fx:id="maSachColumn" prefWidth="141.5999755859375" text="Mã sách" />

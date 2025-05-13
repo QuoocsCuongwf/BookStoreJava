@@ -1,16 +1,21 @@
 package com.example.demo.BUS.services;
 
 import com.example.demo.databaseAccesssObject.SanPhamDAO;
+import com.example.demo.model.ChuongTrinhKhuyenMai;
+import com.example.demo.model.KmTheoSanPham;
 import com.example.demo.model.SanPham;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
 public class SanPhamServices {
     private static List<SanPham> listSanPham=new ArrayList<SanPham>();
     private SanPhamDAO sanPhamDAO=new SanPhamDAO();
-
+    private ChuongTrinhKhuyenMaiServices khuyenMaiServices=new ChuongTrinhKhuyenMaiServices();
     public List<SanPham> getListSanPham() {
         listSanPham=sanPhamDAO.getListSanPham();
         return listSanPham;
@@ -53,6 +58,47 @@ public class SanPhamServices {
             }
         }
         return false;
+    }
+    public SanPham timTheoMa(String maSanPham) {
+        for (SanPham sanPham : listSanPham) {
+            if (sanPham.getMasp().equals(maSanPham)) {
+                return sanPham;
+            }
+        }
+        return null;
+    }
+    public int getGia(String maSanPham, LocalDate ngayMua) {
+        SanPham sp = timTheoMa(maSanPham);
+        if (sp == null) return 0;
+        System.out.println(ngayMua);
+        int giaGoc = sp.getDongia();
+
+        for (ChuongTrinhKhuyenMai ctkm : khuyenMaiServices.getListChuongTrinhKhuyenMai()) {
+            if (true) {
+                System.out.println("ngayMua: " + ngayMua);
+                System.out.println("ngaybd: " + ctkm.getNgaybd());
+                System.out.println("ngaykt: " + ctkm.getNgaykt());
+
+                if (!ngayMua.isBefore(ctkm.getNgaybd()) && !ngayMua.isAfter(ctkm.getNgaykt())) {
+                    System.out.println("Vào if rồi");
+                } else {
+                    System.out.println("Không vào vì không nằm trong khoảng ngày");
+                }
+            }
+
+            if (!ngayMua.isBefore(ctkm.getNgaybd()) && !ngayMua.isAfter(ctkm.getNgaykt())) {
+                System.out.println("kiem tra if");
+                if (ctkm instanceof KmTheoSanPham) {
+                    KmTheoSanPham km = (KmTheoSanPham) ctkm;
+                    if (maSanPham.equals(km.getMasp())) {
+                        double giamGia = giaGoc * (km.getPhantramkhuyenmai() / 100.0);
+                        return (int) (giaGoc - giamGia);
+                    }
+                }
+            }
+        }
+
+        return giaGoc;
     }
 
     public void deleteSanPham(String maSanPham) {

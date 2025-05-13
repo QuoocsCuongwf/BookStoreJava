@@ -71,15 +71,15 @@ public class TacGiaController implements Initializable {
 
     private Button btnDeleteTacGia = new Button("    Xóa    ");
     private Button btnUpdateTacGia = new Button("Cập nhật");
-    @FXML
-    private Button btnThongKe, btnKhachHang, btnSanPham, btnNhanVien,
-            btnNCC, btnTacGia, btnHoaDon, btnTHD, btnKhuyenMai,btnPhieuNhap;
-    LeftMenuController leftMenuController=new LeftMenuController();
+    @FXML private Button btnThongKe, btnKhachHang, btnSanPham, btnNhanVien, btnNCC, btnTacGia, btnHoaDon, btnTHD, btnKhuyenMai, btnPhieuNhap,btnTaoPhieuNhap,btnNhaXuatBan,btnTheLoai;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        LeftMenuController leftMenuController = new LeftMenuController();
         leftMenuController.bindHandlers(btnThongKe, btnKhachHang, btnSanPham,
                 btnNhanVien, btnNCC, btnTacGia,
-                btnHoaDon, btnTHD, btnKhuyenMai,btnPhieuNhap);
+                btnHoaDon, btnTHD,  btnKhuyenMai,
+                btnTheLoai, btnNhaXuatBan, btnPhieuNhap,
+                btnTaoPhieuNhap);
         inforContainer.setVisible(false);
         maTacGiaColumn.setCellValueFactory(new PropertyValueFactory<>("matg"));
         hoTacGiaColumn.setCellValueFactory(new PropertyValueFactory<>("hotg"));

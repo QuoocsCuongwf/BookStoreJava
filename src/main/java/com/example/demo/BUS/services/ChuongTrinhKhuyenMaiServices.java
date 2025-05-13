@@ -10,9 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ChuongTrinhKhuyenMaiServices {
-    List<ChuongTrinhKhuyenMai> listChuongTrinhKhuyenMai=new ArrayList<>();
-    KmTheoHoaDonDAO kmTheoHoaDonDAO=new KmTheoHoaDonDAO();
-    KmTheoSanPhamDAO kmTheoSanPhamDAO=new KmTheoSanPhamDAO();
+    private static List<ChuongTrinhKhuyenMai> listChuongTrinhKhuyenMai=new ArrayList<>();
+    private KmTheoHoaDonDAO kmTheoHoaDonDAO=new KmTheoHoaDonDAO();
+    private KmTheoSanPhamDAO kmTheoSanPhamDAO=new KmTheoSanPhamDAO();
     public List<ChuongTrinhKhuyenMai> getListChuongTrinhKhuyenMai() {
         List<KmTheoHoaDon> listKhuyenMaiTheoHoaDon=kmTheoHoaDonDAO.getListKmTheoHoaDon();
         for (KmTheoHoaDon kmTheoHoaDon:listKhuyenMaiTheoHoaDon) {
@@ -66,23 +66,23 @@ public class ChuongTrinhKhuyenMaiServices {
     }
 
 
-    public static void main(String[] args) {
-        ChuongTrinhKhuyenMaiServices chuongTrinhKhuyenMaiServices=new ChuongTrinhKhuyenMaiServices();
-        List<ChuongTrinhKhuyenMai> listChuongTrinhKhuyenMai=new ArrayList<>();
-        listChuongTrinhKhuyenMai=chuongTrinhKhuyenMaiServices.getListChuongTrinhKhuyenMai();
-        for (ChuongTrinhKhuyenMai chuongTrinhKhuyenMai:listChuongTrinhKhuyenMai) {
-            if (chuongTrinhKhuyenMai instanceof  KmTheoSanPham) {
-                KmTheoSanPham kmTheoSanPham=(KmTheoSanPham) chuongTrinhKhuyenMai;
-                System.out.println(kmTheoSanPham.getMactkm()+" "+kmTheoSanPham.getMasp());
-            }
-        }
-//        chuongTrinhKhuyenMaiServices.delete("km001");
-        KmTheoHoaDon kmTheoHoaDon=new KmTheoHoaDon();
-        kmTheoHoaDon.setMactkm("km001");
-        kmTheoHoaDon.setTenchuongtrinh("001");
-        kmTheoHoaDon.setTongtien(10000.0);
-        kmTheoHoaDon.setPhantramkhuyenmai(99.0);
-        chuongTrinhKhuyenMaiServices.update(kmTheoHoaDon);
-    }
+//    public static void main(String[] args) {
+//        ChuongTrinhKhuyenMaiServices chuongTrinhKhuyenMaiServices=new ChuongTrinhKhuyenMaiServices();
+//        List<ChuongTrinhKhuyenMai> listChuongTrinhKhuyenMai=new ArrayList<>();
+//        listChuongTrinhKhuyenMai=chuongTrinhKhuyenMaiServices.getListChuongTrinhKhuyenMai();
+//        for (ChuongTrinhKhuyenMai chuongTrinhKhuyenMai:listChuongTrinhKhuyenMai) {
+//            if (chuongTrinhKhuyenMai instanceof  KmTheoSanPham) {
+//                KmTheoSanPham kmTheoSanPham=(KmTheoSanPham) chuongTrinhKhuyenMai;
+//                System.out.println(kmTheoSanPham.getMactkm()+" "+kmTheoSanPham.getMasp());
+//            }
+//        }
+////        chuongTrinhKhuyenMaiServices.delete("km001");
+//        KmTheoHoaDon kmTheoHoaDon=new KmTheoHoaDon();
+//        kmTheoHoaDon.setMactkm("km001");
+//        kmTheoHoaDon.setTenchuongtrinh("001");
+//        kmTheoHoaDon.setTongtien(10000.0);
+//        kmTheoHoaDon.setPhantramkhuyenmai(99.0);
+//        chuongTrinhKhuyenMaiServices.update(kmTheoHoaDon);
+//    }
 
 }

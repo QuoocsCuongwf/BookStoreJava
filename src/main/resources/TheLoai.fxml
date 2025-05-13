@@ -14,9 +14,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<Pane fx:id="theLoaiPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="958.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.GuiController.TheLoaiController">
+<Pane fx:id="theLoaiPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="710.0" prefWidth="1250.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.GuiController.TheLoaiController">
     <children>
-        <SplitPane dividerPositions="0.23755750731911332" layoutX="-1.0" layoutY="-5.0" prefHeight="567.0" prefWidth="958.0">
+        <SplitPane dividerPositions="0.23755750731911332" layoutX="-1.0" layoutY="-5.0" prefHeight="718.0" prefWidth="1253.0">
             <items>
                 <AnchorPane fx:id="anchorPaneMenu" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" style="-fx-background-color: #00A4EF;">
                     <children>
@@ -89,15 +89,15 @@
                 </AnchorPane>                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                     <children>
                         <Button fx:id="btnThemTheLoai" layoutX="549.0" layoutY="114.0" mnemonicParsing="false" onAction="#openInforContainer" prefHeight="26.0" prefWidth="162.0" styleClass="btn" text="Thêm Thể Loại" />
-                        <TableView fx:id="tableView" layoutY="171.0" prefHeight="409.0" prefWidth="742.0" AnchorPane.leftAnchor="0.0">
+                        <TableView fx:id="tableView" layoutY="171.0" prefHeight="553.0" prefWidth="951.0" AnchorPane.leftAnchor="0.0">
                             <columns>
                                 <TableColumn fx:id="maTheLoaiColumn" prefWidth="370.0" text="Mã thể loại" />
-                                <TableColumn fx:id="tenTheLoaiColumn" prefWidth="370.0" text="Tên thể loại" />
+                                <TableColumn fx:id="tenTheLoaiColumn" prefWidth="579.9999267578125" text="Tên thể loại" />
                             </columns>
                         </TableView>
                         <TextField fx:id="textFieldTimKiem" layoutX="37.0" layoutY="32.0" prefHeight="30.0" prefWidth="174.0" promptText="Tìm kiếm..." styleClass="text-field-box" />
                         <Button layoutX="238.0" layoutY="35.0" mnemonicParsing="false" onAction="#timKiem" styleClass="btn" text="Tìm kiếm" />
-                        <Pane fx:id="inforContainer" prefHeight="566.0" prefWidth="726.0" AnchorPane.leftAnchor="0.0">
+                        <Pane fx:id="inforContainer" layoutX="133.0" layoutY="61.0" prefHeight="566.0" prefWidth="726.0" AnchorPane.leftAnchor="133.0">
                             <children>
                                 <Pane layoutX="162.0" layoutY="69.0" prefHeight="476.0" prefWidth="332.0">
                                     <children>

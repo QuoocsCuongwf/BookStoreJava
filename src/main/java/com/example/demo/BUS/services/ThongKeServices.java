@@ -15,11 +15,13 @@ import java.util.ArrayList;
 public class ThongKeServices {
     public List<ThongKeSanPham> thongKeNhapHangTheoKhoangThoiGian(Date tuNgay,Date denNgay){
         List<ThongKeSanPham> listResult=new ArrayList<>();
+
         SanPhamServices sanPhamServices=new SanPhamServices();
         List<SanPham> listSanPham=sanPhamServices.getListSanPham();
         PhieuNhapServices phieuNhapServices=new PhieuNhapServices();
         ChiTietPhieuNhapServices chiTietPhieuNhapServices=new ChiTietPhieuNhapServices();
         List<PhieuNhap> listPhieuNhap=phieuNhapServices.getPhieuNhapList();
+
         for (int i = 0; i < listSanPham.size(); i++) {
             ThongKeSanPham thongKeSanPham = new ThongKeSanPham();
             thongKeSanPham.setTenSach(listSanPham.get(i).getTensp());
@@ -42,6 +44,7 @@ public class ThongKeServices {
     }
     public List<ThongKeSanPham> thongKeBanHangTheoKhoangThoiGian(Date tuNgay,Date denNgay){
         List<ThongKeSanPham> listResult=new ArrayList<>();
+
         SanPhamServices sanPhamServices = new SanPhamServices();
         List<SanPham> listSanPham = sanPhamServices.getListSanPham();
         ChiTietHoaDonServices chiTietHoaDonServices = new ChiTietHoaDonServices();

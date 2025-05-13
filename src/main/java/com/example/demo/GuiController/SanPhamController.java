@@ -13,6 +13,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -27,12 +28,13 @@ import org.springframework.stereotype.Controller;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.net.URL;
 import java.util.*;
 import java.util.stream.Collectors;
 
 @Controller
 @Component
-public class SanPhamController {
+public class SanPhamController implements Initializable {
     @FXML
     private TableView<SanPham> tableView; // Bảng chính
 
@@ -57,8 +59,6 @@ public class SanPhamController {
     @FXML
     private TextField textFieldMaSach, textFieldTenSach, textFieldDonGia, textFieldMaTG, textFieldMaNXB, textFieldSoTrang, textFieldMaTL;
     private ObservableList<SanPham> data;
-    @FXML
-    private Button btnThongKe, btnKhachHang, btnSanPham, btnNhanVien, btnNCC, btnTacGia, btnHoaDon, btnTHD, btnKhuyenMai,btnPhieuNhap;
     @FXML
     private TextField textFieldTimKiem,giaMin,giaMax;
     @FXML
@@ -86,8 +86,15 @@ public class SanPhamController {
     private Button btnDeleteBook=new Button("    Xóa    ");
     private Button btnUpdateBook=new Button("Cập nhật");
     private LeftMenuController leftMenuController=new LeftMenuController();
-    @FXML
-    public void initialize() {
+    @FXML private Button btnThongKe, btnKhachHang, btnSanPham, btnNhanVien, btnNCC, btnTacGia, btnHoaDon, btnTHD, btnKhuyenMai, btnPhieuNhap,btnTaoPhieuNhap,btnNhaXuatBan,btnTheLoai;
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        leftMenuController.bindHandlers(btnThongKe, btnKhachHang, btnSanPham,
+                btnNhanVien, btnNCC, btnTacGia,
+                btnHoaDon, btnTHD,  btnKhuyenMai,
+                btnTheLoai, btnNhaXuatBan, btnPhieuNhap,
+                btnTaoPhieuNhap);
         btnSave.setDisable(!danhSachExcel.isEmpty());
         Map<String, TacGia> tacGiaMap = new HashMap<>();
         TacGiaController tacGiaController=new TacGiaController();
@@ -124,9 +131,6 @@ public class SanPhamController {
         btnUpdateBook.setOnAction(event->updateSanPham());
         data=FXCollections.observableArrayList(listSanPham);
         tableView.setItems(data);
-        leftMenuController.bindHandlers(btnThongKe, btnKhachHang, btnSanPham,
-                btnNhanVien, btnNCC, btnTacGia,
-                btnHoaDon, btnTHD, btnKhuyenMai,btnPhieuNhap);
         inforContainer.setVisible(false);
 
         btnThemSach.setOnAction(event -> inforContainer.setVisible(true));

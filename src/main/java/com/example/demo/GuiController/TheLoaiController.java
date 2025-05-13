@@ -35,7 +35,6 @@ public class TheLoaiController implements Initializable {
     @FXML private TextField textFieldMaTheLoai, textFieldTenTheLoai, textFieldTimKiem;
     @FXML private HBox inforFormButtonContainer;
     @FXML private Button btnAddTheLoai, btnThemTheLoai, btnThoatFormTheLoai;
-    @FXML private Button btnThongKe, btnKhachHang, btnSanPham, btnNhanVien, btnNCC, btnTacGia, btnHoaDon, btnTHD, btnKhuyenMai, btnTheLoai, btnNhaXuatBan;
 
     private final Button btnDeleteTheLoai = new Button("Xóa");
     private final Button btnUpdateTheLoai = new Button("Cập nhật");
@@ -43,12 +42,14 @@ public class TheLoaiController implements Initializable {
     private ObservableList<TheLoai> data;
     private List<TheLoai> listTheLoai = new ArrayList<>();
     private final LeftMenuController leftMenuController = new LeftMenuController();
-
+    @FXML private Button btnThongKe, btnKhachHang, btnSanPham, btnNhanVien, btnNCC, btnTacGia, btnHoaDon, btnTHD, btnKhuyenMai, btnPhieuNhap,btnTaoPhieuNhap,btnNhaXuatBan,btnTheLoai;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         leftMenuController.bindHandlers(btnThongKe, btnKhachHang, btnSanPham,
-                btnNhanVien, btnNCC, btnTacGia, btnHoaDon, btnTHD, btnKhuyenMai, btnTheLoai, btnNhaXuatBan);
-
+                btnNhanVien, btnNCC, btnTacGia,
+                btnHoaDon, btnTHD,  btnKhuyenMai,
+                btnTheLoai, btnNhaXuatBan, btnPhieuNhap,
+                btnTaoPhieuNhap);
         inforContainer.setVisible(false);
 
         maTheLoaiColumn.setCellValueFactory(new PropertyValueFactory<>("maTheLoai"));

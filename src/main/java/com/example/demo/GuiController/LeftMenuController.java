@@ -16,41 +16,34 @@ public class LeftMenuController {
             Button btnThongKe, Button btnKhachHang, Button btnSanPham,
             Button btnNhanVien, Button btnNCC, Button btnTacGia,
             Button btnHoaDon, Button btnTHD, Button btnKhuyenMai,
-            Button btnPhieuNhap
+            Button btnTheLoai, Button btnNhaXuatBan, Button btnPhieuNhap,
+            Button btnTaoPhieuNhap
     ) {
-        btnThongKe.setOnAction(e -> handleThongKe(e));
-        btnKhachHang.setOnAction(e -> handleKhachHang(e));
-        btnSanPham.setOnAction(e -> handleSanPham(e));
-        btnNhanVien.setOnAction(e -> handleNhanVien(e));
-        btnNCC.setOnAction(e -> handleNCC(e));
-        btnTacGia.setOnAction(e -> handleTacGia(e));
-        btnHoaDon.setOnAction(e -> handleHoaDon(e));
-        btnTHD.setOnAction(e -> handleTHD(e));
-        btnKhuyenMai.setOnAction(e -> handleKhuyenMai(e));
-        btnPhieuNhap.setOnAction(e -> handlePhieuNhap(e));
-    }
-    public void newButtonClicked(Button btnTaoPhieuNhap)  {
-        btnTaoPhieuNhap.setOnAction(e -> handleTaoPhieuNhap(e));
-    }
-    public void bindHandlers(
-            Button btnThongKe, Button btnKhachHang, Button btnSanPham,
-            Button btnNhanVien, Button btnNCC, Button btnTacGia,
-            Button btnHoaDon, Button btnTHD, Button btnKhuyenMai,
-            Button btnTheLoai, Button btnNhaXuatBan
-    ) {
-        btnThongKe.setOnAction(e -> handleThongKe(e));
-        btnKhachHang.setOnAction(e -> handleKhachHang(e));
-        btnSanPham.setOnAction(e -> handleSanPham(e));
-        btnNhanVien.setOnAction(e -> handleNhanVien(e));
-        btnNCC.setOnAction(e -> handleNCC(e));
-        btnTacGia.setOnAction(e -> handleTacGia(e));
-        btnHoaDon.setOnAction(e -> handleHoaDon(e));
-        btnTHD.setOnAction(e -> handleTHD(e));
-        btnKhuyenMai.setOnAction(e -> handleKhuyenMai(e));
-        btnTheLoai.setOnAction(e -> handleTheLoai(e));
-        btnNhaXuatBan.setOnAction(e -> handleNhaXuatBan(e));
-    }
+        // Bind mandatory buttons
+        btnThongKe.setOnAction(this::handleThongKe);
+        btnKhachHang.setOnAction(this::handleKhachHang);
+        btnSanPham.setOnAction(this::handleSanPham);
+        btnNhanVien.setOnAction(this::handleNhanVien);
+        btnNCC.setOnAction(this::handleNCC);
+        btnTacGia.setOnAction(this::handleTacGia);
+        btnHoaDon.setOnAction(this::handleHoaDon);
+        btnTHD.setOnAction(this::handleTHD);
+        btnKhuyenMai.setOnAction(this::handleKhuyenMai);
 
+        // Bind optional buttons with null checks
+        if (btnTheLoai != null) {
+            btnTheLoai.setOnAction(this::handleTheLoai);
+        }
+        if (btnNhaXuatBan != null) {
+            btnNhaXuatBan.setOnAction(this::handleNhaXuatBan);
+        }
+        if (btnPhieuNhap != null) {
+            btnPhieuNhap.setOnAction(this::handlePhieuNhap);
+        }
+        if (btnTaoPhieuNhap != null) {
+            btnTaoPhieuNhap.setOnAction(this::handleTaoPhieuNhap);
+        }
+    }
 
     private void handleThongKe(ActionEvent event) {
         System.out.println("Thống kê clicked");
@@ -96,10 +89,10 @@ public class LeftMenuController {
         System.out.println("Khuyến mãi clicked");
         loadScene(event, "/KhuyenMai.fxml");
     }
-    private void handlePhieuNhap( ActionEvent event) {
+
+    private void handlePhieuNhap(ActionEvent event) {
         System.out.println("Phiếu nhập clicked");
         System.out.println("Load path: " + getClass().getResource("/PhieuNhap.fxml"));
-
         loadScene(event, "/PhieuNhap.fxml");
     }
 
@@ -112,6 +105,7 @@ public class LeftMenuController {
         System.out.println("Nhà xuất bản clicked");
         loadScene(event, "/NhaXuatBan.fxml");
     }
+
     private void handleTaoPhieuNhap(ActionEvent event) {
         System.out.println("Tạo phiếu nhập clicked");
         loadScene(event, "/TaoPhieuNhap.fxml");
@@ -127,7 +121,7 @@ public class LeftMenuController {
             scene.getStylesheets().add(getClass().getResource("/asset/css/main.css").toExternalForm());
             stage.setScene(scene);
             stage.show();
-        }  catch (IOException e) {
+        } catch (IOException e) {
             System.err.println("Lỗi load FXML: " + fxmlPath);
             e.printStackTrace();
         } catch (Exception ex) {

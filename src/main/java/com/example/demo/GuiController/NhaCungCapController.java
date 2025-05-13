@@ -43,21 +43,20 @@ public class NhaCungCapController implements Initializable {
     @FXML private TextField textFieldMaNCC, textFieldTenNCC, textFieldDiaChi, textFieldSDT, textFieldEmail, textFieldTimKiem;
     @FXML private HBox inforFormButtonContainer;
     @FXML private Button btnAddNhaCungCap;
-    @FXML private Button btnNhanVien;
     private Button btnDeleteNhaCungCap = new Button("Xóa");
     private Button btnUpdateNhaCungCap = new Button("Cập nhật");
 
     private ObservableList<NhaCungCap> data;
     private List<NhaCungCap> listNhaCungCap = new ArrayList<>();
-    @FXML
-    private Button btnThongKe, btnKhachHang, btnSanPham,
-            btnNCC, btnTacGia, btnHoaDon, btnTHD, btnKhuyenMai,btnPhieuNhap;
-    LeftMenuController leftMenuController=new LeftMenuController();
+    @FXML private Button btnThongKe, btnKhachHang, btnSanPham, btnNhanVien, btnNCC, btnTacGia, btnHoaDon, btnTHD, btnKhuyenMai, btnPhieuNhap,btnTaoPhieuNhap,btnNhaXuatBan,btnTheLoai;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        LeftMenuController leftMenuController = new LeftMenuController();
         leftMenuController.bindHandlers(btnThongKe, btnKhachHang, btnSanPham,
                 btnNhanVien, btnNCC, btnTacGia,
-                btnHoaDon, btnTHD, btnKhuyenMai,btnPhieuNhap);
+                btnHoaDon, btnTHD,  btnKhuyenMai,
+                btnTheLoai, btnNhaXuatBan, btnPhieuNhap,
+                btnTaoPhieuNhap);
         inforContainer.setVisible(false);
         maNCCColumn.setCellValueFactory(new PropertyValueFactory<>("maNhaCungCap"));
         tenNCCColumn.setCellValueFactory(new PropertyValueFactory<>("tenNhaCungCap"));
@@ -93,7 +92,18 @@ public class NhaCungCapController implements Initializable {
         btnUpdateNhaCungCap.setOnAction(event -> updateNhaCungCap());
 
     }
-
+    public List<NhaCungCap> getListNhaCungCap() {
+        CallApi callApi = new CallApi();
+        String json = null;
+        List<NhaCungCap> listNhaCungCap = new ArrayList<>();
+        try {
+            json = callApi.callGetApi("http://localhost:8080/nhaCungCap/getAllNhaCungCap");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        listNhaCungCap = convertJsonToList(json);
+        return listNhaCungCap;
+    }
     public List<NhaCungCap> convertJsonToList(String json) {
         ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(new JavaTimeModule());
