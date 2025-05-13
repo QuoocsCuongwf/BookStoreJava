@@ -135,6 +135,12 @@ public class KhachHangController implements Initializable {
                 return;
             }
         }
+        try{
+            int num = Integer.parseInt(textFieldSdtKhachHang.getText());
+        } catch (NumberFormatException e) {
+            showMessage("THEM KHACH HANG","FAIL","SO DIEN THOAI KHONG HOP LE");
+            return;
+        }
         khachHang.setMakh(textFieldMaKhachHang.getText());
         khachHang.setHokh(textFieldHoKhachHang.getText());
         khachHang.setTenkh(textFieldTenKhachHang.getText());
@@ -150,7 +156,7 @@ public class KhachHangController implements Initializable {
             showMessage("Add Khach Hang", "Success", "Khách hàng đã được thêm!");
             closeInforContainer();
         } else {
-            showMessage("Add Khach Hang", "Fail", "Thêm khách hàng thất bại: " + result);
+            showMessage("Add Khach Hang", "Fail", "Thêm khách hàng thất bại, có thể mã khách hàng đã tồn tại ");
         }
     }
 

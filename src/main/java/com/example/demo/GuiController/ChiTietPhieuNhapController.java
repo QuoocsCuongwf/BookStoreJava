@@ -136,6 +136,10 @@ public class ChiTietPhieuNhapController implements Initializable {
             System.out.println("DUYENNNNNNNNNNNNNNNNNNNNNNNNNNNN");
             System.err.println("SOLUONG :" +txt_SL.getText());
             chiTiet.setSl(Integer.valueOf(txt_SL.getText()));
+            if (chiTiet.getSl() < 0 || chiTiet.getDongia() < 0){
+                showMessage("THEM CHI TIET PHIEU NHAP ","FAIL","Vui lòng nhập số dương");
+                return;
+            }
             // đoạn for này dùng để kiểm tra masp có đã có trên dữ liệu sản phẩm của kho chưa , nên gọi SANPHAMSERVICE cho gọn
             // à không gọi service mắc công éo hiểu nữa
             String find = "";
@@ -203,7 +207,7 @@ public class ChiTietPhieuNhapController implements Initializable {
         alert.setTitle(title);
         alert.setHeaderText(header);
         alert.setContentText(content);
-        alert.showAndWait(); // hoặc .show() nếu không cần chờ
+        alert.showAndWait(); // hoặc .show() nếu k hông cần chờ
     }
     //xong
     public String convertListCTPNtoJson(List<ChiTietPhieuNhap> listCTPNCanChuyenThanhJSON) {
@@ -253,6 +257,10 @@ public class ChiTietPhieuNhapController implements Initializable {
             tmp.setDongia(Integer.parseInt((txt_GiaNhap.getText())));
             tmp.setMasp(txt_MaSach.getText());
             tmp.setSl(Integer.parseInt(txt_SL.getText()));
+            if (tmp.getDongia() < 0 || tmp.getSl() < 0) {
+                showMessage("CAP NHAT CHI TIET PHIEU NHAP ","FAIL","Vui lòng nhập số dương");
+                return;
+            }
             String find = "";
             for (SanPham sanPham : listSanPham) {
                 if (sanPham.getMasp().equals(tmp.getMasp())) {
