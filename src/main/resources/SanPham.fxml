@@ -22,74 +22,73 @@
             <items>
                 <AnchorPane fx:id="anchorPaneMenu" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" style="-fx-background-color: #00A4EF;">
                     <children>
-                        <Button fx:id="btnThongKe" alignment="TOP_LEFT" layoutX="12.0" layoutY="170.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="224.0" styleClass="btn" text="Thống kê">
+                        <Button fx:id="btnThongKe" alignment="TOP_LEFT" layoutX="17.0" layoutY="128.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="224.0" styleClass="btn" text="Thống kê">
                             <font>
                                 <Font size="16.0" />
                             </font>
                         </Button>
-                        <Button fx:id="btnKhachHang" alignment="TOP_LEFT" layoutX="12.0" layoutY="305.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="224.0" styleClass="btn" text="Khách hàng">
+                        <Button fx:id="btnKhachHang" alignment="TOP_LEFT" layoutX="17.0" layoutY="263.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="224.0" styleClass="btn" text="Khách hàng">
                             <font>
                                 <Font size="16.0" />
                             </font>
                         </Button>
-                        <Button fx:id="btnSanPham" alignment="TOP_LEFT" layoutX="12.0" layoutY="260.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="224.0" styleClass="btn" text="Sản phẩm">
+                        <Button fx:id="btnSanPham" alignment="TOP_LEFT" layoutX="17.0" layoutY="218.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="224.0" styleClass="btn" text="Sản phẩm">
                             <font>
                                 <Font size="16.0" />
                             </font>
                         </Button>
-                        <Button fx:id="btnNhanVien" alignment="TOP_LEFT" layoutX="12.0" layoutY="215.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="224.0" styleClass="btn" text="Nhân viên">
+                        <Button fx:id="btnNhanVien" alignment="TOP_LEFT" layoutX="17.0" layoutY="173.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="224.0" styleClass="btn" text="Nhân viên">
                             <font>
                                 <Font size="16.0" />
                             </font>
                         </Button>
-                        <Button fx:id="btnNCC" alignment="TOP_LEFT" layoutX="12.0" layoutY="350.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="224.0" styleClass="btn" text="Nhà cung cấp">
+                        <Button fx:id="btnNCC" alignment="TOP_LEFT" layoutX="17.0" layoutY="308.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="224.0" styleClass="btn" text="Nhà cung cấp">
                             <font>
                                 <Font size="16.0" />
                             </font>
                         </Button>
-                        <Button fx:id="btnTacGia" alignment="TOP_LEFT" layoutX="12.0" layoutY="440.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="224.0" styleClass="btn" text="Tác giả">
+                        <Button fx:id="btnTacGia" alignment="TOP_LEFT" layoutX="17.0" layoutY="398.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="224.0" styleClass="btn" text="Tác giả">
                             <font>
                                 <Font size="16.0" />
                             </font>
                         </Button>
-                        <Button fx:id="btnHoaDon" alignment="TOP_LEFT" layoutX="12.0" layoutY="485.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="224.0" styleClass="btn" text="Hóa đơn">
+                        <Button fx:id="btnHoaDon" alignment="TOP_LEFT" layoutX="17.0" layoutY="443.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="224.0" styleClass="btn" text="Hóa đơn">
                             <font>
                                 <Font size="16.0" />
                             </font>
                         </Button>
-                        <Button fx:id="btnTHD" alignment="TOP_LEFT" layoutX="12.0" layoutY="530.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="224.0" styleClass="btn" text="Tạo hóa đơn">
+                        <Button fx:id="btnTHD" alignment="TOP_LEFT" layoutX="17.0" layoutY="488.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="224.0" styleClass="btn" text="Tạo hóa đơn">
                             <font>
                                 <Font size="16.0" />
                             </font>
                         </Button>
-                        <Button fx:id="btnKhuyenMai" alignment="TOP_LEFT" layoutX="12.0" layoutY="575.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="224.0" styleClass="btn" text="Khuyến mãi">
+                        <Button fx:id="btnKhuyenMai" alignment="TOP_LEFT" layoutX="17.0" layoutY="533.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="224.0" styleClass="btn" text="Khuyến mãi">
                             <font>
                                 <Font size="16.0" />
                             </font>
                         </Button>
-                        <Button fx:id="btnTheLoai" alignment="TOP_LEFT" layoutX="12.0" layoutY="620.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="224.0" styleClass="btn" text="Thể loại">
+                        <Button fx:id="btnTheLoai" alignment="TOP_LEFT" layoutX="17.0" layoutY="578.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="224.0" styleClass="btn" text="Thể loại">
                             <font>
                                 <Font size="16.0" />
                             </font>
                         </Button>
-                        <Button fx:id="btnNhaXuatBan" alignment="TOP_LEFT" layoutX="12.0" layoutY="395.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="224.0" text="Nhà xuất bản">
+                        <Button fx:id="btnNhaXuatBan" alignment="TOP_LEFT" layoutX="17.0" layoutY="353.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="224.0" text="Nhà xuất bản">
                             <font>
                                 <Font size="16.0" />
                             </font>
                         </Button>
-                        <Button fx:id="btnPhieuNhap" alignment="TOP_LEFT" layoutX="11.0" layoutY="667.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="224.0" styleClass="btn" text="Phiếu nhập">
+                        <Button fx:id="btnPhieuNhap" alignment="TOP_LEFT" layoutX="16.0" layoutY="625.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="224.0" styleClass="btn" text="Phiếu nhập">
                             <font>
                                 <Font size="16.0" />
                             </font>
                         </Button>
-                        <Button fx:id="btnTaoPhieuNhap" layoutX="9.0" layoutY="713.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="224.0" styleClass="btn" text="Tạo phiếu nhâp">
+                        <Button fx:id="btnTaoPhieuNhap" alignment="TOP_LEFT" layoutX="14.0" layoutY="671.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="224.0" styleClass="btn" text="Tạo phiếu nhâp">
                             <font>
                                 <Font size="16.0" />
                             </font>
                         </Button>
                     </children>
-                </AnchorPane>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                </AnchorPane>                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                     <children>
                   <Button fx:id="btnThemSach" layoutX="804.0" layoutY="126.0" mnemonicParsing="false" onAction="#openInforContainer" prefHeight="26.0" prefWidth="134.0" styleClass="btn" text="Thêm sách" />
                         <TableView fx:id="tableView" layoutY="171.0" prefHeight="539.0" prefWidth="955.0" AnchorPane.leftAnchor="0.0">
