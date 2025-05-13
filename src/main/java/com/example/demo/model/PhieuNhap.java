@@ -1,32 +1,37 @@
 package com.example.demo.model;
 
-import jakarta.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
 
+@Entity
 @Getter
 @Setter
-@Entity
 @Table(name = "PHIEU_NHAP")
 public class PhieuNhap {
     @Id
-    @Column(name = "MAPN", nullable = false, length = 10)
+    @JsonProperty("MAPN")
     private String mapn;
 
-    @Column(name = "NGAYNHAP")
+    @JsonProperty("NGAYNHAP")
     private LocalDate ngaynhap;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "MANV", nullable = false)
-    private NhanVien manv;
+    @JsonProperty("MANV")
+    private String manv;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "MANCC", nullable = false)
-    private NhaCungCap mancc;
+    @JsonProperty("MANCC")
+    private String mancc;
 
-    @Column(name = "TONGTIEN")
-    private Integer tongtien;
+    @Column(name = "TONGTIEN", nullable = false)
+    @JsonProperty("TONGTIEN")
+    private int tongtien;
+
 
 }

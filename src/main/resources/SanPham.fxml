@@ -16,47 +16,96 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<Pane fx:id="nhanVienPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="958.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.GuiController.SanPhamController">
+<Pane fx:id="nhanVienPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="710.0" prefWidth="1250.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.GuiController.SanPhamController">
     <children>
-        <SplitPane dividerPositions="0.23755750731911332" layoutX="-1.0" layoutY="-5.0" prefHeight="567.0" prefWidth="958.0">
+        <SplitPane dividerPositions="0.23755750731911332" layoutX="-1.0" layoutY="-5.0" prefHeight="724.0" prefWidth="1260.0">
             <items>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" style="-fx-background-color: #00A4EF;">
+                <AnchorPane fx:id="anchorPaneMenu" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" style="-fx-background-color: #00A4EF;">
                     <children>
-                        <Button layoutY="131.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="224.0" styleClass="btn" text="Thống kê">
+                        <Button fx:id="btnThongKe" alignment="TOP_LEFT" layoutX="17.0" layoutY="128.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="224.0" styleClass="btn" text="Thống kê">
                             <font>
                                 <Font size="16.0" />
-                            </font></Button>
-                        <Button layoutY="331.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="224.0" styleClass="btn" text="Khách hàng">
+                            </font>
+                        </Button>
+                        <Button fx:id="btnKhachHang" alignment="TOP_LEFT" layoutX="17.0" layoutY="263.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="224.0" styleClass="btn" text="Khách hàng">
                             <font>
                                 <Font size="16.0" />
-                            </font></Button>
-                        <Button layoutY="263.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="224.0" styleClass="btn" text="Sản phẩm">
+                            </font>
+                        </Button>
+                        <Button fx:id="btnSanPham" alignment="TOP_LEFT" layoutX="17.0" layoutY="218.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="224.0" styleClass="btn" text="Sản phẩm">
                             <font>
                                 <Font size="16.0" />
-                            </font></Button>
-                        <Button layoutY="195.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="224.0" styleClass="btn" text="Nhân viên">
+                            </font>
+                        </Button>
+                        <Button fx:id="btnNhanVien" alignment="TOP_LEFT" layoutX="17.0" layoutY="173.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="224.0" styleClass="btn" text="Nhân viên">
                             <font>
                                 <Font size="16.0" />
-                            </font></Button>
+                            </font>
+                        </Button>
+                        <Button fx:id="btnNCC" alignment="TOP_LEFT" layoutX="17.0" layoutY="308.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="224.0" styleClass="btn" text="Nhà cung cấp">
+                            <font>
+                                <Font size="16.0" />
+                            </font>
+                        </Button>
+                        <Button fx:id="btnTacGia" alignment="TOP_LEFT" layoutX="17.0" layoutY="398.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="224.0" styleClass="btn" text="Tác giả">
+                            <font>
+                                <Font size="16.0" />
+                            </font>
+                        </Button>
+                        <Button fx:id="btnHoaDon" alignment="TOP_LEFT" layoutX="17.0" layoutY="443.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="224.0" styleClass="btn" text="Hóa đơn">
+                            <font>
+                                <Font size="16.0" />
+                            </font>
+                        </Button>
+                        <Button fx:id="btnTHD" alignment="TOP_LEFT" layoutX="17.0" layoutY="488.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="224.0" styleClass="btn" text="Tạo hóa đơn">
+                            <font>
+                                <Font size="16.0" />
+                            </font>
+                        </Button>
+                        <Button fx:id="btnKhuyenMai" alignment="TOP_LEFT" layoutX="17.0" layoutY="533.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="224.0" styleClass="btn" text="Khuyến mãi">
+                            <font>
+                                <Font size="16.0" />
+                            </font>
+                        </Button>
+                        <Button fx:id="btnTheLoai" alignment="TOP_LEFT" layoutX="17.0" layoutY="578.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="224.0" styleClass="btn" text="Thể loại">
+                            <font>
+                                <Font size="16.0" />
+                            </font>
+                        </Button>
+                        <Button fx:id="btnNhaXuatBan" alignment="TOP_LEFT" layoutX="17.0" layoutY="353.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="224.0" text="Nhà xuất bản">
+                            <font>
+                                <Font size="16.0" />
+                            </font>
+                        </Button>
+                        <Button fx:id="btnPhieuNhap" alignment="TOP_LEFT" layoutX="16.0" layoutY="625.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="224.0" styleClass="btn" text="Phiếu nhập">
+                            <font>
+                                <Font size="16.0" />
+                            </font>
+                        </Button>
+                        <Button fx:id="btnTaoPhieuNhap" alignment="TOP_LEFT" layoutX="14.0" layoutY="671.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="224.0" styleClass="btn" text="Tạo phiếu nhâp">
+                            <font>
+                                <Font size="16.0" />
+                            </font>
+                        </Button>
                     </children>
-                </AnchorPane>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                </AnchorPane>                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                     <children>
-                        <TableView fx:id="tableView" layoutY="171.0" prefHeight="409.0" prefWidth="742.0" AnchorPane.leftAnchor="0.0">
+                  <Button fx:id="btnThemSach" layoutX="804.0" layoutY="126.0" mnemonicParsing="false" onAction="#openInforContainer" prefHeight="26.0" prefWidth="134.0" styleClass="btn" text="Thêm sách" />
+                        <TableView fx:id="tableView" layoutY="171.0" prefHeight="555.0" prefWidth="965.0" AnchorPane.leftAnchor="0.0">
                             <columns>
                                 <TableColumn fx:id="anhBia" prefWidth="101.6000549197197" text="Ảnh bìa" />
                                 <TableColumn fx:id="maSachColumn" prefWidth="141.5999755859375" text="Mã sách" />
                                 <TableColumn fx:id="tenSachColumn" prefWidth="139.20001220703125" text="Tên sách" />
                                 <TableColumn fx:id="soLuongColumn" prefWidth="106.39996337890625" text="Số lượng" />
                                 <TableColumn fx:id="donGiaColumn" prefWidth="135.2000732421875" text="Đơn giá" />
-                                <TableColumn fx:id="tacGiaColumn" prefWidth="100.79997253417969" text="Tác giả" />
+                                <TableColumn fx:id="tacGiaColumn" prefWidth="328.00004882812505" text="Tác giả" />
                             </columns>
                         </TableView>
-                  <TextField layoutX="37.0" layoutY="32.0" prefHeight="30.0" prefWidth="174.0" promptText="Tìm kiếm..." styleClass="text-field-box" />
-                  <Button layoutX="238.0" layoutY="35.0" mnemonicParsing="false" styleClass="btn" text="Tìm kiếm" />
-                  <Pane fx:id="inforBookContainer" layoutX="-3.0" prefHeight="566.0" prefWidth="726.0" AnchorPane.leftAnchor="0.0">
+                  <TextField fx:id="textFieldTimKiem" layoutX="37.0" layoutY="32.0" prefHeight="30.0" prefWidth="450.0" promptText="Tìm kiếm..." styleClass="text-field-box" />
+                  <Button layoutX="510.0" layoutY="34.0" mnemonicParsing="false" onAction="#timKiem" styleClass="btn" text="Tìm kiếm" />
+                  <Pane fx:id="inforContainer" layoutX="150.4" layoutY="306.0" prefHeight="346.0" prefWidth="505.0" AnchorPane.leftAnchor="150.0">
                      <children>
-                        <VBox fx:id="themSach" layoutX="181.0" layoutY="81.0" prefHeight="305.0" prefWidth="394.0" spacing="20.0" style="-fx-background-color: FF4040;" styleClass="form-container">
+                        <VBox fx:id="themSach" layoutX="114.0" layoutY="-54.0" prefHeight="305.0" prefWidth="394.0" spacing="20.0" style="-fx-background-color: FF4040;" styleClass="form-container">
                            <children>
                               <HBox prefHeight="28.0" prefWidth="382.0" spacing="20.0">
                                  <children>
@@ -80,7 +129,11 @@
                               </HBox>
                               <FlowPane prefHeight="0.0" prefWidth="354.0">
                                  <children>
-                                    <Label prefHeight="26.0" prefWidth="47.0" text="Ảnh bìa" />
+                                    <Label fx:id="labelAnhBia" prefHeight="26.0" prefWidth="47.0" text="Ảnh bìa">
+                                        <graphic>
+                                            <ImageView fx:id="imgAnhBia" fitHeight="15" fitWidth="15" />
+                                        </graphic>
+                                    </Label>
                                      <Button fx:id="btnChonFile" mnemonicParsing="false" onAction="#chonFile" prefHeight="29.0" prefWidth="51.0" styleClass="btn">
                                          <graphic>
                                              <ImageView fx:id="iconfolder" fitHeight="15" fitWidth="15" />
@@ -117,10 +170,10 @@
                                     <TextField fx:id="textFieldMaTL" prefHeight="34.0" prefWidth="234.0" promptText="Thể loại" styleClass="text-field-box" />
                                  </children>
                               </HBox>
-                              <HBox alignment="CENTER" prefHeight="75.0" prefWidth="354.0" spacing="15.0">
+                              <HBox fx:id="inforFormButtonContainer" alignment="CENTER" prefHeight="75.0" prefWidth="354.0" spacing="15.0">
                                  <children>
-                                    <Button mnemonicParsing="false" onAction="#themSach" styleClass="btn" text="Thêm" />
-                                    <Button fx:id="btnThoatFormThemSach" mnemonicParsing="false" styleClass="btn" text="Thoát" />
+                                    <Button fx:id="btnAddBook" mnemonicParsing="false" onAction="#themSach" styleClass="btn" text="Thêm" />
+                                    <Button fx:id="btnThoatFormThemSach" mnemonicParsing="false" onAction="#clossInforContainer" styleClass="btn" text="Thoát" />
                                  </children>
                               </HBox>
                            </children>
@@ -130,7 +183,12 @@
                         </VBox>
                      </children>
                   </Pane>
-                  <Button fx:id="btnThemSach" layoutX="600.0" layoutY="126.0" mnemonicParsing="false" styleClass="btn" text="Icon Thêm sách" />
+                  <Button layoutX="685.0" layoutY="126.0" mnemonicParsing="false" onAction="#xuatExcel" text="xuất file Excel" />
+                  <Button fx:id="nhapExcel" layoutX="553.0" layoutY="126.0" mnemonicParsing="false" onAction="#handleImportExcel" text="Nhập file Excel" />
+                  <TextField fx:id="giaMin" layoutX="37.0" layoutY="83.0" promptText="Giá thấp nhất" />
+                  <TextField fx:id="giaMax" layoutX="233.0" layoutY="83.0" promptText="Giá cao nhất" />
+                  <Label layoutX="199.0" layoutY="87.0" text="Đến" />
+                  <Button fx:id="btnSave" layoutX="436.0" layoutY="126.0" mnemonicParsing="false" onAction="#saveExcel" prefHeight="26.0" prefWidth="87.0" text="Lưu" />
                     </children>
                 </AnchorPane>
             </items>

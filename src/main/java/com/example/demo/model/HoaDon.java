@@ -1,6 +1,6 @@
 package com.example.demo.model;
 
-import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,25 +8,16 @@ import java.time.LocalDate;
 
 @Getter
 @Setter
-@Entity
-@Table(name = "HOA_DON")
 public class HoaDon {
-    @Id
-    @Column(name = "MAHD", nullable = false, length = 10)
+    @JsonProperty("MAHD")
     private String mahd;
-
-    @Column(name = "NGAYLAP")
+    @JsonProperty("NGAYLAP")
     private LocalDate ngaylap;
-
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "MANV", nullable = false)
-    private com.example.demo.model.NhanVien manv;
-
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "MAKH", nullable = false)
-    private com.example.demo.model.KhachHang makh;
-
-    @Column(name = "TONGTIEN")
-    private Integer tongtien;
+    @JsonProperty("MANV")
+    private String manv;
+    @JsonProperty("MAKH")
+    private String makh;
+    @JsonProperty("TONGTIEN")
+    private double tongtien;
 
 }

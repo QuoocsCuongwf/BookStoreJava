@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<Pane fx:id="khuyenMaiTheoHoaDonPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="958.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.GuiController.KmTheoHoaDonController">
+    <children>
+        <SplitPane dividerPositions="0.23755750731911332" layoutX="-1.0" layoutY="-5.0" prefHeight="567.0" prefWidth="958.0">
+            <items>
+                <AnchorPane fx:id="anchorPaneMenu" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" style="-fx-background-color: #00A4EF;">
+                    <children>
+                        <Button fx:id="btnThongKe" alignment="TOP_LEFT" layoutX="12.0" layoutY="170.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="224.0" styleClass="btn" text="Thống kê">
+                            <font>
+                                <Font size="16.0" />
+                            </font>
+                        </Button>
+                        <Button fx:id="btnKhachHang" alignment="TOP_LEFT" layoutX="12.0" layoutY="305.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="224.0" styleClass="btn" text="Khách hàng">
+                            <font>
+                                <Font size="16.0" />
+                            </font>
+                        </Button>
+                        <Button fx:id="btnSanPham" alignment="TOP_LEFT" layoutX="12.0" layoutY="260.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="224.0" styleClass="btn" text="Sản phẩm">
+                            <font>
+                                <Font size="16.0" />
+                            </font>
+                        </Button>
+                        <Button fx:id="btnNhanVien" alignment="TOP_LEFT" layoutX="12.0" layoutY="215.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="224.0" styleClass="btn" text="Nhân viên">
+                            <font>
+                                <Font size="16.0" />
+                            </font>
+                        </Button>
+                        <Button fx:id="btnNCC" alignment="TOP_LEFT" layoutX="12.0" layoutY="350.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="224.0" styleClass="btn" text="Nhà cung cấp">
+                            <font>
+                                <Font size="16.0" />
+                            </font>
+                        </Button>
+                        <Button fx:id="btnTacGia" alignment="TOP_LEFT" layoutX="12.0" layoutY="440.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="224.0" styleClass="btn" text="Tác giả">
+                            <font>
+                                <Font size="16.0" />
+                            </font>
+                        </Button>
+                        <Button fx:id="btnHoaDon" alignment="TOP_LEFT" layoutX="12.0" layoutY="485.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="224.0" styleClass="btn" text="Hóa đơn">
+                            <font>
+                                <Font size="16.0" />
+                            </font>
+                        </Button>
+                        <Button fx:id="btnTHD" alignment="TOP_LEFT" layoutX="12.0" layoutY="530.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="224.0" styleClass="btn" text="Tạo hóa đơn">
+                            <font>
+                                <Font size="16.0" />
+                            </font>
+                        </Button>
+                        <Button fx:id="btnKhuyenMai" alignment="TOP_LEFT" layoutX="12.0" layoutY="575.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="224.0" styleClass="btn" text="Khuyến mãi">
+                            <font>
+                                <Font size="16.0" />
+                            </font>
+                        </Button>
+                        <Button fx:id="btnTheLoai" alignment="TOP_LEFT" layoutX="12.0" layoutY="620.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="224.0" styleClass="btn" text="Thể loại">
+                            <font>
+                                <Font size="16.0" />
+                            </font>
+                        </Button>
+                        <Button fx:id="btnNhaXuatBan" alignment="TOP_LEFT" layoutX="12.0" layoutY="395.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="224.0" text="Nhà xuất bản">
+                            <font>
+                                <Font size="16.0" />
+                            </font>
+                        </Button>
+                        <Button fx:id="btnPhieuNhap" alignment="TOP_LEFT" layoutX="11.0" layoutY="667.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="224.0" styleClass="btn" text="Phiếu nhập">
+                            <font>
+                                <Font size="16.0" />
+                            </font>
+                        </Button>
+                        <Button fx:id="btnTaoPhieuNhap" layoutX="9.0" layoutY="713.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="224.0" styleClass="btn" text="Tạo phiếu nhâp">
+                            <font>
+                                <Font size="16.0" />
+                            </font>
+                        </Button>
+                    </children>
+                </AnchorPane>                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                    <children>
+                        <TableView fx:id="tableView" layoutY="196.0" prefHeight="371.0" prefWidth="742.0" AnchorPane.leftAnchor="0.0">
+                            <columns>
+                                <TableColumn fx:id="maChuongTrinhKMColumn" prefWidth="188.66664123535156" text="Mã Chương Trình Khuyến Mãi" />
+                                <TableColumn fx:id="tongTienColumn" prefWidth="109.33328247070312" text="Tổng Tiền" />
+                                <TableColumn fx:id="phanTramKMColumn" prefWidth="124.6666259765625" text="\% Khuyến Mãi" />
+                        <TableColumn fx:id="ngayBatDauColumn" prefWidth="150.66668701171875" text="Ngày Bât Đầu" />
+                        <TableColumn fx:id="ngayKetThucColumn" prefWidth="155.3333740234375" text="Ngày Kết Thúc" />
+                            </columns>
+                        </TableView>
+                        <TextField fx:id="textFieldTimKiem" layoutX="33.0" layoutY="29.0" promptText="Tìm kiếm..." styleClass="text-field-box" />
+                        <Button layoutX="217.0" layoutY="29.0" mnemonicParsing="false" onAction="#timKiem" styleClass="btn" text="Tìm kiếm" />
+                        <Button layoutX="624.0" layoutY="151.0" mnemonicParsing="false" onAction="#openInforContainer" prefHeight="25.0" prefWidth="84.0" styleClass="btn" text="Thêm" />
+                        <Pane fx:id="inforContainer" layoutX="-1.0" layoutY="2.0" prefHeight="162.0" prefWidth="983.0">
+                     <children>
+                                <VBox fx:id="inforForm" layoutX="186.0" layoutY="96.0" prefHeight="234.0" prefWidth="361.0" spacing="15.0" styleClass="inforForm">
+                                    <children>
+                                        <HBox prefHeight="26.0" prefWidth="322.0" spacing="20.0">
+                                            <VBox.margin>
+                                                <Insets />
+                                            </VBox.margin>
+                                        </HBox>
+                                        <HBox prefHeight="26.0" prefWidth="322.0" spacing="20.0">
+                                            <children>
+                                                <TextField fx:id="txt_maChuongTrinhKhuyenMai" prefHeight="26.0" prefWidth="169.0" promptText="Mã Chương Trình Khyến Mãi" />
+                                                <TextField fx:id="txt_tongTien" prefHeight="26.0" prefWidth="174.0" promptText="Tổng Tiền" />
+                                            </children>
+                                        </HBox>
+                                        <HBox prefHeight="26.0" prefWidth="322.0" spacing="20.0">
+                                 <children>
+                                                <TextField fx:id="txt_phanTramKhuyenMai" prefHeight="26.0" prefWidth="234.0" promptText="\% Khuyến Mãi" />
+                                 </children>
+                                        </HBox>
+                                        <HBox prefHeight="26.0" prefWidth="322.0" spacing="20.0">
+                                 <children>
+                                    <DatePicker fx:id="datePickerngayBatDau" promptText="Ngày Bắt Đầu" />
+                                    <DatePicker fx:id="datePickerngayKetThuc" promptText="Ngày Kết Thúc" />
+                                 </children>
+                                        </HBox>
+                              <HBox fx:id="inforFormButtonContainer" alignment="CENTER" nodeOrientation="RIGHT_TO_LEFT" prefHeight="50.0" prefWidth="212.0" spacing="20.0">
+                                 <children>
+                                                <Button mnemonicParsing="false" onAction="#clossInforContainer" prefHeight="22.0" prefWidth="95.0" text="Đóng" />
+                                                <Button fx:id="btnAddKM" mnemonicParsing="false" onAction="#addKhuyenMai" prefHeight="25.0" prefWidth="83.0" text="Thêm" />
+                                 </children>
+                              </HBox>
+                                    </children>
+                                    <padding>
+                                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                    </padding>
+                                </VBox>
+                     </children>
+                        </Pane>
+                    </children>
+                </AnchorPane>
+            </items>
+        </SplitPane>
+        <Accordion />
+    </children>
+</Pane>

@@ -1,31 +1,22 @@
 package com.example.demo.model;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import lombok.Getter;
-import lombok.Setter;
-
-@Getter
-@Setter
-@Entity
-@Table(name = "TAC_GIA")
 public class TacGia {
-    @Id
-    @Column(name = "MATG", nullable = false, length = 10)
-    private String matg;
+    @JsonProperty("MATG") private String matg;
+    @JsonProperty("HOTG") private String hotg;
+    @JsonProperty("TENTG") private String tentg;
+    @JsonProperty("QUEQUAN") private String quequan;
+    @JsonProperty("NAMSINH") private Integer namsinh;
 
-    @Column(name = "HOTG", nullable = false, length = 30)
-    private String hotg;
-
-    @Column(name = "TENTG", nullable = false, length = 20)
-    private String tentg;
-
-    @Column(name = "QUEQUAN", length = 30)
-    private String quequan;
-
-    @Column(name = "NAMSINH")
-    private Integer namsinh;
-
+    // Getters and setters
+    public String getMatg() { return matg; }
+    public void setMatg(String matg) { this.matg = matg; }
+    public String getHotg() { return hotg; }
+    public void setHotg(String hotg) { this.hotg = hotg; }
+    public String getTentg() { return tentg; }
+    public void setTentg(String tentg) { this.tentg = tentg; }
+    public String getQuequan() { return quequan; }
+    public void setQuequan(String quequan) { this.quequan = quequan; }
+    public Integer getNamsinh() { return namsinh; }
+    public void setNamsinh(Integer namsinh) { this.namsinh = namsinh; }
 }

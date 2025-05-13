@@ -1,25 +1,26 @@
 package com.example.demo.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-@Entity
-@Table(name = "NHA_CUNG_CAP")
 public class NhaCungCap {
-    @Id
-    @Column(name = "MANCC", nullable = false, length = 10)
-    private String mancc;
+    @JsonProperty("MANCC")
+    private String maNhaCungCap;
 
-    @Column(name = "TENNCC", nullable = false, length = 20)
-    private String tenncc;
+    @JsonProperty("TENNCC")
+    private String tenNhaCungCap;
 
-    @Column(name = "THONGTIN", length = 50)
-    private String thongtin;
+    @JsonProperty("DIACHI")
+    private String diaChi;
+
+    @JsonProperty("SDT")
+    private String sdt;
+
+    @JsonProperty("EMAIL")
+    private String email;
+
 
 }

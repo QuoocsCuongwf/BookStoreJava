@@ -6,12 +6,18 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.scene.Node;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -60,9 +66,15 @@ public class NhanVienController implements Initializable {
 
     private Button btnDeleteNhanVien=new Button("    Xóa    ");
     private Button btnUpdateNhanVien=new Button("Cập nhật");
-
+    @FXML private Button btnThongKe, btnKhachHang, btnSanPham, btnNhanVien, btnNCC, btnTacGia, btnHoaDon, btnTHD, btnKhuyenMai, btnPhieuNhap,btnTaoPhieuNhap,btnNhaXuatBan,btnTheLoai;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        LeftMenuController leftMenuController = new LeftMenuController();
+        leftMenuController.bindHandlers(btnThongKe, btnKhachHang, btnSanPham,
+                btnNhanVien, btnNCC, btnTacGia,
+                btnHoaDon, btnTHD,  btnKhuyenMai,
+                btnTheLoai, btnNhaXuatBan, btnPhieuNhap,
+                btnTaoPhieuNhap);
         inforContainer.setVisible(false);
         maNhanVienColumn.setCellValueFactory(new PropertyValueFactory<>("manv"));
         tenNhanVienColumn.setCellValueFactory(new PropertyValueFactory<>("tennv"));
@@ -91,8 +103,20 @@ public class NhanVienController implements Initializable {
         System.out.println(nhanVienList);
         data = FXCollections.observableArrayList(nhanVienList);
         tableView.setItems(data);
-        btnDeleteNhanVien.setOnAction(event -> deleteNhanVien());
+        btnDeleteNhanVien.setOnAction(event -> deleteNhanVien(btnDeleteNhanVien));
         btnUpdateNhanVien.setOnAction(event -> updateNhanVien());
+    }
+    public List<NhanVien> getNhanVienList() {
+        CallApi callApi = new CallApi();
+        List<NhanVien> tmp = new ArrayList<>();
+        try {
+            String json = callApi.callGetApi("http://localhost:8080/nhanVien/getAllNhanVien");
+            tmp = convertJsonToListNhanVien(json);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return tmp;
+
     }
     public List<NhanVien> convertJsonToListNhanVien(String json) {
         ObjectMapper objectMapper = new ObjectMapper();
@@ -142,7 +166,7 @@ public class NhanVienController implements Initializable {
         });
     }
 
-    public void deleteNhanVien() {
+    public void deleteNhanVien(Button button) {
         int selectedIndex = tableView.getSelectionModel().getSelectedIndex();
         if (selectedIndex >= 0 && selectedIndex < data.size()) {
             NhanVien nhanVien = data.get(selectedIndex);
@@ -178,12 +202,19 @@ public class NhanVienController implements Initializable {
         CallApi callApi=new CallApi();
         String resultApi=callApi.callPostRequestBody("http://localhost:8080/nhanVien/Update",convertNhanVienToJson(nhanVien));
         if (resultApi.contains("Success")) {
-            nhanVienList.add(nhanVien);
-            data.add(nhanVien);
+            for (int i = 0; i < nhanVienList.size(); i++) {
+                if (nhanVienList.get(i).getManv().equals(nhanVien.getManv())) {
+                    nhanVienList.set(i, nhanVien); // thay thế đúng phần tử
+                    break;
+                }
+            }
+            showMessage("Success","Sua sach thanh cong",resultApi);
+            data = FXCollections.observableArrayList(nhanVienList);
+            tableView.setItems(data);
         }
     }
     public void openInforContainer(){
-        textFieldMaNhanVien.setText("");
+        textFieldMaNhanVien.setText("NV"+nhanVienList.size()+1);
         textFieldTenNhanVien.setText("");
         textFieldHoNhanVien.setText("");
         textFieldChucVu.setText("");
@@ -192,6 +223,7 @@ public class NhanVienController implements Initializable {
         textFieldLuongNhanVien.setText("");
         datePickerNgayVaoLam.setValue(LocalDate.now());
         inforContainer.setVisible(true);
+
     }
     public void clossInforContainer(){
         int index = inforFormButtonContainer.getChildren().indexOf(btnDeleteNhanVien);
@@ -271,9 +303,6 @@ public class NhanVienController implements Initializable {
         data=FXCollections.observableArrayList(convertJsonToListNhanVien(json));
         tableView.setItems(data);
     }
-
-
-
 
 
 }

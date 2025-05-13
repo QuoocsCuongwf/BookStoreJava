@@ -1,36 +1,65 @@
 package com.example.demo.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-@Entity
-@Table(name = "NHA_XUAT_BAN")
 public class NhaXuatBan {
-    @Id
-    @Column(name = "MANXB", nullable = false, length = 10)
-    private String manxb;
+    @JsonProperty("MANXB")
+    private String maNhaXuatBan;
 
-    @Column(name = "TENNXB", nullable = false, length = 20)
-    private String tennxb;
+    @JsonProperty("TENNXB")
+    private String tenNhaXuatBan;
 
-    @Column(name = "DIACHI", length = 50)
-    private String diachi;
+    @JsonProperty("DIACHI")
+    private String diaChi;
 
-    @Column(name = "SDT", length = 10)
+    @JsonProperty("SDT")
     private String sdt;
 
-    public NhaXuatBan() {}
+    @JsonProperty("EMAIL")
+    private String email;
 
-    NhaXuatBan(String manxb, String tennxb, String diachi, String sdt) {
-        this.manxb = manxb;
-        this.tennxb = tennxb;
-        this.diachi = diachi;
+    public String getMaNhaXuatBan() {
+        return maNhaXuatBan;
+    }
+
+    public void setMaNhaXuatBan(String maNhaXuatBan) {
+        this.maNhaXuatBan = maNhaXuatBan;
+    }
+
+    public String getTenNhaXuatBan() {
+        return tenNhaXuatBan;
+    }
+
+    public void setTenNhaXuatBan(String tenNhaXuatBan) {
+        this.tenNhaXuatBan = tenNhaXuatBan;
+    }
+
+    public String getDiaChi() {
+        return diaChi;
+    }
+
+    public void setDiaChi(String diaChi) {
+        this.diaChi = diaChi;
+    }
+
+    public String getSdt() {
+        return sdt;
+    }
+
+    public void setSdt(String sdt) {
         this.sdt = sdt;
     }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
 }

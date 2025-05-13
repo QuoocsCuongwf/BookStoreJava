@@ -103,3 +103,13 @@
 .table-row-cell:filled:selected {
     -fx-background-color: #dcedc8; /* Màu khi hàng được chọn */
 }
+
+#delete-button {
+    -fx-pref-width: 98px;
+    -fx-pref-height: 70px;
+}
+
+#update-button {
+    -fx-pref-width: 98px;
+    -fx-pref-height: 70px;
+}
